@@ -1,14 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- PRELOAD RESSOURCES CRITIQUES -->
-    <link rel="preload" href="css/critical.css" as="style">
-    <link rel="preload" href="assets/moi.webp" as="image">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="dns-prefetch" href="//github.com">
+    <link rel="dns-prefetch" href="//linkedin.com">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#667eea">
+    <meta name="color-scheme" content="light">
+
+    <!-- RESOURCE HINTS PERFORMANCE -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://github.com" crossorigin>
+    <link rel="preconnect" href="https://linkedin.com" crossorigin>
+    <link rel="preconnect" href="https://julesfuselier.fr" crossorigin>
+    <link rel="preload" href="assets/moi.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="css/critical.css" as="style">
+    <link rel="preload" href="css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="script/script.js" as="script">
+
+    <style>
+        /* CSS CRITIQUE INLINE - LES 1KB LES PLUS IMPORTANTS */
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:Inter,sans-serif;line-height:1.6;color:#333}
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}
+        .hero-container{max-width:1200px;padding:0 20px}
+        .hero-content{display:flex;align-items:center;gap:60px;flex-wrap:wrap}
+        .hero-image img{width:300px;height:300px;border-radius:50%;object-fit:cover}
+        .hero-text h1{font-size:3.5rem;font-weight:700;color:white;margin-bottom:20px}
+        .highlight{color:#ffd700}
+        .btn{display:inline-block;padding:15px 30px;border-radius:50px;text-decoration:none;font-weight:600;transition:all 0.3s ease}
+        .btn-primary{background:#ffd700;color:#333}
+        .btn-secondary{border:2px solid white;color:white}
+        @media(max-width:768px){.hero-content{flex-direction:column;text-align:center}.hero-text h1{font-size:2.5rem}}
+    </style>
+
+    <!-- PRELOAD ULTRA CRITIQUE -->
+    <link rel="preload" href="assets/moi.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+
+    <!-- CSS NON-CRITIQUE EN LAZY -->
+    <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/">
+    <link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/">
+    <link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/">
 
     <!-- CSS CRITIQUE EN PREMIER -->
     <link rel="stylesheet" href="css/critical.css">
@@ -125,11 +171,15 @@
             <div class="nav-logo">
                 <span>JF</span>
             </div>
+            <div class="language-selector">
+                <a href="./" class="lang-link active" hreflang="fr">🇫🇷 FR</a>
+                <a href="./en/" class="lang-link" hreflang="en">🇺🇸 EN</a>
+            </div>
             <ul id="nav-list">
-                <li><a href="#welcome">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
+                <li><a href="#welcome">Accueil</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#skills">Compétences</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="nav-toggle">
@@ -146,8 +196,8 @@
         <div class="hero-container">
             <div class="hero-content">
                 <div class="hero-image">
-                    <img src="assets/moi.webp"
-                         alt="Jules Fuselier, étudiant en informatique BUT Aix-Marseille, développeur passionné par l'IA et le développement logiciel"
+                    <img src="/assets/moi.webp"
+                         alt="Jules Fuselier, étudiant en informatique à l'Université d'Aix-Marseille, développeur passionné spécialisé en IA"
                          loading="eager"
                          width="300"
                          height="300"
@@ -156,11 +206,11 @@
                 </div>
                 <div class="hero-text">
                     <h1>Jules <span class="highlight">Fuselier</span></h1>
-                    <p class="hero-subtitle">IT Student</p>
-                    <p class="hero-description">Passionate about AI and software development</p>
+                    <p class="hero-subtitle">Étudiant en Informatique</p>
+                    <p class="hero-description">Passionné par l'IA et le développement logiciel</p>
                     <div class="hero-buttons">
-                        <a href="#projects" class="btn btn-primary">View Projects</a>
-                        <a href="#contact" class="btn btn-secondary">Contact Me</a>
+                        <a href="#projects" class="btn btn-primary">Voir mes Projets</a>
+                        <a href="#contact" class="btn btn-secondary">Me Contacter</a>
                     </div>
                 </div>
             </div>
@@ -172,38 +222,38 @@
 
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
+            <h2 class="section-title">À Propos de Moi</h2>
             <div class="about-content">
                 <div class="about-text">
                     <div class="about-card">
-                        <h3>Who I Am</h3>
-                        <p>I'm Jules, I'm a computer science student, and I'm currently interested in Artificial Intelligence and the development of software and applications.</p>
+                        <h3>Qui je suis</h3>
+                        <p>Je suis Jules, étudiant en informatique, et je m'intéresse actuellement à l'Intelligence Artificielle et au développement de logiciels et d'applications.</p>
                     </div>
 
                     <div class="about-card">
-                        <h3>My Education</h3>
-                        <p>I'm currently a first-year student in the Computer Science Bachelor of Technology (BUT) program at Aix-Marseille University. I specialize in software and application development in Java, as well as web development. In my free time, I'm also learning about artificial intelligence.</p>
+                        <h3>Ma Formation</h3>
+                        <p>Je suis actuellement en première année de BUT Informatique à l'Université d'Aix-Marseille. Je me spécialise dans le développement de logiciels et d'applications en Java, ainsi que dans le développement web. Dans mon temps libre, j'apprends également l'intelligence artificielle.</p>
                     </div>
 
                     <div class="about-card">
-                        <h3>My Philosophy</h3>
-                        <p>I love being challenged on new skills, so I can learn to be better at what I do. I love working in teams on projects, with motivated collaborators.</p>
+                        <h3>Ma Philosophie</h3>
+                        <p>J'aime être mis au défi sur de nouvelles compétences, pour pouvoir apprendre à être meilleur dans ce que je fais. J'aime travailler en équipe sur des projets, avec des collaborateurs motivés.</p>
                     </div>
 
                     <div class="about-card">
-                        <h3>My Goals</h3>
-                        <p>My goal is to join an engineering school after completing my current program, and eventually create or join a startup. I'd like to take advantage of being young to embrace this kind of challenge and take calculated risks.</p>
+                        <h3>Mes Objectifs</h3>
+                        <p>Mon objectif est d'intégrer une école d'ingénieurs après avoir terminé ma formation actuelle, et éventuellement créer ou rejoindre une startup. Je souhaiterais profiter de ma jeunesse pour relever ce genre de défi et prendre des risques calculés.</p>
                     </div>
                 </div>
 
                 <div class="about-stats">
                     <div class="stat-item">
                         <div class="stat-number">2024</div>
-                        <div class="stat-label">Started BUT CS</div>
+                        <div class="stat-label">Début BUT Info</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number">5+</div>
-                        <div class="stat-label">Languages</div>
+                        <div class="stat-label">Langages</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number">∞</div>
@@ -215,16 +265,16 @@
             <!-- Nouvelle section CV/LinkedIn -->
             <div class="about-cta">
                 <div class="cta-content">
-                    <h3>Want to know more about me?</h3>
-                    <p>For detailed information about my experience, education, and achievements</p>
+                    <h3>Vous voulez en savoir plus sur moi ?</h3>
+                    <p>Pour des informations détaillées sur mon expérience, ma formation et mes réalisations</p>
                     <div class="cta-buttons">
                         <a href="assets/CV_FUSELIER_JULES.pdf" download="CV_FUSELIER_JULES.pdf" class="cta-btn cv-btn">
                             <i class="fas fa-download"></i>
-                            <span>Download CV</span>
+                            <span>Télécharger CV</span>
                         </a>
                         <a href="https://linkedin.com/in/julesfuselier" target="_blank" class="cta-btn linkedin-btn">
                             <i class="fab fa-linkedin"></i>
-                            <span>View LinkedIn</span>
+                            <span>Voir LinkedIn</span>
                         </a>
                     </div>
                 </div>
@@ -234,10 +284,10 @@
 
     <section id="skills" class="skills">
         <div class="container">
-            <h2 class="section-title">My Skills</h2>
+            <h2 class="section-title">Mes Compétences</h2>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3><i class="fas fa-code"></i> Programming Languages</h3>
+                    <h3><i class="fas fa-code"></i> Langages de Programmation</h3>
                     <div class="skill-list">
                         <span class="skill-tag">Java</span>
                         <span class="skill-tag">Python</span>
@@ -260,12 +310,12 @@
                 </div>
 
                 <div class="skill-category">
-                    <h3><i class="fas fa-brain"></i> Interests</h3>
+                    <h3><i class="fas fa-brain"></i> Centres d'Intérêt</h3>
                     <div class="skill-list">
-                        <span class="skill-tag">Artificial Intelligence</span>
-                        <span class="skill-tag">Game Development</span>
-                        <span class="skill-tag">Web Development</span>
-                        <span class="skill-tag">System Programming</span>
+                        <span class="skill-tag">Intelligence Artificielle</span>
+                        <span class="skill-tag">Développement de Jeux</span>
+                        <span class="skill-tag">Développement Web</span>
+                        <span class="skill-tag">Programmation Système</span>
                     </div>
                 </div>
             </div>
@@ -274,7 +324,7 @@
 
     <section id="projects" class="projects">
         <div class="container">
-            <h2 class="section-title">My Projects</h2>
+            <h2 class="section-title">Mes Projets</h2>
             <div class="projects-grid">
                 <article class="project-card">
                     <div class="project-image java-project">
@@ -283,8 +333,8 @@
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>JavaFX Game Application</h3>
-                        <p>Robust Java game backend with modular MVC architecture, implementing advanced bomb mechanics and comprehensive multiplayer game logic.</p>
+                        <h3>Application de Jeu JavaFX</h3>
+                        <p>Backend de jeu Java robuste avec architecture MVC modulaire, implémentant des mécaniques de bombes avancées et une logique de jeu multijoueur complète.</p>
                         <div class="project-tech">
                             <span>Java</span>
                             <span>JavaFX</span>
@@ -306,8 +356,8 @@
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>Dune Themed Website</h3>
-                        <p>Responsive Dune-themed website featuring modern CSS animations, dynamic theming, and immersive user experience design inspired by the sci-fi universe.</p>
+                        <h3>Site Web Thématique Dune</h3>
+                        <p>Site web responsive sur le thème de Dune avec animations CSS modernes, thématisation dynamique et design d'expérience utilisateur immersif inspiré de l'univers de science-fiction.</p>
                         <div class="project-tech">
                             <span>HTML</span>
                             <span>CSS</span>
@@ -327,8 +377,8 @@
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>Voting System Simulator</h3>
-                        <p>Advanced C++ application implementing various democratic voting systems with collaborative software development methodologies and efficient algorithms.</p>
+                        <h3>Simulateur de Système de Vote</h3>
+                        <p>Application C++ avancée implémentant divers systèmes de vote démocratiques avec méthodologies de développement logiciel collaboratif et algorithmes efficaces.</p>
                         <div class="project-tech">
                             <span>C++</span>
                             <span>CMake</span>
@@ -344,11 +394,11 @@
 
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
+            <h2 class="section-title">Restons en Contact</h2>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>Let's Connect !</h3>
-                    <p>Interested in my profile ? Feel free to contact me to discuss projects, opportunities, or just to connect !</p>
+                    <h3>Connectons-nous !</h3>
+                    <p>Intéressé par mon profil ? N'hésitez pas à me contacter pour discuter de projets, d'opportunités, ou simplement pour échanger !</p>
                     <div class="contact-methods">
                         <a href="mailto:contact.julesfuselier@gmail.com" class="contact-method">
                             <i class="fas fa-envelope"></i>
@@ -372,7 +422,7 @@
 <footer>
     <div class="container">
         <div class="footer-content">
-            <p>&copy; 2025 Jules Fuselier. All rights reserved.</p>
+            <p>&copy; 2025 Jules Fuselier. Tous droits réservés.</p>
             <div class="footer-social">
                 <a href="https://github.com/julesfuselier"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/julesfuselier"><i class="fab fa-linkedin"></i></a>

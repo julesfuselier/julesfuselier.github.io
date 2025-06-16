@@ -1,10 +1,19 @@
 User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemaps
 Sitemap: https://julesfuselier.fr/sitemap.xml
 
-# Permettre l'accès aux ressources critiques pour le SEO
-Allow: /css/
-Allow: /script/
-Allow: /assets/
+# Performance - Block useless crawling
+Disallow: /assets/
+Disallow: /css/
+Disallow: /script/
+Disallow: /*.pdf$
+
+# Important pages
+Allow: /
+Allow: /en/
+Allow: /assets/CV_FUSELIER_JULES.pdf
+
+# Crawl delay (optional)
+Crawl-delay: 1
