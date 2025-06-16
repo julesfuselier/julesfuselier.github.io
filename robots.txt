@@ -4,7 +4,7 @@ Allow: /
 # Sitemap
 Sitemap: https://julesfuselier.fr/sitemap.xml
 
-# Optionnel : bloquer certains fichiers
-Disallow: /css/
-Disallow: /script/
-Disallow: /assets/
+# Permettre l'accès aux ressources critiques pour le SEO
+Allow: /css/
+Allow: /script/
+Allow: /assets/
