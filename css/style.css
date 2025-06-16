@@ -109,7 +109,7 @@ body {
 
 /* Hero Section */
 .hero {
-    min-height: 100vh;
+    min-height: 75vh;
     background: #1e293b;
     display: flex;
     align-items: center;
