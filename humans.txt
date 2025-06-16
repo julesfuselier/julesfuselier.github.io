@@ -1,0 +1,12 @@
+/* TEAM */
+Développeur: Jules Fuselier
+Contact: contact.julesfuselier@gmail.com
+LinkedIn: https://linkedin.com/in/julesfuselier
+GitHub: https://github.com/julesfuselier
+Location: Aix-Marseille, France
+
+/* SITE */
+Dernière mise à jour: 2025/06/16
+Langages: HTML, CSS, JavaScript
+Technologies: GitHub Pages
+IDE: VS Code
