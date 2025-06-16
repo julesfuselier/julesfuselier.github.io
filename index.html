@@ -156,6 +156,7 @@
     <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <!-- FALLBACK SI JS DÉSACTIVÉ -->
     <noscript>
@@ -163,6 +164,30 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
         <link rel="stylesheet" href="css/all.min.css">
     </noscript>
+    <style>
+      /* Navigation link hover underline enhancement */
+      #nav-list a::after {
+        height: 3px !important;
+        background: var(--accent-color) !important;
+      }
+
+      /* Project card hover enhancements */
+      .project-image {
+        transition: transform 0.3s ease !important;
+      }
+      .project-card:hover .project-image {
+        transform: scale(1.05) !important;
+      }
+      .project-card:hover {
+        /* The translateY is already applied by the original CSS,
+           this will override the box-shadow and ensure the transform from original CSS is kept.
+           If translateY is lost, it should be added here:
+           transform: translateY(-10px) !important;
+           For now, only overriding box-shadow as transform is on a different element or should be inherited.
+        */
+        box-shadow: 0 22px 35px -8px rgba(0,0,0,0.2) !important;
+      }
+    </style>
 </head>
 <body>
 <header>
@@ -220,7 +245,7 @@
         </div>
     </section>
 
-    <section id="about" class="about">
+    <section id="about" class="about" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">À Propos de Moi</h2>
             <div class="about-content">
@@ -282,7 +307,7 @@
         </div>
     </section>
 
-    <section id="skills" class="skills">
+    <section id="skills" class="skills" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Mes Compétences</h2>
             <div class="skills-grid">
@@ -321,11 +346,11 @@
         </div>
     </section>
 
-    <section id="projects" class="projects">
+    <section id="projects" class="projects" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Mes Projets</h2>
             <div class="projects-grid">
-                <article class="project-card">
+                <article class="project-card" data-aos="fade-in">
                     <div class="project-image java-project">
                         <div class="project-placeholder">
                             <i class="fas fa-gamepad"></i>
@@ -348,7 +373,7 @@
                     </div>
                 </article>
 
-                <article class="project-card">
+                <article class="project-card" data-aos="fade-in" data-aos-delay="100">
                     <div class="project-image dune-project">
                         <div class="project-placeholder">
                             <i class="fas fa-moon"></i>
@@ -369,7 +394,7 @@
                     </div>
                 </article>
 
-                <article class="project-card">
+                <article class="project-card" data-aos="fade-in" data-aos-delay="200">
                     <div class="project-image voting-project">
                         <div class="project-placeholder">
                             <i class="fas fa-vote-yea"></i>
@@ -391,7 +416,7 @@
         </div>
     </section>
 
-    <section id="contact" class="contact">
+    <section id="contact" class="contact" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Restons en Contact</h2>
             <div class="contact-content">
@@ -431,6 +456,7 @@
     </div>
 </footer>
 
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script src="script/script.js"></script>
 </body>
 </html>
