@@ -620,3 +620,32 @@ footer {
         padding: 30px 20px;
     }
 }
+
+/* Project-specific backgrounds */
+.java-project {
+    background: linear-gradient(135deg, #f39c12, #e67e22) !important;
+}
+
+.dune-project {
+    background: linear-gradient(135deg, #8b4513, #cd853f) !important;
+}
+
+.voting-project {
+    background: linear-gradient(135deg, #27ae60, #2ecc71) !important;
+}
+
+/* Enhanced project placeholders */
+.java-project .project-placeholder i {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.dune-project .project-placeholder i {
+    color: #f4d03f;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.voting-project .project-placeholder i {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
