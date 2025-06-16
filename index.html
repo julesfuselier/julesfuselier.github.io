@@ -1,35 +1,250 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jules Fuselier - Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 <header>
     <nav id="navbar">
-        <ul id="nav-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="skills.html">Skills</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="about.html">About</a></li>
-        </ul>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span>JF</span>
+            </div>
+            <ul id="nav-list">
+                <li><a href="#welcome">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </nav>
 </header>
+
 <main>
-    <section class="hero">
-        <img src="moi.jpg" alt="Photo de Jules">
-        <div class="hero-text">
-            <h1>FUSELIER JULES</h1>
-            <p>IT Student</p>
+    <section id="welcome" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-image">
+                    <img src="moi.jpg" alt="Photo of Jules Fuselier">
+                    <div class="image-overlay"></div>
+                </div>
+                <div class="hero-text">
+                    <h1>Jules <span class="highlight">Fuselier</span></h1>
+                    <p class="hero-subtitle">IT Student</p>
+                    <p class="hero-description">Passionate about AI and software development</p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">View Projects</a>
+                        <a href="#contact" class="btn btn-secondary">Contact Me</a>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="about-card">
+                        <h3>Who I Am</h3>
+                        <p>I'm Jules, I'm a computer science student, and I'm currently interested in Artificial Intelligence and the development of software and applications.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <h3>My Education</h3>
+                        <p>I'm currently a first-year student in the Computer Science Bachelor of Technology (BUT) program at Aix-Marseille University. I specialize in software and application development in Java, as well as web development. In my free time, I'm also learning about artificial intelligence.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <h3>My Philosophy</h3>
+                        <p>I love being challenged on new skills, so I can learn to be better at what I do. I love working in teams on projects, with motivated collaborators.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <h3>My Goals</h3>
+                        <p>My goal is to join an engineering school after completing my current program, and eventually create or join a startup. I'd like to take advantage of being young to embrace this kind of challenge and take calculated risks.</p>
+                    </div>
+                </div>
+
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">2024</div>
+                        <div class="stat-label">Started BUT CS</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Languages</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Motivation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">My Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Programming Languages</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">HTML/CSS</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3><i class="fas fa-tools"></i> Technologies</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">JavaFX</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Node.js</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3><i class="fas fa-brain"></i> Interests</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Artificial Intelligence</span>
+                        <span class="skill-tag">SaaS Development</span>
+                        <span class="skill-tag">Desktop Applications</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>JavaFX Application</h3>
+                        <p>Modern desktop application with intuitive user interface and advanced functionalities built with Java and JavaFX.</p>
+                        <div class="project-tech">
+                            <span>Java</span>
+                            <span>JavaFX</span>
+                            <span>SQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Web Application</h3>
+                        <p>Responsive web application with robust backend, integrating the latest modern web development technologies.</p>
+                        <div class="project-tech">
+                            <span>HTML/CSS</span>
+                            <span>JavaScript</span>
+                            <span>Node.js</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>AI Project</h3>
+                        <p>Exploring artificial intelligence with development of machine learning algorithms and data analysis tools.</p>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>TensorFlow</span>
+                            <span>Pandas</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Let's Connect!</h3>
+                    <p>Interested in my profile? Feel free to contact me to discuss projects, opportunities, or just to connect!</p>
+                    <div class="contact-methods">
+                        <a href="mailto:jules.fuselier@example.com" class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <span>jules.fuselier@email.com</span>
+                        </a>
+                        <a href="https://linkedin.com/in/julesfuselier" class="contact-method">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/julesfuselier" class="contact-method">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </main>
 
 <footer>
-    <p>&copy; 2025 Jules Fuselier. Tous droits réservés.</p>
+    <div class="container">
+        <div class="footer-content">
+            <p>&copy; 2025 Jules Fuselier. All rights reserved.</p>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </div>
 </footer>
+
+<script src="script.js"></script>
 </body>
 </html>
