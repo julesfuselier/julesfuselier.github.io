@@ -3,11 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jules Fuselier - Portfolio</title>
-    <meta name="description" content="Welcome to the official website of Jules Fuselier, developer.">
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/all.min.css">
+
+    <!-- PRELOAD RESSOURCES CRITIQUES -->
+    <link rel="preload" href="css/critical.css" as="style">
+    <link rel="preload" href="assets/moi.webp" as="image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- CSS CRITIQUE EN PREMIER -->
+    <link rel="stylesheet" href="css/critical.css">
+
+    <!-- SEO META (gardez tout ce qu'on a ajouté avant) -->
+    <title>Jules Fuselier - Développeur & Étudiant en Informatique | Portfolio</title>
+    <meta name="description" content="Portfolio de Jules Fuselier, étudiant en informatique BUT à Aix-Marseille, passionné par l'IA et le développement logiciel. Projets Java, Python, JavaScript.">
+    <meta name="keywords" content="Jules Fuselier, développeur, informatique, IA, Java, Python, JavaScript, portfolio, Aix-Marseille, BUT informatique">
+    <meta name="author" content="Jules Fuselier">
+    <meta name="robots" content="index, follow">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="Jules Fuselier - Développeur & Étudiant en Informatique">
+    <meta property="og:description" content="Portfolio de Jules Fuselier, étudiant en informatique passionné par l'IA et le développement logiciel.">
+    <meta property="og:url" content="https://julesfuselier.fr">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://julesfuselier.fr/assets/moi.webp">
+    <meta property="og:site_name" content="Jules Fuselier Portfolio">
+    <meta property="og:locale" content="fr_FR">
+
+    <!-- TWITTER CARDS -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jules Fuselier - Développeur & Étudiant en Informatique">
+    <meta name="twitter:description" content="Portfolio de Jules Fuselier, étudiant en informatique passionné par l'IA et le développement logiciel.">
+    <meta name="twitter:image" content="https://julesfuselier.fr/assets/moi.webp">
+
+    <!-- CANONICAL -->
+    <link rel="canonical" href="https://julesfuselier.fr">
+
+    <!-- DONNÉES STRUCTURÉES -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Jules Fuselier",
+            "jobTitle": "Étudiant en Informatique",
+            "description": "Étudiant en informatique BUT à Aix-Marseille, passionné par l'IA et le développement logiciel",
+            "url": "https://julesfuselier.fr",
+            "image": "https://julesfuselier.fr/assets/moi.webp",
+            "sameAs": [
+                "https://linkedin.com/in/julesfuselier",
+                "https://github.com/julesfuselier"
+            ],
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Aix-Marseille",
+                "addressCountry": "FR"
+            },
+            "alumniOf": {
+                "@type": "University",
+                "name": "Aix-Marseille Université"
+            },
+            "knowsAbout": [
+                "Java", "Python", "JavaScript", "Intelligence Artificielle", "Développement Web", "JavaFX"
+            ]
+        }
+    </script>
+
+    <!-- CSS NON-CRITIQUE EN DIFFÉRÉ -->
+    <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/all.min.css" media="print" onload="this.media='all'">
+
+    <!-- FALLBACK SI JS DÉSACTIVÉ -->
+    <noscript>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+        <link rel="stylesheet" href="css/all.min.css">
+    </noscript>
 </head>
 <body>
 <header>
@@ -37,7 +107,12 @@
         <div class="hero-container">
             <div class="hero-content">
                 <div class="hero-image">
-                    <img src="assets/moi.webp" alt="Photo of Jules Fuselier">
+                    <img src="assets/moi.webp"
+                         alt="Jules Fuselier, étudiant en informatique BUT Aix-Marseille, développeur passionné par l'IA et le développement logiciel"
+                         loading="eager"
+                         width="300"
+                         height="300"
+                         decoding="async">
                     <div class="image-overlay"></div>
                 </div>
                 <div class="hero-text">

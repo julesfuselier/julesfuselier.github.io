@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://julesfuselier.fr/sitemap.xml
+
+# Optionnel : bloquer certains fichiers
+Disallow: /css/
+Disallow: /script/
+Disallow: /assets/
