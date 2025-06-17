@@ -26,7 +26,7 @@
     <link rel="preload" href="css/critical.css" as="style">
     <link rel="preload" href="css/all.min.css" as="style">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-    <link rel="preload" href="script/script.js" as="script">
+    <link rel="preload" href="js/script.js" as="script">
 
     <style>
         /* CSS CRITIQUE INLINE - LES 1KB LES PLUS IMPORTANTS */
@@ -149,19 +149,119 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'G-GDK2ZSV392');
+        gtag('config', 'G-GDK2ZSV392', {
+            // Configuration internationale
+            'country': 'US,GB,CA,AU,FR,DE,NL,SE,NO,DK,IN',
+            'language': document.documentElement.lang || 'fr',
+            'page_location': window.location.href,
+            'page_referrer': document.referrer,
+            'send_page_view': true,
+
+            // Custom parameters pour les outils
+            'custom_map': {
+                'custom_parameter_1': 'tool_used',
+                'custom_parameter_2': 'tool_language',
+                'custom_parameter_3': 'user_country'
+            }
+        });
+
+        // Fonction pour tracker l'utilisation des outils
+        function trackToolUsage(toolName, action = 'used') {
+            gtag('event', 'tool_interaction', {
+                'event_category': 'web_tools',
+                'event_label': toolName,
+                'tool_name': toolName,
+                'tool_action': action,
+                'tool_language': document.documentElement.lang || 'fr',
+                'page_path': window.location.pathname
+            });
+        }
+
+        // Fonction pour tracker les téléchargements
+        function trackDownload(fileName, toolName) {
+            gtag('event', 'file_download', {
+                'event_category': 'downloads',
+                'event_label': fileName,
+                'tool_name': toolName,
+                'file_name': fileName
+            });
+        }
+
+        // Fonction pour tracker les copies
+        function trackCopy(toolName, contentType) {
+            gtag('event', 'copy_to_clipboard', {
+                'event_category': 'tool_actions',
+                'event_label': toolName,
+                'tool_name': toolName,
+                'content_type': contentType
+            });
+        }
+
+        // Auto-track external links
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' && e.target.hostname !== window.location.hostname) {
+                gtag('event', 'click', {
+                    'event_category': 'outbound_links',
+                    'event_label': e.target.href,
+                    'transport_type': 'beacon'
+                });
+            }
+        });
+
+        // Track scroll depth
+        let scrollDepthTracked = false;
+        window.addEventListener('scroll', function() {
+            if (!scrollDepthTracked && window.scrollY > document.body.scrollHeight * 0.5) {
+                gtag('event', 'scroll', {
+                    'event_category': 'engagement',
+                    'event_label': '50_percent',
+                    'page_path': window.location.pathname
+                });
+                scrollDepthTracked = true;
+            }
+        });
+    </script>
+
+    <!-- Microsoft Clarity pour heatmaps et session recordings -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "n8x9k7m2l5");
+    </script>
+
+    <!-- Schema.org pour les statistiques d'usage -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Jules Fuselier - Free Web Tools",
+            "url": "https://julesfuselier.fr",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://julesfuselier.fr/tools/?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            },
+            "sameAs": [
+                "https://github.com/julesfuselier",
+                "https://linkedin.com/in/julesfuselier"
+            ]
+        }
     </script>
 
     <!-- CSS NON-CRITIQUE EN DIFFÉRÉ -->
     <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/tools.css" media="print" onload="this.media='all'">
 
     <!-- FALLBACK SI JS DÉSACTIVÉ -->
     <noscript>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
         <link rel="stylesheet" href="css/all.min.css">
+        <link rel="stylesheet" href="css/tools.css">
     </noscript>
 </head>
 <body>
@@ -180,6 +280,7 @@
                 <li><a href="#about">À propos</a></li>
                 <li><a href="#projects">Projets</a></li>
                 <li><a href="#skills">Compétences</a></li>
+                <li><a href="outils/">Outils</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="nav-toggle">
@@ -391,6 +492,70 @@
         </div>
     </section>
 
+    <section id="outils" class="tools-preview" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Outils Web Gratuits</h2>
+            <div class="section-intro">
+                <p>Découvrez ma collection d'outils web gratuits et utiles, conçus pour vous faire gagner du temps au quotidien.</p>
+                <a href="outils/" class="btn btn-primary">Voir tous les outils</a>
+            </div>
+
+            <div class="tools-preview-grid">
+                <article class="tool-preview-card" data-aos="fade-in">
+                    <div class="tool-preview-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <div class="tool-preview-content">
+                        <h3>Générateur de Mot de Passe</h3>
+                        <p>Créez des mots de passe sécurisés et uniques avec des paramètres personnalisables.</p>
+                        <a href="outils/generateur-mot-de-passe/" class="tool-preview-link">
+                            Essayer <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="tool-preview-card" data-aos="fade-in" data-aos-delay="100">
+                    <div class="tool-preview-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div class="tool-preview-content">
+                        <h3>Générateur QR Code</h3>
+                        <p>Générez des QR codes personnalisés pour vos liens, textes et informations de contact.</p>
+                        <a href="outils/qr-code-gratuit/" class="tool-preview-link">
+                            Essayer <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="tool-preview-card" data-aos="fade-in" data-aos-delay="200">
+                    <div class="tool-preview-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="tool-preview-content">
+                        <h3>Sélecteur de Couleurs</h3>
+                        <p>Choisissez et convertissez vos couleurs entre différents formats (HEX, RGB, HSL).</p>
+                        <a href="outils/selecteur-couleurs/" class="tool-preview-link">
+                            Essayer <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="tool-preview-card" data-aos="fade-in" data-aos-delay="300">
+                    <div class="tool-preview-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="tool-preview-content">
+                        <h3>Convertisseur d'Unités</h3>
+                        <p>Convertissez facilement entre différentes unités : longueur, poids, température.</p>
+                        <a href="outils/convertisseur-unites/" class="tool-preview-link">
+                            Essayer <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <section id="contact" class="contact">
         <div class="container">
             <h2 class="section-title">Restons en Contact</h2>
@@ -431,6 +596,6 @@
     </div>
 </footer>
 
-<script src="script/script.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>

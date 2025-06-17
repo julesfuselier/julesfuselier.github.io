@@ -4,7 +4,7 @@ const urlsToCache = [
     '/',
     '/css/critical.css',
     '/css/style.css',
-    '/script/script.js',
+    '/js/js.js',
     '/assets/moi.webp',
     '/assets/CV_FUSELIER_JULES.pdf'
 ];

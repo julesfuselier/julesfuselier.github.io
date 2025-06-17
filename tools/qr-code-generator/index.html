@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ULTRA SEO INTERNATIONAL -->
+    <title>Free QR Code Generator | Create Custom QR Codes Online</title>
+    <meta name="description" content="Free QR code generator with customizable options. Create QR codes for URLs, WiFi, contacts, emails. Download high-quality PNG. Simple and fast tool.">
+    <meta name="keywords" content="free qr code generator, custom qr code, create qr code, qr code maker, wifi qr code, url qr code, contact qr code, qr code creator online">
+    <meta name="author" content="Jules Fuselier">
+    <meta name="robots" content="index, follow">
+
+    <!-- GEO INTERNATIONAL -->
+    <meta name="geo.region" content="US,GB,CA,AU,IN,DE,NL,SE,NO,DK">
+    <meta name="language" content="en">
+    <meta name="target_country" content="US,GB,CA,AU,IN,DE,NL,SE,NO,DK">
+
+    <!-- HREFLANG COMPLET -->
+    <link rel="alternate" hreflang="en" href="https://julesfuselier.fr/tools/qr-code-generator/">
+    <link rel="alternate" hreflang="en-US" href="https://julesfuselier.fr/tools/qr-code-generator/">
+    <link rel="alternate" hreflang="en-GB" href="https://julesfuselier.fr/tools/qr-code-generator/">
+    <link rel="alternate" hreflang="en-CA" href="https://julesfuselier.fr/tools/qr-code-generator/">
+    <link rel="alternate" hreflang="en-AU" href="https://julesfuselier.fr/tools/qr-code-generator/">
+    <link rel="alternate" hreflang="en-IN" href="https://julesfuselier.fr/tools/qr-code-generator/">
+    <link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/outils/qr-code-gratuit/">
+    <link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/tools/qr-code-generator/">
+    <link rel="canonical" href="https://julesfuselier.fr/tools/qr-code-generator/">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/critical.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/tools.css">
+    <link rel="stylesheet" href="../../css/all.min.css">
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+
+    <!-- OPEN GRAPH INTERNATIONAL -->
+    <meta property="og:title" content="Free QR Code Generator | Create Custom QR Codes Online">
+    <meta property="og:description" content="Create custom QR codes for free. URLs, WiFi, contacts, emails - Instant download in high quality PNG.">
+    <meta property="og:url" content="https://julesfuselier.fr/tools/qr-code-generator/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://julesfuselier.fr/assets/moi.webp">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:locale:alternate" content="en_CA">
+    <meta property="og:locale:alternate" content="en_AU">
+
+    <!-- STRUCTURED DATA POUR RICH SNIPPETS -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Free QR Code Generator",
+            "description": "Create custom QR codes for URLs, WiFi, contacts, emails. Free download in high-quality PNG format.",
+            "url": "https://julesfuselier.fr/tools/qr-code-generator/",
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Web Browser",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "creator": {
+                "@type": "Person",
+                "name": "Jules Fuselier",
+                "url": "https://julesfuselier.fr/en/"
+            },
+            "featureList": [
+                "QR codes for URLs and links",
+                "WiFi QR codes with password",
+                "Contact vCard QR codes",
+                "Email QR codes with subject",
+                "Customizable colors and sizes",
+                "High-quality PNG download"
+            ],
+            "inLanguage": ["en-US", "en-GB", "en-CA", "en-AU"],
+            "audience": {
+                "@type": "Audience",
+                "geographicArea": ["US", "GB", "CA", "AU", "IN", "DE", "NL", "SE", "NO", "DK"]
+            }
+        }
+    </script>
+
+    <!-- STYLES IDENTIQUES -->
+    <style>
+        .qr-type-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .qr-type-btn {
+            padding: 10px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .qr-type-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .qr-type-btn:hover {
+            border-color: #667eea;
+        }
+
+        .template-section {
+            display: none;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .template-section.active {
+            display: block;
+        }
+
+        .color-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .color-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .color-group input[type="color"] {
+            width: 100%;
+            height: 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .qr-result {
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .action-buttons {
+            display: none;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons.show {
+            display: flex;
+        }
+
+        .template-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .template-btn:hover {
+            background: #218838;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 9999;
+        }
+
+        .notification.success {
+            background: #28a745;
+        }
+
+        .notification.error {
+            background: #dc3545;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .color-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .qr-type-selector {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../../en/"><span>JF</span></a>
+            </div>
+            <div class="language-selector">
+                <a href="../../outils/qr-code-gratuit/" class="lang-link" hreflang="fr">🇫🇷 FR</a>
+                <a href="./" class="lang-link active" hreflang="en">🇺🇸 EN</a>
+            </div>
+            <ul id="nav-list">
+                <li><a href="../../en/#welcome">Home</a></li>
+                <li><a href="../../en/#about">About</a></li>
+                <li><a href="../../en/#projects">Projects</a></li>
+                <li><a href="../../en/#skills">Skills</a></li>
+                <li><a href="../">Tools</a></li>
+                <li><a href="../../en/#contact">Contact</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <div class="tool-container">
+        <div class="tool-header">
+            <h1><i class="fas fa-qrcode"></i> Free QR Code Generator</h1>
+            <p>Create custom QR codes for your URLs, WiFi information, contacts and more. Free download in high quality. Simple and fast tool used worldwide.</p>
+        </div>
+
+        <div class="tool-interface">
+            <!-- TYPE SELECTOR -->
+            <div class="form-group">
+                <label for="qrType">QR Code Type:</label>
+                <select id="qrType" class="form-control">
+                    <option value="text">Plain Text</option>
+                    <option value="url">URL / Website</option>
+                    <option value="wifi">WiFi Network</option>
+                    <option value="contact">Contact (vCard)</option>
+                    <option value="email">Email</option>
+                </select>
+            </div>
+
+            <!-- SPECIALIZED TEMPLATES -->
+            <div id="urlTemplate" class="template-section">
+                <h4><i class="fas fa-globe"></i> Website / URL</h4>
+                <div class="input-group">
+                    <label for="websiteUrl">Website URL:</label>
+                    <input type="url" id="websiteUrl" class="form-control" placeholder="https://example.com">
+                </div>
+                <button class="template-btn" data-template="website">Use this URL</button>
+            </div>
+
+            <div id="wifiTemplate" class="template-section">
+                <h4><i class="fas fa-wifi"></i> WiFi Connection</h4>
+                <div class="input-group">
+                    <label for="wifiSSID">Network Name (SSID):</label>
+                    <input type="text" id="wifiSSID" class="form-control" placeholder="MyWiFiNetwork">
+                </div>
+                <div class="input-group">
+                    <label for="wifiPassword">Password:</label>
+                    <input type="text" id="wifiPassword" class="form-control" placeholder="Password123">
+                </div>
+                <div class="input-group">
+                    <label for="wifiSecurity">Security Type:</label>
+                    <select id="wifiSecurity" class="form-control">
+                        <option value="WPA">WPA/WPA2</option>
+                        <option value="WEP">WEP</option>
+                        <option value="nopass">None (Open)</option>
+                    </select>
+                </div>
+                <button class="template-btn" data-template="wifi">Create WiFi QR Code</button>
+            </div>
+
+            <div id="contactTemplate" class="template-section">
+                <h4><i class="fas fa-user"></i> Contact (vCard)</h4>
+                <div class="input-group">
+                    <label for="contactName">Full Name:</label>
+                    <input type="text" id="contactName" class="form-control" placeholder="John Doe">
+                </div>
+                <div class="input-group">
+                    <label for="contactPhone">Phone Number:</label>
+                    <input type="tel" id="contactPhone" class="form-control" placeholder="+1 234 567 8900">
+                </div>
+                <div class="input-group">
+                    <label for="contactEmail">Email:</label>
+                    <input type="email" id="contactEmail" class="form-control" placeholder="contact@example.com">
+                </div>
+                <button class="template-btn" data-template="contact">Create vCard</button>
+            </div>
+
+            <div id="emailTemplate" class="template-section">
+                <h4><i class="fas fa-envelope"></i> Email</h4>
+                <div class="input-group">
+                    <label for="emailTo">Recipient:</label>
+                    <input type="email" id="emailTo" class="form-control" placeholder="recipient@example.com">
+                </div>
+                <div class="input-group">
+                    <label for="emailSubject">Subject:</label>
+                    <input type="text" id="emailSubject" class="form-control" placeholder="Email subject">
+                </div>
+                <div class="input-group">
+                    <label for="emailBody">Message:</label>
+                    <textarea id="emailBody" class="form-control" rows="3" placeholder="Your message..."></textarea>
+                </div>
+                <button class="template-btn" data-template="email">Create Email Link</button>
+            </div>
+
+            <!-- MAIN TEXT AREA -->
+            <div class="form-group">
+                <label for="qrText">QR Code Content:</label>
+                <textarea id="qrText" class="form-control" rows="4" placeholder="Enter your text, URL or use the templates above..."></textarea>
+            </div>
+
+            <!-- CUSTOMIZATION -->
+            <div class="form-group">
+                <label for="qrSize">QR Code Size:</label>
+                <select id="qrSize" class="form-control">
+                    <option value="200">Small (200x200)</option>
+                    <option value="300" selected>Medium (300x300)</option>
+                    <option value="500">Large (500x500)</option>
+                    <option value="800">Extra Large (800x800)</option>
+                </select>
+            </div>
+
+            <div class="color-controls">
+                <div class="color-group">
+                    <label for="qrColor">QR Code Color:</label>
+                    <input type="color" id="qrColor" value="#000000">
+                </div>
+                <div class="color-group">
+                    <label for="qrBgColor">Background Color:</label>
+                    <input type="color" id="qrBgColor" value="#ffffff">
+                </div>
+            </div>
+
+            <button id="generateQRBtn" class="btn-tool">
+                <i class="fas fa-qrcode"></i> Generate QR Code
+            </button>
+
+            <!-- RESULT -->
+            <div id="qrResult" class="qr-result">
+                <div class="qr-placeholder">
+                    <i class="fas fa-qrcode" style="font-size: 3rem; color: #ddd; margin-bottom: 15px;"></i>
+                    <p>Your QR Code will appear here</p>
+                </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div id="actionButtons" class="action-buttons">
+                <button id="downloadBtn" class="copy-btn">
+                    <i class="fas fa-download"></i> Download PNG
+                </button>
+                <button id="copyQRBtn" class="copy-btn">
+                    <i class="fas fa-copy"></i> Copy Link
+                </button>
+            </div>
+        </div>
+
+        <!-- USAGE GUIDE -->
+        <div class="tool-interface">
+            <h3><i class="fas fa-info-circle"></i> How to Use the QR Code Generator</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div>
+                    <h4 style="color: #667eea; margin-bottom: 10px;">1. Choose Type</h4>
+                    <p style="color: #666; font-size: 0.9rem;">Select the content type: URL, WiFi, contact, or email based on your needs.</p>
+                </div>
+                <div>
+                    <h4 style="color: #667eea; margin-bottom: 10px;">2. Fill Information</h4>
+                    <p style="color: #666; font-size: 0.9rem;">Use the convenient templates or enter your content directly in the text area.</p>
+                </div>
+                <div>
+                    <h4 style="color: #667eea; margin-bottom: 10px;">3. Customize</h4>
+                    <p style="color: #666; font-size: 0.9rem;">Choose the size and colors that match your brand or style preferences.</p>
+                </div>
+                <div>
+                    <h4 style="color: #667eea; margin-bottom: 10px;">4. Download</h4>
+                    <p style="color: #666; font-size: 0.9rem;">Generate and download your QR code in high-quality PNG format.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO CONTENT -->
+        <div class="tool-interface">
+            <h3><i class="fas fa-star"></i> Why Use Our QR Code Generator?</h3>
+            <p style="line-height: 1.6; color: #666; margin-bottom: 15px;">
+                Our free QR code generator is trusted by thousands of users worldwide. Create professional QR codes for business cards, marketing materials, restaurant menus, and more.
+            </p>
+            <p style="line-height: 1.6; color: #666; margin-bottom: 15px;">
+                All QR codes are generated with high error correction, ensuring they work even if partially damaged or dirty. Perfect for print materials, websites, and digital marketing campaigns.
+            </p>
+            <p style="line-height: 1.6; color: #666;">
+                No registration required, completely free, and works on all devices. Generate unlimited QR codes with our fast and reliable online tool.
+            </p>
+        </div>
+
+        <!-- USE CASES -->
+        <div class="tool-interface">
+            <h3><i class="fas fa-lightbulb"></i> Popular Use Cases</h3>
+            <ul style="list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <li style="padding: 10px; background: #f8f9fa; border-radius: 8px;"><i class="fas fa-store" style="color: #28a745; margin-right: 10px;"></i>Restaurant Menus</li>
+                <li style="padding: 10px; background: #f8f9fa; border-radius: 8px;"><i class="fas fa-wifi" style="color: #17a2b8; margin-right: 10px;"></i>WiFi Sharing</li>
+                <li style="padding: 10px; background: #f8f9fa; border-radius: 8px;"><i class="fas fa-address-card" style="color: #6f42c1; margin-right: 10px;"></i>Business Cards</li>
+                <li style="padding: 10px; background: #f8f9fa; border-radius: 8px;"><i class="fas fa-globe" style="color: #fd7e14; margin-right: 10px;"></i>Website Links</li>
+                <li style="padding: 10px; background: #f8f9fa; border-radius: 8px;"><i class="fas fa-calendar" style="color: #dc3545; margin-right: 10px;"></i>Event Invitations</li>
+                <li style="padding: 10px; background: #f8f9fa; border-radius: 8px;"><i class="fas fa-envelope" style="color: #ffc107; margin-right: 10px;"></i>Contact Information</li>
+            </ul>
+        </div>
+
+        <!-- NAVIGATION TO OTHER TOOLS -->
+        <div class="tool-interface" style="text-align: center;">
+            <h3>Other Useful Tools</h3>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+                <a href="../password-generator/" class="btn btn-secondary">Password Generator</a>
+                <a href="../color-picker/" class="btn btn-secondary">Color Picker</a>
+                <a href="../unit-converter/" class="btn btn-secondary">Unit Converter</a>
+                <a href="../" class="btn btn-primary">All Tools</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <p>&copy; 2025 Jules Fuselier. All rights reserved. Available worldwide.</p>
+            <div class="footer-social">
+                <a href="https://github.com/julesfuselier" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/julesfuselier" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:contact.julesfuselier@gmail.com" aria-label="Email Contact"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="../../js/tools/qr-code-generator-en.js"></script>
+</body>
+</html>
