@@ -1,24 +1,9 @@
 User-agent: *
-Allow: /
+Disallow: /assets/others/
+Disallow: /demo/SuperBomberman.jar
 
-# Sitemap
 Sitemap: https://julesfuselier.fr/sitemap.xml
 
-# Dossiers importants pour SEO
-Allow: /outils/
-Allow: /tools/
-Allow: /en/
-Allow: /css/
-Allow: /js/
-Allow: /assets/
-
-# Optimisation pour les moteurs de recherche internationaux
-Allow: /outils/generateur-mot-de-passe/
-Allow: /tools/password-generator/
-Allow: /outils/qr-code-gratuit/
-Allow: /tools/qr-code-generator/
-
-# Instructions spéciales pour Googlebot
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>SuperBomberman – Démo Web</title>
+    <!-- CheerpJ runtime -->
+    <script src="https://cjrtnc.leaningtech.com/4.2/loader.js"></script>
+    <style>
+        body { margin:0; display:grid; place-items:center; min-height:100vh; background:#0f1216; }
+        #wrap { padding:16px; border-radius:12px; background:#151a21; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+        h1 { color:#e6f6f2; font:600 18px/1.2 system-ui; margin:0 0 12px; text-align:center;}
+        .hint { color:#9fb3ac; font:14px system-ui; text-align:center; margin-top:8px;}
+        canvas { border-radius:10px; }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <h1>SuperBomberman – Démo Web</h1>
+    <div id="cj-container"></div>
+    <div class="hint">Astuce : clique dans la zone de jeu pour capturer le clavier. Le premier chargement peut prendre quelques secondes.</div>
+</div>
+
+<script>
+    (async () => {
+        await cheerpjInit();                       // initialise la VM CheerpJ
+        const canvas = cheerpjCreateDisplay(960, 640); // crée l’affichage (ajuste la taille à ton jeu)
+        document.getElementById('cj-container').appendChild(canvas);
+        // IMPORTANT : préfixer avec /app/ (racine du serveur)
+        await cheerpjRunJar("/app/SuperBomberman.jar"); // mets ici le nom exact de ton JAR
+    })();
+</script>
+</body>
+</html>

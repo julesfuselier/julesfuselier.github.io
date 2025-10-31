@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Projet – Jules Fuselier</title>
+
+    <meta name="description" content="Découvrez ce projet de Jules Fuselier, développeur créatif spécialisé dans les expériences digitales optimisées.">
+    <link rel="canonical" href="https://julesfuselier.fr/project-detail.html">
+
+    <meta property="og:title" content="Projet – Jules Fuselier">
+    <meta property="og:description" content="Découvrez ce projet de Jules Fuselier, développeur créatif.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://julesfuselier.fr/project-detail.html">
+    <meta property="og:image" content="https://julesfuselier.fr/assets/img/profile.webp">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script defer src="js/i18n.js"></script>
+    <script defer src="js/theme.js"></script>
+    <script defer src="js/main.js"></script>
+</head>
+
+<body class="bg-background text-foreground transition-colors duration-500">
+
+<header class="relative flex justify-between items-center px-8 py-6 sticky top-0 bg-background/80 backdrop-blur-md shadow-md z-50">
+    <a href="projects.html" class="text-accent font-medium hover:underline text-sm md:text-base" data-i18n="nav.backToGallery">← Retour à la galerie</a>
+
+    <h1 id="nav-title" class="hidden md:block text-xl font-semibold truncate px-4" data-i18n="projects.loadingTitle">Détail du Projet</h1>
+
+    <nav class="hidden md:flex items-center gap-4">
+        <button id="lang-toggle" class="px-3 py-2 border rounded-lg border-border hover:bg-muted transition font-medium text-sm" aria-label="Changer de langue">🇬🇧 EN</button>
+        <button id="theme-toggle" class="p-2 border rounded-lg border-border hover:bg-muted transition" aria-label="Changer le thème">🌗</button>
+    </nav>
+
+    <button id="mobile-menu-toggle" class="md:hidden p-2 border rounded-lg border-border hover:bg-muted transition" aria-label="Ouvrir le menu">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+    </button>
+</header>
+
+<div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-background shadow-lg z-40 p-6">
+    <nav class="flex flex-col gap-6 items-center">
+        <div class="flex gap-4 mt-4">
+            <button id="lang-toggle-mobile" class="px-3 py-2 border rounded-lg border-border hover:bg-muted transition font-medium text-sm" aria-label="Changer de langue">🇬🇧 EN</button>
+            <button id="theme-toggle-mobile" class="p-2 border rounded-lg border-border hover:bg-muted transition" aria-label="Changer le thème">🌗</button>
+        </div>
+    </nav>
+</div>
+
+
+<main id="project-detail-container" class="max-w-4xl mx-auto py-16 px-6">
+
+    <div id="project-loading" class="text-center">
+        <p class="text-lg text-muted-foreground" data-i18n="projects.loading">Chargement du projet...</p>
+    </div>
+
+    <div id="project-content" class="hidden opacity-0 transition-opacity duration-500">
+
+        <h2 id="project-title" class="text-3xl md:text-4xl font-bold mb-6 text-center"></h2>
+
+        <img id="project-image" src="" alt="Image du projet" class.="w-full h-64 md:h-96 object-contain p-6 bg-gradient-to-br from-accent/10 to-accent/5 rounded-2xl border border-border shadow-lg mb-8">
+
+        <div id="project-links" class="flex flex-wrap gap-4 justify-center mb-8">
+        </div>
+
+        <article class="prose dark:prose-invert max-w-none text-muted-foreground leading-relaxed md:text-lg">
+            <h3 class="text-xl md:text-2xl font-semibold mb-4 text-foreground" data-i18n="projects.about">À propos de ce projet</h3>
+            <div id="project-long-description">
+            </div>
+        </article>
+
+        <div class="mt-12 pt-8 border-t border-border">
+            <h3 class="text-lg md:text-xl font-semibold mb-4 text-foreground" data-i18n="projects.tech">Technologies utilisées</h3>
+            <div id="project-tags" class="flex flex-wrap gap-2 justify-start">
+            </div>
+        </div>
+    </div>
+
+    <div id="project-error" class...="hidden text-center text-red-500">
+        ...
+    </div>
+
+</main>
+
+<footer class="py-8 text-center border-t border-border text-muted-foreground">
+    © 2025 Jules Fuselier – <span data-i18n="footer.text">Built with ❤️ and ☘️ for a better web</span>
+</footer>
+
+<script src="js/projects-db.js"></script>
+<script src="js/detail-loader.js"></script>
+</body>
+</html>

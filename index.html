@@ -1,601 +1,183 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta http-equiv="x-dns-prefetch-control" content="on">
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link rel="dns-prefetch" href="//www.google-analytics.com">
-    <link rel="dns-prefetch" href="//github.com">
-    <link rel="dns-prefetch" href="//linkedin.com">
+  <title>Jules Fuselier – Portfolio Développeur Créatif</title>
+  <meta name="description" content="Portfolio de Jules Fuselier, développeur créatif spécialisé dans les expériences digitales optimisées et performantes.">
+  <meta property="og:title" content="Jules Fuselier – Portfolio">
+  <meta property="og:description" content="Développeur créatif et éco-conscient.">
+  <meta property="og:image" content="https://julesfuselier.fr/assets/img/profile.webp">
 
-    <meta name="format-detection" content="telephone=no">
-    <meta name="theme-color" content="#667eea">
-    <meta name="color-scheme" content="light">
-
-    <!-- RESOURCE HINTS PERFORMANCE -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://www.google-analytics.com">
-    <link rel="preconnect" href="https://github.com" crossorigin>
-    <link rel="preconnect" href="https://linkedin.com" crossorigin>
-    <link rel="preconnect" href="https://julesfuselier.fr" crossorigin>
-    <link rel="preload" href="assets/moi.webp" as="image" fetchpriority="high">
-    <link rel="preload" href="css/critical.css" as="style">
-    <link rel="preload" href="css/all.min.css" as="style">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-    <link rel="preload" href="js/script.js" as="script">
-
-    <style>
-        /* CSS CRITIQUE INLINE - LES 1KB LES PLUS IMPORTANTS */
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:Inter,sans-serif;line-height:1.6;color:#333}
-        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}
-        .hero-container{max-width:1200px;padding:0 20px}
-        .hero-content{display:flex;align-items:center;gap:60px;flex-wrap:wrap}
-        .hero-image img{width:300px;height:300px;border-radius:50%;object-fit:cover}
-        .hero-text h1{font-size:3.5rem;font-weight:700;color:white;margin-bottom:20px}
-        .highlight{color:#ffd700}
-        .btn{display:inline-block;padding:15px 30px;border-radius:50px;text-decoration:none;font-weight:600;transition:all 0.3s ease}
-        .btn-primary{background:#ffd700;color:#333}
-        .btn-secondary{border:2px solid white;color:white}
-        @media(max-width:768px){.hero-content{flex-direction:column;text-align:center}.hero-text h1{font-size:2.5rem}}
-    </style>
-
-    <!-- PRELOAD ULTRA CRITIQUE -->
-    <link rel="preload" href="assets/moi.webp" as="image" fetchpriority="high">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-
-    <!-- CSS NON-CRITIQUE EN LAZY -->
-    <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/">
-    <link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/">
-    <link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/">
-
-    <!-- CSS CRITIQUE EN PREMIER -->
-    <link rel="stylesheet" href="css/critical.css">
-
-    <!-- SEO META (gardez tout ce qu'on a ajouté avant) -->
-    <title>Jules Fuselier - Développeur & Étudiant en Informatique | Portfolio</title>
-    <meta name="description" content="Portfolio de Jules Fuselier, étudiant en informatique BUT à Aix-Marseille, passionné par l'IA et le développement logiciel. Projets Java, Python, JavaScript.">
-    <meta name="keywords" content="Jules Fuselier, développeur, informatique, IA, Java, Python, JavaScript, portfolio, Aix-Marseille, BUT informatique">
-    <meta name="author" content="Jules Fuselier">
-    <meta name="robots" content="index, follow">
-
-    <!-- OPEN GRAPH -->
-    <meta property="og:title" content="Jules Fuselier - Développeur & Étudiant en Informatique">
-    <meta property="og:description" content="Portfolio de Jules Fuselier, étudiant en informatique passionné par l'IA et le développement logiciel.">
-    <meta property="og:url" content="https://julesfuselier.fr">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://julesfuselier.fr/assets/moi.webp">
-    <meta property="og:site_name" content="Jules Fuselier Portfolio">
-    <meta property="og:locale" content="fr_FR">
-    <meta name="msvalidate.01" content="VOTRE_CODE_BING_ICI">
-
-    <!-- TWITTER CARDS -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Jules Fuselier - Développeur & Étudiant en Informatique">
-    <meta name="twitter:description" content="Portfolio de Jules Fuselier, étudiant en informatique passionné par l'IA et le développement logiciel.">
-    <meta name="twitter:image" content="https://julesfuselier.fr/assets/moi.webp">
-
-    <!-- CANONICAL -->
-    <link rel="canonical" href="https://julesfuselier.fr">
-
-    <!-- DONNÉES STRUCTURÉES -->
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Jules Fuselier",
-            "jobTitle": "Étudiant en Informatique",
-            "description": "Étudiant en informatique BUT à Aix-Marseille, passionné par l'IA et le développement logiciel",
-            "url": "https://julesfuselier.fr",
-            "image": "https://julesfuselier.fr/assets/moi.webp",
-            "sameAs": [
-                "https://linkedin.com/in/julesfuselier",
-                "https://github.com/julesfuselier"
-            ],
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Aix-Marseille",
-                "addressCountry": "FR"
-            },
-            "alumniOf": {
-                "@type": "University",
-                "name": "Aix-Marseille Université"
-            },
-            "knowsAbout": [
-                "Java", "Python", "JavaScript", "Intelligence Artificielle", "Développement Web", "JavaFX"
-            ]
-        }
-
-    </script>
-
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "ProfessionalService",
-            "name": "Jules Fuselier - Services de Développement",
-            "description": "Étudiant en informatique proposant des services de développement web et logiciel",
-            "url": "https://julesfuselier.fr",
-            "telephone": "sur demande",
-            "email": "contact.julesfuselier@gmail.com",
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Aix-Marseille",
-                "addressRegion": "Provence-Alpes-Côte d'Azur",
-                "addressCountry": "FR"
-            },
-            "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": 43.296482,
-                "longitude": 5.36978
-            },
-            "sameAs": [
-                "https://linkedin.com/in/julesfuselier",
-                "https://github.com/julesfuselier"
-            ]
-        }
-    </script>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GDK2ZSV392"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-GDK2ZSV392', {
-            // Configuration internationale
-            'country': 'US,GB,CA,AU,FR,DE,NL,SE,NO,DK,IN',
-            'language': document.documentElement.lang || 'fr',
-            'page_location': window.location.href,
-            'page_referrer': document.referrer,
-            'send_page_view': true,
-
-            // Custom parameters pour les outils
-            'custom_map': {
-                'custom_parameter_1': 'tool_used',
-                'custom_parameter_2': 'tool_language',
-                'custom_parameter_3': 'user_country'
-            }
-        });
-
-        // Fonction pour tracker l'utilisation des outils
-        function trackToolUsage(toolName, action = 'used') {
-            gtag('event', 'tool_interaction', {
-                'event_category': 'web_tools',
-                'event_label': toolName,
-                'tool_name': toolName,
-                'tool_action': action,
-                'tool_language': document.documentElement.lang || 'fr',
-                'page_path': window.location.pathname
-            });
-        }
-
-        // Fonction pour tracker les téléchargements
-        function trackDownload(fileName, toolName) {
-            gtag('event', 'file_download', {
-                'event_category': 'downloads',
-                'event_label': fileName,
-                'tool_name': toolName,
-                'file_name': fileName
-            });
-        }
-
-        // Fonction pour tracker les copies
-        function trackCopy(toolName, contentType) {
-            gtag('event', 'copy_to_clipboard', {
-                'event_category': 'tool_actions',
-                'event_label': toolName,
-                'tool_name': toolName,
-                'content_type': contentType
-            });
-        }
-
-        // Auto-track external links
-        document.addEventListener('click', function(e) {
-            if (e.target.tagName === 'A' && e.target.hostname !== window.location.hostname) {
-                gtag('event', 'click', {
-                    'event_category': 'outbound_links',
-                    'event_label': e.target.href,
-                    'transport_type': 'beacon'
-                });
-            }
-        });
-
-        // Track scroll depth
-        let scrollDepthTracked = false;
-        window.addEventListener('scroll', function() {
-            if (!scrollDepthTracked && window.scrollY > document.body.scrollHeight * 0.5) {
-                gtag('event', 'scroll', {
-                    'event_category': 'engagement',
-                    'event_label': '50_percent',
-                    'page_path': window.location.pathname
-                });
-                scrollDepthTracked = true;
-            }
-        });
-    </script>
-
-    <!-- Microsoft Clarity pour heatmaps et session recordings -->
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "n8x9k7m2l5");
-    </script>
-
-    <!-- Schema.org pour les statistiques d'usage -->
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "Jules Fuselier - Free Web Tools",
-            "url": "https://julesfuselier.fr",
-            "potentialAction": {
-                "@type": "SearchAction",
-                "target": "https://julesfuselier.fr/tools/?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-            },
-            "sameAs": [
-                "https://github.com/julesfuselier",
-                "https://linkedin.com/in/julesfuselier"
-            ]
-        }
-    </script>
-
-    <!-- CSS NON-CRITIQUE EN DIFFÉRÉ -->
-    <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="css/all.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="css/tools.css" media="print" onload="this.media='all'">
-
-    <!-- FALLBACK SI JS DÉSACTIVÉ -->
-    <noscript>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-        <link rel="stylesheet" href="css/all.min.css">
-        <link rel="stylesheet" href="css/tools.css">
-    </noscript>
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/theme.js"></script>
+  <script defer src="js/main.js"></script>
 </head>
-<body>
-<header>
-    <nav id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span>JF</span>
-            </div>
-            <div class="language-selector">
-                <a href="./" class="lang-link active" hreflang="fr">🇫🇷 FR</a>
-                <a href="./en/" class="lang-link" hreflang="en">🇺🇸 EN</a>
-            </div>
-            <ul id="nav-list">
-                <li><a href="#welcome">Accueil</a></li>
-                <li><a href="#about">À propos</a></li>
-                <li><a href="#projects">Projets</a></li>
-                <li><a href="#skills">Compétences</a></li>
-                <li><a href="outils/">Outils</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+<body class="bg-background text-foreground transition-colors duration-500">
+
+<header class="relative flex justify-between items-center px-8 py-6 sticky top-0 bg-background/95 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
+  <h1 class="text-xl font-semibold gradient-text tracking-tight">Jules Fuselier</h1>
+
+  <nav class="hidden md:flex items-center gap-6">
+    <a href="#about" class="relative hover:text-accent transition-all duration-300 py-1 group" data-i18n="nav.about">À propos</a>
+    <a href="#skills" class="relative hover:text-accent transition-all duration-300 py-1 group" data-i18n="nav.skills">Compétences</a>
+    <a href="#projects" class="relative hover:text-accent transition-all duration-300 py-1 group" data-i18n="nav.projects">Projets</a>
+    <a href="#contact" class="relative hover:text-accent transition-all duration-300 py-1 group" data-i18n="nav.contact">Contact</a>
+    <button id="lang-toggle" class="px-3 py-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 font-medium text-sm hover:shadow-sm" aria-label="Changer de langue">🇬🇧 EN</button>
+    <button id="theme-toggle" class="p-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 hover:shadow-sm" aria-label="Changer le thème">🌗</button>
+  </nav>
+
+  <button id="mobile-menu-toggle" class="md:hidden p-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 hover:shadow-sm" aria-label="Ouvrir le menu">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+    </svg>
+  </button>
+
+  <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md shadow-lg z-40 p-6 transition-all duration-300">
+    <nav class="flex flex-col gap-6 items-center">
+      <a href="#about" class="hover:text-accent transition-all duration-300 text-lg py-1" data-i18n="nav.about">À propos</a>
+      <a href="#skills" class="hover:text-accent transition-all duration-300 text-lg py-1" data-i18n="nav.skills">Compétences</a>
+      <a href="#projects" class="hover:text-accent transition-all duration-300 text-lg py-1" data-i18n="nav.projects">Projets</a>
+      <a href="#contact" class="hover:text-accent transition-all duration-300 text-lg py-1" data-i18n="nav.contact">Contact</a>
+      <div class="flex gap-4 mt-4">
+        <button id="lang-toggle-mobile" class="px-3 py-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 font-medium text-sm hover:shadow-sm" aria-label="Changer de langue">🇬🇧 EN</button>
+        <button id="theme-toggle-mobile" class="p-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 hover:shadow-sm" aria-label="Changer le thème">🌗</button>
+      </div>
     </nav>
+  </div>
 </header>
 
-<main>
-    <section id="welcome" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-image">
-                    <img src="/assets/moi.webp"
-                         alt="Jules Fuselier, étudiant en informatique à l'Université d'Aix-Marseille, développeur passionné spécialisé en IA"
-                         loading="eager"
-                         width="300"
-                         height="300"
-                         decoding="async">
-                    <div class="image-overlay"></div>
-                </div>
-                <div class="hero-text">
-                    <h1>Jules <span class="highlight">Fuselier</span></h1>
-                    <p class="hero-subtitle">Étudiant en Informatique</p>
-                    <p class="hero-description">Passionné par l'IA et le développement logiciel</p>
-                    <div class="hero-buttons">
-                        <a href="#projects" class="btn btn-primary">Voir mes Projets</a>
-                        <a href="#contact" class="btn btn-secondary">Me Contacter</a>
-                    </div>
-                </div>
-            </div>
-            <div class="scroll-indicator">
-                <i class="fas fa-chevron-down"></i>
-            </div>
-        </div>
-    </section>
+<section id="hero" class="min-h-screen flex flex-col justify-center items-center text-center px-8 relative overflow-hidden">
+  <div class="absolute inset-0 -z-10 opacity-10 parallax-element parallax-slow">
+    <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-accent blur-3xl"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-accent blur-3xl"></div>
+  </div>
 
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">À Propos de Moi</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <div class="about-card">
-                        <h3>Qui je suis</h3>
-                        <p>Je suis Jules, étudiant en informatique, et je m'intéresse actuellement à l'Intelligence Artificielle et au développement de logiciels et d'applications.</p>
-                    </div>
+  <img src="assets/img/profile.webp" alt="Photo de Jules Fuselier"
+       class="w-32 h-32 rounded-full border-4 border-accent shadow-lg mb-6 transition-all duration-500 hover:scale-105 hover:shadow-xl parallax-element parallax-medium"
+       width="128" height="128">
 
-                    <div class="about-card">
-                        <h3>Ma Formation</h3>
-                        <p>Je suis actuellement en première année de BUT Informatique à l'Université d'Aix-Marseille. Je me spécialise dans le développement de logiciels et d'applications en Java, ainsi que dans le développement web. Dans mon temps libre, j'apprends également l'intelligence artificielle.</p>
-                    </div>
+  <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight parallax-element parallax-fast" data-i18n="hero.greeting">Hello, I'm Jules Fuselier</h2>
+  <p class="max-w-2xl text-lg text-muted-foreground mb-10 leading-relaxed parallax-element parallax-fast" data-i18n="hero.subtitle">A creative developer crafting thoughtful digital experiences with precision and care for our planet.</p>
+  <a href="#projects" class="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-semibold hover:bg-accent-hover transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 mt-4 parallax-element parallax-fast" data-i18n="hero.cta">See my projects</a>
+</section>
 
-                    <div class="about-card">
-                        <h3>Ma Philosophie</h3>
-                        <p>J'aime être mis au défi sur de nouvelles compétences, pour pouvoir apprendre à être meilleur dans ce que je fais. J'aime travailler en équipe sur des projets, avec des collaborateurs motivés.</p>
-                    </div>
-
-                    <div class="about-card">
-                        <h3>Mes Objectifs</h3>
-                        <p>Mon objectif est d'intégrer une école d'ingénieurs après avoir terminé ma formation actuelle, et éventuellement créer ou rejoindre une startup. Je souhaiterais profiter de ma jeunesse pour relever ce genre de défi et prendre des risques calculés.</p>
-                    </div>
-                </div>
-
-                <div class="about-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">2024</div>
-                        <div class="stat-label">Début BUT Info</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">5+</div>
-                        <div class="stat-label">Langages</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">∞</div>
-                        <div class="stat-label">Motivation</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Nouvelle section CV/LinkedIn -->
-            <div class="about-cta">
-                <div class="cta-content">
-                    <h3>Vous voulez en savoir plus sur moi ?</h3>
-                    <p>Pour des informations détaillées sur mon expérience, ma formation et mes réalisations</p>
-                    <div class="cta-buttons">
-                        <a href="assets/CV_FUSELIER_JULES.pdf" download="CV_FUSELIER_JULES.pdf" class="cta-btn cv-btn">
-                            <i class="fas fa-download"></i>
-                            <span>Télécharger CV</span>
-                        </a>
-                        <a href="https://linkedin.com/in/julesfuselier" target="_blank" class="cta-btn linkedin-btn">
-                            <i class="fab fa-linkedin"></i>
-                            <span>Voir LinkedIn</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Mes Compétences</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3><i class="fas fa-code"></i> Langages de Programmation</h3>
-                    <div class="skill-list">
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">HTML/CSS</span>
-                        <span class="skill-tag">C++</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i class="fas fa-tools"></i> Technologies</h3>
-                    <div class="skill-list">
-                        <span class="skill-tag">JavaFX</span>
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">CMake</span>
-                        <span class="skill-tag">FXML</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i class="fas fa-brain"></i> Centres d'Intérêt</h3>
-                    <div class="skill-list">
-                        <span class="skill-tag">Intelligence Artificielle</span>
-                        <span class="skill-tag">Développement de Jeux</span>
-                        <span class="skill-tag">Développement Web</span>
-                        <span class="skill-tag">Programmation Système</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Mes Projets</h2>
-            <div class="projects-grid">
-                <article class="project-card">
-                    <div class="project-image java-project">
-                        <div class="project-placeholder">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Application de Jeu JavaFX</h3>
-                        <p>Backend de jeu Java robuste avec architecture MVC modulaire, implémentant des mécaniques de bombes avancées et une logique de jeu multijoueur complète.</p>
-                        <div class="project-tech">
-                            <span>Java</span>
-                            <span>JavaFX</span>
-                            <span>FXML</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/julesfuselier/S201-SuperBomberman-Remake" class="project-link"><i class="fab fa-github"></i></a>
-                            <!--
-                            <a href="projects/superbomberman.html" class="project-link"><i class="fas fa-external-link-alt"></i></a>
-                            -->
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card">
-                    <div class="project-image dune-project">
-                        <div class="project-placeholder">
-                            <i class="fas fa-moon"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Site Web Thématique Dune</h3>
-                        <p>Site web responsive sur le thème de Dune avec animations CSS modernes, thématisation dynamique et design d'expérience utilisateur immersif inspiré de l'univers de science-fiction.</p>
-                        <div class="project-tech">
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>JavaScript</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/julesfuselier/Website_Dune" class="project-link"><i class="fab fa-github"></i></a>
-                            <a href="https://website-dune.vercel.app/" class="project-link"><i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card">
-                    <div class="project-image voting-project">
-                        <div class="project-placeholder">
-                            <i class="fas fa-vote-yea"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Simulateur de Système de Vote</h3>
-                        <p>Application C++ avancée implémentant divers systèmes de vote démocratiques avec méthodologies de développement logiciel collaboratif et algorithmes efficaces.</p>
-                        <div class="project-tech">
-                            <span>C++</span>
-                            <span>CMake</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/julesfuselier/SAE_1.02-voting_systems" class="project-link"><i class="fab fa-github"></i></a>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <section id="outils" class="tools-preview" data-aos="fade-up">
-        <div class="container">
-            <h2 class="section-title">Outils Web Gratuits</h2>
-            <div class="section-intro">
-                <p>Découvrez ma collection d'outils web gratuits et utiles, conçus pour vous faire gagner du temps au quotidien.</p>
-                <a href="outils/" class="btn btn-primary">Voir tous les outils</a>
-            </div>
-
-            <div class="tools-preview-grid">
-                <article class="tool-preview-card" data-aos="fade-in">
-                    <div class="tool-preview-icon">
-                        <i class="fas fa-key"></i>
-                    </div>
-                    <div class="tool-preview-content">
-                        <h3>Générateur de Mot de Passe</h3>
-                        <p>Créez des mots de passe sécurisés et uniques avec des paramètres personnalisables.</p>
-                        <a href="outils/generateur-mot-de-passe/" class="tool-preview-link">
-                            Essayer <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="tool-preview-card" data-aos="fade-in" data-aos-delay="100">
-                    <div class="tool-preview-icon">
-                        <i class="fas fa-qrcode"></i>
-                    </div>
-                    <div class="tool-preview-content">
-                        <h3>Générateur QR Code</h3>
-                        <p>Générez des QR codes personnalisés pour vos liens, textes et informations de contact.</p>
-                        <a href="outils/qr-code-gratuit/" class="tool-preview-link">
-                            Essayer <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="tool-preview-card" data-aos="fade-in" data-aos-delay="200">
-                    <div class="tool-preview-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <div class="tool-preview-content">
-                        <h3>Sélecteur de Couleurs</h3>
-                        <p>Choisissez et convertissez vos couleurs entre différents formats (HEX, RGB, HSL).</p>
-                        <a href="outils/selecteur-couleurs/" class="tool-preview-link">
-                            Essayer <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="tool-preview-card" data-aos="fade-in" data-aos-delay="300">
-                    <div class="tool-preview-icon">
-                        <i class="fas fa-exchange-alt"></i>
-                    </div>
-                    <div class="tool-preview-content">
-                        <h3>Convertisseur d'Unités</h3>
-                        <p>Convertissez facilement entre différentes unités : longueur, poids, température.</p>
-                        <a href="outils/convertisseur-unites/" class="tool-preview-link">
-                            Essayer <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Restons en Contact</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Connectons-nous !</h3>
-                    <p>Intéressé par mon profil ? N'hésitez pas à me contacter pour discuter de projets, d'opportunités, ou simplement pour échanger !</p>
-                    <div class="contact-methods">
-                        <a href="mailto:contact.julesfuselier@gmail.com" class="contact-method">
-                            <i class="fas fa-envelope"></i>
-                            <span>contact.julesfuselier@gmail.com</span>
-                        </a>
-                        <a href="https://linkedin.com/in/julesfuselier" class="contact-method">
-                            <i class="fab fa-linkedin"></i>
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="https://github.com/julesfuselier" class="contact-method">
-                            <i class="fab fa-github"></i>
-                            <span>GitHub</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container">
-        <div class="footer-content">
-            <p>&copy; 2025 Jules Fuselier. Tous droits réservés.</p>
-            <div class="footer-social">
-                <a href="https://github.com/julesfuselier"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/julesfuselier"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:contact.julesfuselier@gmail.com"><i class="fas fa-envelope"></i></a>
-            </div>
-        </div>
+<section id="about" class="py-24 px-8 bg-background-secondary fade-in">
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <!-- Image -->
+    <div class="flex justify-center">
+      <div class="relative">
+        <img src="assets/img/profile.webp" alt="Jules Fuselier"
+             class="w-56 h-56 rounded-2xl shadow-xl border-4 border-accent object-cover transition-all duration-500 hover:scale-105">
+        <div class="absolute -inset-4 rounded-2xl border border-accent/30 -z-10"></div>
+      </div>
     </div>
+
+    <!-- Texte -->
+    <div>
+      <h3 class="text-4xl font-bold mb-3 tracking-tight" data-i18n="about.title">À propos de moi</h3>
+      <p class="text-accent font-medium mb-6 text-lg" data-i18n="about.subtitle">Développeur Web & Logiciel</p>
+
+      <p class="text-muted-foreground leading-relaxed mb-4" data-i18n="about.p1">
+        Salut, moi c’est <strong class="font-semibold text-foreground">Jules 👋</strong><br>
+        Développeur passionné et curieux, j’aime donner vie à des projets qui allient <strong class="font-semibold text-foreground">technique, design et sens</strong>.
+      </p>
+
+      <p class="text-muted-foreground leading-relaxed mb-4" data-i18n="about.p2">
+        Que ce soit en <strong class="font-semibold text-foreground">développement web</strong>, <strong class="font-semibold text-foreground">logiciel</strong> ou dans des expérimentations autour de <strong class="font-semibold text-foreground">l’IA</strong>, je cherche toujours à créer des solutions performantes, claires et utiles.
+      </p>
+
+      <p class="text-muted-foreground leading-relaxed" data-i18n="about.p3">
+        Ce qui me motive avant tout, c’est d’<strong class="font-semibold text-foreground">apprendre en continu</strong>, de relever de nouveaux défis et de concevoir des expériences qui ont un vrai impact — à la fois pour les utilisateurs et pour <strong class="font-semibold text-foreground">l’avenir du numérique 🌿</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<section id="skills" class="py-20 px-8">
+  <h3 class="text-4xl font-bold mb-4 text-center tracking-tight" data-i18n="skills.title">My Skills</h3>
+  <p class="text-center text-muted-foreground mb-12 text-lg" data-i18n="skills.subtitle">Technologies I work with daily</p>
+  <div id="skills-container" class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+  </div>
+</section>
+
+<section id="projects" class="py-20 px-8 bg-background-secondary">
+  <h3 class="text-4xl font-bold mb-12 text-center tracking-tight" data-i18n="projects.title">Selected Projects</h3>
+  <div id="projects-container" class="projects-container grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"></div>
+  <div class="text-center mt-10">
+    <a href="projects.html" class="text-accent hover:underline font-medium text-lg transition-all duration-300 hover:gap-2 inline-flex items-center gap-1" data-i18n="projects.more">
+      See more projects
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-all duration-300">
+        <path d="M5 12h14"></path>
+        <path d="m12 5 7 7-7 7"></path>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<section id="contact" class="py-20 px-8 text-center">
+  <h3 class="text-4xl font-bold mb-6 tracking-tight" data-i18n="contact.title">Let's Create Together</h3>
+  <p class="max-w-lg mx-auto mb-8 text-muted-foreground text-lg" data-i18n="contact.text">Whether you have a project in mind, want to collaborate or just chat about sustainable tech – I'd love to hear from you.</p>
+
+  <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+
+    <a href="assets/others/CV_FUSELIER-Jules.pdf"
+       download
+       class="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-semibold hover:bg-accent-hover transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 inline-flex items-center gap-2 w-full md:w-auto justify-center"
+       data-i18n="contact.cv">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+      <span>Download my CV</span>
+    </a>
+
+    <a href="mailto:jules.fuselier@etu.univ-amu.fr"
+       class="bg-card text-card-foreground border border-border px-8 py-4 rounded-xl font-semibold hover:bg-muted transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 inline-flex items-center justify-center gap-3 w-full md:w-auto"
+       data-i18n="contact.cta">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+      <span>Send me an email</span>
+    </a>
+  </div>
+
+  <div class="mt-12">
+    <p class="text-muted-foreground mb-4" data-i18n="contact.socials">You can also find me on :</p>
+    <div class="flex justify-center gap-8">
+
+      <a href="https://github.com/julesfuselier"
+         target="_blank" rel="noopener noreferrer"
+         class="text-muted-foreground hover:text-accent transition-all duration-300 hover:-translate-y-1"
+         aria-label="Profil GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+
+      <a href="https://www.linkedin.com/in/julesfuselier/"
+         target="_blank" rel="noopener noreferrer"
+         class="text-muted-foreground hover:text-accent transition-all duration-300 hover:-translate-y-1"
+         aria-label="Profil LinkedIn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+        </svg>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer class="py-6 text-center border-t border-border text-muted-foreground bg-background-secondary">
+  © 2025 Jules Fuselier – <span data-i18n="footer.text">Built with ❤️ and ☘️ for a better web</span>
 </footer>
 
-<script src="js/script.js"></script>
+<script src="js/projects-db.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/transition.js"></script>
+<script src="js/projects.js"></script>
+<script src="js/skills.js"></script>
 </body>
 </html>

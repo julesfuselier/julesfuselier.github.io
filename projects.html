@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mes projets – Jules Fuselier</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script defer src="js/i18n.js"></script>
+
+  <script defer src="js/theme.js"></script>
+</head>
+
+<body class="bg-background text-foreground transition-colors duration-500">
+
+<header class="flex justify-between items-center px-8 py-6 sticky top-0 bg-background z-50 border-b border-border">
+  <a href="index.html" class="text-accent font-medium hover:underline" data-i18n="nav.back">← Retour à l'accueil</a>
+  <h1 class="text-xl font-semibold" data-i18n="projects.gallery.navTitle">Galerie des Projets</h1>
+  <nav class="flex items-center gap-4">
+    <button id="lang-toggle" class="px-3 py-2 border rounded-lg border-border hover:bg-muted transition font-medium text-sm">🇬🇧 EN</button>
+    <button id="theme-toggle" class="p-2 border rounded-lg border-border hover:bg-muted transition">🌗</button>
+  </nav>
+</header>
+
+<main class="max-w-6xl mx-auto py-16 px-6">
+  <h2 class="text-4xl font-bold text-center mb-12" data-i18n="projects.gallery.title">Tous mes projets</h2>
+
+  <div id="all-projects-gallery" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+  </div>
+
+</main>
+
+<footer class="py-8 text-center border-t border-border text-muted-foreground">
+  © 2025 Jules Fuselier – <span data-i18n="footer.text">Built with ❤️ and ☘️ for a better web</span>
+</footer>
+
+<script src="js/projects-db.js"></script>
+<script src="js/gallery-loader.js"></script>
+</body>
+</html>
