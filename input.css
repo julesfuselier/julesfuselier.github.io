@@ -140,18 +140,46 @@ footer {
 }
 
 /* ==============================
-   SECTION "À propos de moi" améliorée
+   SECTION "À propos de moi" - Image améliorée
    ============================== */
-
 #about {
     background: var(--background-secondary);
     transition: background 0.4s ease;
+}
+
+#about .image-container {
+    position: relative;
+    display: inline-block;
+}
+
+#about .image-container::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    border: 2px solid var(--accent);
+    border-radius: 1.5rem;
+    opacity: 0.4;
+    z-index: -1;
+    transition: all 0.4s ease;
+}
+
+#about .image-container:hover::before {
+    top: -16px;
+    left: -16px;
+    right: -16px;
+    bottom: -16px;
+    opacity: 0.6;
 }
 
 #about img {
     border-radius: 1rem;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+    z-index: 1;
 }
 
 #about img:hover {
@@ -375,6 +403,20 @@ nav a:hover::after {
     #about img {
         width: 200px;
         height: 200px;
+    }
+
+    #about .image-container::before {
+        top: -8px;
+        left: -8px;
+        right: -8px;
+        bottom: -8px;
+    }
+
+    #about .image-container:hover::before {
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
     }
 }
 
