@@ -17,7 +17,11 @@ const translations = {
 
         // About
         "about.title": "À propos de moi",
-        "about.text": "Je suis Jules, un développeur passionné qui a trouvé sa voie entre technologie et conscience environnementale. Je crois en la création de solutions numériques à la fois puissantes et durables.",
+        "about.subtitle": "Développeur Web & Logiciel",
+        "about.p1": "Salut, moi c’est <strong>Jules 👋</strong><br>Développeur passionné et curieux, j’aime donner vie à des projets qui allient <strong>technique, design et sens</strong>.",
+        "about.p2": "Que ce soit en <strong>développement web</strong>, <strong>logiciel</strong> ou dans des expérimentations autour de <strong>l’IA</strong>, je cherche toujours à créer des solutions performantes, claires et utiles.",
+        "about.p3": "Ce qui me motive avant tout, c’est d’<strong>apprendre en continu</strong>, de relever de nouveaux défis et de concevoir des expériences qui ont un vrai impact — à la fois pour les utilisateurs et pour <strong>l’avenir du numérique 🌿</strong>.",
+
 
         // Skills
         "skills.title": "Mes compétences",
@@ -29,7 +33,7 @@ const translations = {
         "skills.tools.title" : "Outils et logiciels",
 
         // Projects
-        "projects.title": "Projets sélectionnés",
+        "projects.title": "Mes Projets",
         "projects.more": "Voir plus de projets →",
         "projects.viewDetails": "Voir les détails",
         "projects.view": "Voir le projet",
@@ -99,7 +103,10 @@ const translations = {
 
         // About
         "about.title": "About Me",
-        "about.text": "I'm Jules, a developer who found his calling at the intersection of technology and environmental consciousness. I believe in creating digital solutions that are both powerful and sustainable.",
+        "about.subtitle": "Web & Software Developer",
+        "about.p1": "Hey, I’m <strong>Jules 👋</strong><br>A passionate and curious developer who loves bringing ideas to life through <strong>clean, meaningful and creative</strong> projects.",
+        "about.p2": "Whether it’s <strong>web development</strong>, <strong>software engineering</strong>, or <strong>AI experiments</strong>, I always strive to create solutions that are efficient, clear, and useful.",
+        "about.p3": "What drives me most is <strong>continuous learning</strong>, taking on new challenges, and creating experiences that make a real impact — both for users and for <strong>the future of technology 🌿</strong>.",
 
         // Skills
         "skills.title": "My Skills",
@@ -111,7 +118,7 @@ const translations = {
         "skills.tools.title" : "Tools & Software",
 
         // Projects
-        "projects.title": "Selected Projects",
+        "projects.title": "My Projects",
         "projects.more": "See more projects →",
         "projects.view": "View project",
         "projects.viewDetails" : "View Details",
@@ -181,7 +188,7 @@ function translate(key) {
 function updatePageLanguage() {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        el.textContent = translate(key);
+        el.innerHTML = translate(key);
     });
 
     // Sauvegarde dans localStorage

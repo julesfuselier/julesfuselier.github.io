@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ==============================
-   Jules Fuselier – Style global
+   Jules Fuselier – Style global amélioré
    ============================== */
 :root {
     --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -19,6 +19,7 @@
     --muted-foreground: #78716c;
     --card: #ffffff;
     --card-foreground: #1c1917;
+    --background-secondary: #f2f1f0;
 }
 
 .dark {
@@ -32,10 +33,11 @@
     --muted-foreground: #a8a29e;
     --card: #252220;
     --card-foreground: #fafaf9;
+    --background-secondary: #201e1b;
 }
 
 /* ==============================
-   Styles de base
+   Styles de base améliorés
    ============================== */
 html {
     font-size: var(--font-size);
@@ -47,20 +49,21 @@ body {
     background: var(--background);
     color: var(--foreground);
     transition: background 0.4s ease, color 0.4s ease;
+    line-height: 1.6;
 }
 
-/* Liens */
+/* Liens améliorés */
 a {
     color: inherit;
     text-decoration: none;
-    transition: color 0.25s ease;
+    transition: all 0.25s ease;
 }
 
 a:hover {
     color: var(--accent);
 }
 
-/* Boutons génériques */
+/* Boutons génériques améliorés */
 button,
 .btn {
     cursor: pointer;
@@ -77,41 +80,46 @@ button:hover,
 .btn:hover {
     background: var(--accent);
     color: var(--card);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ==============================
-   Layout global
+   Layout global amélioré
    ============================== */
-
-/* Navbar */
 header {
     backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
 }
 
-/* Sections */
 section {
     scroll-margin-top: 6rem;
 }
 
-/* Footer */
 footer {
-    background: var(--background);
+    background: var(--background-secondary);
     border-top: 1px solid var(--border);
     color: var(--muted-foreground);
 }
 
 /* ==============================
-   Spécifique Accueil
+   Hero amélioré
    ============================== */
+#hero {
+    position: relative;
+    overflow: hidden;
+}
 
 #hero h2 {
     font-size: 2.5rem;
+    font-weight: 700;
 }
 
 #hero p {
     color: var(--muted-foreground);
     max-width: 40rem;
     margin: 0 auto;
+    font-size: 1.125rem;
 }
 
 #hero .cta {
@@ -122,40 +130,93 @@ footer {
     padding: 0.75rem 1.5rem;
     margin-top: 1.5rem;
     font-weight: 500;
-    transition: background 0.25s ease;
+    transition: all 0.25s ease;
 }
 
 #hero .cta:hover {
     background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 /* ==============================
-   Spécifique page Projets
+   SECTION "À propos de moi" améliorée
+   ============================== */
+
+#about {
+    background: var(--background-secondary);
+    transition: background 0.4s ease;
+}
+
+#about img {
+    border-radius: 1rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+#about img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+#about h3 {
+    color: var(--foreground);
+    font-weight: 700;
+}
+
+#about .text-accent {
+    color: var(--accent);
+}
+
+#about p {
+    color: var(--muted-foreground);
+}
+
+#about strong {
+    color: var(--foreground);
+    font-weight: 600;
+}
+
+#about .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+#about .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==============================
+   Projects améliorés
    ============================== */
 
 article {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 article:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
 }
 
 article h3 {
     color: var(--foreground);
+    font-weight: 600;
 }
 
 article p {
     color: var(--muted-foreground);
 }
 
-/* ==============================
-   Cartes de projets améliorées
-   ============================== */
 #projects-container > div {
     backdrop-filter: blur(10px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 #projects-container img {
@@ -163,9 +224,8 @@ article p {
 }
 
 /* ==============================
-   Animations et transitions
+   Animations générales améliorées
    ============================== */
-
 .fade-in {
     opacity: 0;
     transform: translateY(20px);
@@ -178,7 +238,7 @@ article p {
 }
 
 /* ==============================
-   Barre de chargement fluide
+   Barre de chargement améliorée
    ============================== */
 #loading-bar,
 #loading-bar-exit {
@@ -201,7 +261,6 @@ body.fade-out {
     transition: opacity 0.3s ease;
 }
 
-/* Optionnel : petit "pulse" quand la barre atteint 100% */
 @keyframes pulse {
     0% { box-shadow: 0 0 0 rgba(72, 213, 151, 0.2); }
     50% { box-shadow: 0 0 10px rgba(72, 213, 151, 0.5); }
@@ -212,9 +271,8 @@ body.fade-out {
     animation: pulse 0.4s ease-out;
 }
 
-
 /* ==============================
-   Effet de texte dégradé animé (Nom navbar)
+   Effet texte gradient (navbar) amélioré
    ============================== */
 .gradient-text {
     background: linear-gradient(90deg, var(--accent), #40c07e, var(--accent));
@@ -222,6 +280,7 @@ body.fade-out {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradientMove 6s ease infinite;
+    font-weight: 600;
 }
 
 @keyframes gradientMove {
@@ -231,42 +290,170 @@ body.fade-out {
 }
 
 /* ==============================
-   Skills Section - Style "Chill / Top 1%"
+   Skills Section - Style chill amélioré
    ============================== */
-
-/* Le tag de compétence */
 .skill-tag {
     display: inline-block;
-    padding: 0.5rem 1rem; /* 8px 16px */
+    padding: 0.5rem 1rem;
     border: 1px solid var(--border);
-    border-radius: 999px; /* Forme "pillule" */
-    font-size: 0.9rem; /* 14px */
+    border-radius: 999px;
+    font-size: 0.9rem;
     font-weight: 500;
     color: var(--muted-foreground);
-    background-color: transparent; /* Fond transparent, plus "chill" */
+    background-color: transparent;
     transition: all 0.25s ease-in-out;
 }
 
-/* L'effet "Top 1%" au survol : subtil mais impactant */
 .skill-tag:hover {
-    color: var(--background); /* Texte foncé (ou clair en dark mode) */
+    color: var(--background);
     background-color: var(--accent);
     border-color: var(--accent);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(72, 213, 151, 0.2); /* Ombre subtile couleur accent */
+    box-shadow: 0 4px 12px rgba(72, 213, 151, 0.2);
 }
 
-/* Animation d'entrée pour les blocs de catégorie */
 .category-block {
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.6s ease forwards;
 }
 
-/* Keyframe (si tu l'as supprimé par erreur) */
 @keyframes fadeInUp {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* ==============================
+   Navigation améliorée
+   ============================== */
+nav a {
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* ==============================
+   Effets de survol améliorés
+   ============================== */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* ==============================
+   Améliorations responsive
+   ============================== */
+@media (max-width: 768px) {
+    #hero h2 {
+        font-size: 2rem;
+    }
+
+    #about .grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    #about img {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+/* ==============================
+   Améliorations typographiques
+   ============================== */
+.tracking-tight {
+    letter-spacing: -0.025em;
+}
+
+.leading-relaxed {
+    line-height: 1.65;
+}
+
+/* ==============================
+   Mode Focus pour les projets
+   ============================== */
+.projects-container {
+    position: relative;
+}
+
+.project-card {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    cursor: pointer;
+}
+
+/* Effet quand un projet est focus/hover */
+.projects-container:has(.project-card:hover) .project-card:not(:hover),
+.projects-container:has(.project-card:focus) .project-card:not(:focus) {
+    opacity: 0.7;
+    filter: blur(1px);
+    transform: scale(0.98);
+}
+
+.projects-container:has(.project-card:hover) .project-card:not(:hover)::after,
+.projects-container:has(.project-card:focus) .project-card:not(:focus)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--background);
+    opacity: 0.4;
+    border-radius: inherit;
+}
+
+/* Project focus/hover state */
+.project-card:hover,
+.project-card:focus {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.15),
+            0 0 0 2px var(--accent);
+    z-index: 10;
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+/* Animation fluide pour les enfants du projet focus */
+.project-card:hover .project-content,
+.project-card:focus .project-content {
+    transform: translateY(-5px);
+}
+
+/* Accessibilité : focus visible */
+.project-card:focus-visible {
+    outline: none;
+}
+
+/* Désactiver l'effet sur mobile pour meilleures performances */
+@media (max-width: 768px) {
+    .projects-container:has(.project-card:hover) .project-card:not(:hover),
+    .projects-container:has(.project-card:focus) .project-card:not(:focus) {
+        opacity: 1;
+        filter: none;
+        transform: none;
+    }
+
+    .project-card:hover,
+    .project-card:focus {
+        transform: translateY(-4px);
     }
 }

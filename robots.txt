@@ -1,0 +1,34 @@
+User-agent: *
+Disallow: /assets/others/
+Disallow: /demo/SuperBomberman.jar
+
+Sitemap: https://julesfuselier.fr/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Instructions pour Bingbot (important pour les marchés US/UK)
+User-agent: bingbot
+Allow: /
+Crawl-delay: 1
+
+# Instructions pour DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+# Instructions pour Yandex (marché international)
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 2
+
+# Bloque les bots indésirables
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /

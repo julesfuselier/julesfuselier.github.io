@@ -1,6 +1,41 @@
-// js/detail-loader.js
+// js/detail-loader.js (Modifié pour le SEO dynamique)
 console.log("✅ detail-loader.js chargé !");
 
+/**
+ * Met à jour les balises <meta> et <title> dans le <head> pour le SEO
+ * et le partage sur les réseaux sociaux (Open Graph).
+ */
+function updateMetaTags(title, description, imageUrl, pageUrl) {
+    console.log(`Updating meta tags for: ${title}`);
+
+    // 1. Mettre à jour le <title> de la page
+    document.title = `${title} – Jules Fuselier`;
+
+    // 2. Mettre à jour le <link canonical>
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', pageUrl);
+
+    // 3. Mettre à jour la meta description (pour Google)
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', description);
+
+    // 4. Mettre à jour les balises Open Graph (pour les partages)
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', title);
+
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', description);
+
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', pageUrl);
+
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage) ogImage.setAttribute('content', imageUrl);
+}
+
+/**
+ * Charge les détails du projet dans la page.
+ */
 function loadProjectDetails() {
     console.log("Attempting to load project details...");
 
@@ -25,23 +60,36 @@ function loadProjectDetails() {
     if (!project) {
         console.error(`Projet non trouvé pour l'ID: ${projectId}`);
         if (errorEl) errorEl.classList.remove('hidden');
+        // On met à jour le titre même pour une erreur
+        document.title = "Projet non trouvé – Jules Fuselier";
         return;
     }
 
     console.log(`Projet trouvé: ${project.id}`);
 
+    // --- MISE À JOUR SEO DYNAMIQUE ---
+
+    // 1. Traduire les textes
     const title = translate(project.titleKey);
+    // On utilise la description COURTE (descKey) pour le SEO, c'est plus concis.
+    const shortDescription = translate(project.descKey);
     const longDescription = translate(project.longDescKey) || "Description non disponible.";
 
-    document.title = `${title} – Jules Fuselier`;
+    // 2. Construire les URL absolues (nécessaire pour Open Graph)
+    // new URL() combine l'URL de base du site avec le chemin relatif de l'image.
+    const absoluteImageUrl = new URL(project.img, window.location.origin).href;
+    const absolutePageUrl = window.location.href; // L'URL actuelle
+
+    // 3. Appeler la fonction de mise à jour SEO
+    updateMetaTags(title, shortDescription, absoluteImageUrl, absolutePageUrl);
+
+    // --- FIN DE LA MISE À JOUR SEO ---
+
+
+    // --- Remplissage du contenu de la page (comme avant) ---
     document.getElementById('nav-title').textContent = title;
     document.getElementById('project-title').textContent = title;
 
-    // === MODIFICATION ICI ===
-    // On ajoute les attributs à l'élément image
-    // 1. loading="lazy"
-    // 2. width="683" height="384" (ratio 16:9 pour h-96 / 384px)
-    // =======================
     const imgEl = document.getElementById('project-image');
     imgEl.src = project.img;
     imgEl.alt = `Image du projet ${title}`;

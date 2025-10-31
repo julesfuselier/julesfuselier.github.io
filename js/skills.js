@@ -40,10 +40,9 @@ function getSkillsData() {
             categoryKey: "skills.tools.title",
             icon: "🧠",
             skills: [
-                { name: "IDE (VS Code, IntelliJ)" },
+                { name: "IDE (VS Code, JetBrains)" },
                 { name: "Notion / Trello" },
                 { name: "Figma" },
-                { name: "🇬🇧 Anglais (C1)" } // Plus pro que "EN: 70%"
             ]
         },
         {
