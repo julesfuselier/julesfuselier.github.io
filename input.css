@@ -58,7 +58,7 @@ section {
 
 header {
     backdrop-filter: blur(8px);
-    background: var(--background)cc;
+    background: color-mix(in srgb, var(--background) 92%, transparent);
     transition: all 0.3s ease;
 }
 
@@ -226,6 +226,53 @@ button:hover,
 }
 
 /* ==============================
+   Timeline Section - Modern Agency Style
+   ============================== */
+#timeline-container {
+    position: relative;
+    padding-top: 2rem;
+}
+#timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
+    transform: translateX(-50%);
+    border-radius: 2px;
+    opacity: 0.5;
+}
+
+#timeline-container .fade-up {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+#timeline-container .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+#timeline-container .bg-card {
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+#timeline-container .bg-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(72, 213, 151, 0.25);
+}
+
+/* Adaptation mobile */
+@media (max-width: 768px) {
+    #timeline-container::before {
+        left: 1rem;
+        width: 2px;
+    }
+}
+
+/* ==============================
    Projects Section
    ============================== */
 #projects-container a {
@@ -245,24 +292,6 @@ button:hover,
 
 #projects-container a:hover img {
     transform: scale(1.05);
-}
-
-/* Focus/hover interactions */
-.projects-container {
-    position: relative;
-}
-
-.project-card {
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    position: relative;
-    cursor: pointer;
-}
-
-.projects-container:has(.project-card:hover) .project-card:not(:hover),
-.projects-container:has(.project-card:focus) .project-card:not(:focus) {
-    opacity: 0.7;
-    filter: blur(1px);
-    transform: scale(0.98);
 }
 
 /* ==============================
@@ -288,21 +317,8 @@ button:hover,
     box-shadow: 0 4px 12px rgba(72, 213, 151, 0.25);
 }
 
-.category-block {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.6s ease forwards;
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 /* ==============================
-   Navbar améliorée
+   Navbar
    ============================== */
 nav a {
     position: relative;
@@ -325,7 +341,7 @@ nav a:hover::after {
 }
 
 /* ==============================
-   Animations générales
+   Animations
    ============================== */
 .fade-in {
     opacity: 0;
@@ -360,12 +376,6 @@ nav a:hover::after {
 body.fade-out {
     opacity: 0;
     transition: opacity 0.3s ease;
-}
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 rgba(72, 213, 151, 0.2); }
-    50% { box-shadow: 0 0 10px rgba(72, 213, 151, 0.5); }
-    100% { box-shadow: 0 0 0 rgba(72, 213, 151, 0.2); }
 }
 
 /* ==============================
@@ -404,22 +414,167 @@ body.fade-out {
         height: 200px;
     }
 
-    #about .image-container::before {
-        top: -8px;
-        left: -8px;
-        right: -8px;
-        bottom: -8px;
-    }
-
-    #about .image-container:hover::before {
-        top: -10px;
-        left: -10px;
-        right: -10px;
-        bottom: -10px;
-    }
-
     #projects-container a:hover {
         transform: none;
         box-shadow: none;
     }
 }
+
+/* ===== visibilité Timeline ===== */
+/* ==============================
+   Timeline Cards – style final
+   ============================== */
+.timeline-card {
+    background: var(--card);
+    color: var(--card-foreground);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 45%;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.timeline-card h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--foreground);
+}
+
+.timeline-card p {
+    color: var(--muted-foreground);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-card span {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.timeline-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(72, 213, 151, 0.25);
+}
+
+/* ==============================
+   ✅ Correctif d'affichage Timeline Cards
+   ============================== */
+
+/* Aligne les cartes de chaque côté de la ligne */
+#timeline-container > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    /* Cartes à gauche */
+    #timeline-container > div.md\:justify-end {
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+
+    /* Cartes à droite */
+    #timeline-container > div.md\:justify-start {
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+}
+
+/* Donne un peu d'espace à chaque carte */
+#timeline-container > div .timeline-card {
+    margin-top: 1rem;
+}
+
+/* Améliore la visibilité du point central */
+#timeline-container > div > div:first-child {
+    background-color: var(--accent);
+    border-color: var(--background);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+/* ======================================
+   ✅ Correctif d'affichage de la timeline
+   ====================================== */
+
+#timeline-container {
+    position: relative;
+    margin: 0 auto;
+}
+
+/* Ligne centrale */
+#timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 3px;
+    background-color: var(--accent);
+    transform: translateX(-50%);
+    opacity: 0.4;
+}
+
+/* Bloc d'événement */
+#timeline-container > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin: 3rem 0;
+}
+
+/* Carte visible */
+.timeline-card {
+    background: var(--card);
+    color: var(--card-foreground);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem 2rem;
+    width: 90%;
+    max-width: 420px;
+    z-index: 2;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Hover joli */
+.timeline-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Point central */
+#timeline-container > div > div:first-child {
+    background-color: var(--accent);
+    border-color: var(--background);
+    box-shadow: 0 0 12px var(--accent);
+}
+
+/* Position gauche/droite sur desktop */
+@media (min-width: 768px) {
+    #timeline-container > div {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #timeline-container > div.md\:justify-end {
+        justify-content: flex-end;
+        padding-right: 5rem;
+    }
+
+    #timeline-container > div.md\:justify-start {
+        justify-content: flex-start;
+        padding-left: 5rem;
+    }
+
+    .timeline-card {
+        width: 45%;
+    }
+}
+

@@ -22,6 +22,25 @@ const translations = {
         "about.p2": "Que ce soit en <strong>développement web</strong>, <strong>logiciel</strong> ou dans des expérimentations autour de <strong>l’IA</strong>, je cherche toujours à créer des solutions performantes, claires et utiles.",
         "about.p3": "Ce qui me motive avant tout, c’est d’<strong>apprendre en continu</strong>, de relever de nouveaux défis et de concevoir des expériences qui ont un vrai impact — à la fois pour les utilisateurs et pour <strong>l’avenir du numérique 🌿</strong>.",
 
+        // Timeline
+        "timeline.title": "Mon Parcours",
+        "timeline.subtitle": "Études, projets et étapes clés",
+
+        "timeline.2024.title": "Début du BUT Informatique – IUT d’Aix-en-Provence",
+        "timeline.2024.desc": "Découverte des bases du développement web, de la programmation orientée objet (Java, C++) et des projets en équipe.",
+
+        "timeline.2025.title": "Projets avancés et spécialisation web",
+        "timeline.2025.desc": "Création d’applications web dynamiques en PHP/MySQL, découverte du MVC et des bonnes pratiques Git & CI/CD.",
+
+        "timeline.2025b.title": "Développement du portfolio & projets personnels",
+        "timeline.2025b.desc": "Conception d’un portfolio professionnel, apprentissage de l’intelligence artificielle et de Flutter.",
+
+        "timeline.2026.title": "Stage – Avril",
+        "timeline.2026.desc": "Réalisation d’un stage en développement pour valider ma 2ᵉ année de BUT Informatique.",
+
+        "timeline.future.title": "École d’ingénieur & projets IA",
+        "timeline.future.desc": "Intégrer l’ENSIMAG et approfondir mes compétences en intelligence artificielle et conception logicielle.",
+
 
         // Skills
         "skills.title": "Mes compétences",
@@ -107,6 +126,25 @@ const translations = {
         "about.p1": "Hey, I’m <strong>Jules 👋</strong><br>A passionate and curious developer who loves bringing ideas to life through <strong>clean, meaningful and creative</strong> projects.",
         "about.p2": "Whether it’s <strong>web development</strong>, <strong>software engineering</strong>, or <strong>AI experiments</strong>, I always strive to create solutions that are efficient, clear, and useful.",
         "about.p3": "What drives me most is <strong>continuous learning</strong>, taking on new challenges, and creating experiences that make a real impact — both for users and for <strong>the future of technology 🌿</strong>.",
+
+        // Timeline
+        "timeline.title": "My Journey",
+        "timeline.subtitle": "Studies, projects, and key milestones",
+
+        "timeline.2024.title": "Start of my Computer Science Bachelor's – Aix-en-Provence IUT",
+        "timeline.2024.desc": "Discovered the fundamentals of web development, object-oriented programming (Java, C++), and teamwork.",
+
+        "timeline.2025.title": "Advanced projects and web specialization",
+        "timeline.2025.desc": "Built dynamic PHP/MySQL web applications, explored MVC architecture, and learned Git & CI/CD best practices.",
+
+        "timeline.2025b.title": "Portfolio development & personal projects",
+        "timeline.2025b.desc": "Designed a professional portfolio, started learning AI and Flutter.",
+
+        "timeline.2026.title": "Internship – April",
+        "timeline.2026.desc": "Completed a development internship to validate my 2nd year of the Computer Science Bachelor's degree.",
+
+        "timeline.future.title": "Engineering school & AI projects",
+        "timeline.future.desc": "Join ENSIMAG to deepen my skills in artificial intelligence and software engineering.",
 
         // Skills
         "skills.title": "My Skills",

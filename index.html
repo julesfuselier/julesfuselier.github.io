@@ -9,29 +9,24 @@
   <meta name="author" content="Jules Fuselier">
   <meta name="theme-color" content="#48D597">
 
-  <!-- Open Graph -->
   <meta property="og:title" content="Jules Fuselier – Portfolio">
   <meta property="og:description" content="Développeur créatif et éco-conscient, je conçois des expériences numériques modernes et responsables.">
   <meta property="og:image" content="https://julesfuselier.fr/assets/img/profile.webp">
   <meta property="og:url" content="https://julesfuselier.fr/">
   <meta property="og:type" content="website">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Jules Fuselier – Portfolio">
   <meta name="twitter:description" content="Développeur web & logiciel passionné par les projets à impact positif.">
   <meta name="twitter:image" content="https://julesfuselier.fr/assets/img/profile.webp">
 
-  <!-- SEO / Sitemap -->
   <link rel="canonical" href="https://julesfuselier.fr/">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 
-  <!-- Favicon & PWA -->
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/favicon.png">
   <link rel="manifest" href="/manifest.json">
 
-  <!-- Styles & Scripts -->
   <link rel="preload" href="css/style.css" as="style">
   <link rel="stylesheet" href="css/style.css">
 
@@ -39,7 +34,6 @@
   <script defer src="js/main.js"></script>
   <script defer src="js/i18n.js"></script>
 
-  <!-- Données structurées (SEO Google) -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -87,7 +81,6 @@
 
 <body class="bg-background text-foreground transition-colors duration-500">
 
-<!-- ================= HEADER ================= -->
 <header role="banner" class="relative flex justify-between items-center px-8 py-6 sticky top-0 bg-background/95 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
   <a href="#hero" aria-label="Retour à l'accueil" class="text-xl font-semibold gradient-text tracking-tight">Jules Fuselier</a>
 
@@ -100,14 +93,13 @@
     <button id="theme-toggle" class="p-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 hover:shadow-sm" aria-label="Changer le thème">🌗</button>
   </nav>
 
-  <!-- Menu mobile -->
   <button id="mobile-menu-toggle" class="md:hidden p-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 hover:shadow-sm" aria-label="Ouvrir le menu">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
       <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
     </svg>
   </button>
 
-  <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md shadow-lg z-40 p-6 transition-all duration-300">
+  <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-background shadow-lg z-40 p-6 transition-all duration-300">
     <nav aria-label="Menu mobile" class="flex flex-col gap-6 items-center">
       <a href="#about" data-i18n="nav.about">À propos</a>
       <a href="#skills" data-i18n="nav.skills">Compétences</a>
@@ -121,7 +113,6 @@
   </div>
 </header>
 
-<!-- ================= HERO ================= -->
 <main id="hero" class="min-h-screen flex flex-col justify-center items-center text-center px-8 relative overflow-hidden" role="main">
   <h1 class="sr-only">Portfolio de Jules Fuselier – Développeur Web & Logiciel</h1>
 
@@ -142,7 +133,6 @@
   </a>
 </main>
 
-<!-- ================= ABOUT ================= -->
 <section id="about" class="py-24 px-8 bg-background-secondary fade-in">
   <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
     <div class="flex justify-center">
@@ -165,7 +155,13 @@
   </div>
 </section>
 
-<!-- ================= SKILLS / PROJECTS / CONTACT ================= -->
+<section id="timeline" class="py-20 px-8 fade-in">
+  <h3 class="text-4xl font-bold mb-4 text-center tracking-tight" data-i18n="timeline.title">Mon Parcours</h3>
+  <p class="text-center text-muted-foreground mb-12 text-lg" data-i18n="timeline.subtitle">Études, expériences et projets marquants</p>
+
+  <div id="timeline-container" class="relative max-w-4xl mx-auto before:content-[''] before:absolute before:left-1/2 before:top-0 before:bottom-0 before:w-1 before:bg-border before:-translate-x-1/2"></div>
+</section>
+
 <section id="skills" class="py-20 px-8">
   <h3 class="text-4xl font-bold mb-4 text-center tracking-tight" data-i18n="skills.title">Mes Compétences</h3>
   <p class="text-center text-muted-foreground mb-12 text-lg" data-i18n="skills.subtitle">Technologies que j’utilise au quotidien</p>
@@ -212,14 +208,14 @@
   </div>
 </section>
 
-<!-- ================= FOOTER ================= -->
 <footer class="py-6 text-center border-t border-border text-muted-foreground bg-background-secondary">
   © 2025 Jules Fuselier – <span data-i18n="footer.text">Créé avec ❤️ et ☘️ pour un web meilleur</span>
 </footer>
 
-<!-- ================= SCRIPTS ================= -->
+<script defer src="js/i18n.js"></script>
+<script defer src="js/timeline-db.js"></script>
 <script defer src="js/projects-db.js"></script>
-<script defer src="js/transition.js"></script>
+<script defer src="js/timeline.js"></script>
 <script defer src="js/projects.js"></script>
 <script defer src="js/skills.js"></script>
 
