@@ -1,34 +1,106 @@
 <!DOCTYPE html>
-<html lang="fr" class="light">
+<html lang="fr" class="light" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Jules Fuselier – Portfolio Développeur Créatif</title>
-  <meta name="description" content="Portfolio de Jules Fuselier, développeur créatif spécialisé dans les expériences digitales optimisées et performantes.">
-  <meta property="og:title" content="Jules Fuselier – Portfolio">
-  <meta property="og:description" content="Développeur créatif et éco-conscient.">
-  <meta property="og:image" content="https://julesfuselier.fr/assets/img/profile.webp">
+  <title>Jules Fuselier – Développeur Web & Logiciel Créatif</title>
+  <meta name="description" content="Je suis Jules Fuselier, développeur web et logiciel passionné, créant des expériences numériques durables, performantes et bien pensées.">
+  <meta name="author" content="Jules Fuselier">
+  <meta name="theme-color" content="#48D597">
 
+  <!-- Open Graph -->
+  <meta property="og:title" content="Jules Fuselier – Portfolio">
+  <meta property="og:description" content="Développeur créatif et éco-conscient, je conçois des expériences numériques modernes et responsables.">
+  <meta property="og:image" content="https://julesfuselier.fr/assets/img/profile.webp">
+  <meta property="og:url" content="https://julesfuselier.fr/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Jules Fuselier – Portfolio">
+  <meta name="twitter:description" content="Développeur web & logiciel passionné par les projets à impact positif.">
+  <meta name="twitter:image" content="https://julesfuselier.fr/assets/img/profile.webp">
+
+  <!-- SEO / Sitemap -->
+  <link rel="canonical" href="https://julesfuselier.fr/">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/favicon.png">
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Styles & Scripts -->
+  <link rel="preload" href="css/style.css" as="style">
   <link rel="stylesheet" href="css/style.css">
-  <script defer src="js/i18n.js"></script>
+
   <script defer src="js/theme.js"></script>
   <script defer src="js/main.js"></script>
+  <script defer src="js/i18n.js"></script>
+
+  <!-- Données structurées (SEO Google) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Jules Fuselier",
+      "url": "https://julesfuselier.fr",
+      "image": "https://julesfuselier.fr/assets/img/profile.webp",
+      "jobTitle": "Développeur Web & Logiciel",
+      "worksFor": {
+        "@type": "CollegeOrUniversity",
+        "name": "IUT d’Aix-en-Provence – Aix-Marseille Université"
+      },
+      "sameAs": [
+        "https://github.com/julesfuselier",
+        "https://www.linkedin.com/in/julesfuselier/"
+      ]
+    }
+  </script>
+
+  <style>
+    /* Animations de fade-in / fade-up */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sr-only {
+      position: absolute !important;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
 </head>
+
 <body class="bg-background text-foreground transition-colors duration-500">
 
-<header class="relative flex justify-between items-center px-8 py-6 sticky top-0 bg-background/95 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
-  <h1 class="text-xl font-semibold gradient-text tracking-tight">Jules Fuselier</h1>
+<!-- ================= HEADER ================= -->
+<header role="banner" class="relative flex justify-between items-center px-8 py-6 sticky top-0 bg-background/95 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
+  <a href="#hero" aria-label="Retour à l'accueil" class="text-xl font-semibold gradient-text tracking-tight">Jules Fuselier</a>
 
-  <nav class="hidden md:flex items-center gap-6">
-    <a href="#about" class="relative hover:text-accent transition-all duration-300 py-1 group" data-i18n="nav.about">À propos</a>
-    <a href="#skills" class="relative hover:text-accent transition-all duration-300 py-1 group" data-i18n="nav.skills">Compétences</a>
-    <a href="#projects" class="relative hover:text-accent transition-all duration-300 py-1 group" data-i18n="nav.projects">Projets</a>
-    <a href="#contact" class="relative hover:text-accent transition-all duration-300 py-1 group" data-i18n="nav.contact">Contact</a>
+  <nav role="navigation" aria-label="Navigation principale" class="hidden md:flex items-center gap-6">
+    <a href="#about" data-i18n="nav.about">À propos</a>
+    <a href="#skills" data-i18n="nav.skills">Compétences</a>
+    <a href="#projects" data-i18n="nav.projects">Projets</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
     <button id="lang-toggle" class="px-3 py-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 font-medium text-sm hover:shadow-sm" aria-label="Changer de langue">🇬🇧 EN</button>
     <button id="theme-toggle" class="p-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 hover:shadow-sm" aria-label="Changer le thème">🌗</button>
   </nav>
 
+  <!-- Menu mobile -->
   <button id="mobile-menu-toggle" class="md:hidden p-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 hover:shadow-sm" aria-label="Ouvrir le menu">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
       <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -36,146 +108,133 @@
   </button>
 
   <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md shadow-lg z-40 p-6 transition-all duration-300">
-    <nav class="flex flex-col gap-6 items-center">
-      <a href="#about" class="hover:text-accent transition-all duration-300 text-lg py-1" data-i18n="nav.about">À propos</a>
-      <a href="#skills" class="hover:text-accent transition-all duration-300 text-lg py-1" data-i18n="nav.skills">Compétences</a>
-      <a href="#projects" class="hover:text-accent transition-all duration-300 text-lg py-1" data-i18n="nav.projects">Projets</a>
-      <a href="#contact" class="hover:text-accent transition-all duration-300 text-lg py-1" data-i18n="nav.contact">Contact</a>
+    <nav aria-label="Menu mobile" class="flex flex-col gap-6 items-center">
+      <a href="#about" data-i18n="nav.about">À propos</a>
+      <a href="#skills" data-i18n="nav.skills">Compétences</a>
+      <a href="#projects" data-i18n="nav.projects">Projets</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
       <div class="flex gap-4 mt-4">
-        <button id="lang-toggle-mobile" class="px-3 py-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 font-medium text-sm hover:shadow-sm" aria-label="Changer de langue">🇬🇧 EN</button>
-        <button id="theme-toggle-mobile" class="p-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 hover:shadow-sm" aria-label="Changer le thème">🌗</button>
+        <button id="lang-toggle-mobile" class="px-3 py-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 font-medium text-sm hover:shadow-sm">🇬🇧 EN</button>
+        <button id="theme-toggle-mobile" class="p-2 border rounded-lg border-border hover:bg-muted transition-all duration-300 hover:shadow-sm">🌗</button>
       </div>
     </nav>
   </div>
 </header>
 
-<section id="hero" class="min-h-screen flex flex-col justify-center items-center text-center px-8 relative overflow-hidden">
-  <div class="absolute inset-0 -z-10 opacity-10 parallax-element parallax-slow">
+<!-- ================= HERO ================= -->
+<main id="hero" class="min-h-screen flex flex-col justify-center items-center text-center px-8 relative overflow-hidden" role="main">
+  <h1 class="sr-only">Portfolio de Jules Fuselier – Développeur Web & Logiciel</h1>
+
+  <div class="absolute inset-0 -z-10 opacity-10">
     <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-accent blur-3xl"></div>
     <div class="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-accent blur-3xl"></div>
   </div>
 
-  <img src="assets/img/profile.webp" alt="Photo de Jules Fuselier"
-       class="w-32 h-32 rounded-full border-4 border-accent shadow-lg mb-6 transition-all duration-500 hover:scale-105 hover:shadow-xl parallax-element parallax-medium"
-       width="128" height="128">
+  <img src="assets/img/profile.webp" alt="Portrait de Jules Fuselier" width="128" height="128" loading="lazy" class="w-32 h-32 rounded-full border-4 border-accent shadow-lg mb-6 fade-up">
 
-  <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight parallax-element parallax-fast" data-i18n="hero.greeting">Hello, I'm Jules Fuselier</h2>
-  <p class="max-w-2xl text-lg text-muted-foreground mb-10 leading-relaxed parallax-element parallax-fast" data-i18n="hero.subtitle">A creative developer crafting thoughtful digital experiences with precision and care for our planet.</p>
-  <a href="#projects" class="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-semibold hover:bg-accent-hover transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 mt-4 parallax-element parallax-fast" data-i18n="hero.cta">See my projects</a>
-</section>
+  <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight fade-up delay-100" data-i18n="hero.greeting">Bonjour, moi c’est Jules Fuselier</h2>
+  <p class="max-w-2xl text-lg text-muted-foreground mb-10 leading-relaxed fade-up delay-200" data-i18n="hero.subtitle">
+    Développeur créatif, je conçois des expériences numériques réfléchies, précises et respectueuses de notre planète.
+  </p>
 
+  <a href="#projects" class="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-semibold hover:bg-accent-hover transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 mt-4 fade-up delay-300" data-i18n="hero.cta">
+    Voir mes projets ↓
+  </a>
+</main>
+
+<!-- ================= ABOUT ================= -->
 <section id="about" class="py-24 px-8 bg-background-secondary fade-in">
   <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-    <!-- Image améliorée -->
     <div class="flex justify-center">
-      <div class="image-container">
-        <img src="assets/img/profile.webp" alt="Jules Fuselier"
-             class="w-56 h-56 rounded-2xl shadow-xl border-4 border-accent object-cover transition-all duration-500 hover:scale-105">
-      </div>
+      <img src="assets/img/profile.webp" alt="Photo de Jules Fuselier" width="224" height="224" loading="lazy" class="w-56 h-56 rounded-2xl shadow-xl border-4 border-accent object-cover transition-all duration-500 hover:scale-105">
     </div>
-
-    <!-- Texte -->
     <div>
       <h3 class="text-4xl font-bold mb-3 tracking-tight" data-i18n="about.title">À propos de moi</h3>
       <p class="text-accent font-medium mb-6 text-lg" data-i18n="about.subtitle">Développeur Web & Logiciel</p>
-
       <p class="text-muted-foreground leading-relaxed mb-4" data-i18n="about.p1">
-        Salut, moi c'est <strong class="font-semibold text-foreground">Jules 👋</strong><br>
-        Développeur passionné et curieux, j'aime donner vie à des projets qui allient <strong class="font-semibold text-foreground">technique, design et sens</strong>.
+        Salut, moi c’est <strong class="font-semibold text-foreground">Jules 👋</strong><br>
+        Développeur passionné et curieux, j’aime donner vie à des projets qui allient <strong class="font-semibold text-foreground">technique, design et sens</strong>.
       </p>
-
       <p class="text-muted-foreground leading-relaxed mb-4" data-i18n="about.p2">
-        Que ce soit en <strong class="font-semibold text-foreground">développement web</strong>, <strong class="font-semibold text-foreground">logiciel</strong> ou dans des expérimentations autour de <strong class="font-semibold text-foreground">l'IA</strong>, je cherche toujours à créer des solutions performantes, claires et utiles.
+        Que ce soit en <strong>développement web</strong>, <strong>logiciel</strong> ou dans des expérimentations autour de <strong>l’IA</strong>, je cherche à créer des solutions performantes et utiles.
       </p>
-
       <p class="text-muted-foreground leading-relaxed" data-i18n="about.p3">
-        Ce qui me motive avant tout, c'est d'<strong class="font-semibold text-foreground">apprendre en continu</strong>, de relever de nouveaux défis et de concevoir des expériences qui ont un vrai impact — à la fois pour les utilisateurs et pour <strong class="font-semibold text-foreground">l'avenir du numérique 🌿</strong>.
+        Ce qui me motive avant tout, c’est d’<strong>apprendre en continu</strong>, de relever de nouveaux défis et de concevoir des expériences qui ont un vrai impact — pour les utilisateurs et pour <strong>l’avenir du numérique 🌿</strong>.
       </p>
     </div>
   </div>
 </section>
 
+<!-- ================= SKILLS / PROJECTS / CONTACT ================= -->
 <section id="skills" class="py-20 px-8">
-  <h3 class="text-4xl font-bold mb-4 text-center tracking-tight" data-i18n="skills.title">My Skills</h3>
-  <p class="text-center text-muted-foreground mb-12 text-lg" data-i18n="skills.subtitle">Technologies I work with daily</p>
-  <div id="skills-container" class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
-  </div>
+  <h3 class="text-4xl font-bold mb-4 text-center tracking-tight" data-i18n="skills.title">Mes Compétences</h3>
+  <p class="text-center text-muted-foreground mb-12 text-lg" data-i18n="skills.subtitle">Technologies que j’utilise au quotidien</p>
+  <div id="skills-container" class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12"></div>
 </section>
 
 <section id="projects" class="py-20 px-8 bg-background-secondary">
-  <h3 class="text-4xl font-bold mb-12 text-center tracking-tight" data-i18n="projects.title">Selected Projects</h3>
+  <h3 class="text-4xl font-bold mb-12 text-center tracking-tight" data-i18n="projects.title">Projets Sélectionnés</h3>
   <div id="projects-container" class="projects-container grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"></div>
   <div class="text-center mt-10">
-    <a href="projects.html" class="text-accent hover:underline font-medium text-lg transition-all duration-300 hover:gap-2 inline-flex items-center gap-1" data-i18n="projects.more">
-      See more projects
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-all duration-300">
-        <path d="M5 12h14"></path>
-        <path d="m12 5 7 7-7 7"></path>
-      </svg>
+    <a href="projects.html" class="text-accent hover:underline font-medium text-lg inline-flex items-center gap-1" data-i18n="projects.more">
+      Voir tous les projets →
     </a>
   </div>
 </section>
 
 <section id="contact" class="py-20 px-8 text-center">
-  <h3 class="text-4xl font-bold mb-6 tracking-tight" data-i18n="contact.title">Let's Create Together</h3>
-  <p class="max-w-lg mx-auto mb-8 text-muted-foreground text-lg" data-i18n="contact.text">Whether you have a project in mind, want to collaborate or just chat about sustainable tech – I'd love to hear from you.</p>
+  <h3 class="text-4xl font-bold mb-6 tracking-tight" data-i18n="contact.title">Travaillons ensemble</h3>
+  <p class="max-w-lg mx-auto mb-8 text-muted-foreground text-lg" data-i18n="contact.text">
+    Vous avez un projet en tête, une collaboration ou juste envie d’échanger ? N’hésitez pas à me contacter.
+  </p>
 
   <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
-
-    <a href="assets/others/CV_FUSELIER-Jules.pdf"
-       download
-       class="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-semibold hover:bg-accent-hover transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 inline-flex items-center gap-2 w-full md:w-auto justify-center"
-       data-i18n="contact.cv">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-        <polyline points="7 10 12 15 17 10"></polyline>
-        <line x1="12" y1="15" x2="12" y2="3"></line>
-      </svg>
-      <span>Download my CV</span>
+    <a href="assets/others/CV_FUSELIER-Jules.pdf" download class="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-semibold hover:bg-accent-hover transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 inline-flex items-center gap-2 w-full md:w-auto justify-center" data-i18n="contact.cv">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span>Télécharger mon CV</span>
     </a>
 
-    <a href="mailto:jules.fuselier@etu.univ-amu.fr"
-       class="bg-card text-card-foreground border border-border px-8 py-4 rounded-xl font-semibold hover:bg-muted transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 inline-flex items-center justify-center gap-3 w-full md:w-auto"
-       data-i18n="contact.cta">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-      <span>Send me an email</span>
+    <a href="mailto:jules.fuselier@etu.univ-amu.fr" class="bg-card text-card-foreground border border-border px-8 py-4 rounded-xl font-semibold hover:bg-muted transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 inline-flex items-center justify-center gap-3 w-full md:w-auto" data-i18n="contact.cta">
+      ✉️ <span>Envoyer un email</span>
     </a>
   </div>
 
   <div class="mt-12">
-    <p class="text-muted-foreground mb-4" data-i18n="contact.socials">You can also find me on :</p>
+    <p class="text-muted-foreground mb-4" data-i18n="contact.socials">Ou retrouvez-moi sur :</p>
     <div class="flex justify-center gap-8">
-
-      <a href="https://github.com/julesfuselier"
-         target="_blank" rel="noopener noreferrer"
-         class="text-muted-foreground hover:text-accent transition-all duration-300 hover:-translate-y-1"
-         aria-label="Profil GitHub">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-        </svg>
+      <a href="https://github.com/julesfuselier" target="_blank" rel="noopener noreferrer" class="text-muted-foreground hover:text-accent transition-all duration-300 hover:-translate-y-1" aria-label="Profil GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.41 7.86 10.94.58.1.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.55-3.88-1.55-.53-1.33-1.29-1.68-1.29-1.68-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.97.1-.74.4-1.26.73-1.55-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.04 0 0 .98-.31 3.2 1.18a11.03 11.03 0 0 1 2.92-.39c.99 0 1.99.13 2.92.39 2.21-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.12 3.04.74.8 1.18 1.83 1.18 3.09 0 4.43-2.71 5.41-5.29 5.69.41.35.77 1.03.77 2.09 0 1.51-.01 2.73-.01 3.1 0 .31.21.67.8.55A10.53 10.53 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
       </a>
-
-      <a href="https://www.linkedin.com/in/julesfuselier/"
-         target="_blank" rel="noopener noreferrer"
-         class="text-muted-foreground hover:text-accent transition-all duration-300 hover:-translate-y-1"
-         aria-label="Profil LinkedIn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-        </svg>
+      <a href="https://www.linkedin.com/in/julesfuselier/" target="_blank" rel="noopener noreferrer" class="text-muted-foreground hover:text-accent transition-all duration-300 hover:-translate-y-1" aria-label="Profil LinkedIn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1-.02-5zM3 9h4v12H3zM9 9h3.79v1.56h.05c.53-.97 1.84-2 3.79-2 4.05 0 4.79 2.67 4.79 6.15V21h-4v-5.27c0-1.26-.02-2.89-1.76-2.89-1.76 0-2.03 1.38-2.03 2.8V21H9z"/></svg>
       </a>
-
     </div>
   </div>
 </section>
 
+<!-- ================= FOOTER ================= -->
 <footer class="py-6 text-center border-t border-border text-muted-foreground bg-background-secondary">
-  © 2025 Jules Fuselier – <span data-i18n="footer.text">Built with ❤️ and ☘️ for a better web</span>
+  © 2025 Jules Fuselier – <span data-i18n="footer.text">Créé avec ❤️ et ☘️ pour un web meilleur</span>
 </footer>
 
-<script src="js/projects-db.js"></script>
-<script src="js/i18n.js"></script>
-<script src="js/transition.js"></script>
-<script src="js/projects.js"></script>
-<script src="js/skills.js"></script>
+<!-- ================= SCRIPTS ================= -->
+<script defer src="js/projects-db.js"></script>
+<script defer src="js/transition.js"></script>
+<script defer src="js/projects.js"></script>
+<script defer src="js/skills.js"></script>
+
+<script>
+  // Animation fade-up au chargement
+  document.addEventListener("DOMContentLoaded", () => {
+    const fadeElements = document.querySelectorAll(".fade-up");
+    fadeElements.forEach((el, i) => setTimeout(() => el.classList.add("visible"), 150 * i));
+  });
+
+  // Mise à jour automatique du <html lang> selon la langue sélectionnée
+  document.addEventListener("languageChanged", (e) => {
+    document.documentElement.lang = e.detail.lang || "fr";
+  });
+</script>
+
 </body>
 </html>
