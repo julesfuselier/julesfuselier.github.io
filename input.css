@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==============================
+   Jules Fuselier – Style global
+   ============================== */
+:root {
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    --font-size: 16px;
+
+    /* Thème clair */
+    --background: #fafaf9;
+    --foreground: #1c1917;
+    --accent: #48D597;
+    --accent-hover: #3ec286;
+    --border: rgba(28, 25, 23, 0.1);
+    --muted: #e7e5e4;
+    --muted-foreground: #78716c;
+    --card: #ffffff;
+    --card-foreground: #1c1917;
+}
+
+.dark {
+    /* Thème sombre */
+    --background: #1a1816;
+    --foreground: #fafaf9;
+    --accent: #40C07E;
+    --accent-hover: #36ad6d;
+    --border: rgba(250, 250, 249, 0.1);
+    --muted: #3d3935;
+    --muted-foreground: #a8a29e;
+    --card: #252220;
+    --card-foreground: #fafaf9;
+}
+
+/* ==============================
+   Styles de base
+   ============================== */
+html {
+    font-size: var(--font-size);
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--background);
+    color: var(--foreground);
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* Liens */
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+/* Boutons génériques */
+button,
+.btn {
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--foreground);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+button:hover,
+.btn:hover {
+    background: var(--accent);
+    color: var(--card);
+}
+
+/* ==============================
+   Layout global
+   ============================== */
+
+/* Navbar */
+header {
+    backdrop-filter: blur(6px);
+}
+
+/* Sections */
+section {
+    scroll-margin-top: 6rem;
+}
+
+/* Footer */
+footer {
+    background: var(--background);
+    border-top: 1px solid var(--border);
+    color: var(--muted-foreground);
+}
+
+/* ==============================
+   Spécifique Accueil
+   ============================== */
+
+#hero h2 {
+    font-size: 2.5rem;
+}
+
+#hero p {
+    color: var(--muted-foreground);
+    max-width: 40rem;
+    margin: 0 auto;
+}
+
+#hero .cta {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--card);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    margin-top: 1.5rem;
+    font-weight: 500;
+    transition: background 0.25s ease;
+}
+
+#hero .cta:hover {
+    background: var(--accent-hover);
+}
+
+/* ==============================
+   Spécifique page Projets
+   ============================== */
+
+article {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+article:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+article h3 {
+    color: var(--foreground);
+}
+
+article p {
+    color: var(--muted-foreground);
+}
+
+/* ==============================
+   Cartes de projets améliorées
+   ============================== */
+#projects-container > div {
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#projects-container img {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==============================
+   Animations et transitions
+   ============================== */
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==============================
+   Barre de chargement fluide
+   ============================== */
+#loading-bar,
+#loading-bar-exit {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--accent);
+    width: 0;
+    z-index: 9999;
+    transition: width 0.5s ease, opacity 0.3s ease;
+}
+
+#loading-bar.fade-out {
+    opacity: 0;
+}
+
+body.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Optionnel : petit "pulse" quand la barre atteint 100% */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 rgba(72, 213, 151, 0.2); }
+    50% { box-shadow: 0 0 10px rgba(72, 213, 151, 0.5); }
+    100% { box-shadow: 0 0 0 rgba(72, 213, 151, 0.2); }
+}
+
+#loading-bar.complete {
+    animation: pulse 0.4s ease-out;
+}
+
+
+/* ==============================
+   Effet de texte dégradé animé (Nom navbar)
+   ============================== */
+.gradient-text {
+    background: linear-gradient(90deg, var(--accent), #40c07e, var(--accent));
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 6s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ==============================
+   Skills Section - Style "Chill / Top 1%"
+   ============================== */
+
+/* Le tag de compétence */
+.skill-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem; /* 8px 16px */
+    border: 1px solid var(--border);
+    border-radius: 999px; /* Forme "pillule" */
+    font-size: 0.9rem; /* 14px */
+    font-weight: 500;
+    color: var(--muted-foreground);
+    background-color: transparent; /* Fond transparent, plus "chill" */
+    transition: all 0.25s ease-in-out;
+}
+
+/* L'effet "Top 1%" au survol : subtil mais impactant */
+.skill-tag:hover {
+    color: var(--background); /* Texte foncé (ou clair en dark mode) */
+    background-color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(72, 213, 151, 0.2); /* Ombre subtile couleur accent */
+}
+
+/* Animation d'entrée pour les blocs de catégorie */
+.category-block {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Keyframe (si tu l'as supprimé par erreur) */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
