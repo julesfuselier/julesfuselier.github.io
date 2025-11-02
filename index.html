@@ -235,7 +235,19 @@
 
   // Mise à jour automatique du <html lang> selon la langue sélectionnée
   document.addEventListener("languageChanged", (e) => {
-    document.documentElement.lang = e.detail.lang || "fr";
+    const lang = e.detail.lang || "fr";
+
+    if (lang === "en") {
+      document.title = "Jules Fuselier – Web & Software Developer | Performance & Design";
+      document
+              .querySelector('meta[name="description"]')
+              ?.setAttribute("content", "I'm Jules Fuselier, a passionate web and software developer focused on building fast, reliable, and elegant experiences.");
+    } else {
+      document.title = "Jules Fuselier – Développeur Web & Logiciel | Performance, Précision & Design";
+      document
+              .querySelector('meta[name="description"]')
+              ?.setAttribute("content", "Je suis Jules Fuselier, développeur web et logiciel passionné, spécialisé dans la conception d’expériences rapides, performantes et élégantes.");
+    }
   });
 </script>
 
