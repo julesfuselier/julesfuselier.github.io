@@ -35,7 +35,7 @@ function loadTimeline() {
 // LIGNE CORRIGÉE
         wrapper.className = `relative flex flex-col md:flex-row items-center ${sideClass} mb-20 fade-in visible`;        wrapper.style.animationDelay = `${index * 0.1}s`;
 
-        // ✅ Carte visible avec variables CSS
+
         wrapper.innerHTML = `
             <!-- Point central -->
             <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-accent border-4 border-background shadow-lg z-10"></div>
