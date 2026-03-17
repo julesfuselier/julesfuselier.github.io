@@ -39,7 +39,7 @@ const translations = {
         "timeline.2026.desc": "Réalisation d’un stage en développement pour valider ma 2ᵉ année de BUT Informatique.",
 
         "timeline.future.title": "École d’ingénieur & projets IA",
-        "timeline.future.desc": "Intégrer l’ENSIMAG et approfondir mes compétences en intelligence artificielle et conception logicielle.",
+        "timeline.future.desc": "Intégrer une école d'ingénieur et approfondir mes compétences en intelligence artificielle et conception logicielle.",
 
 
         // Skills
@@ -144,7 +144,7 @@ const translations = {
         "timeline.2026.desc": "Completed a development internship to validate my 2nd year of the Computer Science Bachelor's degree.",
 
         "timeline.future.title": "Engineering school & AI projects",
-        "timeline.future.desc": "Join ENSIMAG to deepen my skills in artificial intelligence and software engineering.",
+        "timeline.future.desc": "Join an engineering school to deepen my skills in artificial intelligence and software engineering.",
 
         // Skills
         "skills.title": "My Skills",
