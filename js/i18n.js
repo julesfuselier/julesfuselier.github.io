@@ -26,21 +26,26 @@ const translations = {
         "timeline.title": "Mon Parcours",
         "timeline.subtitle": "Études, projets et étapes clés",
 
-        "timeline.2024.title": "Début du BUT Informatique – IUT d’Aix-en-Provence",
+        "timeline.2024.title": "Début du BUT Informatique – IUT d'Aix-en-Provence",
         "timeline.2024.desc": "Découverte des bases du développement web, de la programmation orientée objet (Java, C++) et des projets en équipe.",
 
         "timeline.2025.title": "Projets avancés et spécialisation web",
-        "timeline.2025.desc": "Création d’applications web dynamiques en PHP/MySQL, découverte du MVC et des bonnes pratiques Git & CI/CD.",
+        "timeline.2025.desc": "Création d'applications web dynamiques en PHP/MySQL, découverte du MVC et des bonnes pratiques Git & CI/CD.",
 
         "timeline.2025b.title": "Développement du portfolio & projets personnels",
-        "timeline.2025b.desc": "Conception d’un portfolio professionnel, apprentissage de l’intelligence artificielle et de Flutter.",
+        "timeline.2025b.desc": "Conception d'un portfolio professionnel, apprentissage de l'intelligence artificielle et de Flutter.",
 
-        "timeline.2026.title": "Stage – Avril",
-        "timeline.2026.desc": "Réalisation d’un stage en développement pour valider ma 2ᵉ année de BUT Informatique.",
+        "timeline.2025c.title": "Lancement de mon activité freelance – Novembre",
+        "timeline.2025c.desc": "Création de ma micro-entreprise : développement web, intégration d'API et conseil autour de l'intelligence artificielle.",
 
-        "timeline.future.title": "École d’ingénieur & projets IA",
-        "timeline.future.desc": "Intégrer une école d'ingénieur et approfondir mes compétences en intelligence artificielle et conception logicielle.",
+        "timeline.2026.title": "Stage – Avril-Juin",
+        "timeline.2026.desc": "Stage de développement chez Agapé Group validant ma 2ᵉ année de BUT : middleware Node.js reliant l'ERP, Shopify et Brevo, et audit des usages de l'IA en interne.",
 
+        "timeline.2026b.title": "DUT Informatique & CDD – Juillet-Août",
+        "timeline.2026b.desc": "Obtention de mon DUT Informatique à l'issue de la 2ᵉ année de BUT, et poursuite en CDD chez Agapé Group sur l'intégration des commandes Shopify dans l'ERP.",
+
+        "timeline.future.title": "École d'ingénieur & projets IA – Septembre",
+        "timeline.future.desc": "Intégration du cycle ingénieur de l'UTT en branche ISI (Informatique et Systèmes d'Information), pour approfondir la conception logicielle et l'intelligence artificielle appliquée.",
 
         // Skills
         "skills.title": "Mes compétences",
@@ -127,11 +132,11 @@ const translations = {
         "about.p2": "Whether it’s <strong>web development</strong>, <strong>software engineering</strong>, or <strong>AI experiments</strong>, I always strive to create solutions that are efficient, clear, and useful.",
         "about.p3": "What drives me most is <strong>continuous learning</strong>, taking on new challenges, and creating experiences that make a real impact — both for users and for <strong>the future of technology 🌿</strong>.",
 
-        // Timeline
+ // Timeline
         "timeline.title": "My Journey",
         "timeline.subtitle": "Studies, projects, and key milestones",
 
-        "timeline.2024.title": "Start of my Computer Science Bachelor's – Aix-en-Provence IUT",
+        "timeline.2024.title": "Start of my Computer Science degree – Aix-en-Provence IUT",
         "timeline.2024.desc": "Discovered the fundamentals of web development, object-oriented programming (Java, C++), and teamwork.",
 
         "timeline.2025.title": "Advanced projects and web specialization",
@@ -140,12 +145,18 @@ const translations = {
         "timeline.2025b.title": "Portfolio development & personal projects",
         "timeline.2025b.desc": "Designed a professional portfolio, started learning AI and Flutter.",
 
-        "timeline.2026.title": "Internship – April",
-        "timeline.2026.desc": "Completed a development internship to validate my 2nd year of the Computer Science Bachelor's degree.",
+        "timeline.2025c.title": "Started freelancing – November",
+        "timeline.2025c.desc": "Registered my own business: web development, API integration, and AI consulting.",
 
-        "timeline.future.title": "Engineering school & AI projects",
-        "timeline.future.desc": "Join an engineering school to deepen my skills in artificial intelligence and software engineering.",
+        "timeline.2026.title": "Internship – April-June",
+        "timeline.2026.desc": "Development internship at Agapé Group completing my second year: built a Node.js middleware connecting the ERP, Shopify and Brevo, and audited internal AI usage.",
 
+        "timeline.2026b.title": "Graduation & fixed-term contract – July-August",
+        "timeline.2026b.desc": "Earned my DUT in Computer Science (French two-year university diploma) and continued at Agapé Group on Shopify-to-ERP order integration.",
+
+        "timeline.future.title": "Engineering school & AI projects – September",
+        "timeline.future.desc": "Joining UTT's engineering programme in Information Systems & Computer Science (ISI), to deepen my skills in software design and applied AI.",
+       
         // Skills
         "skills.title": "My Skills",
         "skills.subtitle": "Technologies I work with daily",
