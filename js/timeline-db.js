@@ -2,7 +2,7 @@
 const timelineEvents = [
     {
         year: "2024",
-        icon: "🎓",
+        icon: "📚",
         titleKey: "timeline.2024.title",
         descriptionKey: "timeline.2024.desc",
         side: "left"
@@ -22,19 +22,32 @@ const timelineEvents = [
         side: "left"
     },
     {
+        year: "2025",
+        icon: "💼",
+        titleKey: "timeline.2025c.title",
+        descriptionKey: "timeline.2025c.desc",
+        side: "right"
+    },
+    {
         year: "2026",
         icon: "🛠️",
         titleKey: "timeline.2026.title",
         descriptionKey: "timeline.2026.desc",
+        side: "left"
+    },
+    {
+        year: "2026",
+        icon: "🎓",
+        titleKey: "timeline.2026b.title",
+        descriptionKey: "timeline.2026b.desc",
         side: "right"
     },
     {
-        year: "Futur",
+        year: "2026",
         icon: "🏗️",
         titleKey: "timeline.future.title",
         descriptionKey: "timeline.future.desc",
         side: "left"
     }
 ];
-
 window.timelineEvents = timelineEvents;
