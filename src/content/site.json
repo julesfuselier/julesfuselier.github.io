@@ -20,7 +20,7 @@
   ],
   "projects": {
     "agape": {
-      "hours": null,
+      "hours": 21,
       "untrackedHours": 21,
       "repos": [
         "julesfuselier/veille_e-ruputation_AI",
@@ -59,7 +59,7 @@
       }
     },
     "relations-internationales": {
-      "hours": null,
+      "hours": 164,
       "repos": [
         "julesfuselier/SAE-A2_intra-iut-relations-internationales"
       ],
@@ -77,7 +77,7 @@
       }
     },
     "pathside": {
-      "hours": null,
+      "hours": 8,
       "repos": [
         "julesfuselier/Pathside"
       ],
@@ -93,7 +93,7 @@
       }
     },
     "superbomberman": {
-      "hours": null,
+      "hours": 44,
       "repos": [
         "julesfuselier/S201-SuperBomberman-Remake"
       ],
