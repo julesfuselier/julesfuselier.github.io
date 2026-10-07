@@ -5,6 +5,9 @@
 import { html } from '../lib/html.mjs';
 import { route } from '../lib/routes.mjs';
 
+/** Graine du relief : la carte 2D et le relief 3D doivent utiliser la même. */
+export const PROJECT_MAP_SEED = 'projects';
+
 /** Formats de la carte des projets (fichiers `assets/contours/projects-<format>.svg`). */
 export const PROJECT_MAPS = {
   square: { width: 800, height: 800 },
@@ -71,6 +74,9 @@ export function labelAnchor(x) {
  *
  * Sur une page de projet, `current` désigne le projet affiché : son sommet
  * est marqué comme page courante et n'est plus un lien.
+ *
+ * Les attributs `data-*` servent au relief 3D (`src/js/terrain.js`), qui
+ * remplace le fond de la carte quand le navigateur le permet.
  * @param {PageContext} ctx
  * @param {object} options
  * @param {string} options.label nom accessible de la carte
@@ -78,13 +84,13 @@ export function labelAnchor(x) {
  */
 export function projectMap(ctx, { label, current }) {
   const { site, t, lang } = ctx;
-  return html`<nav aria-label="${label}" class="project-map text-body">
+  return html`<nav aria-label="${label}" class="project-map text-body" data-project-map data-seed="${PROJECT_MAP_SEED}">
     <ul>
       ${site.projectOrder.map((slug) => {
         const { x, y } = site.projects[slug].summit;
         const name = t.projects.items[slug].shortTitle;
         const classes = `summit-label ${labelAnchor(x)}`;
-        return html`<li class="summit" style="--x: ${x}%; --y: ${y}%">
+        return html`<li class="summit" style="--x: ${x}%; --y: ${y}%" data-summit data-x="${x}" data-y="${y}">
           <span class="summit-dot" aria-hidden="true"></span>
           ${slug === current
             ? html`<span class="${classes} ring-1 ring-inset ring-ink" aria-current="page">${name}</span>`

@@ -24,6 +24,7 @@
     <script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Jules Fuselier","url":"https://julesfuselier.fr","image":"https://julesfuselier.fr/assets/img/profile-480.webp","jobTitle":"Web & AI developer, engineering student","email":"mailto:contact@julesfuselier.fr","alumniOf":{"@type":"CollegeOrUniversity","name":"IUT d’Aix-Marseille"},"affiliation":{"@type":"CollegeOrUniversity","name":"Université de Technologie de Troyes"},"sameAs":["https://github.com/julesfuselier","https://www.linkedin.com/in/julesfuselier/"]}</script>
     <script defer src="/js/site.js"></script>
+    <script type="module" src="/js/map.js"></script>
   </head>
   <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-20 focus:rounded-full focus:bg-canvas focus:px-4 focus:py-2">Skip to content</a>
@@ -94,21 +95,21 @@
     <aside class="border-t border-hairline py-16" aria-labelledby="others-title">
       <div class="page">
         <h2 id="others-title" class="display-md mb-10">The other projects</h2>
-        <nav aria-label="The other projects" class="project-map text-body">
+        <nav aria-label="The other projects" class="project-map text-body" data-project-map data-seed="projects">
     <ul>
-      <li class="summit" style="--x: 12%; --y: 44%">
+      <li class="summit" style="--x: 12%; --y: 44%" data-summit data-x="12" data-y="44">
           <span class="summit-dot" aria-hidden="true"></span>
           <a href="/en/projects/agape/" class="summit-label summit-label-start underline decoration-hairline decoration-2 underline-offset-4 hover:decoration-ink">Agapé</a>
-        </li><li class="summit" style="--x: 32%; --y: 72%">
+        </li><li class="summit" style="--x: 32%; --y: 72%" data-summit data-x="32" data-y="72">
           <span class="summit-dot" aria-hidden="true"></span>
           <a href="/en/projects/preity-india/" class="summit-label summit-label-center underline decoration-hairline decoration-2 underline-offset-4 hover:decoration-ink">Preity India</a>
-        </li><li class="summit" style="--x: 52%; --y: 26%">
+        </li><li class="summit" style="--x: 52%; --y: 26%" data-summit data-x="52" data-y="26">
           <span class="summit-dot" aria-hidden="true"></span>
           <a href="/en/projects/relations-internationales/" class="summit-label summit-label-center underline decoration-hairline decoration-2 underline-offset-4 hover:decoration-ink">International mobility</a>
-        </li><li class="summit" style="--x: 72%; --y: 72%">
+        </li><li class="summit" style="--x: 70%; --y: 76%" data-summit data-x="70" data-y="76">
           <span class="summit-dot" aria-hidden="true"></span>
           <a href="/en/projects/pathside/" class="summit-label summit-label-center underline decoration-hairline decoration-2 underline-offset-4 hover:decoration-ink">PathSide</a>
-        </li><li class="summit" style="--x: 88%; --y: 40%">
+        </li><li class="summit" style="--x: 90%; --y: 42%" data-summit data-x="90" data-y="42">
           <span class="summit-dot" aria-hidden="true"></span>
           <span class="summit-label summit-label-end ring-1 ring-inset ring-ink" aria-current="page">SuperBomberman</span>
         </li>

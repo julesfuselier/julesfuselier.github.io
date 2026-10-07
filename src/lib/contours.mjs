@@ -13,6 +13,20 @@
  */
 
 /**
+ * Altitude de la première courbe de niveau et écart entre deux courbes,
+ * pour un champ d'altitude compris entre 0 et 1. La carte 2D et le relief 3D
+ * partagent ces valeurs : leurs courbes passent aux mêmes endroits.
+ * @param {number} levels nombre de courbes
+ * @returns {{ base: number, step: number }}
+ */
+export function contourScale(levels) {
+  return { base: 0.12, step: 0.78 / (levels + 1) };
+}
+
+/** Nombre de courbes de niveau d'une carte. */
+export const CONTOUR_LEVELS = 13;
+
+/**
  * Hache une chaîne en entier 32 bits (FNV-1a).
  * @param {string} text
  * @returns {number}
@@ -104,6 +118,21 @@ function buildField(seed, cols, rows, peaks) {
     values.push(line);
   }
   return values;
+}
+
+/**
+ * Champ d'altitude d'une carte, échantillonné sur une grille de
+ * `cols + 1` par `rows + 1` points. Le relief ne dépend que de la graine et
+ * des sommets, pas de la finesse de la grille.
+ * @param {object} options
+ * @param {string} options.seed texte servant de graine pour le bruit
+ * @param {Peak[]} options.peaks sommets de la carte
+ * @param {number} options.cols nombre de cellules en largeur
+ * @param {number} options.rows nombre de cellules en hauteur
+ * @returns {number[][]} altitudes entre 0 et 1, par ligne puis par colonne
+ */
+export function createHeightField({ seed, peaks, cols, rows }) {
+  return buildField(hashString(seed), cols, rows, peaks);
 }
 
 /**
@@ -201,19 +230,20 @@ function chainSegments(segments, format) {
  * @param {Peak[]} options.peaks sommets de la carte
  * @param {number} [options.width=900] largeur du SVG
  * @param {number} [options.height=720] hauteur du SVG
- * @param {number} [options.levels=13] nombre de courbes
+ * @param {number} [options.levels] nombre de courbes
  * @returns {string} document SVG (traits noirs, utilisable comme masque CSS)
  */
-export function createContourMap({ seed, peaks, width = 900, height = 720, levels = 13 }) {
+export function createContourMap({ seed, peaks, width = 900, height = 720, levels = CONTOUR_LEVELS }) {
   const cols = Math.round(width / 12.5);
   const rows = Math.round((cols * height) / width);
-  const values = buildField(hashString(seed), cols, rows, peaks);
+  const values = createHeightField({ seed, peaks, cols, rows });
+  const { base, step: gap } = contourScale(levels);
   const scaleX = width / cols;
   const scaleY = height / rows;
 
   const paths = { minor: [], major: [] };
   for (let step = 1; step <= levels; step += 1) {
-    const level = 0.12 + (step / (levels + 1)) * 0.78;
+    const level = base + step * gap;
     const lines = chainSegments(traceLevel(values, level), (value) => value.toFixed(3));
     const d = lines
       .map((line) => {

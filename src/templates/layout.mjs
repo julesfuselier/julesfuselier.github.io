@@ -68,6 +68,7 @@ function head(ctx) {
     <script>${raw(THEME_BOOTSTRAP)}</script>
     <script type="application/ld+json">${personJsonLd(ctx)}</script>
     <script defer src="/js/site.js"></script>
+    <script type="module" src="/js/map.js"></script>
   </head>`;
 }
 

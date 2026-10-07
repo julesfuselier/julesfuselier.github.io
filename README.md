@@ -25,7 +25,7 @@ src/content/*.json  ──┐
 src/templates/*.mjs ──┘
 ```
 
-Chaque page est écrite en HTML complet à la compilation. Le navigateur ne reconstruit rien : le site se lit sans JavaScript, et les moteurs de recherche voient tout le texte. Le seul script livré (`js/site.js`) gère le bouton de thème.
+Chaque page est écrite en HTML complet à la compilation. Le navigateur ne reconstruit rien : le site se lit sans JavaScript, et les moteurs de recherche voient tout le texte. Deux scripts s'ajoutent en supplément : `js/site.js` (bouton de thème) et `js/map.js` (relief 3D, voir plus bas).
 
 ## Organisation
 
@@ -34,12 +34,15 @@ Chaque page est écrite en HTML complet à la compilation. Le navigateur ne reco
 | `src/content/site.json` | Données communes aux deux langues : adresses, liens, technologies, position des projets sur la carte |
 | `src/content/fr.json`, `en.json` | Textes. Les deux fichiers ont exactement la même structure |
 | `src/lib/content.mjs` | Chargement et validation du contenu |
-| `src/lib/contours.mjs` | Génération de la carte topographique (bruit, marching squares) |
+| `src/lib/contours.mjs` | Relief et courbes de niveau de la carte (bruit, marching squares). Utilisé à la compilation et par le relief 3D |
+| `src/lib/typography.mjs` | Apostrophes courbes et espaces insécables, appliqués aux textes à la compilation |
 | `src/lib/html.mjs` | Gabarit étiqueté `html` qui échappe le contenu par défaut |
 | `src/lib/routes.mjs` | Adresse de chaque page, par langue |
 | `src/templates/` | Gabarits : enveloppe commune, accueil, projet, pages simples |
 | `src/styles/main.css` | Couleurs, polices et composants CSS. Compilé par Tailwind |
 | `src/js/site.js` | Bouton de thème |
+| `src/js/map.js` | Décide si le relief 3D peut s'afficher, et ne le télécharge que dans ce cas |
+| `src/js/terrain.js` | Relief 3D de la carte des projets (Three.js), commenté pour qui découvre Three.js |
 | `scripts/build.mjs` | Compilation |
 | `scripts/dev.mjs` | Serveur de développement |
 | `tests/` | Tests (`node:test`, sans dépendance) |
@@ -48,7 +51,7 @@ Chaque page est écrite en HTML complet à la compilation. Le navigateur ne reco
 
 GitHub Pages sert la racine du dépôt, donc le résultat de la compilation y est versionné. **Ne modifiez pas ces fichiers à la main**, ils sont réécrits à chaque `npm run build` :
 
-`index.html`, `404.html`, `projects.html`, `project-detail.html`, `sitemap.xml`, `en/`, `projets/`, `mentions-legales/`, `css/style.css`, `js/site.js`, `assets/contours/`, `assets/fonts/`.
+`index.html`, `404.html`, `projects.html`, `project-detail.html`, `sitemap.xml`, `en/`, `projets/`, `mentions-legales/`, `css/style.css`, `js/`, `assets/contours/`, `assets/fonts/`.
 
 `projects.html` et `project-detail.html` sont les adresses de l'ancien site : elles redirigent vers la liste des projets.
 
@@ -72,9 +75,12 @@ Remplacez `assets/CV_FUSELIER-Jules.pdf` en gardant le même nom.
 
 ## Design
 
+Les règles visuelles complètes sont dans [`DESIGN.md`](DESIGN.md). En résumé :
+
 - **Palette « Dolomites »** : pierre `#D8D6CE` (fond), forêt `#3C4A3A` (boutons, section entreprises), terre cuite `#B75B39` (repères de sommet), rose `#D9A398` (liens en thème sombre). Les couleurs sont des variables CSS dans `src/styles/main.css` ; le thème sombre redéfinit ces variables, sans classe supplémentaire dans les gabarits.
 - **Polices** : Space Grotesk pour le texte, JetBrains Mono pour les données courtes (technologies, périodes). Elles sont copiées depuis `node_modules` : aucune requête vers un service tiers.
-- **Carte topographique** : une seule carte, calculée à la compilation, où chaque sommet est un projet (positions dans `site.json`, champ `summit`). Sur l'accueil, les sommets sont des liens ; sur une page de projet, la carte situe le projet parmi les autres.
+- **Carte topographique** : une seule carte, calculée à la compilation, où chaque sommet est un projet (positions dans `site.json`, champ `summit`). Chaque sommet est un lien ; sur une page de projet, la carte mène aux autres projets.
+- **Relief 3D** : sur un écran d'au moins 640 px, si le navigateur gère WebGL 2, `map.js` télécharge `terrain.js` (Three.js, environ 135 Ko compressé) et remplace le fond de la carte par le même relief en perspective. On peut le faire tourner en glissant. Les étiquettes restent les liens HTML d'origine. Sans WebGL, sur mobile ou en économie de données, la carte 2D reste affichée.
 
 ## Règles de contribution
 

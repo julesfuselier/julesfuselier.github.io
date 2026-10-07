@@ -4,7 +4,9 @@
   "description": "Portfolio de Jules Fuselier : site statique pré-rendu en français et en anglais.",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "node scripts/build.mjs",
     "dev": "node scripts/dev.mjs",
@@ -13,6 +15,8 @@
   "devDependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.1.0",
     "@fontsource-variable/space-grotesk": "^5.1.0",
-    "tailwindcss": "^3.4.18"
+    "esbuild": "^0.28.2",
+    "tailwindcss": "^3.4.18",
+    "three": "^0.186.1"
   }
 }

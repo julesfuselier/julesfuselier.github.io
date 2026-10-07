@@ -8,7 +8,8 @@
  * dans `src/` ; tout ce que ce script écrit ne doit pas être modifié à la main.
  *
  * Étapes : validation du contenu, pages HTML (une par langue), carte
- * topographique, polices, script, feuille de style, plan du site.
+ * topographique, polices, scripts (dont le relief 3D), feuille de style,
+ * plan du site.
  */
 
 import { execFileSync } from 'node:child_process';
@@ -16,10 +17,12 @@ import { copyFile, mkdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { build as bundle } from 'esbuild';
+
 import { LANGUAGES, loadContent, validateContent } from '../src/lib/content.mjs';
 import { createContourMap } from '../src/lib/contours.mjs';
 import { GENERATED_DIRS, outputFile, route } from '../src/lib/routes.mjs';
-import { PROJECT_MAPS } from '../src/templates/components.mjs';
+import { PROJECT_MAPS, PROJECT_MAP_SEED } from '../src/templates/components.mjs';
 import { homePage } from '../src/templates/home.mjs';
 import { renderPage } from '../src/templates/layout.mjs';
 import { projectPage } from '../src/templates/project.mjs';
@@ -64,7 +67,7 @@ export function renderSite({ site, locales }) {
     return { x: x / 100, y: y / 100 };
   });
   for (const [format, size] of Object.entries(PROJECT_MAPS)) {
-    assets[`assets/contours/projects-${format}.svg`] = createContourMap({ seed: 'projects', peaks, ...size });
+    assets[`assets/contours/projects-${format}.svg`] = createContourMap({ seed: PROJECT_MAP_SEED, peaks, ...size });
   }
 
   /** Adresse d'une même page dans toutes les langues. */
@@ -150,6 +153,19 @@ export async function buildSite() {
   await Promise.all([
     ...FONTS.map((font) => copyFile(join(ROOT, 'node_modules', font), join(ROOT, 'assets/fonts', font.split('/').pop()))),
     copyFile(join(ROOT, 'src/js/site.js'), join(ROOT, 'js/site.js')),
+    copyFile(join(ROOT, 'src/js/map.js'), join(ROOT, 'js/map.js')),
+    // Relief 3D : Three.js et le générateur de relief réunis en un seul
+    // fichier, téléchargé à la demande par `map.js`.
+    bundle({
+      entryPoints: [join(ROOT, 'src/js/terrain.js')],
+      outfile: join(ROOT, 'js/terrain.js'),
+      bundle: true,
+      minify: true,
+      format: 'esm',
+      target: 'es2022',
+      legalComments: 'none',
+      logLevel: 'error',
+    }),
   ]);
 
   execFileSync(

@@ -14,7 +14,7 @@ const content = await loadContent();
 const { pages, assets } = renderSite(content);
 
 /** Fichiers présents dans le dépôt sans être générés par `renderSite`. */
-const STATIC_FILES = ['css/style.css', 'js/site.js', 'assets/img/favicon.png', content.site.portrait.slice(1), content.site.cvPath.slice(1), 'demo/demo-SuperBomberman.html'];
+const STATIC_FILES = ['css/style.css', 'js/site.js', 'js/map.js', 'assets/img/favicon.png', content.site.portrait.slice(1), content.site.cvPath.slice(1), 'demo/demo-SuperBomberman.html'];
 
 test('chaque langue a son accueil, ses projets et ses mentions légales', () => {
   for (const lang of LANGUAGES) {
