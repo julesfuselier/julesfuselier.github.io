@@ -46,7 +46,11 @@
     "preity-india": {
       "hours": 6,
       "repos": [],
-      "stack": [],
+      "stack": [
+        "PHP",
+        "CSS",
+        "JavaScript"
+      ],
       "links": [
         {
           "type": "site",
