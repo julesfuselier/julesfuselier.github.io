@@ -16,6 +16,12 @@ test('les heures de plusieurs projets WakaTime sont additionnées et arrondies',
   assert.deepEqual(unknown, []);
 });
 
+test('les heures passées hors de WakaTime sont ajoutées au total', async () => {
+  const site = { projects: { agape: { repos: ['jules/connecteur'], untrackedHours: 21, hours: null } } };
+  const { site: updated } = await updateHours(site, async () => 40);
+  assert.equal(updated.projects.agape.hours, 61);
+});
+
 test('le nom WakaTime est celui du dépôt, sauf indication contraire', () => {
   assert.deepEqual(wakatimeNames({ repos: ['jules/Pathside'] }), ['Pathside']);
   assert.deepEqual(wakatimeNames({ repos: ['jules/Pathside'], wakatime: ['pathside-app'] }), ['pathside-app']);

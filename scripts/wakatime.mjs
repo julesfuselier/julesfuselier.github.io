@@ -13,6 +13,10 @@
  * WakaTime, le champ facultatif `wakatime` donne la liste des noms à utiliser.
  * Un projet sans dépôt garde les heures saisies à la main.
  *
+ * `untrackedHours` ajoute au total les heures passées hors de WakaTime
+ * (travail fait dans un éditeur en ligne, par exemple) : c'est une estimation
+ * saisie à la main, que le relevé conserve d'une fois sur l'autre.
+ *
  * La clé ne doit jamais être écrite dans le dépôt, qui est public : elle est
  * lue dans l'environnement (en local) ou dans un secret GitHub (workflow
  * `.github/workflows/wakatime.yml`).
@@ -83,7 +87,7 @@ export async function updateHours(site, hoursOf) {
   const unknown = [];
   for (const [slug, project] of Object.entries(site.projects)) {
     const names = wakatimeNames(project);
-    let total = 0;
+    let total = project.untrackedHours ?? 0;
     let complete = names.length > 0;
     for (const name of names) {
       const hours = await hoursOf(name);
