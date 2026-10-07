@@ -5,6 +5,7 @@
 import { html } from '../lib/html.mjs';
 import { projectAltitudes, relativeHeight } from '../lib/altitude.mjs';
 import { route } from '../lib/routes.mjs';
+import { trailPath, trailPoints } from '../lib/trail.mjs';
 
 /** Graine du relief : la carte 2D et le relief 3D doivent utiliser la même. */
 export const PROJECT_MAP_SEED = 'projects';
@@ -72,6 +73,16 @@ export function projectSummits(site) {
 }
 
 /**
+ * Sommets rangés de gauche à droite : l'ordre dans lequel le sentier les relie.
+ * @template {{ x: number }} T
+ * @param {T[]} summits
+ * @returns {T[]} copie triée
+ */
+export function byPosition(summits) {
+  return [...summits].sort((a, b) => a.x - b.x);
+}
+
+/**
  * Classe d'ancrage de l'étiquette d'un sommet, pour qu'elle ne sorte jamais
  * de la carte : calée à gauche près du bord gauche, à droite près du bord
  * droit, centrée ailleurs. Les noms de classe sont écrits en entier pour que
@@ -92,6 +103,11 @@ export function labelAnchor(x) {
  * Sur une page de projet, `current` désigne le projet affiché : son sommet
  * est marqué comme page courante et n'est plus un lien.
  *
+ * Chaque étiquette porte l'année du projet quand elle est connue
+ * (`years` dans `site.json`). Les sommets sont placés du plus ancien, à
+ * gauche, au plus récent, à droite, et un sentier en pointillé les relie dans
+ * cet ordre : la carte se lit comme une frise.
+ *
  * Les attributs `data-*` servent au relief 3D (`src/js/terrain.js`), qui
  * remplace le fond de la carte quand le navigateur le permet.
  * @param {PageContext} ctx
@@ -101,16 +117,22 @@ export function labelAnchor(x) {
  */
 export function projectMap(ctx, { label, current }) {
   const { site, t, lang } = ctx;
+  const summits = projectSummits(site);
   return html`<nav aria-label="${label}" class="project-map text-body" data-project-map data-seed="${PROJECT_MAP_SEED}">
+    <svg class="project-trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <path data-trail d="${trailPath(trailPoints(byPosition(summits)))}" />
+    </svg>
     <ul>
-      ${projectSummits(site).map(({ slug, x, y, height }) => {
-        const name = t.projects.items[slug].shortTitle;
+      ${summits.map(({ slug, x, y, height }) => {
+        const years = site.projects[slug].years;
+        const date = years ? html` <span class="summit-date">${years}</span>` : '';
+        const title = t.projects.items[slug].shortTitle;
         const classes = `summit-label ${labelAnchor(x)}`;
         return html`<li class="summit" style="--x: ${x}%; --y: ${y}%" data-summit data-x="${x}" data-y="${y}" data-height="${height}">
           <span class="summit-dot" aria-hidden="true"></span>
           ${slug === current
-            ? html`<span class="${classes} ring-1 ring-inset ring-ink" aria-current="page">${name}</span>`
-            : html`<a href="${route(lang, 'project', slug)}" class="${classes} underline decoration-hairline decoration-2 underline-offset-4 hover:decoration-ink">${name}</a>`}
+            ? html`<span class="${classes} ring-1 ring-inset ring-ink" aria-current="page">${title}${date}</span>`
+            : html`<a href="${route(lang, 'project', slug)}" class="${classes} group"><span class="underline decoration-hairline decoration-2 underline-offset-4 group-hover:decoration-ink">${title}</span>${date}</a>`}
         </li>`;
       })}
     </ul>

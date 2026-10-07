@@ -271,6 +271,30 @@
     -webkit-user-select: none;
   }
 
+  /*
+   * Sentier reliant les sommets, en pointillé comme sur une carte de
+   * randonnée. Le SVG est étiré sur la carte ; `non-scaling-stroke` garde
+   * un trait et des tirets de taille constante malgré cet étirement.
+   */
+  .project-trail {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .project-trail path {
+    fill: none;
+    stroke: var(--summit);
+    stroke-width: 1.5;
+    stroke-dasharray: 5 5;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.85;
+  }
+
   /* Sommet : un point d'ancrage aux coordonnées (en %) fournies par le gabarit. */
   .summit {
     position: absolute;
@@ -292,10 +316,11 @@
 
   /* Étiquette du sommet, sous le point : centrée, ou calée près des bords. */
   .summit-label {
-    @apply absolute top-3 whitespace-nowrap rounded-full bg-canvas-soft px-2 py-0.5 text-sm font-medium text-ink;
+    @apply absolute top-3 whitespace-nowrap rounded-xl bg-canvas-soft px-2 py-0.5 text-sm font-medium text-ink sm:rounded-full;
   }
 
   .summit-label-center {
+    text-align: center;
     left: 0;
     transform: translateX(-50%);
   }
@@ -305,6 +330,16 @@
   }
 
   .summit-label-end {
+    text-align: right;
     right: -0.75rem;
+  }
+
+  /*
+   * Année du projet : chasse fixe, sans soulignement. Sous le nom sur mobile,
+   * où la carte est étroite et les étiquettes proches ; à sa suite ensuite.
+   */
+  .summit-date {
+    @apply block font-mono text-xs font-normal text-body sm:ml-1 sm:inline-block;
+    font-variant-numeric: tabular-nums;
   }
 }

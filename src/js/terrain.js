@@ -21,6 +21,7 @@
 import { BufferAttribute, Color, Mesh, PerspectiveCamera, PlaneGeometry, Scene, ShaderMaterial, Vector3, WebGLRenderer } from 'three';
 
 import { CONTOUR_LEVELS, RELIEF_EXPONENT, contourScale, createHeightField } from '../lib/contours.mjs';
+import { trailPath, trailPoints } from '../lib/trail.mjs';
 
 /** Dimensions du terrain dans le monde 3D : mêmes proportions que la carte 2D (5:2). */
 const TERRAIN = { width: 10, depth: 4, height: 2.3 };
@@ -219,20 +220,38 @@ export function mountTerrain(map, wide) {
     camera.lookAt(target);
   }
 
+  /**
+   * Position à l'écran d'un point de la carte, posé sur le terrain.
+   * @param {number} x position sur la carte, de 0 à 1
+   * @param {number} y position sur la carte, de 0 à 1
+   * @returns {{ x: number, y: number }} position dans la carte, de 0 (bord gauche ou haut) à 1
+   */
+  function onScreen(x, y) {
+    const row = Math.round(y * GRID.rows);
+    const col = Math.round(x * GRID.cols);
+    const point = new Vector3((x - 0.5) * TERRAIN.width, elevationOf(field[row][col]), (y - 0.5) * TERRAIN.depth).project(camera); // de -1 à 1
+    return { x: (point.x + 1) / 2, y: (1 - point.y) / 2 };
+  }
+
   /** Déplace chaque étiquette HTML au-dessus de son sommet, tel qu'il apparaît à l'écran. */
   function placeLabels() {
     const { clientWidth, clientHeight } = map;
     for (const summit of summits) {
-      const row = Math.round(summit.y * GRID.rows);
-      const col = Math.round(summit.x * GRID.cols);
-      const point = new Vector3(
-        (summit.x - 0.5) * TERRAIN.width,
-        elevationOf(field[row][col]),
-        (summit.y - 0.5) * TERRAIN.depth,
-      ).project(camera); // coordonnées écran, de -1 à 1
-      summit.element.style.setProperty('--x', `${((point.x + 1) / 2) * clientWidth}px`);
-      summit.element.style.setProperty('--y', `${((1 - point.y) / 2) * clientHeight}px`);
+      const point = onScreen(summit.x, summit.y);
+      summit.element.style.setProperty('--x', `${point.x * clientWidth}px`);
+      summit.element.style.setProperty('--y', `${point.y * clientHeight}px`);
     }
+  }
+
+  // Sentier : mêmes points que sur la carte 2D, replacés à chaque dessin là
+  // où ils apparaissent sur le relief. Le SVG du sentier compte en pour-cent.
+  const trail = map.querySelector('[data-trail]');
+  const flatTrail = trail?.getAttribute('d');
+  const trailOnMap = trailPoints([...summits].sort((a, b) => a.x - b.x)); // de gauche à droite, comme en 2D
+  function placeTrail() {
+    if (!trail) return;
+    const projected = trailOnMap.map(({ x, y }) => onScreen(x, y));
+    trail.setAttribute('d', trailPath(projected.map(({ x, y }) => ({ x: x * 100, y: y * 100 }))));
   }
 
   function draw() {
@@ -240,6 +259,7 @@ export function mountTerrain(map, wide) {
     placeCamera();
     renderer.render(scene, camera);
     placeLabels();
+    placeTrail();
   }
 
   /** Demande un nouveau dessin, au plus une fois par image affichée. */
@@ -319,6 +339,7 @@ export function mountTerrain(map, wide) {
     renderer.domElement.remove();
     renderer.dispose();
     map.classList.remove('is-3d', 'is-dragging');
+    if (trail && flatTrail) trail.setAttribute('d', flatTrail);
     for (const summit of summits) {
       summit.element.style.setProperty('--x', `${summit.element.dataset.x}%`);
       summit.element.style.setProperty('--y', `${summit.element.dataset.y}%`);

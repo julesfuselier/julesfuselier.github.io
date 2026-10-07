@@ -20,8 +20,9 @@
   ],
   "projects": {
     "agape": {
-      "hours": 21,
-      "untrackedHours": 21,
+      "years": "2026",
+      "hours": 67,
+      "untrackedHours": 67,
       "repos": [
         "julesfuselier/veille_e-ruputation_AI",
         "julesfuselier/Connector-Brevo-Shopify-Pointex"
@@ -39,11 +40,12 @@
       ],
       "links": [],
       "summit": {
-        "x": 15,
-        "y": 44
+        "x": 70,
+        "y": 30
       }
     },
     "preity-india": {
+      "years": "2026",
       "hours": 6,
       "repos": [],
       "stack": [
@@ -58,11 +60,12 @@
         }
       ],
       "summit": {
-        "x": 32,
-        "y": 72
+        "x": 52,
+        "y": 50
       }
     },
     "relations-internationales": {
+      "years": "2025–2026",
       "hours": 164,
       "repos": [
         "julesfuselier/SAE-A2_intra-iut-relations-internationales"
@@ -76,11 +79,12 @@
       ],
       "links": [],
       "summit": {
-        "x": 52,
-        "y": 26
+        "x": 33,
+        "y": 28
       }
     },
     "pathside": {
+      "years": "2026",
       "hours": 8,
       "repos": [
         "julesfuselier/Pathside"
@@ -92,11 +96,12 @@
       ],
       "links": [],
       "summit": {
-        "x": 70,
-        "y": 76
+        "x": 87,
+        "y": 68
       }
     },
     "superbomberman": {
+      "years": "2025",
       "hours": 44,
       "repos": [
         "julesfuselier/S201-SuperBomberman-Remake"
@@ -128,8 +133,8 @@
         }
       ],
       "summit": {
-        "x": 87,
-        "y": 42
+        "x": 14,
+        "y": 70
       }
     }
   }

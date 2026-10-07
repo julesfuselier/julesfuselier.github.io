@@ -17,7 +17,7 @@ Un portfolio de développeur pour deux publics : des recruteurs et des clients. 
 | Filet | `--hairline` | `#bebcb0` | `#333d34` | Bordures et séparateurs, 1 px |
 | Action principale | `--primary` | `#3c4a3a` | `#e4e2da` | Bouton plein. Une seule action principale par écran |
 | Bandeau inversé | `--band` | `#3c4a3a` | `#232b24` | Section « Entreprises » uniquement |
-| Sommet | `--summit` | `#b75b39` | `#cf6f4c` | Repères de la carte et anneau de focus. Jamais ailleurs |
+| Sommet | `--summit` | `#b75b39` | `#cf6f4c` | Repères et sentier de la carte, anneau de focus. Jamais ailleurs |
 
 ## Typographie
 
@@ -62,7 +62,7 @@ Pas d'ombre portée lourde. Une carte se détache par sa surface plus claire, un
 
 ## À faire
 
-- Garder la terre cuite pour les sommets et le focus.
+- Garder la terre cuite pour les sommets, le sentier qui les relie et le focus.
 - Garder un seul bandeau inversé par page.
 - Écrire les titres comme des phrases.
 - Faire passer tout nouveau texte par `src/content/`, dans les deux langues.
