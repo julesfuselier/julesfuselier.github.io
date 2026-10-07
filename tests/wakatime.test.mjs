@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { fetchProjectHours, listProjectNames, updateHours } from '../scripts/wakatime.mjs';
+import { fetchProjectHours, listProjectNames, updateHours, wakatimeNames } from '../scripts/wakatime.mjs';
 
 /** Faux `fetch` : renvoie le JSON prévu pour chaque adresse appelée. */
 const fakeFetch = (responses) => async (url) => {
@@ -10,15 +10,29 @@ const fakeFetch = (responses) => async (url) => {
 };
 
 test('les heures de plusieurs projets WakaTime sont additionnées et arrondies', async () => {
-  const site = { projects: { agape: { wakatime: ['veille', 'middleware'], hours: null } } };
-  const updated = await updateHours(site, async (name) => ({ veille: 100.4, middleware: 50.3 })[name]);
+  const site = { projects: { agape: { repos: ['jules/veille', 'jules/middleware'], hours: null } } };
+  const { site: updated, unknown } = await updateHours(site, async (name) => ({ veille: 100.4, middleware: 50.3 })[name]);
   assert.equal(updated.projects.agape.hours, 151);
+  assert.deepEqual(unknown, []);
 });
 
-test('un projet sans nom WakaTime garde ses heures saisies à la main', async () => {
-  const site = { projects: { client: { hours: 40 }, vide: { wakatime: [], hours: null } } };
-  const updated = await updateHours(site, async () => assert.fail('aucun appel attendu'));
+test('le nom WakaTime est celui du dépôt, sauf indication contraire', () => {
+  assert.deepEqual(wakatimeNames({ repos: ['jules/Pathside'] }), ['Pathside']);
+  assert.deepEqual(wakatimeNames({ repos: ['jules/Pathside'], wakatime: ['pathside-app'] }), ['pathside-app']);
+  assert.deepEqual(wakatimeNames({}), []);
+});
+
+test('un projet sans dépôt garde ses heures saisies à la main', async () => {
+  const site = { projects: { client: { hours: 40 }, vide: { repos: [], hours: null } } };
+  const { site: updated } = await updateHours(site, async () => assert.fail('aucun appel attendu'));
   assert.deepEqual(updated.projects, site.projects);
+});
+
+test('un nom inconnu de WakaTime est signalé et ne remet pas les heures à zéro', async () => {
+  const site = { projects: { agape: { repos: ['jules/veille', 'jules/faute'], hours: 120 } } };
+  const { site: updated, unknown } = await updateHours(site, async (name) => (name === 'veille' ? 100 : 0));
+  assert.equal(updated.projects.agape.hours, 120);
+  assert.deepEqual(unknown, ['faute']);
 });
 
 test('les secondes de WakaTime sont converties en heures', async () => {

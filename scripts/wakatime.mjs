@@ -6,9 +6,12 @@
  *   WAKATIME_API_KEY=… npm run wakatime            met à jour les heures
  *   WAKATIME_API_KEY=… npm run wakatime -- --list  affiche les noms de projets WakaTime
  *
- * Dans `site.json`, chaque projet indique sous `wakatime` le ou les noms de
- * projets WakaTime qui lui correspondent ; leurs heures sont additionnées.
- * Un projet sans nom WakaTime garde les heures saisies à la main.
+ * Dans `site.json`, chaque projet liste ses dépôts GitHub sous `repos`
+ * (`propriétaire/nom`). WakaTime nomme un projet d'après son dossier, donc
+ * d'après le nom du dépôt : c'est ce nom qui est interrogé, et les heures de
+ * plusieurs dépôts sont additionnées. Si un projet porte un autre nom dans
+ * WakaTime, le champ facultatif `wakatime` donne la liste des noms à utiliser.
+ * Un projet sans dépôt garde les heures saisies à la main.
  *
  * La clé ne doit jamais être écrite dans le dépôt, qui est public : elle est
  * lue dans l'environnement (en local) ou dans un secret GitHub (workflow
@@ -52,24 +55,44 @@ export async function fetchProjectHours(name, apiKey, fetchImpl = fetch) {
 }
 
 /**
- * Met à jour les heures des projets de `site.json` qui déclarent des noms WakaTime.
+ * Noms WakaTime d'un projet du site : ceux du champ `wakatime` s'il existe,
+ * sinon le nom de chacun de ses dépôts.
+ * @param {{ repos?: string[], wakatime?: string[] }} project
+ * @returns {string[]}
+ */
+export function wakatimeNames(project) {
+  return project.wakatime ?? (project.repos ?? []).map((repo) => repo.split('/').pop());
+}
+
+/**
+ * Met à jour les heures des projets de `site.json` reliés à WakaTime.
+ *
+ * Un nom pour lequel WakaTime ne connaît aucune heure est presque toujours
+ * un nom mal orthographié : le projet garde alors ses heures précédentes,
+ * et le nom est signalé, plutôt que d'aplatir son sommet sans prévenir.
  * @param {any} site contenu de `site.json`
  * @param {(name: string) => Promise<number>} hoursOf heures d'un projet WakaTime
- * @returns {Promise<any>} copie de `site` avec les heures à jour, arrondies à l'heure
+ * @returns {Promise<{ site: any, unknown: string[] }>} copie de `site` avec les
+ *   heures à jour, arrondies à l'heure, et noms sans aucune heure
  */
 export async function updateHours(site, hoursOf) {
   const projects = {};
+  const unknown = [];
   for (const [slug, project] of Object.entries(site.projects)) {
-    const names = project.wakatime ?? [];
-    if (names.length === 0) {
-      projects[slug] = project; // heures saisies à la main, laissées telles quelles
-      continue;
-    }
+    const names = wakatimeNames(project);
     let total = 0;
-    for (const name of names) total += await hoursOf(name);
-    projects[slug] = { ...project, hours: Math.round(total) };
+    let complete = names.length > 0;
+    for (const name of names) {
+      const hours = await hoursOf(name);
+      if (hours === 0) {
+        unknown.push(name);
+        complete = false;
+      }
+      total += hours;
+    }
+    projects[slug] = complete ? { ...project, hours: Math.round(total) } : project;
   }
-  return { ...site, projects };
+  return { site: { ...site, projects }, unknown };
 }
 
 /**
@@ -97,10 +120,13 @@ async function main() {
   }
 
   const site = JSON.parse(await readFile(SITE_FILE, 'utf8'));
-  const updated = await updateHours(site, (name) => fetchProjectHours(name, apiKey));
+  const { site: updated, unknown } = await updateHours(site, (name) => fetchProjectHours(name, apiKey));
   await writeFile(SITE_FILE, `${JSON.stringify(updated, null, 2)}\n`);
   for (const [slug, project] of Object.entries(updated.projects)) {
     console.log(`${slug} : ${project.hours ?? 'non renseigné'} h`);
+  }
+  for (const name of unknown) {
+    console.warn(`Aucune heure dans WakaTime pour « ${name} » : vérifier le nom (npm run wakatime -- --list)`);
   }
 }
 

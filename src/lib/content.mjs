@@ -116,6 +116,9 @@ export function validateContent({ site, locales }) {
     for (const link of shared.links) {
       if (!LINK_TYPES.includes(link.type)) errors.push(`${slug} : type de lien inconnu « ${link.type} »`);
     }
+    for (const repo of shared.repos ?? []) {
+      if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) errors.push(`${slug} : dépôt « ${repo} » invalide, attendu « propriétaire/nom » (site.json)`);
+    }
     if (shared.stack.length === 0) warnings.push(`${slug} : aucune technologie renseignée (site.json)`);
 
     for (const lang of LANGUAGES) {

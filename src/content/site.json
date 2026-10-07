@@ -21,7 +21,10 @@
   "projects": {
     "agape": {
       "hours": null,
-      "wakatime": [],
+      "repos": [
+        "julesfuselier/veille_e-ruputation_AI",
+        "julesfuselier/Connector-Brevo-Shopify-Pointex"
+      ],
       "stack": [
         "React",
         "TypeScript",
@@ -38,7 +41,7 @@
     },
     "preity-india": {
       "hours": null,
-      "wakatime": [],
+      "repos": [],
       "stack": [],
       "links": [
         {
@@ -53,7 +56,9 @@
     },
     "relations-internationales": {
       "hours": null,
-      "wakatime": [],
+      "repos": [
+        "julesfuselier/SAE-A2_intra-iut-relations-internationales"
+      ],
       "stack": [
         "PHP",
         "MySQL",
@@ -69,7 +74,9 @@
     },
     "pathside": {
       "hours": null,
-      "wakatime": [],
+      "repos": [
+        "julesfuselier/Pathside"
+      ],
       "stack": [
         "Python",
         "API Overpass",
@@ -83,7 +90,9 @@
     },
     "superbomberman": {
       "hours": null,
-      "wakatime": [],
+      "repos": [
+        "julesfuselier/S201-SuperBomberman-Remake"
+      ],
       "stack": [
         "Java",
         "JavaFX"
