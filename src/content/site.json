@@ -43,7 +43,7 @@
       }
     },
     "preity-india": {
-      "hours": null,
+      "hours": 6,
       "repos": [],
       "stack": [],
       "links": [
@@ -99,7 +99,10 @@
       "wakatime": [
         "S201-SuperBomberman-remake",
         "S201-Bomberman-remake",
-        "S-201-Bomberman-remake-V2"
+        "S-201-Bomberman-remake-V2",
+        "S202-Bomberban-remake",
+        "S2.01-developpement-application",
+        "2_01v2"
       ],
       "stack": [
         "Java",
