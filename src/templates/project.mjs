@@ -4,7 +4,7 @@
 
 import { html } from '../lib/html.mjs';
 import { route } from '../lib/routes.mjs';
-import { bulletList } from './components.mjs';
+import { bulletList, projectMap } from './components.mjs';
 
 /** @typedef {import('./components.mjs').PageContext} PageContext */
 
@@ -63,10 +63,9 @@ function siblings(ctx, slug) {
 /**
  * @param {PageContext} ctx
  * @param {string} slug identifiant du projet
- * @param {{ x: number, y: number }} summit position du sommet sur la carte du projet
  * @returns {import('../lib/html.mjs').SafeHtml}
  */
-export function projectPage(ctx, slug, summit) {
+export function projectPage(ctx, slug) {
   const { site, t, lang } = ctx;
   const item = t.projects.items[slug];
   const shared = site.projects[slug];
@@ -82,9 +81,7 @@ export function projectPage(ctx, slug, summit) {
         <h1 class="mt-3 max-w-[22ch] text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">${item.title}</h1>
         <p class="lead mt-6">${item.summary}</p>
       </div>
-      <div class="contour aspect-[3/2] text-muted" style="--contour: url('/assets/contours/${slug}.svg')" aria-hidden="true">
-        <span class="summit" style="--x: ${summit.x}%; --y: ${summit.y}%"><span class="summit-dot"></span></span>
-      </div>
+      ${projectMap(ctx, { label: t.projects.title, current: slug })}
     </header>
 
     <div class="legend-grid mt-12">

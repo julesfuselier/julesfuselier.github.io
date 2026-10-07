@@ -184,4 +184,16 @@
     outline: 2px solid var(--paper);
     transform: translate(-50%, -50%);
   }
+
+  /* Sommet d'un autre projet, sur la carte d'une page de projet. */
+  .summit-dot-other {
+    background-color: var(--paper);
+    border: 2px solid var(--muted);
+    outline: none;
+  }
+
+  .summit-dot-other:hover {
+    background-color: var(--summit);
+    border-color: var(--summit);
+  }
 }

@@ -21,7 +21,7 @@
   },
   "hero": {
     "title": "Je construis des outils web et j'intègre l'IA là où elle fait gagner du temps.",
-    "lead": "Cinq mois chez Agapé à auditer 9 services et à mettre en service un outil de veille par LLM, une micro-entreprise depuis 2025, et un cycle ingénieur en informatique à l'UTT.",
+    "lead": "Cinq mois chez Agapé à auditer 9 services et à mettre en service un outil de veille par LLM. Une micro-entreprise de développement depuis 2025.",
     "portraitAlt": "Portrait de Jules Fuselier",
     "paths": [
       {
@@ -38,7 +38,8 @@
       }
     ],
     "intro": "Élève ingénieur à l'UTT et développeur web & IA",
-    "mapLabel": "Carte des projets"
+    "mapLabel": "Carte des projets",
+    "emailCta": "ou m'écrire"
   },
   "projects": {
     "title": "Projets",

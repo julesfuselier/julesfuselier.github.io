@@ -5,46 +5,26 @@
 
 import { html } from '../lib/html.mjs';
 import { route } from '../lib/routes.mjs';
-import { bulletList, datumList, section } from './components.mjs';
+import { bulletList, datumList, projectMap, section } from './components.mjs';
 
 /** @typedef {import('./components.mjs').PageContext} PageContext */
 
-/** Identifiant de la carte de l'accueil (fichier `assets/contours/home.svg`). */
-export const HOME_MAP = 'home';
-
 /**
- * Carte topographique dont chaque sommet est un projet. Les sommets sont de
- * vrais liens : la carte sert de navigation, pas seulement de décor.
- * @param {PageContext} ctx
- */
-function projectMap(ctx) {
-  const { site, t, lang } = ctx;
-  return html`<nav aria-label="${t.hero.mapLabel}" class="contour aspect-[5/4] w-full text-muted" style="--contour: url('/assets/contours/${HOME_MAP}.svg')">
-    <ul>
-      ${site.projectOrder.map((slug) => {
-        const { x, y } = site.projects[slug].summit;
-        // L'étiquette passe à gauche du repère dans la moitié droite de la carte.
-        const side = x > 50 ? 'right-3 text-right' : 'left-3';
-        return html`<li class="summit" style="--x: ${x}%; --y: ${y}%">
-          <span class="summit-dot"></span>
-          <a href="${route(lang, 'project', slug)}" class="absolute ${side} -top-3 whitespace-nowrap bg-paper px-1.5 py-0.5 text-sm font-medium text-ink underline decoration-line underline-offset-4 hover:decoration-ink">${t.projects.items[slug].shortTitle}</a>
-        </li>`;
-      })}
-    </ul>
-  </nav>`;
-}
-
-/**
- * Ouverture : qui je suis, la carte des projets, et une entrée par public.
+ * Ouverture : qui je suis, l'action principale (le CV), la carte des projets
+ * et une entrée par public.
  * @param {PageContext} ctx
  */
 function hero(ctx) {
-  const { t } = ctx;
+  const { site, t } = ctx;
   return html`<section class="page grid items-center gap-x-12 gap-y-10 py-14 sm:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
     <div>
       <p class="mb-5 text-muted">${t.hero.intro}</p>
       <h1 class="max-w-[20ch] text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">${t.hero.title}</h1>
       <p class="lead mt-6">${t.hero.lead}</p>
+      <p class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+        <a href="${site.cvPath}" class="btn">${t.recruiters.cvCta}</a>
+        <a href="mailto:${site.email}" class="link">${t.hero.emailCta}</a>
+      </p>
       <div class="mt-10 grid gap-8 border-t border-line pt-8 sm:grid-cols-2">
         ${t.hero.paths.map(
           (path) => html`<div>
@@ -55,7 +35,7 @@ function hero(ctx) {
         )}
       </div>
     </div>
-    ${projectMap(ctx)}
+    ${projectMap(ctx, { label: t.hero.mapLabel, classes: 'w-full' })}
   </section>`;
 }
 
@@ -97,7 +77,7 @@ function recruiters(ctx) {
       <img src="${site.portrait}" alt="${t.hero.portraitAlt}" width="112" height="112" loading="lazy" class="h-28 w-28 rounded-sm object-cover" />
       <div class="min-w-0 flex-1 basis-80">
         <p class="max-w-[30rem] text-2xl font-medium leading-snug tracking-tight">${r.lead}</p>
-        <a href="${site.cvPath}" class="btn mt-6">${r.cvCta}</a>
+        <a href="${site.cvPath}" class="link mt-4 inline-block">${r.cvCta}</a>
       </div>
     </div>
 

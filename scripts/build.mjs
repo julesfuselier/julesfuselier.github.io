@@ -7,8 +7,8 @@
  * générées y sont donc écrites directement et versionnées. Les sources sont
  * dans `src/` ; tout ce que ce script écrit ne doit pas être modifié à la main.
  *
- * Étapes : validation du contenu, pages HTML (une par langue), cartes
- * topographiques, polices, script, feuille de style, plan du site.
+ * Étapes : validation du contenu, pages HTML (une par langue), carte
+ * topographique, polices, script, feuille de style, plan du site.
  */
 
 import { execFileSync } from 'node:child_process';
@@ -19,7 +19,8 @@ import { fileURLToPath } from 'node:url';
 import { LANGUAGES, loadContent, validateContent } from '../src/lib/content.mjs';
 import { createContourMap } from '../src/lib/contours.mjs';
 import { GENERATED_DIRS, outputFile, route } from '../src/lib/routes.mjs';
-import { HOME_MAP, homePage } from '../src/templates/home.mjs';
+import { PROJECT_MAP } from '../src/templates/components.mjs';
+import { homePage } from '../src/templates/home.mjs';
 import { renderPage } from '../src/templates/layout.mjs';
 import { projectPage } from '../src/templates/project.mjs';
 import { legalPage, notFoundPage } from '../src/templates/simple.mjs';
@@ -36,13 +37,12 @@ const FONTS = [
 const LEGACY_PAGES = ['projects.html', 'project-detail.html'];
 
 /**
- * Écrit un fichier en créant ses dossiers parents.
- * @param {string} outDir
- * @param {string} file chemin relatif à `outDir`
+ * Écrit un fichier du site en créant ses dossiers parents.
+ * @param {string} file chemin relatif à la racine du dépôt
  * @param {string} content
  */
-async function write(outDir, file, content) {
-  const path = join(outDir, file);
+async function write(file, content) {
+  const path = join(ROOT, file);
   await mkdir(dirname(path), { recursive: true });
   await writeFile(path, content);
 }
@@ -57,25 +57,14 @@ export function renderSite({ site, locales }) {
   const pages = {};
   const assets = {};
 
-  // Cartes topographiques : une pour l'accueil (un sommet par projet), une par projet.
-  const homePeaks = site.projectOrder.map((slug) => {
-    const { x, y } = site.projects[slug].summit;
-    return { x: x / 100, y: y / 100 };
+  // Carte topographique : un sommet par projet, aux positions fixées dans site.json.
+  assets[`assets/contours/${PROJECT_MAP}.svg`] = createContourMap({
+    seed: PROJECT_MAP,
+    peaks: site.projectOrder.map((slug) => {
+      const { x, y } = site.projects[slug].summit;
+      return { x: x / 100, y: y / 100 };
+    }),
   });
-  assets[`assets/contours/${HOME_MAP}.svg`] = createContourMap({
-    seed: HOME_MAP,
-    peaks: homePeaks,
-    width: 900,
-    height: 720,
-    levels: 13,
-  }).svg;
-
-  const summits = {};
-  for (const slug of site.projectOrder) {
-    const map = createContourMap({ seed: slug });
-    assets[`assets/contours/${slug}.svg`] = map.svg;
-    [summits[slug]] = map.summits;
-  }
 
   /** Adresse d'une même page dans toutes les langues. */
   const alternatesFor = (kind, slug) => Object.fromEntries(LANGUAGES.map((lang) => [lang, route(lang, kind, slug)]));
@@ -96,7 +85,7 @@ export function renderSite({ site, locales }) {
         title: `${item.title} | ${site.author}`,
         description: item.summary,
       };
-      pages[outputFile(ctx.url)] = renderPage(ctx, projectPage(ctx, slug, summits[slug]));
+      pages[outputFile(ctx.url)] = renderPage(ctx, projectPage(ctx, slug));
     }
 
     const legal = {
@@ -139,39 +128,34 @@ export function renderSite({ site, locales }) {
 }
 
 /**
- * Compile le site dans `outDir`.
- * @param {object} [options]
- * @param {string} [options.outDir] dossier de sortie (par défaut, la racine du dépôt)
- * @param {boolean} [options.styles=true] compiler aussi la feuille de style Tailwind
+ * Compile le site à la racine du dépôt.
  * @returns {Promise<{ files: string[], warnings: string[] }>}
  */
-export async function buildSite({ outDir = ROOT, styles = true } = {}) {
+export async function buildSite() {
   const content = await loadContent();
   const { errors, warnings } = validateContent(content);
   if (errors.length > 0) {
     throw new Error(`Contenu invalide :\n- ${errors.join('\n- ')}`);
   }
 
-  await Promise.all(GENERATED_DIRS.map((dir) => rm(join(outDir, dir), { recursive: true, force: true })));
+  await Promise.all(GENERATED_DIRS.map((dir) => rm(join(ROOT, dir), { recursive: true, force: true })));
 
   const { pages, assets } = renderSite(content);
   const files = { ...pages, ...assets };
-  await Promise.all(Object.entries(files).map(([file, text]) => write(outDir, file, text)));
+  await Promise.all(Object.entries(files).map(([file, text]) => write(file, text)));
 
-  await mkdir(join(outDir, 'assets/fonts'), { recursive: true });
-  await mkdir(join(outDir, 'js'), { recursive: true });
+  await mkdir(join(ROOT, 'assets/fonts'), { recursive: true });
+  await mkdir(join(ROOT, 'js'), { recursive: true });
   await Promise.all([
-    ...FONTS.map((font) => copyFile(join(ROOT, 'node_modules', font), join(outDir, 'assets/fonts', font.split('/').pop()))),
-    copyFile(join(ROOT, 'src/js/site.js'), join(outDir, 'js/site.js')),
+    ...FONTS.map((font) => copyFile(join(ROOT, 'node_modules', font), join(ROOT, 'assets/fonts', font.split('/').pop()))),
+    copyFile(join(ROOT, 'src/js/site.js'), join(ROOT, 'js/site.js')),
   ]);
 
-  if (styles) {
-    execFileSync(
-      join(ROOT, 'node_modules/.bin/tailwindcss'),
-      ['-c', 'tailwind.config.cjs', '-i', 'src/styles/main.css', '-o', join(outDir, 'css/style.css'), '--minify'],
-      { cwd: ROOT, stdio: ['ignore', 'ignore', 'inherit'] },
-    );
-  }
+  execFileSync(
+    join(ROOT, 'node_modules/.bin/tailwindcss'),
+    ['-c', 'tailwind.config.cjs', '-i', 'src/styles/main.css', '-o', 'css/style.css', '--minify'],
+    { cwd: ROOT, stdio: ['ignore', 'ignore', 'inherit'] },
+  );
 
   return { files: Object.keys(files), warnings };
 }

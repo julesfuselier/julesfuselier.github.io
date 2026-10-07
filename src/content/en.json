@@ -21,7 +21,7 @@
   },
   "hero": {
     "title": "I build web tools and bring AI in where it actually saves time.",
-    "lead": "Five months at Agapé auditing 9 departments and putting an LLM monitoring tool into service, a freelance business since 2025, and an engineering degree in computer science at UTT.",
+    "lead": "Five months at Agapé auditing 9 departments and putting an LLM monitoring tool into service. A freelance development business since 2025.",
     "portraitAlt": "Portrait of Jules Fuselier",
     "paths": [
       {
@@ -38,7 +38,8 @@
       }
     ],
     "intro": "Engineering student at UTT and web & AI developer",
-    "mapLabel": "Map of projects"
+    "mapLabel": "Map of projects",
+    "emailCta": "or email me"
   },
   "projects": {
     "title": "Projects",

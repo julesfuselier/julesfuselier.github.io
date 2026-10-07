@@ -7,12 +7,19 @@ import { test } from 'node:test';
 
 import { createContourMap, createRandom, hashString } from '../src/lib/contours.mjs';
 
-test('la même graine donne la même carte', () => {
-  assert.equal(createContourMap({ seed: 'agape' }).svg, createContourMap({ seed: 'agape' }).svg);
+const PEAKS = [
+  { x: 0.25, y: 0.5 },
+  { x: 0.75, y: 0.2 },
+];
+
+test('la même graine et les mêmes sommets donnent la même carte', () => {
+  assert.equal(createContourMap({ seed: 'a', peaks: PEAKS }), createContourMap({ seed: 'a', peaks: PEAKS }));
 });
 
-test('deux graines donnent deux cartes différentes', () => {
-  assert.notEqual(createContourMap({ seed: 'agape' }).svg, createContourMap({ seed: 'pathside' }).svg);
+test('changer la graine ou un sommet change la carte', () => {
+  const reference = createContourMap({ seed: 'a', peaks: PEAKS });
+  assert.notEqual(reference, createContourMap({ seed: 'b', peaks: PEAKS }));
+  assert.notEqual(reference, createContourMap({ seed: 'a', peaks: [PEAKS[0], { x: 0.6, y: 0.8 }] }));
 });
 
 test('le générateur aléatoire reste dans [0, 1[', () => {
@@ -23,20 +30,8 @@ test('le générateur aléatoire reste dans [0, 1[', () => {
   }
 });
 
-test('les sommets imposés sont restitués en pourcentage', () => {
-  const peaks = [
-    { x: 0.25, y: 0.5 },
-    { x: 0.75, y: 0.2 },
-  ];
-  const { summits } = createContourMap({ seed: 'home', peaks });
-  assert.deepEqual(summits, [
-    { x: 25, y: 50 },
-    { x: 75, y: 20 },
-  ]);
-});
-
-test('le SVG ne contient que des coordonnées finies', () => {
-  const { svg } = createContourMap({ seed: 'home', width: 900, height: 720 });
-  assert.match(svg, /^<svg /);
+test('le SVG respecte les dimensions demandées et ne contient que des coordonnées finies', () => {
+  const svg = createContourMap({ seed: 'a', peaks: PEAKS, width: 300, height: 200 });
+  assert.match(svg, /^<svg [^>]*viewBox="0 0 300 200"/);
   assert.doesNotMatch(svg, /NaN|Infinity/);
 });

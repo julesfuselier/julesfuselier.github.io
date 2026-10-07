@@ -1,9 +1,9 @@
 /**
  * Génération de courbes de niveau (carte topographique) en SVG.
  *
- * Chaque projet reçoit son propre « relief », calculé à la compilation à
- * partir de son identifiant : le même identifiant donne toujours la même
- * carte. Aucun JavaScript n'est exécuté dans le navigateur pour ce décor.
+ * La carte est calculée à la compilation : la même graine et les mêmes
+ * sommets donnent toujours le même tracé. Aucun JavaScript n'est exécuté
+ * dans le navigateur pour la dessiner.
  *
  * Étapes :
  *  1. un champ d'altitude = un sommet principal + du bruit lissé ;
@@ -78,16 +78,15 @@ function createNoise(random, size) {
  * @param {number} seed
  * @param {number} cols
  * @param {number} rows
- * @param {Peak[]} peaks sommets imposés ; vide pour un sommet tiré au hasard
- * @returns {{ values: number[][], peaks: Peak[] }}
+ * @param {Peak[]} peaks sommets de la carte
+ * @returns {number[][]} altitudes, par ligne puis par colonne
  */
 function buildField(seed, cols, rows, peaks) {
   const random = createRandom(seed);
-  const summits = peaks.length > 0 ? peaks : [{ x: 0.3 + random() * 0.4, y: 0.3 + random() * 0.4 }];
   const coarse = createNoise(random, 3);
   const fine = createNoise(random, 7);
   // Plus il y a de sommets, plus chacun est étroit, pour qu'ils restent distincts.
-  const sharpness = summits.length > 1 ? 30 : 9;
+  const sharpness = peaks.length > 1 ? 30 : 9;
 
   const values = [];
   for (let row = 0; row <= rows; row += 1) {
@@ -96,7 +95,7 @@ function buildField(seed, cols, rows, peaks) {
       const x = col / cols;
       const y = row / rows;
       let relief = 0;
-      for (const peak of summits) {
+      for (const peak of peaks) {
         const distance = Math.hypot(x - peak.x, (y - peak.y) * (rows / cols));
         relief = Math.max(relief, Math.exp(-distance * distance * sharpness));
       }
@@ -104,7 +103,7 @@ function buildField(seed, cols, rows, peaks) {
     }
     values.push(line);
   }
-  return { values, peaks: summits };
+  return values;
 }
 
 /**
@@ -196,26 +195,19 @@ function chainSegments(segments, format) {
 }
 
 /**
- * @typedef {object} ContourMap
- * @property {string} svg document SVG complet (traits noirs, utilisable comme masque CSS)
- * @property {{ x: number, y: number }[]} summits position de chaque sommet, en pourcentage du cadre
- */
-
-/**
  * Génère une carte de courbes de niveau.
  * @param {object} options
- * @param {string} options.seed texte servant de graine (identifiant de la carte)
- * @param {Peak[]} [options.peaks] sommets imposés ; par défaut un seul, tiré au hasard
- * @param {number} [options.width=600] largeur du SVG
- * @param {number} [options.height=400] hauteur du SVG
- * @param {number} [options.levels=11] nombre de courbes
- * @returns {ContourMap}
+ * @param {string} options.seed texte servant de graine pour le bruit
+ * @param {Peak[]} options.peaks sommets de la carte
+ * @param {number} [options.width=900] largeur du SVG
+ * @param {number} [options.height=720] hauteur du SVG
+ * @param {number} [options.levels=13] nombre de courbes
+ * @returns {string} document SVG (traits noirs, utilisable comme masque CSS)
  */
-export function createContourMap({ seed, peaks = [], width = 600, height = 400, levels = 11 }) {
+export function createContourMap({ seed, peaks, width = 900, height = 720, levels = 13 }) {
   const cols = Math.round(width / 12.5);
   const rows = Math.round((cols * height) / width);
-  const field = buildField(hashString(seed), cols, rows, peaks);
-  const { values } = field;
+  const values = buildField(hashString(seed), cols, rows, peaks);
   const scaleX = width / cols;
   const scaleY = height / rows;
 
@@ -236,17 +228,10 @@ export function createContourMap({ seed, peaks = [], width = 600, height = 400, 
     (step % 4 === 0 ? paths.major : paths.minor).push(d);
   }
 
-  const svg =
+  return (
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round">` +
     `<path stroke-width="1" d="${paths.minor.join('')}"/>` +
     `<path stroke-width="2.2" d="${paths.major.join('')}"/>` +
-    '</svg>\n';
-
-  return {
-    svg,
-    summits: field.peaks.map((peak) => ({
-      x: Number((peak.x * 100).toFixed(1)),
-      y: Number((peak.y * 100).toFixed(1)),
-    })),
-  };
+    '</svg>\n'
+  );
 }

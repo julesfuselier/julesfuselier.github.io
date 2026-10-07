@@ -11,7 +11,7 @@ Node.js 20 ou plus récent.
 ```bash
 npm install
 npm run dev     # compile, sert http://localhost:8080 et recompile à chaque modification de src/
-npm test        # tests du contenu, du générateur de cartes et des pages
+npm test        # tests du contenu, de la carte et des pages
 npm run build   # compile le site avant de committer
 ```
 
@@ -34,7 +34,7 @@ Chaque page est écrite en HTML complet à la compilation. Le navigateur ne reco
 | `src/content/site.json` | Données communes aux deux langues : adresses, liens, technologies, position des projets sur la carte |
 | `src/content/fr.json`, `en.json` | Textes. Les deux fichiers ont exactement la même structure |
 | `src/lib/content.mjs` | Chargement et validation du contenu |
-| `src/lib/contours.mjs` | Génération des cartes topographiques (bruit, marching squares) |
+| `src/lib/contours.mjs` | Génération de la carte topographique (bruit, marching squares) |
 | `src/lib/html.mjs` | Gabarit étiqueté `html` qui échappe le contenu par défaut |
 | `src/lib/routes.mjs` | Adresse de chaque page, par langue |
 | `src/templates/` | Gabarits : enveloppe commune, accueil, projet, pages simples |
@@ -62,7 +62,7 @@ Modifiez la clé dans `src/content/fr.json` **et** dans `src/content/en.json`, p
 
 1. Dans `src/content/site.json` : ajoutez l'identifiant à `projectOrder` (l'ordre d'affichage) et une entrée dans `projects` avec `stack`, `links` et `summit` (position du sommet sur la carte de l'accueil, en pourcentage).
 2. Dans `fr.json` et `en.json` : ajoutez les textes sous `projects.items.<identifiant>`. Champs obligatoires : `shortTitle`, `title`, `kicker`, `summary`, `context`, `role`, `actions`, `outcome`. `period` et `next` peuvent valoir `null`.
-3. `npm run build`. La page du projet, sa carte, le lien sur la carte de l'accueil et le plan du site sont créés automatiquement.
+3. `npm run build`. La page du projet, son sommet sur la carte et le plan du site sont créés automatiquement.
 
 Types de liens acceptés : `site`, `github`, `install`, `demo`. Leurs libellés sont dans `projects.linkLabels`.
 
@@ -74,7 +74,7 @@ Remplacez `assets/CV_FUSELIER-Jules.pdf` en gardant le même nom.
 
 - **Palette « Dolomites »** : pierre `#D8D6CE` (fond), forêt `#3C4A3A` (boutons, section entreprises), terre cuite `#B75B39` (repères de sommet), rose `#D9A398` (liens en thème sombre). Les couleurs sont des variables CSS dans `src/styles/main.css` ; le thème sombre redéfinit ces variables, sans classe supplémentaire dans les gabarits.
 - **Polices** : Space Grotesk pour le texte, JetBrains Mono pour les données courtes (technologies, périodes). Elles sont copiées depuis `node_modules` : aucune requête vers un service tiers.
-- **Cartes topographiques** : calculées à la compilation à partir de l'identifiant du projet. Le même identifiant donne toujours la même carte. Sur l'accueil, chaque sommet est un lien vers un projet.
+- **Carte topographique** : une seule carte, calculée à la compilation, où chaque sommet est un projet (positions dans `site.json`, champ `summit`). Sur l'accueil, les sommets sont des liens ; sur une page de projet, la carte situe le projet parmi les autres.
 
 ## Règles de contribution
 
