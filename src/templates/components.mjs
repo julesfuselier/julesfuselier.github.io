@@ -3,6 +3,7 @@
  */
 
 import { html } from '../lib/html.mjs';
+import { projectAltitudes, relativeHeight } from '../lib/altitude.mjs';
 import { route } from '../lib/routes.mjs';
 
 /** Graine du relief : la carte 2D et le relief 3D doivent utiliser la même. */
@@ -55,6 +56,22 @@ export function bulletList(items) {
 }
 
 /**
+ * Sommets de la carte, dans l'ordre des projets : position et hauteur
+ * relative (tirée des heures passées, voir `src/lib/altitude.mjs`). La carte
+ * 2D, le relief 3D et le HTML partent tous de cette même liste.
+ * @param {any} site données de `site.json`
+ * @returns {{ slug: string, x: number, y: number, height: number, altitude: number | undefined }[]}
+ *   `x` et `y` en pourcentage, `height` de 0 à 1, `altitude` en mètres si connue
+ */
+export function projectSummits(site) {
+  const altitudes = projectAltitudes(site.projects);
+  return site.projectOrder.map((slug) => {
+    const altitude = altitudes?.[slug];
+    return { slug, ...site.projects[slug].summit, height: relativeHeight(altitude), altitude };
+  });
+}
+
+/**
  * Classe d'ancrage de l'étiquette d'un sommet, pour qu'elle ne sorte jamais
  * de la carte : calée à gauche près du bord gauche, à droite près du bord
  * droit, centrée ailleurs. Les noms de classe sont écrits en entier pour que
@@ -86,11 +103,10 @@ export function projectMap(ctx, { label, current }) {
   const { site, t, lang } = ctx;
   return html`<nav aria-label="${label}" class="project-map text-body" data-project-map data-seed="${PROJECT_MAP_SEED}">
     <ul>
-      ${site.projectOrder.map((slug) => {
-        const { x, y } = site.projects[slug].summit;
+      ${projectSummits(site).map(({ slug, x, y, height }) => {
         const name = t.projects.items[slug].shortTitle;
         const classes = `summit-label ${labelAnchor(x)}`;
-        return html`<li class="summit" style="--x: ${x}%; --y: ${y}%" data-summit data-x="${x}" data-y="${y}">
+        return html`<li class="summit" style="--x: ${x}%; --y: ${y}%" data-summit data-x="${x}" data-y="${y}" data-height="${height}">
           <span class="summit-dot" aria-hidden="true"></span>
           ${slug === current
             ? html`<span class="${classes} ring-1 ring-inset ring-ink" aria-current="page">${name}</span>`

@@ -137,6 +137,9 @@ export function validateContent({ site, locales }) {
     }
   }
 
+  if (Object.values(site.projects).some((project) => typeof project.hours !== 'number')) {
+    warnings.push('site.json : heures de projet manquantes, tous les sommets ont la même hauteur');
+  }
   if (!site.publisher.siret) warnings.push('site.json : SIRET non renseigné, les mentions légales sont incomplètes');
   return { errors, warnings };
 }

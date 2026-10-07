@@ -41,6 +41,7 @@ Chaque page est écrite en HTML complet à la compilation. Le navigateur ne reco
 | `src/templates/` | Gabarits : enveloppe commune, accueil, projet, pages simples |
 | `src/styles/main.css` | Couleurs, polices et composants CSS. Compilé par Tailwind |
 | `src/js/site.js` | Bouton de thème |
+| `src/lib/altitude.mjs` | Calcule l'altitude de chaque sommet à partir des heures passées |
 | `src/js/map.js` | Décide si le relief 3D peut s'afficher, et ne le télécharge que dans ce cas |
 | `src/js/terrain.js` | Relief 3D de la carte des projets (Three.js), commenté pour qui découvre Three.js |
 | `scripts/build.mjs` | Compilation |
@@ -81,6 +82,7 @@ Les règles visuelles complètes sont dans [`DESIGN.md`](DESIGN.md). En résumé
 - **Polices** : Space Grotesk pour le texte, JetBrains Mono pour les données courtes (technologies, périodes). Elles sont copiées depuis `node_modules` : aucune requête vers un service tiers.
 - **Carte topographique** : une seule carte, calculée à la compilation, où chaque sommet est un projet (positions dans `site.json`, champ `summit`). Chaque sommet est un lien ; sur une page de projet, la carte mène aux autres projets.
 - **Relief 3D** : sur un écran d'au moins 640 px, si le navigateur gère WebGL 2, `map.js` télécharge `terrain.js` (Three.js, environ 135 Ko compressé) et remplace le fond de la carte par le même relief en perspective. On peut le faire tourner en glissant. Les étiquettes restent les liens HTML d'origine. Sans WebGL, sur mobile ou en économie de données, la carte 2D reste affichée.
+- **Hauteur des sommets** : elle dépend des heures passées sur chaque projet (champ `hours` de `src/content/site.json`, à relever dans WakaTime), sur une échelle logarithmique entre 820 m et 2 650 m. La formule est dans `src/lib/altitude.mjs`. Tant qu'il manque les heures d'un projet, tous les sommets ont la même hauteur et la compilation le signale.
 
 ## Règles de contribution
 

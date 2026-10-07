@@ -88,6 +88,13 @@ function createNoise(random, size) {
  */
 
 /**
+ * Exposant appliqué à l'altitude du champ pour obtenir la hauteur dessinée
+ * en 3D : au-dessus de 1, il aplatit les vallées et dresse les sommets, ce
+ * qui donne des montagnes plutôt que des collines.
+ */
+export const RELIEF_EXPONENT = 1.7;
+
+/**
  * Bruit « à crêtes » : plusieurs couches de bruit, de plus en plus fines,
  * repliées autour de leur valeur médiane. Là où une couche passe par cette
  * valeur, le repli forme une arête vive : c'est ce qui donne des lignes de
@@ -109,6 +116,17 @@ function createRidgedNoise(random) {
     }
     return sum / total;
   };
+}
+
+/**
+ * Niveau d'un sommet dans le champ. L'exposant du relief est compensé ici,
+ * pour que la hauteur dessinée en 3D reste proportionnelle à `peak.height` :
+ * un sommet deux fois moins haut apparaît deux fois moins haut.
+ * @param {Peak} peak
+ * @returns {number} entre 0 et 1
+ */
+function peakLevel(peak) {
+  return (peak.height ?? 1) ** (1 / RELIEF_EXPONENT);
 }
 
 /**
@@ -144,14 +162,22 @@ function buildField(seed, cols, rows, peaks) {
       const stretch = 0.8 + 0.4 * undulation; // pied de montagne irrégulier
 
       let envelope = 0;
+      let closeness = 0; // 1 au sommet le plus influent ici, 0 loin de lui
       for (const peak of peaks) {
-        const distance = Math.hypot(x - peak.x, (y - peak.y) * aspect) * stretch;
+        const level = peakLevel(peak);
+        // Un sommet bas est aussi plus étroit : il garde des pentes de
+        // montagne au lieu de s'étaler en colline.
+        const distance = (Math.hypot(x - peak.x, (y - peak.y) * aspect) * stretch) / (0.45 + 0.55 * level);
         // L'exposant 0,7 resserre la cloche près du sommet : une pointe, pas un dôme.
-        envelope = Math.max(envelope, (peak.height ?? 1) * Math.exp(-((distance * distance * sharpness) ** 0.7)));
+        const bell = Math.exp(-((distance * distance * sharpness) ** 0.7));
+        if (level * bell > envelope) {
+          envelope = level * bell;
+          closeness = bell;
+        }
       }
 
       const carving = ridged(x, Math.min(y * aspect, 1));
-      const kept = carving + (1 - carving) * envelope ** 6; // intact au sommet
+      const kept = carving + (1 - carving) * closeness ** 6; // intact au sommet, quelle que soit sa hauteur
       line.push(envelope * (0.35 + 0.65 * kept) * 0.84 + undulation * 0.12);
     }
     values.push(line);

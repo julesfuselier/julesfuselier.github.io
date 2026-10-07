@@ -22,7 +22,7 @@ import { build as bundle } from 'esbuild';
 import { LANGUAGES, loadContent, validateContent } from '../src/lib/content.mjs';
 import { createContourMap } from '../src/lib/contours.mjs';
 import { GENERATED_DIRS, outputFile, route } from '../src/lib/routes.mjs';
-import { PROJECT_MAPS, PROJECT_MAP_SEED } from '../src/templates/components.mjs';
+import { PROJECT_MAPS, PROJECT_MAP_SEED, projectSummits } from '../src/templates/components.mjs';
 import { homePage } from '../src/templates/home.mjs';
 import { renderPage } from '../src/templates/layout.mjs';
 import { projectPage } from '../src/templates/project.mjs';
@@ -60,12 +60,10 @@ export function renderSite({ site, locales }) {
   const pages = {};
   const assets = {};
 
-  // Carte topographique : un sommet par projet, aux positions fixées dans
-  // site.json, tracée une fois par format d'écran.
-  const peaks = site.projectOrder.map((slug) => {
-    const { x, y } = site.projects[slug].summit;
-    return { x: x / 100, y: y / 100 };
-  });
+  // Carte topographique : un sommet par projet, à la position fixée dans
+  // site.json et à la hauteur tirée des heures passées, tracée une fois par
+  // format d'écran.
+  const peaks = projectSummits(site).map(({ x, y, height }) => ({ x: x / 100, y: y / 100, height }));
   for (const [format, size] of Object.entries(PROJECT_MAPS)) {
     assets[`assets/contours/projects-${format}.svg`] = createContourMap({ seed: PROJECT_MAP_SEED, peaks, ...size });
   }

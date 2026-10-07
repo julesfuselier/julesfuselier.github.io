@@ -20,17 +20,10 @@
 
 import { BufferAttribute, Color, Mesh, PerspectiveCamera, PlaneGeometry, Scene, ShaderMaterial, Vector3, WebGLRenderer } from 'three';
 
-import { CONTOUR_LEVELS, contourScale, createHeightField } from '../lib/contours.mjs';
+import { CONTOUR_LEVELS, RELIEF_EXPONENT, contourScale, createHeightField } from '../lib/contours.mjs';
 
 /** Dimensions du terrain dans le monde 3D : mêmes proportions que la carte 2D (5:2). */
 const TERRAIN = { width: 10, depth: 4, height: 2.3 };
-
-/**
- * Exposant appliqué à l'altitude avant de soulever le terrain : au-dessus
- * de 1, il aplatit les vallées et dresse les sommets, ce qui donne des
- * montagnes plutôt que des collines.
- */
-const STEEPNESS = 1.7;
 
 /** Finesse de la grille. Plus elle est fine, plus les courbes sont lisses. */
 const GRID = { cols: 360, rows: 144 };
@@ -120,13 +113,14 @@ const FRAGMENT_SHADER = /* glsl */ `
 /**
  * Lit les sommets dans le HTML de la carte.
  * @param {HTMLElement} map
- * @returns {{ element: HTMLElement, x: number, y: number }[]} positions de 0 à 1
+ * @returns {{ element: HTMLElement, x: number, y: number, height: number }[]} positions et hauteurs de 0 à 1
  */
 function readSummits(map) {
   return [...map.querySelectorAll('[data-summit]')].map((element) => ({
     element,
     x: Number(element.dataset.x) / 100,
     y: Number(element.dataset.y) / 100,
+    height: Number(element.dataset.height),
   }));
 }
 
@@ -136,7 +130,7 @@ function readSummits(map) {
  * @returns {number}
  */
 function elevationOf(altitude) {
-  return altitude ** STEEPNESS * TERRAIN.height;
+  return altitude ** RELIEF_EXPONENT * TERRAIN.height;
 }
 
 /**
