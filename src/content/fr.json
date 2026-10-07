@@ -20,43 +20,26 @@
     "langSwitchCode": "EN"
   },
   "hero": {
+    "badge": "Stage recherché : juillet à décembre 2027",
     "title": "Je construis des outils web et j'intègre l'IA là où elle fait gagner du temps.",
-    "lead": "Cinq mois chez Agapé à auditer 9 services et à mettre en service un outil de veille par LLM. Une micro-entreprise de développement depuis 2025.",
-    "portraitAlt": "Portrait de Jules Fuselier",
-    "paths": [
-      {
-        "audience": "recruiters",
-        "title": "Vous recrutez",
-        "text": "Stage ingénieur de 6 mois, de juillet à décembre 2027, en développement, IA appliquée ou gestion de projet tech.",
-        "cta": "Voir mon profil"
-      },
-      {
-        "audience": "clients",
-        "title": "Vous avez un projet",
-        "text": "Site web, intégration d'API ou d'IA : je travaille au forfait, pour des PME, des commerces et des indépendants.",
-        "cta": "Voir ce que je propose"
-      }
-    ],
-    "intro": "Élève ingénieur à l'UTT et développeur web & IA",
+    "lead": "Élève ingénieur à l'UTT (Université de technologie de Troyes) et micro-entrepreneur. 5 mois chez Agapé : audit de 9 services et mise en service d'un outil de veille par modèle de langage (LLM).",
+    "clientCta": "Vous avez un projet",
     "mapLabel": "Carte des projets",
-    "emailCta": "ou m'écrire"
+    "portraitAlt": "Portrait de Jules Fuselier"
   },
   "projects": {
-    "title": "Projets",
-    "lead": "Cinq réalisations, de la mission en entreprise au projet personnel. Chaque page dit ce qui est livré et ce qui ne l'est pas encore.",
-    "readMore": "Lire l'étude de cas",
+    "lead": "Chaque page dit ce qui est livré et ce qui ne l'est pas encore.",
     "labels": {
-      "context": "Contexte",
+      "context": "Ce qui était demandé",
       "role": "Rôle",
       "period": "Période",
       "stack": "Technologies",
-      "actions": "Réalisations",
-      "outcome": "Résultat",
-      "next": "Limites et suite",
-      "links": "Liens",
+      "actions": "Ce que j'ai fait",
+      "outcome": "Ce qui est livré",
+      "next": "Ce qui reste à faire",
+      "links": "Voir le projet",
       "back": "Tous les projets",
-      "previous": "Projet précédent",
-      "following": "Projet suivant"
+      "others": "Les autres projets"
     },
     "linkLabels": {
       "site": "Voir le site en ligne",
@@ -70,15 +53,15 @@
         "title": "Intégration de l'IA chez Agapé",
         "kicker": "Stage puis CDD",
         "summary": "Audit des usages de l'IA dans 9 services et mise en service d'un outil de veille e-réputation par LLM.",
-        "context": "La direction générale d'Agapé voulait savoir où l'IA pouvait réellement aider ses équipes, et tester des outils concrets.",
+        "context": "La direction générale d'Agapé voulait savoir où l'IA pouvait aider ses équipes, et tester des outils concrets.",
         "role": "Chargé d'intégration IA & processus",
         "period": "Avril à août 2026",
         "actions": [
-          "Audit de 9 services avec une grille de 16 critères, et recommandations chiffrées remises à la direction générale (ROI estimé à 6,5 fois le coût pour la recommandation principale).",
+          "Audit de 9 services avec une grille de 16 critères, et recommandations chiffrées remises à la direction générale (ROI estimé à 6,5 fois le coût pour la recommandation principale)",
           "Outil de veille e-réputation en React et TypeScript : l'API Tavily collecte plus de 30 sources par analyse, puis un modèle Claude (API Anthropic) les trie. Mis en service pendant la mission.",
-          "Étude de faisabilité et prototype d'un middleware Node.js reliant Shopify, l'ERP et Brevo, sur 3 flux de synchronisation.",
-          "Script Python d'anonymisation en lot de fiches fournisseurs PDF.",
-          "Note de passation couvrant les 4 projets en fin de mission."
+          "Étude de faisabilité et prototype d'un middleware Node.js reliant Shopify, l'ERP et Brevo, sur 3 flux de synchronisation",
+          "Script Python d'anonymisation en lot de fiches fournisseurs PDF",
+          "Note de passation couvrant les 4 projets en fin de mission"
         ],
         "outcome": "Un outil en service, des recommandations chiffrées remises à la direction et une passation documentée.",
         "next": "Le middleware est resté au stade du prototype : il n'a pas été mis en production."
@@ -92,10 +75,10 @@
         "role": "Co-développeur avec Dinesh Radjou, en lien direct avec le client",
         "period": null,
         "actions": [
-          "Carte en ligne et mise en avant des spécialités.",
-          "Réservation de table, y compris pour les groupes.",
-          "Commande à emporter en click & collect, avec comptes clients.",
-          "Pages légales : conditions d'utilisation, confidentialité, cookies, conditions de réservation et de click & collect."
+          "Carte en ligne et mise en avant des spécialités",
+          "Réservation de table, y compris pour les groupes",
+          "Commande à emporter en click & collect, avec comptes clients",
+          "Pages légales : conditions d'utilisation, confidentialité, cookies, conditions de réservation et de click & collect"
         ],
         "outcome": "Le site est en ligne sur preityindia.fr.",
         "next": null
@@ -109,12 +92,12 @@
         "role": "Développeur principal, product owner et chef de projet, en équipe Scrum de 5",
         "period": "2025 à 2026",
         "actions": [
-          "Architecture MVC avec une couche de services et des cas d'usage isolés (Clean Architecture).",
-          "Authentification à quatre niveaux d'accès : visiteur, étudiant, administrateur et super-administrateur.",
-          "Algorithme de classement des candidats, centralisé dans un service pour que la formule ne se modifie qu'à un seul endroit.",
-          "Scraper qui s'authentifie auprès du CAS de l'université et synchronise la liste des destinations.",
-          "Anonymisation des comptes pour la conformité RGPD.",
-          "195 tests PHPUnit, unitaires et d'intégration, analyse statique PHPStan, standard PSR-12 et intégration continue GitHub Actions."
+          "Architecture MVC avec une couche de services et des cas d'usage isolés (Clean Architecture)",
+          "Authentification à quatre niveaux d'accès : visiteur, étudiant, administrateur et super-administrateur",
+          "Algorithme de classement des candidats, centralisé dans un service pour que la formule ne se modifie qu'à un seul endroit",
+          "Scraper qui s'authentifie auprès du CAS de l'université et synchronise la liste des destinations",
+          "Anonymisation des comptes pour la conformité RGPD",
+          "195 tests PHPUnit, unitaires et d'intégration, analyse statique PHPStan, standard PSR-12 et intégration continue GitHub Actions"
         ],
         "outcome": "Une application complète et testée, conçue pour plus de 1 000 étudiants.",
         "next": "Elle n'est pas encore utilisée en production. Le code est privé : démonstration sur demande."
@@ -128,11 +111,11 @@
         "role": "Conception et développement, seul",
         "period": "Depuis mai 2026",
         "actions": [
-          "Interrogation de l'API Overpass pour cinq types de spots en une seule requête.",
-          "Prise en charge des trois types d'objets OpenStreetMap : nœuds, chemins et relations.",
-          "Distance réelle aux objets linéaires : le script parcourt toute la géométrie d'un sentier au lieu de s'arrêter à son centre (formule de Haversine).",
-          "Reprise sur erreur avec attente exponentielle, en distinguant les erreurs passagères des erreurs définitives.",
-          "Export JSON prêt à alimenter une carte."
+          "Interrogation de l'API Overpass pour cinq types de spots en une seule requête",
+          "Prise en charge des trois types d'objets OpenStreetMap : nœuds, chemins et relations",
+          "Distance réelle aux objets linéaires : le script parcourt toute la géométrie d'un sentier au lieu de s'arrêter à son centre (formule de Haversine)",
+          "Reprise sur erreur avec attente exponentielle, en distinguant les erreurs passagères des erreurs définitives",
+          "Export JSON prêt à alimenter une carte"
         ],
         "outcome": "La phase 1, la collecte de données autour d'un point, est terminée.",
         "next": "Phase 2 en cours : calcul de l'itinéraire A→B, filtrage par détour et affichage sur une carte Leaflet."
@@ -146,23 +129,23 @@
         "role": "Développeur",
         "period": "2025",
         "actions": [
-          "Application des principes SOLID et de patrons de conception (Factory, contrôleurs) pour garder le code maintenable.",
-          "IA ennemie, gestion des collisions et propagation en chaîne des explosions.",
-          "Distribution par installateur jDeploy et démo jouable dans le navigateur."
+          "Application des principes SOLID et de patrons de conception (Factory, contrôleurs) pour garder le code maintenable",
+          "IA ennemie, gestion des collisions et propagation en chaîne des explosions",
+          "Distribution par installateur jDeploy et démo jouable dans le navigateur"
         ],
         "outcome": "Un jeu jouable, installable et testable en ligne.",
         "next": null
       }
-    }
+    },
+    "headline": "5 projets, de la mission en entreprise au projet personnel."
   },
   "recruiters": {
-    "title": "Pour les recruteurs",
-    "lead": "Je cherche un stage ingénieur de 6 mois, de juillet à décembre 2027.",
+    "lead": "Développement logiciel, IA appliquée ou gestion de projet tech, en France.",
     "seekingTitle": "Ce que je cherche",
     "seeking": [
-      "Durée : 6 mois, de juillet à décembre 2027.",
-      "Postes : développement logiciel, IA appliquée ou gestion de projet tech.",
-      "Lieu : France."
+      "6 mois, de juillet à décembre 2027",
+      "Développement logiciel, IA appliquée ou gestion de projet tech",
+      "En France"
     ],
     "proofsTitle": "Ce que j'ai déjà fait",
     "proofs": [
@@ -238,11 +221,12 @@
         ]
       }
     ],
-    "cvCta": "Télécharger mon CV (PDF)"
+    "cvCta": "Télécharger mon CV (PDF)",
+    "headline": "Je cherche un stage ingénieur de 6 mois, de juillet à décembre 2027.",
+    "emailCta": "M'écrire"
   },
   "clients": {
-    "title": "Pour les entreprises",
-    "lead": "Avec ma micro-entreprise, je réalise des sites et des intégrations sur mesure pour des PME, des commerces et des indépendants.",
+    "lead": "Avec ma micro-entreprise, je travaille pour des PME, des commerces et des indépendants, sur des missions courtes et à distance.",
     "servicesTitle": "Ce que je propose",
     "services": [
       {
@@ -251,18 +235,17 @@
       },
       {
         "title": "Intégration d'API et automatisation",
-        "text": "Relier vos outils entre eux (boutique en ligne, ERP, e-mailing) pour arrêter les ressaisies."
+        "text": "Relier vos outils entre eux (boutique en ligne, logiciel de gestion, e-mailing) pour arrêter les ressaisies."
       },
       {
         "title": "IA appliquée",
         "text": "Audit de vos usages, prototypes et outils à base de modèles de langage, avec une estimation honnête de ce que l'IA apporte ou non."
       }
     ],
-    "note": "Je travaille au forfait, sur des missions courtes et à distance.",
-    "cta": "Parler de votre projet"
+    "cta": "Parler de votre projet",
+    "headline": "Des sites et des intégrations sur mesure, au forfait."
   },
   "journey": {
-    "title": "Parcours",
     "items": [
       {
         "period": "2026 à 2029",
@@ -289,14 +272,13 @@
         "title": "Baccalauréat général",
         "text": "Spécialités mathématiques et NSI, avec mention."
       }
-    ]
+    ],
+    "headline": "Formation et expériences depuis 2024."
   },
   "contact": {
-    "title": "Me contacter",
-    "text": "Pour un stage comme pour un projet, le plus simple est de m'écrire.",
-    "emailCta": "M'écrire",
     "linkedin": "LinkedIn",
-    "github": "GitHub"
+    "github": "GitHub",
+    "headline": "Pour un stage ou un projet, écrivez-moi."
   },
   "footer": {
     "legal": "Mentions légales",

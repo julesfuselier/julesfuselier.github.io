@@ -14,6 +14,9 @@ import { route } from '../lib/routes.mjs';
  */
 const THEME_BOOTSTRAP = `try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}`;
 
+/** Couleur de fond de la page dans chaque thème, pour la barre du navigateur. */
+const THEME_COLORS = { light: '#d8d6ce', dark: '#161c17' };
+
 /**
  * Données structurées schema.org décrivant l'auteur du site.
  * @param {PageContext} ctx
@@ -43,10 +46,12 @@ function head(ctx) {
   const canonical = site.baseUrl + ctx.url;
   return html`<head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>${ctx.title}</title>
     <meta name="description" content="${ctx.description}" />
     <meta name="author" content="${site.author}" />
+    <meta name="theme-color" content="${THEME_COLORS.light}" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="${THEME_COLORS.dark}" media="(prefers-color-scheme: dark)" />
     <link rel="canonical" href="${canonical}" />
     ${LANGUAGES.map((code) => html`<link rel="alternate" hreflang="${code}" href="${site.baseUrl + alternates[code]}" />`)}
     <link rel="alternate" hreflang="x-default" href="${site.baseUrl + alternates[LANGUAGES[0]]}" />
@@ -67,7 +72,9 @@ function head(ctx) {
 }
 
 /**
- * En-tête : nom, navigation par ancres, langue et thème.
+ * En-tête collant, haut de 64 px : nom à gauche, ancres au centre, langue et
+ * thème à droite. Sur mobile, les ancres passent sur une seconde ligne qui
+ * défile horizontalement, sans menu à ouvrir ni JavaScript.
  * @param {PageContext} ctx
  */
 function header(ctx) {
@@ -75,19 +82,20 @@ function header(ctx) {
   const home = route(lang, 'home');
   const other = LANGUAGES.find((code) => code !== lang);
   const links = ['projects', 'recruiters', 'clients', 'journey', 'contact'];
+  const control = 'grid h-8 min-w-8 place-items-center rounded-full px-2 ring-1 ring-inset ring-hairline hover:bg-canvas';
 
-  return html`<header class="sticky top-0 z-10 border-b border-line bg-paper">
-    <div class="page flex flex-wrap items-center gap-x-8 gap-y-2 py-4">
-      <a href="${home}" class="mr-auto text-lg font-semibold tracking-tight">${ctx.site.author}</a>
-      <nav aria-label="${t.nav.label}" class="order-last w-full sm:order-none sm:w-auto">
-        <ul class="flex gap-x-4 overflow-x-auto text-sm sm:gap-x-6 sm:text-[0.9375rem]">
-          ${links.map((id) => html`<li><a href="${home}#${id}" class="whitespace-nowrap hover:underline hover:underline-offset-4">${t.nav[id]}</a></li>`)}
+  return html`<header class="sticky top-0 z-10 border-b border-hairline bg-canvas-soft">
+    <div class="page flex min-h-16 flex-wrap items-center gap-x-6 py-3 md:py-0">
+      <a href="${home}" class="mr-auto font-semibold tracking-[-0.02em] md:mr-0" translate="no">${ctx.site.author}</a>
+      <nav aria-label="${t.nav.label}" class="order-last w-full overflow-x-auto [scrollbar-width:none] md:order-none md:mx-auto md:w-auto">
+        <ul class="-mx-3 flex gap-x-1 pt-2 text-sm text-body md:mx-0 md:pt-0">
+          ${links.map((id) => html`<li><a href="${home}#${id}" class="block whitespace-nowrap rounded-full px-3 py-1.5 hover:bg-canvas hover:text-ink">${t.nav[id]}</a></li>`)}
         </ul>
       </nav>
-      <div class="flex items-center gap-4 text-[0.9375rem]">
-        <a href="${alternates[other]}" hreflang="${other}" lang="${other}" aria-label="${t.nav.langSwitch}" class="font-mono hover:underline">${t.nav.langSwitchCode}</a>
-        <button type="button" data-theme-toggle hidden aria-label="${t.nav.theme}" class="grid h-8 w-8 place-items-center rounded-sm border border-line hover:border-ink">
-          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" /><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor" /></svg>
+      <div class="flex items-center gap-2">
+        <a href="${alternates[other]}" hreflang="${other}" lang="${other}" aria-label="${t.nav.langSwitch}" class="${control} font-mono text-xs">${t.nav.langSwitchCode}</a>
+        <button type="button" data-theme-toggle hidden aria-label="${t.nav.theme}" class="${control}">
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" /><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor" /></svg>
         </button>
       </div>
     </div>
@@ -99,10 +107,10 @@ function header(ctx) {
  */
 function footer(ctx) {
   const { t, lang, site } = ctx;
-  return html`<footer class="border-t border-line py-8 text-sm text-muted">
+  return html`<footer class="border-t border-hairline py-8 text-sm text-body">
     <div class="page flex flex-wrap gap-x-8 gap-y-2">
-      <p class="mr-auto">© ${new Date().getFullYear()} ${site.author}. ${t.footer.note}</p>
-      <a href="${route(lang, 'legal')}" class="hover:underline">${t.footer.legal}</a>
+      <p class="mr-auto">© ${new Date().getFullYear()} <span translate="no">${site.author}</span>. ${t.footer.note}</p>
+      <a href="${route(lang, 'legal')}" class="hover:text-ink hover:underline hover:underline-offset-4">${t.footer.legal}</a>
     </div>
   </footer>`;
 }
@@ -118,7 +126,7 @@ export function renderPage(ctx, content) {
 <html lang="${ctx.lang}">
   ${head(ctx)}
   <body>
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-20 focus:bg-paper focus:px-3 focus:py-2">${ctx.t.nav.skip}</a>
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-20 focus:rounded-full focus:bg-canvas focus:px-4 focus:py-2">${ctx.t.nav.skip}</a>
     ${header(ctx)}
     <main id="main">${content}</main>
     ${footer(ctx)}

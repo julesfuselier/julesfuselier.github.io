@@ -20,43 +20,26 @@
     "langSwitchCode": "FR"
   },
   "hero": {
-    "title": "I build web tools and bring AI in where it actually saves time.",
-    "lead": "Five months at Agapé auditing 9 departments and putting an LLM monitoring tool into service. A freelance development business since 2025.",
-    "portraitAlt": "Portrait of Jules Fuselier",
-    "paths": [
-      {
-        "audience": "recruiters",
-        "title": "You are hiring",
-        "text": "A 6-month engineering internship, July to December 2027, in software development, applied AI or tech project management.",
-        "cta": "See my profile"
-      },
-      {
-        "audience": "clients",
-        "title": "You have a project",
-        "text": "Website, API or AI integration: I work on a fixed-price basis for small businesses, shops and freelancers.",
-        "cta": "See what I offer"
-      }
-    ],
-    "intro": "Engineering student at UTT and web & AI developer",
+    "badge": "Internship wanted: July to December 2027",
+    "title": "I build web tools and bring AI in where it saves time.",
+    "lead": "Engineering student at UTT (Université de technologie de Troyes) and freelance developer. 5 months at Agapé: an audit of 9 departments and a large language model (LLM) monitoring tool put into service.",
+    "clientCta": "You have a project",
     "mapLabel": "Map of projects",
-    "emailCta": "or email me"
+    "portraitAlt": "Portrait of Jules Fuselier"
   },
   "projects": {
-    "title": "Projects",
-    "lead": "Five pieces of work, from a company assignment to a personal project. Each page says what is delivered and what is not there yet.",
-    "readMore": "Read the case study",
+    "lead": "Each page says what is delivered and what is not there yet.",
     "labels": {
-      "context": "Context",
+      "context": "What was asked",
       "role": "Role",
       "period": "Period",
       "stack": "Technologies",
-      "actions": "What was built",
-      "outcome": "Outcome",
-      "next": "Limits and next steps",
-      "links": "Links",
+      "actions": "What I did",
+      "outcome": "What is delivered",
+      "next": "What is left to do",
+      "links": "See the project",
       "back": "All projects",
-      "previous": "Previous project",
-      "following": "Next project"
+      "others": "The other projects"
     },
     "linkLabels": {
       "site": "Visit the live site",
@@ -70,15 +53,15 @@
         "title": "Bringing AI into Agapé",
         "kicker": "Internship, then fixed-term contract",
         "summary": "An audit of AI use across 9 departments and an LLM-based online reputation monitoring tool put into service.",
-        "context": "Agapé's management wanted to know where AI could really help its teams, and to try out concrete tools.",
+        "context": "Agapé's management wanted to know where AI could help its teams, and to try out concrete tools.",
         "role": "AI & process integration officer",
         "period": "April to August 2026",
         "actions": [
-          "Audit of 9 departments against a 16-criteria grid, with costed recommendations handed to general management (estimated return of 6.5 times the cost for the main recommendation).",
+          "Audit of 9 departments against a 16-criteria grid, with costed recommendations handed to general management (estimated return of 6.5 times the cost for the main recommendation)",
           "Online reputation monitoring tool in React and TypeScript: the Tavily API gathers more than 30 sources per run, then a Claude model (Anthropic API) sorts them. Put into service during the assignment.",
-          "Feasibility study and prototype of a Node.js middleware connecting Shopify, the ERP and Brevo, across 3 synchronisation flows.",
-          "Python script for batch anonymisation of supplier PDF sheets.",
-          "Handover note covering all 4 projects at the end of the assignment."
+          "Feasibility study and prototype of a Node.js middleware connecting Shopify, the ERP and Brevo, across 3 synchronisation flows",
+          "Python script for batch anonymisation of supplier PDF sheets",
+          "Handover note covering all 4 projects at the end of the assignment"
         ],
         "outcome": "One tool in service, costed recommendations handed to management and a documented handover.",
         "next": "The middleware stayed at prototype stage: it was not deployed to production."
@@ -92,10 +75,10 @@
         "role": "Co-developer with Dinesh Radjou, working directly with the client",
         "period": null,
         "actions": [
-          "Online menu and a showcase of the house specialities.",
-          "Table booking, including for groups.",
-          "Click & collect takeaway orders, with customer accounts.",
-          "Legal pages: terms of use, privacy, cookies, booking and click & collect conditions."
+          "Online menu and a showcase of the house specialities",
+          "Table booking, including for groups",
+          "Click & collect takeaway orders, with customer accounts",
+          "Legal pages: terms of use, privacy, cookies, booking and click & collect conditions"
         ],
         "outcome": "The site is live at preityindia.fr.",
         "next": null
@@ -109,12 +92,12 @@
         "role": "Lead developer, product owner and project manager, in a Scrum team of 5",
         "period": "2025 to 2026",
         "actions": [
-          "MVC architecture with a service layer and isolated use cases (Clean Architecture).",
-          "Authentication with four access levels: visitor, student, administrator and super-administrator.",
-          "Applicant ranking algorithm, centralised in one service so the formula changes in a single place.",
-          "Scraper that authenticates against the university's CAS and syncs the list of destinations.",
-          "Account anonymisation for GDPR compliance.",
-          "195 PHPUnit tests, unit and integration, PHPStan static analysis, PSR-12 standard and GitHub Actions continuous integration."
+          "MVC architecture with a service layer and isolated use cases (Clean Architecture)",
+          "Authentication with four access levels: visitor, student, administrator and super-administrator",
+          "Applicant ranking algorithm, centralised in one service so the formula changes in a single place",
+          "Scraper that authenticates against the university's CAS and syncs the list of destinations",
+          "Account anonymisation for GDPR compliance",
+          "195 PHPUnit tests, unit and integration, PHPStan static analysis, PSR-12 standard and GitHub Actions continuous integration"
         ],
         "outcome": "A complete, tested application designed for more than 1,000 students.",
         "next": "It is not used in production yet. The code is private: demo on request."
@@ -128,11 +111,11 @@
         "role": "Design and development, solo",
         "period": "Since May 2026",
         "actions": [
-          "Queries the Overpass API for five types of spots in a single request.",
-          "Handles all three OpenStreetMap object types: nodes, ways and relations.",
-          "True distance to linear objects: the script walks a trail's full geometry instead of stopping at its centre (Haversine formula).",
-          "Retries with exponential backoff, telling transient failures from permanent ones.",
-          "JSON export ready to feed a map."
+          "Queries the Overpass API for five types of spots in a single request",
+          "Handles all three OpenStreetMap object types: nodes, ways and relations",
+          "True distance to linear objects: the script walks a trail's full geometry instead of stopping at its centre (Haversine formula)",
+          "Retries with exponential backoff, telling transient failures from permanent ones",
+          "JSON export ready to feed a map"
         ],
         "outcome": "Phase 1, data collection around a point, is complete.",
         "next": "Phase 2 in progress: A→B route calculation, filtering by detour and display on a Leaflet map."
@@ -146,23 +129,23 @@
         "role": "Developer",
         "period": "2025",
         "actions": [
-          "SOLID principles and design patterns (Factory, controllers) to keep the code maintainable.",
-          "Enemy AI, collision handling and chained explosion propagation.",
-          "Distributed through a jDeploy installer and a demo playable in the browser."
+          "SOLID principles and design patterns (Factory, controllers) to keep the code maintainable",
+          "Enemy AI, collision handling and chained explosion propagation",
+          "Distributed through a jDeploy installer and a demo playable in the browser"
         ],
         "outcome": "A playable game that can be installed and tried online.",
         "next": null
       }
-    }
+    },
+    "headline": "5 projects, from company work to a personal build."
   },
   "recruiters": {
-    "title": "For recruiters",
-    "lead": "I am looking for a 6-month engineering internship, from July to December 2027.",
+    "lead": "Software development, applied AI or tech project management, in France.",
     "seekingTitle": "What I am looking for",
     "seeking": [
-      "Duration: 6 months, from July to December 2027.",
-      "Roles: software development, applied AI or tech project management.",
-      "Location: France."
+      "6 months, from July to December 2027",
+      "Software development, applied AI or tech project management",
+      "In France"
     ],
     "proofsTitle": "What I have already done",
     "proofs": [
@@ -238,11 +221,12 @@
         ]
       }
     ],
-    "cvCta": "Download my CV (PDF, in French)"
+    "cvCta": "Download my CV (PDF, in French)",
+    "headline": "I am looking for a 6-month engineering internship, from July to December 2027.",
+    "emailCta": "Email me"
   },
   "clients": {
-    "title": "For businesses",
-    "lead": "Through my freelance business, I build custom websites and integrations for small businesses, shops and freelancers.",
+    "lead": "Through my freelance business, I work for small businesses, shops and freelancers, on short, remote assignments.",
     "servicesTitle": "What I offer",
     "services": [
       {
@@ -251,18 +235,17 @@
       },
       {
         "title": "API integration and automation",
-        "text": "Connecting your tools (online shop, ERP, emailing) so nobody has to re-enter data."
+        "text": "Connecting your tools (online shop, business software, emailing) so nobody re-enters data."
       },
       {
         "title": "Applied AI",
         "text": "An audit of how you use AI, prototypes and tools built on language models, with an honest estimate of what AI brings or does not."
       }
     ],
-    "note": "I work on a fixed-price basis, on short, remote assignments.",
-    "cta": "Talk about your project"
+    "cta": "Talk about your project",
+    "headline": "Custom websites and integrations, at a fixed price."
   },
   "journey": {
-    "title": "Background",
     "items": [
       {
         "period": "2026 to 2029",
@@ -289,14 +272,13 @@
         "title": "French general baccalauréat",
         "text": "Mathematics and computer science majors, with honours."
       }
-    ]
+    ],
+    "headline": "Education and experience since 2024."
   },
   "contact": {
-    "title": "Get in touch",
-    "text": "For an internship or a project, the simplest way is to write to me.",
-    "emailCta": "Email me",
     "linkedin": "LinkedIn",
-    "github": "GitHub"
+    "github": "GitHub",
+    "headline": "For an internship or a project, email me."
   },
   "footer": {
     "legal": "Legal notice",

@@ -15,13 +15,13 @@ import { route } from '../lib/routes.mjs';
  */
 export function legalPage(ctx) {
   const { site, t } = ctx;
-  return html`<article class="page py-12 sm:py-16">
-    <h1 class="text-4xl font-semibold tracking-tight">${t.legal.title}</h1>
+  return html`<article class="page py-16 sm:py-24">
+    <h1 class="display-xl">${t.legal.title}</h1>
     ${t.legal.sections.map(
-      (part, index) => html`<section class="mt-10 max-w-[38rem]">
-        <h2 class="subheading text-xl">${part.title}</h2>
-        ${part.paragraphs.map((text) => html`<p class="mt-2 leading-relaxed">${text}</p>`)}
-        ${index === 0 && site.publisher.siret ? html`<p class="mt-2 leading-relaxed">${t.legal.siretLabel} : ${site.publisher.siret}</p>` : ''}
+      (part, index) => html`<section class="mt-12 max-w-[40rem]">
+        <h2 class="display-md">${part.title}</h2>
+        ${part.paragraphs.map((text) => html`<p class="mt-2 leading-7">${text}</p>`)}
+        ${index === 0 && site.publisher.siret ? html`<p class="mono mt-2">${t.legal.siretLabel} ${site.publisher.siret}</p>` : ''}
       </section>`,
     )}
   </article>`;
@@ -34,10 +34,10 @@ export function legalPage(ctx) {
  * @returns {import('../lib/html.mjs').SafeHtml}
  */
 export function notFoundPage(locales) {
-  return html`<div class="page py-20">
+  return html`<div class="page py-24">
     ${Object.entries(locales).map(
-      ([lang, t]) => html`<section lang="${lang}" class="mb-12 max-w-[38rem]">
-        <h1 class="text-4xl font-semibold tracking-tight">${t.notFound.title}</h1>
+      ([lang, t]) => html`<section lang="${lang}" class="mb-16 max-w-[40rem]">
+        <h1 class="display-lg">${t.notFound.title}</h1>
         <p class="lead mt-4">${t.notFound.text}</p>
         <a href="${route(lang, 'home')}" class="link mt-4 inline-block">${t.notFound.cta}</a>
       </section>`,

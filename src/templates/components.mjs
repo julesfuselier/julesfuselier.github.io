@@ -5,8 +5,11 @@
 import { html } from '../lib/html.mjs';
 import { route } from '../lib/routes.mjs';
 
-/** Identifiant de la carte des projets (fichier `assets/contours/projects.svg`). */
-export const PROJECT_MAP = 'projects';
+/** Formats de la carte des projets (fichiers `assets/contours/projects-<format>.svg`). */
+export const PROJECT_MAPS = {
+  square: { width: 800, height: 800 },
+  wide: { width: 1500, height: 600 },
+};
 
 /**
  * @typedef {object} PageContext
@@ -20,77 +23,72 @@ export const PROJECT_MAP = 'projects';
  */
 
 /**
- * Liste de données courtes séparées par des virgules (technologies).
- * @param {string[]} items
- */
-export function datumList(items) {
-  if (items.length === 0) return '';
-  return html`<p class="datum">${items.join(', ')}</p>`;
-}
-
-/**
- * Section en deux colonnes : titre à gauche, contenu à droite.
+ * En-tête de section : repère en chasse fixe (le nom de la section dans la
+ * navigation), titre en forme de phrase, chapeau facultatif.
  * @param {object} options
- * @param {string} options.id ancre de la section
- * @param {string} options.title
- * @param {import('../lib/html.mjs').SafeHtml} options.body
- * @param {string} [options.classes] classes de la balise `<section>`
+ * @param {string} options.id ancre de la section, reprise pour `aria-labelledby`
+ * @param {string} options.eyebrow
+ * @param {string} options.headline
+ * @param {string} [options.lead]
+ * @param {string} [options.tone] `band` pour une section sur fond inversé
  */
-export function section({ id, title, body, classes = '' }) {
-  return html`<section id="${id}" class="border-t border-line py-16 sm:py-20 ${classes}" aria-labelledby="${id}-title">
-    <div class="page legend-grid">
-      <h2 id="${id}-title" class="section-title">${title}</h2>
-      <div>${body}</div>
-    </div>
-  </section>`;
+export function sectionHeader({ id, eyebrow, headline, lead, tone }) {
+  const muted = tone === 'band' ? 'text-band-body' : 'text-body';
+  return html`<header class="mb-12">
+    <p class="mono mb-4 ${muted}">${eyebrow}</p>
+    <h2 id="${id}-title" class="display-lg max-w-[24ch]">${headline}</h2>
+    ${lead ? html`<p class="lead mt-4 ${muted}">${lead}</p>` : ''}
+  </header>`;
 }
 
 /**
  * Liste à puces sobre.
  * @param {string[]} items
- * @param {string} [classes]
  */
-export function bulletList(items, classes = '') {
-  return html`<ul class="max-w-[38rem] list-disc space-y-2 pl-5 leading-relaxed marker:text-muted ${classes}">
+export function bulletList(items) {
+  return html`<ul class="max-w-[40rem] list-disc space-y-2 pl-5 leading-7 marker:text-body">
     ${items.map((item) => html`<li>${item}</li>`)}
   </ul>`;
 }
 
 /**
- * Carte topographique des projets : un sommet par projet.
+ * Classe d'ancrage de l'étiquette d'un sommet, pour qu'elle ne sorte jamais
+ * de la carte : calée à gauche près du bord gauche, à droite près du bord
+ * droit, centrée ailleurs. Les noms de classe sont écrits en entier pour que
+ * Tailwind les retrouve dans ce fichier et les conserve.
+ * @param {number} x position horizontale du sommet, en pourcentage
+ * @returns {string}
+ */
+export function labelAnchor(x) {
+  if (x < 25) return 'summit-label-start';
+  if (x > 75) return 'summit-label-end';
+  return 'summit-label-center';
+}
+
+/**
+ * Carte topographique des projets : un sommet par projet, chaque sommet est
+ * un lien. C'est le seul décor du site, et il sert de navigation.
  *
- * Sur l'accueil (`current` absent), chaque sommet est un lien étiqueté : la
- * carte sert de navigation. Sur une page de projet, seul le sommet du projet
- * affiché est plein et étiqueté : la carte situe le projet parmi les autres.
+ * Sur une page de projet, `current` désigne le projet affiché : son sommet
+ * est marqué comme page courante et n'est plus un lien.
  * @param {PageContext} ctx
  * @param {object} options
  * @param {string} options.label nom accessible de la carte
  * @param {string} [options.current] identifiant du projet affiché
- * @param {string} [options.classes] classes de taille
  */
-export function projectMap(ctx, { label, current, classes = '' }) {
+export function projectMap(ctx, { label, current }) {
   const { site, t, lang } = ctx;
-  const labelClasses = 'absolute -top-3 whitespace-nowrap bg-paper px-1.5 py-0.5 text-sm font-medium text-ink';
-
-  return html`<nav aria-label="${label}" class="contour aspect-[5/4] text-muted ${classes}" style="--contour: url('/assets/contours/${PROJECT_MAP}.svg')">
+  return html`<nav aria-label="${label}" class="project-map text-body">
     <ul>
       ${site.projectOrder.map((slug) => {
         const { x, y } = site.projects[slug].summit;
         const name = t.projects.items[slug].shortTitle;
-        // L'étiquette passe à gauche du repère dans la moitié droite de la carte.
-        const side = x > 50 ? 'right-3 text-right' : 'left-3';
-        const position = html`style="--x: ${x}%; --y: ${y}%"`;
-
-        if (current && slug !== current) {
-          return html`<li class="summit" ${position}>
-            <a href="${route(lang, 'project', slug)}" class="summit-dot summit-dot-other" title="${name}"><span class="sr-only">${name}</span></a>
-          </li>`;
-        }
-        return html`<li class="summit" ${position}>
-          <span class="summit-dot"></span>
-          ${current
-            ? html`<span class="${labelClasses} ${side}" aria-current="page">${name}</span>`
-            : html`<a href="${route(lang, 'project', slug)}" class="${labelClasses} ${side} underline decoration-line underline-offset-4 hover:decoration-ink">${name}</a>`}
+        const classes = `summit-label ${labelAnchor(x)}`;
+        return html`<li class="summit" style="--x: ${x}%; --y: ${y}%">
+          <span class="summit-dot" aria-hidden="true"></span>
+          ${slug === current
+            ? html`<span class="${classes} ring-1 ring-inset ring-ink" aria-current="page">${name}</span>`
+            : html`<a href="${route(lang, 'project', slug)}" class="${classes} underline decoration-hairline decoration-2 underline-offset-4 hover:decoration-ink">${name}</a>`}
         </li>`;
       })}
     </ul>

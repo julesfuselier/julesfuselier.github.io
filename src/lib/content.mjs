@@ -12,6 +12,8 @@
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
+import { typesetDeep } from './typography.mjs';
+
 /** Langues publiées. La première est la langue par défaut (racine du site). */
 export const LANGUAGES = ['fr', 'en'];
 
@@ -38,7 +40,9 @@ async function readJson(name) {
  */
 export async function loadContent() {
   const site = await readJson('site.json');
-  const entries = await Promise.all(LANGUAGES.map(async (lang) => [lang, await readJson(`${lang}.json`)]));
+  // Les textes passent par la correction typographique ; `site.json` (adresses,
+  // identifiants) reste tel quel.
+  const entries = await Promise.all(LANGUAGES.map(async (lang) => [lang, typesetDeep(lang, await readJson(`${lang}.json`))]));
   return { site, locales: Object.fromEntries(entries) };
 }
 

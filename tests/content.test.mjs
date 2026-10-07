@@ -15,9 +15,9 @@ test('le contenu réel est valide', async () => {
 
 test('une clé absente d’une langue est signalée', async () => {
   const content = await loadContent();
-  delete content.locales.en.contact.title;
+  delete content.locales.en.contact.headline;
   const { errors } = validateContent(content);
-  assert.ok(errors.some((error) => error.includes('contact.title')));
+  assert.ok(errors.some((error) => error.includes('contact.headline')));
 });
 
 test('un projet sans textes est signalé', async () => {

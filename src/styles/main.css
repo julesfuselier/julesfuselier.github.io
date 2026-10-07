@@ -30,71 +30,89 @@
 
 @layer base {
   /*
-   * Palette « Dolomites » : la pierre (#d8d6ce) sert de fond, la forêt
-   * (#3c4a3a) porte les boutons et le bandeau « entreprises », la terre cuite
-   * (#b75b39) est réservée aux repères de sommet, le rose du couchant
-   * (#d9a398) aux liens du thème sombre.
-   * Texte et liens gardent un contraste d'au moins 4,5:1 sur leur fond.
+   * Couleurs, par rôle (détail dans DESIGN.md).
+   * Palette « Dolomites » : pierre pour les surfaces, forêt pour l'action
+   * principale et le bandeau inversé, terre cuite pour les seuls repères de
+   * sommet. Texte et liens gardent un contraste d'au moins 4,5:1.
    */
   :root {
     color-scheme: light;
-    --paper: #d8d6ce;
-    --ink: #1f271f;
-    --muted: #46523f;
-    --line: #aeac9f;
-    --link: #7e3920;
+    --canvas-soft: #d8d6ce;
+    --canvas: #e6e4dd;
+    --ink: #1c231d;
+    --body: #46523f;
+    --hairline: #bebcb0;
+    --primary: #3c4a3a;
+    --on-primary: #f0eee8;
     --summit: #b75b39;
-    --button: #3c4a3a;
-    --button-ink: #eceae3;
     --band: #3c4a3a;
-    --band-ink: #eceae3;
-    --band-muted: #c2c8bc;
-    --band-line: #5d6b5a;
+    --band-card: #465544;
+    --band-ink: #f0eee8;
+    --band-body: #c4cabd;
+    --band-hairline: #5f6e5c;
   }
 
   /* Thème sombre : choisi par le visiteur… */
   :root[data-theme='dark'] {
     color-scheme: dark;
-    --paper: #1b221c;
-    --ink: #d8d6ce;
-    --muted: #a3aa9e;
-    --line: #3d483e;
-    --link: #d9a398;
+    --canvas-soft: #161c17;
+    --canvas: #1f2620;
+    --ink: #e4e2da;
+    --body: #a3aa9e;
+    --hairline: #333d34;
+    --primary: #e4e2da;
+    --on-primary: #161c17;
     --summit: #cf6f4c;
-    --button: #d8d6ce;
-    --button-ink: #1b221c;
-    --band: #263027;
-    --band-ink: #d8d6ce;
-    --band-muted: #a3aa9e;
-    --band-line: #3d483e;
+    --band: #232b24;
+    --band-card: #2b352c;
+    --band-ink: #e4e2da;
+    --band-body: #a3aa9e;
+    --band-hairline: #3d483e;
   }
 
   /* … ou hérité du système tant qu'il n'a rien choisi. */
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme='light']) {
       color-scheme: dark;
-      --paper: #1b221c;
-      --ink: #d8d6ce;
-      --muted: #a3aa9e;
-      --line: #3d483e;
-      --link: #d9a398;
+      --canvas-soft: #161c17;
+      --canvas: #1f2620;
+      --ink: #e4e2da;
+      --body: #a3aa9e;
+      --hairline: #333d34;
+      --primary: #e4e2da;
+      --on-primary: #161c17;
       --summit: #cf6f4c;
-      --button: #d8d6ce;
-      --button-ink: #1b221c;
-      --band: #263027;
-      --band-ink: #d8d6ce;
-      --band-muted: #a3aa9e;
-      --band-line: #3d483e;
+      --band: #232b24;
+      --band-card: #2b352c;
+      --band-ink: #e4e2da;
+      --band-body: #a3aa9e;
+      --band-hairline: #3d483e;
     }
   }
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Le bandeau de navigation collant ne doit pas recouvrir une ancre atteinte. */
+  [id] {
+    scroll-margin-top: 5rem;
   }
 
   body {
-    @apply bg-paper font-sans text-ink antialiased;
+    @apply bg-canvas-soft font-sans text-ink antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  a,
+  button {
+    touch-action: manipulation;
   }
 
   :focus-visible {
@@ -110,63 +128,110 @@
 }
 
 @layer components {
-  /* Largeur de page commune à toutes les sections. */
+  /* Conteneur de page : 1200 px au plus, marges respectant les encoches. */
   .page {
-    @apply mx-auto w-full max-w-page px-5 sm:px-8;
+    @apply mx-auto w-full max-w-page;
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
   }
 
   /*
-   * Grille « légende + carte » : le titre de section tient dans une colonne
-   * étroite à gauche, le contenu dans la colonne large à droite.
+   * Titres : graisse 600 au plus, interlettrage négatif marqué, casse de
+   * phrase. C'est la voix typographique du site.
    */
-  .legend-grid {
-    @apply grid gap-x-12 gap-y-8 lg:grid-cols-[16rem_minmax(0,1fr)];
+  .display-xl {
+    @apply text-[2.5rem] font-semibold leading-[1.02] tracking-[-0.045em] sm:text-[3.5rem] lg:text-[4rem];
   }
 
-  .section-title {
-    @apply text-2xl font-semibold tracking-tight;
+  .display-lg {
+    @apply text-[1.75rem] font-semibold leading-[1.12] tracking-[-0.04em] sm:text-[2.25rem];
+  }
+
+  .display-md {
+    @apply text-xl font-semibold leading-snug tracking-[-0.03em];
   }
 
   .lead {
-    @apply max-w-[38rem] text-lg leading-relaxed text-muted;
+    @apply max-w-[40rem] text-lg leading-7 text-body;
   }
 
-  .subheading {
-    @apply mb-3 text-base font-semibold;
+  /* Chasse fixe : réservée à la couche technique (repères, technologies, dates). */
+  .mono {
+    @apply font-mono text-[0.8125rem] leading-5 text-body;
+    font-variant-numeric: tabular-nums;
   }
 
+  /* Boutons : une seule forme, la pilule. Le bouton plein est l'action principale. */
   .btn {
-    @apply inline-block rounded-sm bg-button px-5 py-3 font-medium text-button-ink hover:opacity-90;
+    @apply inline-flex h-12 items-center rounded-full px-6 font-medium;
+    transition: background-color 150ms, opacity 150ms;
   }
 
+  .btn-primary {
+    @apply btn bg-primary text-on-primary hover:opacity-85;
+  }
+
+  .btn-secondary {
+    @apply btn bg-canvas text-ink ring-1 ring-inset ring-hairline hover:bg-canvas-soft;
+  }
+
+  /* Lien dans le texte : encre soulignée, le soulignement s'épaissit au survol. */
   .link {
-    @apply font-medium text-link underline decoration-1 underline-offset-4 hover:decoration-2;
-  }
-
-  /* Donnée courte en chasse fixe : technologie, période. */
-  .datum {
-    @apply font-mono text-[0.8125rem] text-muted;
+    @apply font-medium text-ink underline decoration-hairline decoration-2 underline-offset-4 hover:decoration-ink;
   }
 
   /*
-   * Carte topographique : le SVG généré sert de masque, la couleur vient de
-   * `currentColor`. Le même fichier fonctionne donc en clair et en sombre.
+   * Carte : surface un cran plus claire que la page, filet intérieur et
+   * ombre empilée très légère. Jamais d'ombre portée lourde.
    */
-  .contour {
-    position: relative;
+  .card {
+    @apply rounded-lg bg-canvas p-6;
+    box-shadow:
+      inset 0 0 0 1px var(--hairline),
+      0 1px 1px rgb(0 0 0 / 0.02),
+      0 2px 2px rgb(0 0 0 / 0.04);
   }
 
-  .contour::before {
+  a.card {
+    transition: background-color 150ms;
+  }
+
+  a.card:hover {
+    background-color: var(--canvas-soft);
+  }
+
+  /*
+   * Carte topographique des projets. Le SVG généré sert de masque et la
+   * couleur vient de `currentColor` : un même fichier pour les deux thèmes.
+   * Le tracé change avec le format, carré sur mobile et panoramique ensuite.
+   */
+  .project-map {
+    position: relative;
+    aspect-ratio: 1 / 1;
+  }
+
+  .project-map::before {
     content: '';
     position: absolute;
     inset: 0;
     background-color: currentColor;
-    opacity: 0.55;
-    -webkit-mask: var(--contour) center / 100% 100% no-repeat;
-    mask: var(--contour) center / 100% 100% no-repeat;
+    opacity: 0.5;
+    -webkit-mask: url('/assets/contours/projects-square.svg') center / 100% 100% no-repeat;
+    mask: url('/assets/contours/projects-square.svg') center / 100% 100% no-repeat;
   }
 
-  /* Repère de sommet, placé aux coordonnées (en %) fournies par le gabarit. */
+  @media (min-width: 640px) {
+    .project-map {
+      aspect-ratio: 5 / 2;
+    }
+
+    .project-map::before {
+      -webkit-mask-image: url('/assets/contours/projects-wide.svg');
+      mask-image: url('/assets/contours/projects-wide.svg');
+    }
+  }
+
+  /* Sommet : un point d'ancrage aux coordonnées (en %) fournies par le gabarit. */
   .summit {
     position: absolute;
     left: var(--x);
@@ -181,19 +246,25 @@
     height: 0.75rem;
     border-radius: 9999px;
     background-color: var(--summit);
-    outline: 2px solid var(--paper);
+    outline: 3px solid var(--canvas-soft);
     transform: translate(-50%, -50%);
   }
 
-  /* Sommet d'un autre projet, sur la carte d'une page de projet. */
-  .summit-dot-other {
-    background-color: var(--paper);
-    border: 2px solid var(--muted);
-    outline: none;
+  /* Étiquette du sommet, sous le point : centrée, ou calée près des bords. */
+  .summit-label {
+    @apply absolute top-3 whitespace-nowrap rounded-full bg-canvas-soft px-2 py-0.5 text-sm font-medium text-ink;
   }
 
-  .summit-dot-other:hover {
-    background-color: var(--summit);
-    border-color: var(--summit);
+  .summit-label-center {
+    left: 0;
+    transform: translateX(-50%);
+  }
+
+  .summit-label-start {
+    left: -0.75rem;
+  }
+
+  .summit-label-end {
+    right: -0.75rem;
   }
 }

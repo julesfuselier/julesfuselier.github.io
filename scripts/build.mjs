@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 import { LANGUAGES, loadContent, validateContent } from '../src/lib/content.mjs';
 import { createContourMap } from '../src/lib/contours.mjs';
 import { GENERATED_DIRS, outputFile, route } from '../src/lib/routes.mjs';
-import { PROJECT_MAP } from '../src/templates/components.mjs';
+import { PROJECT_MAPS } from '../src/templates/components.mjs';
 import { homePage } from '../src/templates/home.mjs';
 import { renderPage } from '../src/templates/layout.mjs';
 import { projectPage } from '../src/templates/project.mjs';
@@ -57,14 +57,15 @@ export function renderSite({ site, locales }) {
   const pages = {};
   const assets = {};
 
-  // Carte topographique : un sommet par projet, aux positions fixées dans site.json.
-  assets[`assets/contours/${PROJECT_MAP}.svg`] = createContourMap({
-    seed: PROJECT_MAP,
-    peaks: site.projectOrder.map((slug) => {
-      const { x, y } = site.projects[slug].summit;
-      return { x: x / 100, y: y / 100 };
-    }),
+  // Carte topographique : un sommet par projet, aux positions fixées dans
+  // site.json, tracée une fois par format d'écran.
+  const peaks = site.projectOrder.map((slug) => {
+    const { x, y } = site.projects[slug].summit;
+    return { x: x / 100, y: y / 100 };
   });
+  for (const [format, size] of Object.entries(PROJECT_MAPS)) {
+    assets[`assets/contours/projects-${format}.svg`] = createContourMap({ seed: 'projects', peaks, ...size });
+  }
 
   /** Adresse d'une même page dans toutes les langues. */
   const alternatesFor = (kind, slug) => Object.fromEntries(LANGUAGES.map((lang) => [lang, route(lang, kind, slug)]));

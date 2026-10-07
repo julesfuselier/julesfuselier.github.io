@@ -3,6 +3,7 @@
  *
  * Les couleurs pointent vers des variables CSS (définies dans
  * `src/styles/main.css`) : le thème sombre ne demande aucune classe `dark:`.
+ * Les rôles et les valeurs sont décrits dans `DESIGN.md`.
  *
  * @type {import('tailwindcss').Config}
  */
@@ -12,25 +13,26 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        paper: 'var(--paper)',
+        canvas: 'var(--canvas)',
+        'canvas-soft': 'var(--canvas-soft)',
         ink: 'var(--ink)',
-        muted: 'var(--muted)',
-        line: 'var(--line)',
-        link: 'var(--link)',
+        body: 'var(--body)',
+        hairline: 'var(--hairline)',
+        primary: 'var(--primary)',
+        'on-primary': 'var(--on-primary)',
         summit: 'var(--summit)',
-        button: 'var(--button)',
-        'button-ink': 'var(--button-ink)',
         band: 'var(--band)',
+        'band-card': 'var(--band-card)',
         'band-ink': 'var(--band-ink)',
-        'band-muted': 'var(--band-muted)',
-        'band-line': 'var(--band-line)',
+        'band-body': 'var(--band-body)',
+        'band-hairline': 'var(--band-hairline)',
       },
       fontFamily: {
         sans: ['"Space Grotesk Variable"', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono Variable"', 'ui-monospace', 'monospace'],
       },
       maxWidth: {
-        page: '72rem',
+        page: '75rem',
       },
     },
   },
