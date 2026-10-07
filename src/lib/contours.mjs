@@ -84,11 +84,40 @@ function createNoise(random, size) {
  * @typedef {object} Peak
  * @property {number} x position horizontale, de 0 à 1
  * @property {number} y position verticale, de 0 à 1
+ * @property {number} [height] hauteur relative du sommet, de 0 à 1 (1 par défaut)
  */
 
 /**
- * Construit le champ d'altitude échantillonné sur une grille : un relief en
- * cloche par sommet, plus deux couches de bruit pour un tracé irrégulier.
+ * Bruit « à crêtes » : plusieurs couches de bruit, de plus en plus fines,
+ * repliées autour de leur valeur médiane. Là où une couche passe par cette
+ * valeur, le repli forme une arête vive : c'est ce qui donne des lignes de
+ * crête et des ravines plutôt que des bosses lisses.
+ * @param {() => number} random
+ * @returns {(x: number, y: number) => number} valeur dans [0, 1]
+ */
+function createRidgedNoise(random) {
+  const layers = [5, 10, 20, 40].map((size) => createNoise(random, size));
+  return (x, y) => {
+    let sum = 0;
+    let total = 0;
+    let weight = 0.5;
+    for (const noise of layers) {
+      const ridge = 1 - Math.abs(2 * noise(x, y) - 1);
+      sum += ridge * ridge * weight;
+      total += weight;
+      weight *= 0.5; // chaque couche plus fine pèse deux fois moins
+    }
+    return sum / total;
+  };
+}
+
+/**
+ * Construit le champ d'altitude échantillonné sur une grille.
+ *
+ * Chaque sommet est une cloche, déformée pour que son pied soit irrégulier,
+ * puis creusée par le bruit à crêtes. Le creusement s'efface en approchant
+ * du sommet : la hauteur d'une montagne ne dépend donc que de `peak.height`,
+ * jamais du hasard.
  * @param {number} seed
  * @param {number} cols
  * @param {number} rows
@@ -97,10 +126,13 @@ function createNoise(random, size) {
  */
 function buildField(seed, cols, rows, peaks) {
   const random = createRandom(seed);
-  const coarse = createNoise(random, 3);
-  const fine = createNoise(random, 7);
+  const broad = createNoise(random, 3);
+  const ridged = createRidgedNoise(random);
+  // Hauteur d'une cellule rapportée à sa largeur : garde le relief à la même
+  // échelle dans les deux directions, quel que soit le format de la carte.
+  const aspect = rows / cols;
   // Plus il y a de sommets, plus chacun est étroit, pour qu'ils restent distincts.
-  const sharpness = peaks.length > 1 ? 30 : 9;
+  const sharpness = peaks.length > 1 ? 26 : 9;
 
   const values = [];
   for (let row = 0; row <= rows; row += 1) {
@@ -108,12 +140,19 @@ function buildField(seed, cols, rows, peaks) {
     for (let col = 0; col <= cols; col += 1) {
       const x = col / cols;
       const y = row / rows;
-      let relief = 0;
+      const undulation = broad(x, Math.min(y * aspect, 1));
+      const stretch = 0.8 + 0.4 * undulation; // pied de montagne irrégulier
+
+      let envelope = 0;
       for (const peak of peaks) {
-        const distance = Math.hypot(x - peak.x, (y - peak.y) * (rows / cols));
-        relief = Math.max(relief, Math.exp(-distance * distance * sharpness));
+        const distance = Math.hypot(x - peak.x, (y - peak.y) * aspect) * stretch;
+        // L'exposant 0,7 resserre la cloche près du sommet : une pointe, pas un dôme.
+        envelope = Math.max(envelope, (peak.height ?? 1) * Math.exp(-((distance * distance * sharpness) ** 0.7)));
       }
-      line.push(relief * 0.62 + coarse(x, y) * 0.28 + fine(x, y) * 0.1);
+
+      const carving = ridged(x, Math.min(y * aspect, 1));
+      const kept = carving + (1 - carving) * envelope ** 6; // intact au sommet
+      line.push(envelope * (0.35 + 0.65 * kept) * 0.84 + undulation * 0.12);
     }
     values.push(line);
   }

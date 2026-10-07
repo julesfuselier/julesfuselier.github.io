@@ -33,7 +33,7 @@ const TERRAIN = { width: 10, depth: 4, height: 2.3 };
 const STEEPNESS = 1.7;
 
 /** Finesse de la grille. Plus elle est fine, plus les courbes sont lisses. */
-const GRID = { cols: 250, rows: 100 };
+const GRID = { cols: 360, rows: 144 };
 
 /** Point de vue : angle d'ouverture, distance, hauteur finale et rotation permise. */
 const VIEW = {
@@ -55,6 +55,7 @@ const VERTEX_SHADER = /* glsl */ `
   attribute float aHeight;
   varying float vHeight;
   varying float vLight;
+  varying float vSlope;
   varying vec2 vUv;
 
   // Direction d'où vient la lumière : en haut à gauche, comme sur une carte.
@@ -63,6 +64,7 @@ const VERTEX_SHADER = /* glsl */ `
   void main() {
     vHeight = aHeight;
     vLight = clamp(dot(normal, LIGHT), 0.0, 1.0);
+    vSlope = 1.0 - normal.y; // 0 à plat, proche de 1 sur une paroi
     vUv = uv;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
@@ -84,6 +86,7 @@ const FRAGMENT_SHADER = /* glsl */ `
   uniform float uShadeStrength;
   varying float vHeight;
   varying float vLight;
+  varying float vSlope;
   varying vec2 vUv;
 
   // Intensité (0 à 1) d'un trait placé sur chaque valeur entière de f.
@@ -96,16 +99,18 @@ const FRAGMENT_SHADER = /* glsl */ `
     float level = (vHeight - uBase) / uStep;
     float inRange = step(0.5, level) * step(level, uLevels + 0.5);
     float minor = lineAt(level, 0.6) * 0.45;
-    float major = lineAt(level / 4.0, 1.1) * 0.8; // une courbe maîtresse sur quatre
+    float major = lineAt(level / 4.0, 1.0) * 0.7; // une courbe maîtresse sur quatre
     float ink = max(minor, major) * inRange;
 
     // Les bords s'estompent pour que le terrain se fonde dans la page.
-    vec2 edge = smoothstep(0.0, 0.07, vUv) * smoothstep(0.0, 0.07, 1.0 - vUv);
+    vec2 edge = smoothstep(0.0, 0.12, vUv) * smoothstep(0.0, 0.12, 1.0 - vUv);
 
     // Ombrage : les versants à l'ombre tirent vers l'encre en thème clair ;
     // en thème sombre, ce sont les versants éclairés qui s'éclaircissent.
+    // Les parois raides sont assombries en plus, comme la roche nue.
     float shade = mix(1.0 - vLight, vLight, uShadeLit) * uShadeStrength;
-    vec3 ground = mix(uPaper, uInk, shade);
+    float rock = smoothstep(0.25, 0.7, vSlope) * uShadeStrength * 0.6 * (1.0 - uShadeLit);
+    vec3 ground = mix(uPaper, uInk, min(shade + rock, 0.75));
 
     gl_FragColor = vec4(mix(ground, uInk, ink), edge.x * edge.y);
     #include <colorspace_fragment>
@@ -205,7 +210,7 @@ export function mountTerrain(map, wide) {
     const lightness = (color) => color.getHSL({}).l;
     const darkTheme = lightness(material.uniforms.uInk.value) > lightness(material.uniforms.uPaper.value);
     material.uniforms.uShadeLit.value = darkTheme ? 1 : 0;
-    material.uniforms.uShadeStrength.value = darkTheme ? 0.14 : 0.34;
+    material.uniforms.uShadeStrength.value = darkTheme ? 0.16 : 0.42;
   }
 
   /** Place la caméra sur une sphère autour du terrain, tournée vers son centre. */
