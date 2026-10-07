@@ -21,6 +21,7 @@
   "projects": {
     "agape": {
       "hours": null,
+      "wakatime": [],
       "stack": [
         "React",
         "TypeScript",
@@ -37,6 +38,7 @@
     },
     "preity-india": {
       "hours": null,
+      "wakatime": [],
       "stack": [],
       "links": [
         {
@@ -51,6 +53,7 @@
     },
     "relations-internationales": {
       "hours": null,
+      "wakatime": [],
       "stack": [
         "PHP",
         "MySQL",
@@ -66,6 +69,7 @@
     },
     "pathside": {
       "hours": null,
+      "wakatime": [],
       "stack": [
         "Python",
         "API Overpass",
@@ -79,6 +83,7 @@
     },
     "superbomberman": {
       "hours": null,
+      "wakatime": [],
       "stack": [
         "Java",
         "JavaFX"
