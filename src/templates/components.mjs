@@ -73,6 +73,16 @@ export function projectSummits(site) {
 }
 
 /**
+ * Sommets rangés de gauche à droite : l'ordre dans lequel le sentier les relie.
+ * @template {{ x: number }} T
+ * @param {T[]} summits
+ * @returns {T[]} copie triée
+ */
+export function byPosition(summits) {
+  return [...summits].sort((a, b) => a.x - b.x);
+}
+
+/**
  * Classe d'ancrage de l'étiquette d'un sommet, pour qu'elle ne sorte jamais
  * de la carte : calée à gauche près du bord gauche, à droite près du bord
  * droit, centrée ailleurs. Les noms de classe sont écrits en entier pour que
@@ -94,8 +104,9 @@ export function labelAnchor(x) {
  * est marqué comme page courante et n'est plus un lien.
  *
  * Chaque étiquette porte l'année du projet quand elle est connue
- * (`years` dans `site.json`). Un sentier en pointillé relie les sommets, de
- * gauche à droite : c'est un décor, il n'indique pas un ordre chronologique.
+ * (`years` dans `site.json`). Les sommets sont placés du plus ancien, à
+ * gauche, au plus récent, à droite, et un sentier en pointillé les relie dans
+ * cet ordre : la carte se lit comme une frise.
  *
  * Les attributs `data-*` servent au relief 3D (`src/js/terrain.js`), qui
  * remplace le fond de la carte quand le navigateur le permet.
@@ -109,7 +120,7 @@ export function projectMap(ctx, { label, current }) {
   const summits = projectSummits(site);
   return html`<nav aria-label="${label}" class="project-map text-body" data-project-map data-seed="${PROJECT_MAP_SEED}">
     <svg class="project-trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-      <path data-trail d="${trailPath(trailPoints(summits))}" />
+      <path data-trail d="${trailPath(trailPoints(byPosition(summits)))}" />
     </svg>
     <ul>
       ${summits.map(({ slug, x, y, height }) => {

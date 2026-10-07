@@ -247,7 +247,7 @@ export function mountTerrain(map, wide) {
   // où ils apparaissent sur le relief. Le SVG du sentier compte en pour-cent.
   const trail = map.querySelector('[data-trail]');
   const flatTrail = trail?.getAttribute('d');
-  const trailOnMap = trailPoints(summits);
+  const trailOnMap = trailPoints([...summits].sort((a, b) => a.x - b.x)); // de gauche à droite, comme en 2D
   function placeTrail() {
     if (!trail) return;
     const projected = trailOnMap.map(({ x, y }) => onScreen(x, y));

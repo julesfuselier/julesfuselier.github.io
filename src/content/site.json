@@ -40,8 +40,8 @@
       ],
       "links": [],
       "summit": {
-        "x": 15,
-        "y": 44
+        "x": 52,
+        "y": 50
       }
     },
     "preity-india": {
@@ -60,8 +60,8 @@
         }
       ],
       "summit": {
-        "x": 32,
-        "y": 72
+        "x": 87,
+        "y": 68
       }
     },
     "relations-internationales": {
@@ -79,8 +79,8 @@
       ],
       "links": [],
       "summit": {
-        "x": 52,
-        "y": 26
+        "x": 33,
+        "y": 28
       }
     },
     "pathside": {
@@ -97,7 +97,7 @@
       "links": [],
       "summit": {
         "x": 70,
-        "y": 76
+        "y": 30
       }
     },
     "superbomberman": {
@@ -133,8 +133,8 @@
         }
       ],
       "summit": {
-        "x": 87,
-        "y": 42
+        "x": 14,
+        "y": 70
       }
     }
   }
