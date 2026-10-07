@@ -21,7 +21,7 @@ const FEATURED_PROJECTS = 2;
 function hero(ctx) {
   const { site, t } = ctx;
   return html`<section class="page pb-16 pt-16 sm:pt-24">
-    <a href="#recruiters" class="mono inline-block rounded-full bg-canvas px-3 py-1 text-ink ring-1 ring-inset ring-hairline hover:bg-canvas-soft">${t.hero.badge}</a>
+    <a href="#recruiters" class="mono inline-block rounded-full bg-canvas px-3 py-1 text-[0.6875rem] text-ink ring-1 ring-inset ring-hairline hover:bg-canvas-soft sm:text-[0.8125rem]">${t.hero.badge}</a>
     <h1 class="display-xl mt-6 max-w-[19ch]">${t.hero.title}</h1>
     <p class="lead mt-6">${t.hero.lead}</p>
     <p class="mt-8 flex flex-wrap gap-3">
