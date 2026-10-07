@@ -90,14 +90,21 @@
     }
   }
 
+  /*
+   * Le bandeau de navigation collant ne doit recouvrir ni une ancre atteinte,
+   * ni un lien qui reçoit le focus au clavier. Sur mobile il tient sur deux
+   * lignes, d'où une marge plus grande.
+   */
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 7.5rem;
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Le bandeau de navigation collant ne doit pas recouvrir une ancre atteinte. */
-  [id] {
-    scroll-margin-top: 5rem;
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 5rem;
+    }
   }
 
   body {
@@ -118,6 +125,11 @@
   :focus-visible {
     outline: 2px solid var(--summit);
     outline-offset: 3px;
+  }
+
+  /* Sur le bandeau « forêt », la terre cuite ne ressort pas assez : contour clair. */
+  .bg-band :focus-visible {
+    outline-color: var(--band-ink);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -251,6 +263,12 @@
 
   .project-map.is-dragging canvas {
     cursor: grabbing;
+  }
+
+  /* Pendant la rotation, le glissement ne doit pas sélectionner les étiquettes. */
+  .project-map.is-dragging {
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   /* Sommet : un point d'ancrage aux coordonnées (en %) fournies par le gabarit. */

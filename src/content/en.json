@@ -88,14 +88,14 @@
         "title": "International mobility management platform",
         "kicker": "University project, team of 5",
         "summary": "A PHP/MySQL web application that handles a university institute's international mobility applications, from wish lists to ranking.",
-        "context": "Second-year project of the computer science BUT at the IUT of Aix-Marseille, for the international relations office.",
+        "context": "Second-year project of my computer science degree (BUT) at the Aix-Marseille institute of technology (IUT), for its international relations office.",
         "role": "Lead developer, product owner and project manager, in a Scrum team of 5",
         "period": "2025 to 2026",
         "actions": [
           "MVC architecture with a service layer and isolated use cases (Clean Architecture)",
           "Authentication with four access levels: visitor, student, administrator and super-administrator",
           "Applicant ranking algorithm, centralised in one service so the formula changes in a single place",
-          "Scraper that authenticates against the university's CAS and syncs the list of destinations",
+          "Scraper that authenticates against the university's single sign-on (CAS) and syncs the list of destinations",
           "Account anonymisation for GDPR compliance",
           "195 PHPUnit tests, unit and integration, PHPStan static analysis, PSR-12 standard and GitHub Actions continuous integration"
         ],
@@ -125,7 +125,7 @@
         "title": "SuperBomberman, a JavaFX remake",
         "kicker": "University team project",
         "summary": "A playable Bomberman remake in Java, with enemy AI, collisions and chained explosions.",
-        "context": "First-year team project of the computer science BUT, focused on object-oriented architecture.",
+        "context": "First-year team project of my computer science degree (BUT), focused on object-oriented architecture.",
         "role": "Developer",
         "period": "2025",
         "actions": [
@@ -226,7 +226,7 @@
     "emailCta": "Email me"
   },
   "clients": {
-    "lead": "Through my freelance business, I work for small businesses, shops and freelancers, on short, remote assignments.",
+    "lead": "My freelance business is for small businesses, shops and freelancers, on short, remote assignments.",
     "servicesTitle": "What I offer",
     "services": [
       {
