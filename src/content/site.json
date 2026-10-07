@@ -1,0 +1,101 @@
+{
+  "baseUrl": "https://julesfuselier.fr",
+  "author": "Jules Fuselier",
+  "email": "contact@julesfuselier.fr",
+  "cvPath": "/assets/CV_FUSELIER-Jules.pdf",
+  "portrait": "/assets/img/profile-480.webp",
+  "social": {
+    "github": "https://github.com/julesfuselier",
+    "linkedin": "https://www.linkedin.com/in/julesfuselier/"
+  },
+  "publisher": {
+    "siret": null
+  },
+  "projectOrder": [
+    "agape",
+    "preity-india",
+    "relations-internationales",
+    "pathside",
+    "superbomberman"
+  ],
+  "projects": {
+    "agape": {
+      "stack": [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "Python",
+        "API Anthropic",
+        "Tavily"
+      ],
+      "links": [],
+      "summit": {
+        "x": 30,
+        "y": 24
+      }
+    },
+    "preity-india": {
+      "stack": [],
+      "links": [
+        {
+          "type": "site",
+          "url": "https://preityindia.fr"
+        }
+      ],
+      "summit": {
+        "x": 73,
+        "y": 17
+      }
+    },
+    "relations-internationales": {
+      "stack": [
+        "PHP",
+        "MySQL",
+        "PHPUnit",
+        "PHPStan",
+        "GitHub Actions"
+      ],
+      "links": [],
+      "summit": {
+        "x": 63,
+        "y": 50
+      }
+    },
+    "pathside": {
+      "stack": [
+        "Python",
+        "API Overpass",
+        "OpenStreetMap"
+      ],
+      "links": [],
+      "summit": {
+        "x": 22,
+        "y": 74
+      }
+    },
+    "superbomberman": {
+      "stack": [
+        "Java",
+        "JavaFX"
+      ],
+      "links": [
+        {
+          "type": "install",
+          "url": "https://www.jdeploy.com/~s201-superbomberman-remake"
+        },
+        {
+          "type": "demo",
+          "url": "/demo/demo-SuperBomberman.html"
+        },
+        {
+          "type": "github",
+          "url": "https://github.com/julesfuselier/S201-SuperBomberman-remake"
+        }
+      ],
+      "summit": {
+        "x": 77,
+        "y": 80
+      }
+    }
+  }
+}

@@ -1,0 +1,187 @@
+/*
+ * Feuille de style source. Compilée par Tailwind vers `css/style.css`.
+ *
+ * Organisation :
+ *  1. polices auto-hébergées (aucune requête vers un service tiers) ;
+ *  2. jetons de couleur, en clair et en sombre ;
+ *  3. composants réutilisés par plusieurs gabarits.
+ * Les classes utilitaires Tailwind restent dans les gabarits (`src/templates/`).
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Space Grotesk Variable';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/assets/fonts/space-grotesk-latin-wght-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono Variable';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('/assets/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');
+}
+
+@layer base {
+  /*
+   * Palette « Dolomites » : la pierre (#d8d6ce) sert de fond, la forêt
+   * (#3c4a3a) porte les boutons et le bandeau « entreprises », la terre cuite
+   * (#b75b39) est réservée aux repères de sommet, le rose du couchant
+   * (#d9a398) aux liens du thème sombre.
+   * Texte et liens gardent un contraste d'au moins 4,5:1 sur leur fond.
+   */
+  :root {
+    color-scheme: light;
+    --paper: #d8d6ce;
+    --ink: #1f271f;
+    --muted: #46523f;
+    --line: #aeac9f;
+    --link: #7e3920;
+    --summit: #b75b39;
+    --button: #3c4a3a;
+    --button-ink: #eceae3;
+    --band: #3c4a3a;
+    --band-ink: #eceae3;
+    --band-muted: #c2c8bc;
+    --band-line: #5d6b5a;
+  }
+
+  /* Thème sombre : choisi par le visiteur… */
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --paper: #1b221c;
+    --ink: #d8d6ce;
+    --muted: #a3aa9e;
+    --line: #3d483e;
+    --link: #d9a398;
+    --summit: #cf6f4c;
+    --button: #d8d6ce;
+    --button-ink: #1b221c;
+    --band: #263027;
+    --band-ink: #d8d6ce;
+    --band-muted: #a3aa9e;
+    --band-line: #3d483e;
+  }
+
+  /* … ou hérité du système tant qu'il n'a rien choisi. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      color-scheme: dark;
+      --paper: #1b221c;
+      --ink: #d8d6ce;
+      --muted: #a3aa9e;
+      --line: #3d483e;
+      --link: #d9a398;
+      --summit: #cf6f4c;
+      --button: #d8d6ce;
+      --button-ink: #1b221c;
+      --band: #263027;
+      --band-ink: #d8d6ce;
+      --band-muted: #a3aa9e;
+      --band-line: #3d483e;
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--summit);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Largeur de page commune à toutes les sections. */
+  .page {
+    @apply mx-auto w-full max-w-page px-5 sm:px-8;
+  }
+
+  /*
+   * Grille « légende + carte » : le titre de section tient dans une colonne
+   * étroite à gauche, le contenu dans la colonne large à droite.
+   */
+  .legend-grid {
+    @apply grid gap-x-12 gap-y-8 lg:grid-cols-[16rem_minmax(0,1fr)];
+  }
+
+  .section-title {
+    @apply text-2xl font-semibold tracking-tight;
+  }
+
+  .lead {
+    @apply max-w-[38rem] text-lg leading-relaxed text-muted;
+  }
+
+  .subheading {
+    @apply mb-3 text-base font-semibold;
+  }
+
+  .btn {
+    @apply inline-block rounded-sm bg-button px-5 py-3 font-medium text-button-ink hover:opacity-90;
+  }
+
+  .link {
+    @apply font-medium text-link underline decoration-1 underline-offset-4 hover:decoration-2;
+  }
+
+  /* Donnée courte en chasse fixe : technologie, période. */
+  .datum {
+    @apply font-mono text-[0.8125rem] text-muted;
+  }
+
+  /*
+   * Carte topographique : le SVG généré sert de masque, la couleur vient de
+   * `currentColor`. Le même fichier fonctionne donc en clair et en sombre.
+   */
+  .contour {
+    position: relative;
+  }
+
+  .contour::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: currentColor;
+    opacity: 0.55;
+    -webkit-mask: var(--contour) center / 100% 100% no-repeat;
+    mask: var(--contour) center / 100% 100% no-repeat;
+  }
+
+  /* Repère de sommet, placé aux coordonnées (en %) fournies par le gabarit. */
+  .summit {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+  }
+
+  .summit-dot {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 9999px;
+    background-color: var(--summit);
+    outline: 2px solid var(--paper);
+    transform: translate(-50%, -50%);
+  }
+}

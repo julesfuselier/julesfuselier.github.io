@@ -1,27 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    <url>
-        <loc>https://julesfuselier.fr/</loc>
-        <priority>1.0</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-
-    <url>
-        <loc>https://julesfuselier.fr/projects.html</loc>
-        <priority>0.8</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-
-    <url>
-        <loc>https://julesfuselier.fr/project-detail.html?id=relations-internationales</loc>
-        <priority>0.6</priority>
-        <changefreq>yearly</changefreq>
-    </url>
-    <url>
-        <loc>https://julesfuselier.fr/project-detail.html?id=superbomberman-javafx</loc>
-        <priority>0.6</priority>
-        <changefreq>yearly</changefreq>
-    </url>
-
+  <url><loc>https://julesfuselier.fr/</loc></url>
+  <url><loc>https://julesfuselier.fr/projets/agape/</loc></url>
+  <url><loc>https://julesfuselier.fr/projets/preity-india/</loc></url>
+  <url><loc>https://julesfuselier.fr/projets/relations-internationales/</loc></url>
+  <url><loc>https://julesfuselier.fr/projets/pathside/</loc></url>
+  <url><loc>https://julesfuselier.fr/projets/superbomberman/</loc></url>
+  <url><loc>https://julesfuselier.fr/mentions-legales/</loc></url>
+  <url><loc>https://julesfuselier.fr/en/</loc></url>
+  <url><loc>https://julesfuselier.fr/en/projects/agape/</loc></url>
+  <url><loc>https://julesfuselier.fr/en/projects/preity-india/</loc></url>
+  <url><loc>https://julesfuselier.fr/en/projects/relations-internationales/</loc></url>
+  <url><loc>https://julesfuselier.fr/en/projects/pathside/</loc></url>
+  <url><loc>https://julesfuselier.fr/en/projects/superbomberman/</loc></url>
+  <url><loc>https://julesfuselier.fr/en/legal/</loc></url>
 </urlset>
