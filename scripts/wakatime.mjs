@@ -29,12 +29,13 @@ const SITE_FILE = fileURLToPath(new URL('../src/content/site.json', import.meta.
  * @param {string} path chemin après `/users/current`
  * @param {string} apiKey
  * @param {typeof fetch} fetchImpl remplaçable dans les tests
- * @returns {Promise<any>} réponse JSON
+ * @returns {Promise<any>} réponse JSON, ou `null` si WakaTime ne connaît pas la ressource
  */
 async function callApi(path, apiKey, fetchImpl) {
   const response = await fetchImpl(API + path, {
     headers: { Authorization: `Basic ${Buffer.from(apiKey).toString('base64')}` },
   });
+  if (response.status === 404) return null; // ressource inconnue de WakaTime
   if (!response.ok) throw new Error(`WakaTime a répondu ${response.status} pour ${path}`);
   return response.json();
 }
@@ -44,10 +45,12 @@ async function callApi(path, apiKey, fetchImpl) {
  * @param {string} name nom du projet dans WakaTime
  * @param {string} apiKey
  * @param {typeof fetch} [fetchImpl]
- * @returns {Promise<number>}
+ * @returns {Promise<number>} 0 si WakaTime ne connaît aucun projet de ce nom
  */
 export async function fetchProjectHours(name, apiKey, fetchImpl = fetch) {
-  const { data } = await callApi(`/all_time_since_today?project=${encodeURIComponent(name)}`, apiKey, fetchImpl);
+  const body = await callApi(`/all_time_since_today?project=${encodeURIComponent(name)}`, apiKey, fetchImpl);
+  if (body === null) return 0;
+  const { data } = body;
   // WakaTime calcule ce total en tâche de fond : au premier appel, il peut
   // ne pas être prêt. Mieux vaut échouer que d'enregistrer un total partiel.
   if (data.is_up_to_date === false) throw new Error(`Total pas encore calculé pour « ${name} » : relancer dans quelques minutes`);
@@ -104,7 +107,9 @@ export async function updateHours(site, hoursOf) {
 export async function listProjectNames(apiKey, fetchImpl = fetch) {
   const names = [];
   for (let page = 1; ; page += 1) {
-    const { data, total_pages: totalPages = 1 } = await callApi(`/projects?page=${page}`, apiKey, fetchImpl);
+    const body = await callApi(`/projects?page=${page}`, apiKey, fetchImpl);
+    if (body === null) throw new Error('WakaTime ne renvoie pas la liste des projets');
+    const { data, total_pages: totalPages = 1 } = body;
     names.push(...data.map((project) => project.name));
     if (page >= totalPages) return names;
   }

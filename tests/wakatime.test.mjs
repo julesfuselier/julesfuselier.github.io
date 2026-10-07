@@ -45,8 +45,13 @@ test('un total pas encore calculé fait échouer le relevé', async () => {
   await assert.rejects(fetchProjectHours('x', 'clé', fetchImpl), /pas encore calculé/);
 });
 
+test('un projet inconnu de WakaTime compte pour zéro heure', async () => {
+  assert.equal(await fetchProjectHours('inconnu', 'clé', fakeFetch({})), 0);
+});
+
 test('une erreur de WakaTime est signalée', async () => {
-  await assert.rejects(fetchProjectHours('inconnu', 'clé', fakeFetch({})), /404/);
+  const refused = async () => ({ ok: false, status: 401, json: async () => ({}) });
+  await assert.rejects(fetchProjectHours('x', 'mauvaise clé', refused), /401/);
 });
 
 test('la liste des projets suit la pagination', async () => {
