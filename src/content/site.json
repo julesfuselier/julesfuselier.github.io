@@ -25,6 +25,9 @@
         "julesfuselier/veille_e-ruputation_AI",
         "julesfuselier/Connector-Brevo-Shopify-Pointex"
       ],
+      "wakatime": [
+        "Connector-Brevo-Shopify-Pointex"
+      ],
       "stack": [
         "React",
         "TypeScript",
@@ -92,6 +95,11 @@
       "hours": null,
       "repos": [
         "julesfuselier/S201-SuperBomberman-Remake"
+      ],
+      "wakatime": [
+        "S201-SuperBomberman-remake",
+        "S201-Bomberman-remake",
+        "S-201-Bomberman-remake-V2"
       ],
       "stack": [
         "Java",
