@@ -1,0 +1,39 @@
+# Relève chaque semaine les heures WakaTime, recompile le site et publie le
+# résultat. La clé WakaTime est lue dans le secret WAKATIME_API_KEY du dépôt
+# (Settings > Secrets and variables > Actions) : elle n'apparaît nulle part
+# dans le code.
+name: Heures WakaTime
+
+on:
+  schedule:
+    - cron: '17 5 * * 1' # chaque lundi matin
+  workflow_dispatch: # et à la demande, depuis l'onglet Actions
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run wakatime
+        env:
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+      - run: npm test
+      - run: npm run build
+      - name: Publier si les heures ont changé
+        run: |
+          if git diff --quiet; then
+            echo "Aucun changement."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Heures WakaTime mises à jour"
+          git push

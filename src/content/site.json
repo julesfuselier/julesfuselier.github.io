@@ -1,0 +1,120 @@
+{
+  "baseUrl": "https://julesfuselier.fr",
+  "author": "Jules Fuselier",
+  "email": "contact@julesfuselier.fr",
+  "cvPath": "/assets/CV_FUSELIER-Jules.pdf",
+  "portrait": "/assets/img/profile-480.webp",
+  "social": {
+    "github": "https://github.com/julesfuselier",
+    "linkedin": "https://www.linkedin.com/in/julesfuselier/"
+  },
+  "publisher": {
+    "siret": null
+  },
+  "projectOrder": [
+    "agape",
+    "preity-india",
+    "relations-internationales",
+    "pathside",
+    "superbomberman"
+  ],
+  "projects": {
+    "agape": {
+      "hours": null,
+      "repos": [
+        "julesfuselier/veille_e-ruputation_AI",
+        "julesfuselier/Connector-Brevo-Shopify-Pointex"
+      ],
+      "stack": [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "Python",
+        "API Anthropic",
+        "Tavily"
+      ],
+      "links": [],
+      "summit": {
+        "x": 15,
+        "y": 44
+      }
+    },
+    "preity-india": {
+      "hours": null,
+      "repos": [],
+      "stack": [],
+      "links": [
+        {
+          "type": "site",
+          "url": "https://preityindia.fr"
+        }
+      ],
+      "summit": {
+        "x": 32,
+        "y": 72
+      }
+    },
+    "relations-internationales": {
+      "hours": null,
+      "repos": [
+        "julesfuselier/SAE-A2_intra-iut-relations-internationales"
+      ],
+      "stack": [
+        "PHP",
+        "MySQL",
+        "PHPUnit",
+        "PHPStan",
+        "GitHub Actions"
+      ],
+      "links": [],
+      "summit": {
+        "x": 52,
+        "y": 26
+      }
+    },
+    "pathside": {
+      "hours": null,
+      "repos": [
+        "julesfuselier/Pathside"
+      ],
+      "stack": [
+        "Python",
+        "API Overpass",
+        "OpenStreetMap"
+      ],
+      "links": [],
+      "summit": {
+        "x": 70,
+        "y": 76
+      }
+    },
+    "superbomberman": {
+      "hours": null,
+      "repos": [
+        "julesfuselier/S201-SuperBomberman-Remake"
+      ],
+      "stack": [
+        "Java",
+        "JavaFX"
+      ],
+      "links": [
+        {
+          "type": "install",
+          "url": "https://www.jdeploy.com/~s201-superbomberman-remake"
+        },
+        {
+          "type": "demo",
+          "url": "/demo/demo-SuperBomberman.html"
+        },
+        {
+          "type": "github",
+          "url": "https://github.com/julesfuselier/S201-SuperBomberman-remake"
+        }
+      ],
+      "summit": {
+        "x": 87,
+        "y": 42
+      }
+    }
+  }
+}

@@ -1,0 +1,318 @@
+{
+  "lang": "en",
+  "locale": "en_GB",
+  "meta": {
+    "title": "Jules Fuselier, web & AI developer, engineering student at UTT",
+    "description": "Computer science engineering student at UTT and web & AI developer. I am looking for a 6-month internship from July to December 2027, and I build websites and AI integrations for businesses.",
+    "jobTitle": "Web & AI developer, engineering student"
+  },
+  "nav": {
+    "label": "Main navigation",
+    "skip": "Skip to content",
+    "home": "Home",
+    "projects": "Projects",
+    "recruiters": "Recruiters",
+    "clients": "Businesses",
+    "journey": "Background",
+    "contact": "Contact",
+    "theme": "Switch theme",
+    "langSwitch": "Version française",
+    "langSwitchCode": "FR"
+  },
+  "hero": {
+    "badge": "Internship wanted: July to December 2027",
+    "title": "I build web tools and bring AI in where it saves time.",
+    "lead": "Engineering student at UTT (Université de technologie de Troyes) and freelance developer. 5 months at Agapé: an audit of 9 departments and a large language model (LLM) monitoring tool put into service.",
+    "clientCta": "You have a project",
+    "mapLabel": "Map of projects",
+    "portraitAlt": "Portrait of Jules Fuselier"
+  },
+  "projects": {
+    "lead": "Each page says what is delivered and what is not there yet.",
+    "labels": {
+      "context": "What was asked",
+      "role": "Role",
+      "period": "Period",
+      "stack": "Technologies",
+      "actions": "What I did",
+      "outcome": "What is delivered",
+      "next": "What is left to do",
+      "links": "See the project",
+      "back": "All projects",
+      "others": "The other projects"
+    },
+    "linkLabels": {
+      "site": "Visit the live site",
+      "github": "View the code on GitHub",
+      "install": "Install the game (jDeploy)",
+      "demo": "Play in the browser (slow to load)"
+    },
+    "items": {
+      "agape": {
+        "shortTitle": "Agapé",
+        "title": "Bringing AI into Agapé",
+        "kicker": "Internship, then fixed-term contract",
+        "summary": "An audit of AI use across 9 departments and an LLM-based online reputation monitoring tool put into service.",
+        "context": "Agapé's management wanted to know where AI could help its teams, and to try out concrete tools.",
+        "role": "AI & process integration officer",
+        "period": "April to August 2026",
+        "actions": [
+          "Audit of 9 departments against a 16-criteria grid, with costed recommendations handed to general management (estimated return of 6.5 times the cost for the main recommendation)",
+          "Online reputation monitoring tool in React and TypeScript: the Tavily API gathers more than 30 sources per run, then a Claude model (Anthropic API) sorts them. Put into service during the assignment.",
+          "Feasibility study and prototype of a Node.js middleware connecting Shopify, the ERP and Brevo, across 3 synchronisation flows",
+          "Python script for batch anonymisation of supplier PDF sheets",
+          "Handover note covering all 4 projects at the end of the assignment"
+        ],
+        "outcome": "One tool in service, costed recommendations handed to management and a documented handover.",
+        "next": "The middleware stayed at prototype stage: it was not deployed to production."
+      },
+      "preity-india": {
+        "shortTitle": "Preity India",
+        "title": "Preity India, restaurant website with booking and ordering",
+        "kicker": "Freelance client work",
+        "summary": "Live website for an Indian restaurant in Marseille: menu, table booking and takeaway orders.",
+        "context": "Preity India is an Indian restaurant near the Vieux-Port in Marseille. The site presents the menu and lets customers book a table or order takeaway.",
+        "role": "Co-developer with Dinesh Radjou, working directly with the client",
+        "period": null,
+        "actions": [
+          "Online menu and a showcase of the house specialities",
+          "Table booking, including for groups",
+          "Click & collect takeaway orders, with customer accounts",
+          "Legal pages: terms of use, privacy, cookies, booking and click & collect conditions"
+        ],
+        "outcome": "The site is live at preityindia.fr.",
+        "next": null
+      },
+      "relations-internationales": {
+        "shortTitle": "International mobility",
+        "title": "International mobility management platform",
+        "kicker": "University project, team of 5",
+        "summary": "A PHP/MySQL web application that handles a university institute's international mobility applications, from wish lists to ranking.",
+        "context": "Second-year project of my computer science degree (BUT) at the Aix-Marseille institute of technology (IUT), for its international relations office.",
+        "role": "Lead developer, product owner and project manager, in a Scrum team of 5",
+        "period": "2025 to 2026",
+        "actions": [
+          "MVC architecture with a service layer and isolated use cases (Clean Architecture)",
+          "Authentication with four access levels: visitor, student, administrator and super-administrator",
+          "Applicant ranking algorithm, centralised in one service so the formula changes in a single place",
+          "Scraper that authenticates against the university's single sign-on (CAS) and syncs the list of destinations",
+          "Account anonymisation for GDPR compliance",
+          "195 PHPUnit tests, unit and integration, PHPStan static analysis, PSR-12 standard and GitHub Actions continuous integration"
+        ],
+        "outcome": "A complete, tested application designed for more than 1,000 students.",
+        "next": "It is not used in production yet. The code is private: demo on request."
+      },
+      "pathside": {
+        "shortTitle": "PathSide",
+        "title": "PathSide, outdoor spots along your route",
+        "kicker": "Personal project, in progress",
+        "summary": "A tool that finds summits, viewpoints, waterfalls, lakes and trails around a route, using OpenStreetMap data.",
+        "context": "Hiking apps show hikes, and navigation apps get you from A to B. Nothing connects the two: you drive past great places without knowing it.",
+        "role": "Design and development, solo",
+        "period": "Since May 2026",
+        "actions": [
+          "Queries the Overpass API for five types of spots in a single request",
+          "Handles all three OpenStreetMap object types: nodes, ways and relations",
+          "True distance to linear objects: the script walks a trail's full geometry instead of stopping at its centre (Haversine formula)",
+          "Retries with exponential backoff, telling transient failures from permanent ones",
+          "JSON export ready to feed a map"
+        ],
+        "outcome": "Phase 1, data collection around a point, is complete.",
+        "next": "Phase 2 in progress: A→B route calculation, filtering by detour and display on a Leaflet map."
+      },
+      "superbomberman": {
+        "shortTitle": "SuperBomberman",
+        "title": "SuperBomberman, a JavaFX remake",
+        "kicker": "University team project",
+        "summary": "A playable Bomberman remake in Java, with enemy AI, collisions and chained explosions.",
+        "context": "First-year team project of my computer science degree (BUT), focused on object-oriented architecture.",
+        "role": "Developer",
+        "period": "2025",
+        "actions": [
+          "SOLID principles and design patterns (Factory, controllers) to keep the code maintainable",
+          "Enemy AI, collision handling and chained explosion propagation",
+          "Distributed through a jDeploy installer and a demo playable in the browser"
+        ],
+        "outcome": "A playable game that can be installed and tried online.",
+        "next": null
+      }
+    },
+    "headline": "5 projects, from company work to a personal build."
+  },
+  "recruiters": {
+    "lead": "Software development, applied AI or tech project management, in France.",
+    "seekingTitle": "What I am looking for",
+    "seeking": [
+      "6 months, from July to December 2027",
+      "Software development, applied AI or tech project management",
+      "In France"
+    ],
+    "proofsTitle": "What I have already done",
+    "proofs": [
+      {
+        "title": "Lead a project",
+        "text": "Project manager and product owner of a team of 5 on a platform covered by 195 tests.",
+        "project": "relations-internationales"
+      },
+      {
+        "title": "Report to decision-makers",
+        "text": "Audit of 9 departments and costed recommendations handed to general management.",
+        "project": "agape"
+      },
+      {
+        "title": "Deliver",
+        "text": "A live client website, co-developed working directly with the owner.",
+        "project": "preity-india"
+      }
+    ],
+    "skillsTitle": "Skills",
+    "skills": [
+      {
+        "title": "AI & automation",
+        "items": [
+          "LLM APIs (Anthropic)",
+          "Agents and tool use",
+          "MCP",
+          "Tavily",
+          "n8n",
+          "Web scraping",
+          "Scikit-learn"
+        ]
+      },
+      {
+        "title": "Languages",
+        "items": [
+          "TypeScript",
+          "JavaScript",
+          "Python",
+          "PHP",
+          "Java",
+          "SQL",
+          "HTML",
+          "CSS"
+        ]
+      },
+      {
+        "title": "Frameworks & tools",
+        "items": [
+          "React",
+          "Node.js",
+          "Tailwind",
+          "PHPUnit",
+          "GitHub Actions"
+        ]
+      },
+      {
+        "title": "Databases",
+        "items": [
+          "PostgreSQL",
+          "MySQL",
+          "SQLite"
+        ]
+      },
+      {
+        "title": "Methods",
+        "items": [
+          "Agile (Scrum)",
+          "Clean Architecture",
+          "UML",
+          "Automated testing",
+          "CI/CD"
+        ]
+      }
+    ],
+    "cvCta": "Download my CV (PDF, in French)",
+    "headline": "I am looking for a 6-month engineering internship, from July to December 2027.",
+    "emailCta": "Email me"
+  },
+  "clients": {
+    "lead": "My freelance business is for small businesses, shops and freelancers, on short, remote assignments.",
+    "servicesTitle": "What I offer",
+    "services": [
+      {
+        "title": "Custom websites",
+        "text": "Showcase site, booking, online ordering. Example: the Preity India restaurant website."
+      },
+      {
+        "title": "API integration and automation",
+        "text": "Connecting your tools (online shop, business software, emailing) so nobody re-enters data."
+      },
+      {
+        "title": "Applied AI",
+        "text": "An audit of how you use AI, prototypes and tools built on language models, with an honest estimate of what AI brings or does not."
+      }
+    ],
+    "cta": "Talk about your project",
+    "headline": "Custom websites and integrations, at a fixed price."
+  },
+  "journey": {
+    "items": [
+      {
+        "period": "2026 to 2029",
+        "title": "Engineering degree, UTT",
+        "text": "Computer Science and Information Systems, in Troyes."
+      },
+      {
+        "period": "April to August 2026",
+        "title": "AI & process integration officer, Agapé",
+        "text": "Internship, then fixed-term contract."
+      },
+      {
+        "period": "Since November 2025",
+        "title": "Freelance business",
+        "text": "Web development, API and AI integration."
+      },
+      {
+        "period": "2024 to 2026",
+        "title": "DUT in computer science, IUT of Aix-Marseille",
+        "text": "Top of the class."
+      },
+      {
+        "period": "2024",
+        "title": "French general baccalauréat",
+        "text": "Mathematics and computer science majors, with honours."
+      }
+    ],
+    "headline": "Education and experience since 2024."
+  },
+  "contact": {
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "headline": "For an internship or a project, email me."
+  },
+  "footer": {
+    "legal": "Legal notice",
+    "note": "Static site, no cookies and no analytics."
+  },
+  "legal": {
+    "title": "Legal notice",
+    "siretLabel": "SIRET (French business ID)",
+    "sections": [
+      {
+        "title": "Publisher",
+        "paragraphs": [
+          "Jules Fuselier, sole trader (French micro-entreprise).",
+          "Contact: contact@julesfuselier.fr."
+        ]
+      },
+      {
+        "title": "Hosting",
+        "paragraphs": [
+          "GitHub Pages, GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, United States."
+        ]
+      },
+      {
+        "title": "Personal data",
+        "paragraphs": [
+          "This site sets no cookies and uses no analytics. It only stores your theme preference in your browser.",
+          "The host may log IP addresses for technical purposes."
+        ]
+      }
+    ]
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "This page does not exist or has moved.",
+    "cta": "Back to the home page"
+  }
+}

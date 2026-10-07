@@ -1,0 +1,310 @@
+/*
+ * Feuille de style source. Compilée par Tailwind vers `css/style.css`.
+ *
+ * Organisation :
+ *  1. polices auto-hébergées (aucune requête vers un service tiers) ;
+ *  2. jetons de couleur, en clair et en sombre ;
+ *  3. composants réutilisés par plusieurs gabarits.
+ * Les classes utilitaires Tailwind restent dans les gabarits (`src/templates/`).
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Space Grotesk Variable';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/assets/fonts/space-grotesk-latin-wght-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono Variable';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('/assets/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');
+}
+
+@layer base {
+  /*
+   * Couleurs, par rôle (détail dans DESIGN.md).
+   * Palette « Dolomites » : pierre pour les surfaces, forêt pour l'action
+   * principale et le bandeau inversé, terre cuite pour les seuls repères de
+   * sommet. Texte et liens gardent un contraste d'au moins 4,5:1.
+   */
+  :root {
+    color-scheme: light;
+    --canvas-soft: #d8d6ce;
+    --canvas: #e6e4dd;
+    --ink: #1c231d;
+    --body: #46523f;
+    --hairline: #bebcb0;
+    --primary: #3c4a3a;
+    --on-primary: #f0eee8;
+    --summit: #b75b39;
+    --band: #3c4a3a;
+    --band-card: #465544;
+    --band-ink: #f0eee8;
+    --band-body: #c4cabd;
+    --band-hairline: #5f6e5c;
+  }
+
+  /* Thème sombre : choisi par le visiteur… */
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --canvas-soft: #161c17;
+    --canvas: #1f2620;
+    --ink: #e4e2da;
+    --body: #a3aa9e;
+    --hairline: #333d34;
+    --primary: #e4e2da;
+    --on-primary: #161c17;
+    --summit: #cf6f4c;
+    --band: #232b24;
+    --band-card: #2b352c;
+    --band-ink: #e4e2da;
+    --band-body: #a3aa9e;
+    --band-hairline: #3d483e;
+  }
+
+  /* … ou hérité du système tant qu'il n'a rien choisi. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      color-scheme: dark;
+      --canvas-soft: #161c17;
+      --canvas: #1f2620;
+      --ink: #e4e2da;
+      --body: #a3aa9e;
+      --hairline: #333d34;
+      --primary: #e4e2da;
+      --on-primary: #161c17;
+      --summit: #cf6f4c;
+      --band: #232b24;
+      --band-card: #2b352c;
+      --band-ink: #e4e2da;
+      --band-body: #a3aa9e;
+      --band-hairline: #3d483e;
+    }
+  }
+
+  /*
+   * Le bandeau de navigation collant ne doit recouvrir ni une ancre atteinte,
+   * ni un lien qui reçoit le focus au clavier. Sur mobile il tient sur deux
+   * lignes, d'où une marge plus grande.
+   */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 7.5rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 5rem;
+    }
+  }
+
+  body {
+    @apply bg-canvas-soft font-sans text-ink antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  a,
+  button {
+    touch-action: manipulation;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--summit);
+    outline-offset: 3px;
+  }
+
+  /* Sur le bandeau « forêt », la terre cuite ne ressort pas assez : contour clair. */
+  .bg-band :focus-visible {
+    outline-color: var(--band-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Conteneur de page : 1200 px au plus, marges respectant les encoches. */
+  .page {
+    @apply mx-auto w-full max-w-page;
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+
+  /*
+   * Titres : graisse 600 au plus, interlettrage négatif marqué, casse de
+   * phrase. C'est la voix typographique du site.
+   */
+  .display-xl {
+    @apply text-[2.5rem] font-semibold leading-[1.02] tracking-[-0.045em] sm:text-[3.5rem] lg:text-[4rem];
+  }
+
+  .display-lg {
+    @apply text-[1.75rem] font-semibold leading-[1.12] tracking-[-0.04em] sm:text-[2.25rem];
+  }
+
+  .display-md {
+    @apply text-xl font-semibold leading-snug tracking-[-0.03em];
+  }
+
+  .lead {
+    @apply max-w-[40rem] text-lg leading-7 text-body;
+  }
+
+  /* Chasse fixe : réservée à la couche technique (repères, technologies, dates). */
+  .mono {
+    @apply font-mono text-[0.8125rem] leading-5 text-body;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Boutons : une seule forme, la pilule. Le bouton plein est l'action principale. */
+  .btn {
+    @apply inline-flex h-12 items-center rounded-full px-6 font-medium;
+    transition: background-color 150ms, opacity 150ms;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary text-on-primary hover:opacity-85;
+  }
+
+  .btn-secondary {
+    @apply btn bg-canvas text-ink ring-1 ring-inset ring-hairline hover:bg-canvas-soft;
+  }
+
+  /* Lien dans le texte : encre soulignée, le soulignement s'épaissit au survol. */
+  .link {
+    @apply font-medium text-ink underline decoration-hairline decoration-2 underline-offset-4 hover:decoration-ink;
+  }
+
+  /*
+   * Carte : surface un cran plus claire que la page, filet intérieur et
+   * ombre empilée très légère. Jamais d'ombre portée lourde.
+   */
+  .card {
+    @apply rounded-lg bg-canvas p-6;
+    box-shadow:
+      inset 0 0 0 1px var(--hairline),
+      0 1px 1px rgb(0 0 0 / 0.02),
+      0 2px 2px rgb(0 0 0 / 0.04);
+  }
+
+  a.card {
+    transition: background-color 150ms;
+  }
+
+  a.card:hover {
+    background-color: var(--canvas-soft);
+  }
+
+  /*
+   * Carte topographique des projets. Le SVG généré sert de masque et la
+   * couleur vient de `currentColor` : un même fichier pour les deux thèmes.
+   * Le tracé change avec le format, carré sur mobile et panoramique ensuite.
+   */
+  .project-map {
+    position: relative;
+    aspect-ratio: 1 / 1;
+  }
+
+  .project-map::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: currentColor;
+    opacity: 0.5;
+    -webkit-mask: url('/assets/contours/projects-square.svg') center / 100% 100% no-repeat;
+    mask: url('/assets/contours/projects-square.svg') center / 100% 100% no-repeat;
+  }
+
+  @media (min-width: 640px) {
+    .project-map {
+      aspect-ratio: 5 / 2;
+    }
+
+    .project-map::before {
+      -webkit-mask-image: url('/assets/contours/projects-wide.svg');
+      mask-image: url('/assets/contours/projects-wide.svg');
+    }
+  }
+
+  /*
+   * Relief 3D (voir src/js/terrain.js) : quand il est actif, son canevas
+   * remplace le tracé 2D. Le défilement vertical de la page reste possible
+   * au doigt, seul le glissement horizontal fait tourner le terrain.
+   */
+  .project-map.is-3d::before {
+    display: none;
+  }
+
+  .project-map canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: pan-y;
+  }
+
+  .project-map.is-dragging canvas {
+    cursor: grabbing;
+  }
+
+  /* Pendant la rotation, le glissement ne doit pas sélectionner les étiquettes. */
+  .project-map.is-dragging {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Sommet : un point d'ancrage aux coordonnées (en %) fournies par le gabarit. */
+  .summit {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+  }
+
+  .summit-dot {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 9999px;
+    background-color: var(--summit);
+    outline: 3px solid var(--canvas-soft);
+    transform: translate(-50%, -50%);
+  }
+
+  /* Étiquette du sommet, sous le point : centrée, ou calée près des bords. */
+  .summit-label {
+    @apply absolute top-3 whitespace-nowrap rounded-full bg-canvas-soft px-2 py-0.5 text-sm font-medium text-ink;
+  }
+
+  .summit-label-center {
+    left: 0;
+    transform: translateX(-50%);
+  }
+
+  .summit-label-start {
+    left: -0.75rem;
+  }
+
+  .summit-label-end {
+    right: -0.75rem;
+  }
+}
