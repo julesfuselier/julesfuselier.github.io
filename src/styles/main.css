@@ -351,4 +351,116 @@
     @apply block font-mono text-xs font-normal text-body sm:ml-1 sm:inline-block;
     font-variant-numeric: tabular-nums;
   }
+
+  /*
+   * Entrée de l'accueil. Les éléments montent l'un après l'autre : badge,
+   * titre mot par mot, chapeau, boutons, carte. Tout est en CSS, donc visible
+   * même sans JavaScript, et coupé pour qui demande moins de mouvement.
+   */
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.6em);
+    }
+  }
+
+  .hero-in {
+    animation: hero-rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both;
+  }
+
+  .hero-word {
+    display: inline-block;
+    animation: hero-rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(120ms + var(--i) * 45ms) both;
+  }
+
+  /* Passage mis en avant du titre, souligné d'un trait de sentier. */
+  .hero-accent {
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .hero-accent-trail {
+    position: absolute;
+    left: 0;
+    bottom: -0.12em;
+    width: 100%;
+    height: 0.28em;
+    overflow: visible;
+    /* Le trait se dévoile de gauche à droite, comme un sentier qu'on trace. */
+    clip-path: inset(-50% 100% -50% 0);
+    animation: hero-trail 900ms cubic-bezier(0.6, 0, 0.2, 1) 900ms forwards;
+  }
+
+  .hero-accent-trail path {
+    fill: none;
+    stroke: var(--summit);
+    stroke-width: 3;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+  }
+
+  @keyframes hero-trail {
+    to {
+      clip-path: inset(-50% 0 -50% 0);
+    }
+  }
+
+  /*
+   * Sur téléphone, le passage mis en avant doit pouvoir passer à la ligne :
+   * le trait dessiné ne suivrait pas, il laisse place à un soulignement simple.
+   */
+  @media (max-width: 639px) {
+    .hero-accent {
+      white-space: normal;
+    }
+
+    /* Posé sur chaque mot : un soulignement ne traverse pas les blocs en ligne. */
+    .hero-accent .hero-word {
+      text-decoration: underline 3px var(--summit);
+      text-underline-offset: 0.18em;
+    }
+
+    .hero-accent-trail {
+      display: none;
+    }
+  }
+
+  /* Point « disponible » du badge : une onde part régulièrement du point. */
+  .hero-pulse {
+    position: relative;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--summit);
+  }
+
+  .hero-pulse::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-color: var(--summit);
+    animation: hero-ping 2.4s cubic-bezier(0, 0, 0.2, 1) 1.2s infinite;
+  }
+
+  @keyframes hero-ping {
+    70%,
+    100% {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-in,
+    .hero-word,
+    .hero-pulse::after {
+      animation: none;
+    }
+
+    .hero-accent-trail {
+      animation: none;
+      clip-path: none;
+    }
+  }
 }

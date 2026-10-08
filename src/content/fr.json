@@ -21,7 +21,7 @@
   },
   "hero": {
     "badge": "Stage recherché : juillet à décembre 2027",
-    "title": "Je construis des outils web et j'intègre l'IA là où elle fait gagner du temps.",
+    "title": "Je construis des outils web et j'intègre l'IA là où elle {fait gagner du temps}.",
     "lead": "Élève ingénieur à l'UTT (Université de technologie de Troyes) et micro-entrepreneur. 5 mois chez Agapé : audit de 9 services et mise en service d'un outil de veille par modèle de langage (LLM).",
     "clientCta": "Vous avez un projet",
     "mapLabel": "Carte des projets",

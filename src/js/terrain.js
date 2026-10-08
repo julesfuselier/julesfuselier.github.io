@@ -23,7 +23,9 @@
  *  - à l'arrivée, le sentier se trace d'un sommet à l'autre, du plus ancien
  *    au plus récent ;
  *  - au survol (ou au focus clavier) d'un projet, la caméra s'approche de
- *    son sommet et les courbes de niveau autour de lui passent en couleur.
+ *    son sommet et les courbes de niveau autour de lui passent en couleur ;
+ *  - à la souris, le relief s'incline légèrement pour suivre le pointeur
+ *    (effet de parallaxe), tant qu'aucun projet n'est mis en avant.
  */
 
 import { BufferAttribute, Color, Mesh, PerspectiveCamera, PlaneGeometry, Scene, ShaderMaterial, Vector2, Vector3, WebGLRenderer } from 'three';
@@ -46,6 +48,9 @@ const VIEW = {
   maxAzimuth: 22,
   introDuration: 1400,
 };
+
+/** Inclinaison maximale suivant le pointeur, en degrés, et vitesse de suivi. */
+const TILT = { azimuth: 5, elevation: 2.5, smoothing: 0.08 };
 
 /** Tracé du sentier à l'arrivée, après le basculement de la vue. */
 const TRAIL_DRAW = { delay: 900, duration: 1800 };
@@ -245,8 +250,8 @@ export function mountTerrain(map, wide) {
 
   /** Place la caméra sur une sphère autour du terrain, tournée vers son centre. */
   function placeCamera() {
-    const elevation = view.elevation * DEGREES;
-    const azimuth = view.azimuth * DEGREES;
+    const elevation = (view.elevation + tilt.elevation) * DEGREES;
+    const azimuth = (view.azimuth + tilt.azimuth) * DEGREES;
     camera.position.set(
       view.distance * Math.cos(elevation) * Math.sin(azimuth),
       view.distance * Math.sin(elevation),
@@ -395,6 +400,28 @@ export function mountTerrain(map, wide) {
     else introDone = true;
   }
 
+  // Parallaxe : la position du pointeur dans la section (de −0,5 à 0,5)
+  // fixe une inclinaison cible, que la vue rejoint en douceur. Rien n'est
+  // redessiné quand le pointeur ne bouge pas.
+  const tilt = { azimuth: 0, elevation: 0, toAzimuth: 0, toElevation: 0 };
+  let tilting = false;
+  function stepTilt() {
+    tilt.azimuth += (tilt.toAzimuth - tilt.azimuth) * TILT.smoothing;
+    tilt.elevation += (tilt.toElevation - tilt.elevation) * TILT.smoothing;
+    requestDraw();
+    tilting = Math.abs(tilt.toAzimuth - tilt.azimuth) > 0.01 || Math.abs(tilt.toElevation - tilt.elevation) > 0.01;
+    if (tilting && mounted) requestAnimationFrame(stepTilt);
+  }
+  const area = map.closest('section, aside') ?? map;
+  const onPointerMove = (event) => {
+    if (reducedMotion || event.pointerType !== 'mouse' || dragFrom || focus.toAmount > 0) return;
+    const box = area.getBoundingClientRect();
+    tilt.toAzimuth = ((event.clientX - box.left) / box.width - 0.5) * -2 * TILT.azimuth;
+    tilt.toElevation = ((event.clientY - box.top) / box.height - 0.5) * 2 * TILT.elevation;
+    if (!tilting) requestAnimationFrame(stepTilt);
+  };
+  area.addEventListener('pointermove', onPointerMove);
+
   // Rotation : glisser horizontalement fait tourner le terrain.
   let dragFrom = null;
   renderer.domElement.addEventListener('pointerdown', (event) => {
@@ -436,6 +463,7 @@ export function mountTerrain(map, wide) {
   function unmount() {
     if (wide.matches) return;
     mounted = false;
+    area.removeEventListener('pointermove', onPointerMove);
     clearTimeout(leaveTimer);
     wide.removeEventListener('change', unmount);
     systemTheme.removeEventListener('change', onSystemTheme);

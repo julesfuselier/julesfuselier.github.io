@@ -21,7 +21,7 @@
   },
   "hero": {
     "badge": "Internship wanted: July to December 2027",
-    "title": "I build web tools and bring AI in where it saves time.",
+    "title": "I build web tools and bring AI in where it {saves time}.",
     "lead": "Engineering student at UTT (Université de technologie de Troyes) and freelance developer. 5 months at Agapé: an audit of 9 departments and a large language model (LLM) monitoring tool put into service.",
     "clientCta": "You have a project",
     "mapLabel": "Map of projects",
