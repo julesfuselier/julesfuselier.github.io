@@ -15,7 +15,7 @@ import { route } from '../lib/routes.mjs';
 const THEME_BOOTSTRAP = `try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}`;
 
 /** Couleur de fond de la page dans chaque thème, pour la barre du navigateur. */
-const THEME_COLORS = { light: '#d8d6ce', dark: '#161c17' };
+const THEME_COLORS = { light: '#0e110f', dark: '#0e110f' }; // sombre par défaut, quel que soit le système
 
 /**
  * Données structurées schema.org décrivant l'auteur du site.
@@ -63,7 +63,7 @@ function head(ctx) {
     <meta property="og:image" content="${site.baseUrl + (ctx.image ?? site.portrait)}" />
     <meta name="twitter:card" content="${ctx.image ? 'summary_large_image' : 'summary'}" />
     <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
-    <link rel="preload" href="/assets/fonts/archivo-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/fraunces-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/css/style.css" />
     <script>${raw(THEME_BOOTSTRAP)}</script>
     <script type="application/ld+json">${personJsonLd(ctx)}</script>

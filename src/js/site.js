@@ -15,8 +15,7 @@
 
   /** @returns {'light' | 'dark'} thème actuellement affiché */
   const currentTheme = () => {
-    if (root.dataset.theme) return root.dataset.theme;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return root.dataset.theme === 'light' ? 'light' : 'dark'; // sombre par défaut
   };
 
   /**

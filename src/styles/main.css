@@ -13,17 +13,23 @@
 @tailwind utilities;
 
 /*
- * Archivo, une seule famille à largeur variable : large pour le texte,
- * étroite pour les noms sur la carte, comme les toponymes d'une carte
- * topographique. Un seul fichier couvre graisses et largeurs.
+ * Deux familles, auto-hébergées : Fraunces, une serif à axe optique, pour
+ * les titres ; Inter Tight pour le texte et l'interface.
  */
 @font-face {
-  font-family: 'Archivo Variable';
+  font-family: 'Fraunces Variable';
   font-style: normal;
   font-weight: 100 900;
-  font-stretch: 62% 125%;
   font-display: swap;
-  src: url('/assets/fonts/archivo-latin-standard-normal.woff2') format('woff2');
+  src: url('/assets/fonts/fraunces-latin-standard-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter Tight Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/assets/fonts/inter-tight-latin-wght-normal.woff2') format('woff2');
 }
 
 @layer base {
@@ -34,69 +40,47 @@
    * niveau, rouge balisage pour le sentier et le focus. Texte et liens
    * gardent un contraste d'au moins 4,5:1.
    */
-  :root {
-    color-scheme: light;
-    --canvas-soft: #d8d6ce;
-    --canvas: #e6e4dd;
-    --ink: #1c231d;
-    --body: #46523f;
-    --hairline: #bebcb0;
-    --primary: #3c4a3a;
-    --on-primary: #f0eee8;
-    --summit: #a62a21;
-    --contour: #84674a;
-    --band: #3c4a3a;
-    --band-card: #465544;
-    --band-ink: #f0eee8;
-    --band-body: #c4cabd;
-    --band-hairline: #5f6e5c;
-  }
-
-  /* Thème sombre : choisi par le visiteur… */
-  :root[data-theme='dark'] {
-    color-scheme: dark;
-    --canvas-soft: #161c17;
-    --canvas: #1f2620;
-    --ink: #e4e2da;
-    --body: #a3aa9e;
-    --hairline: #333d34;
-    --primary: #e4e2da;
-    --on-primary: #161c17;
-    --summit: #e0675a;
-    --contour: #a88c6d;
-    --band: #232b24;
-    --band-card: #2b352c;
-    --band-ink: #e4e2da;
-    --band-body: #a3aa9e;
-    --band-hairline: #3d483e;
-  }
-
-  /* … ou hérité du système tant qu'il n'a rien choisi. */
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme='light']) {
-      color-scheme: dark;
-      --canvas-soft: #161c17;
-      --canvas: #1f2620;
-      --ink: #e4e2da;
-      --body: #a3aa9e;
-      --hairline: #333d34;
-      --primary: #e4e2da;
-      --on-primary: #161c17;
-      --summit: #e0675a;
-      --contour: #a88c6d;
-      --band: #232b24;
-      --band-card: #2b352c;
-      --band-ink: #e4e2da;
-      --band-body: #a3aa9e;
-      --band-hairline: #3d483e;
-    }
-  }
-
   /*
-   * Le bandeau de navigation collant ne doit recouvrir ni une ancre atteinte,
-   * ni un lien qui reçoit le focus au clavier. Sur mobile il tient sur deux
-   * lignes, d'où une marge plus grande.
+   * Le site est sombre par défaut : la page d'accueil s'ouvre sur un relief
+   * de nuit, et le reste suit. Le thème clair n'existe que sur demande du
+   * visiteur (bouton de l'en-tête).
    */
+  :root {
+    color-scheme: dark;
+    --canvas-soft: #0e110f;
+    --canvas: #171b18;
+    --ink: #ebe8e1;
+    --body: #aeaaa1;
+    --hairline: #2b302c;
+    --primary: #ebe8e1;
+    --on-primary: #0e110f;
+    --summit: #e0675a;
+    --contour: #b7bcb2;
+    --band: #e6e3da;
+    --band-card: #dcd8ce;
+    --band-ink: #121512;
+    --band-body: #4b4f48;
+    --band-hairline: #c4c0b5;
+  }
+
+  :root[data-theme='light'] {
+    color-scheme: light;
+    --canvas-soft: #e6e3da;
+    --canvas: #efede6;
+    --ink: #151815;
+    --body: #4b4f48;
+    --hairline: #c9c5ba;
+    --primary: #151815;
+    --on-primary: #efede6;
+    --summit: #b3322a;
+    --contour: #6f7468;
+    --band: #151815;
+    --band-card: #1f231f;
+    --band-ink: #ebe8e1;
+    --band-body: #aeaaa1;
+    --band-hairline: #343a35;
+  }
+
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 7.5rem;
@@ -150,23 +134,19 @@
   }
 
   /*
-   * Titres : Archivo légèrement resserré, graisse soutenue, casse de phrase.
-   * Plus le titre est grand, plus il est étroit, comme le lettrage d'une
-   * carte où les grands noms couvrent de grandes étendues.
+   * Titres : Fraunces en graisse normale, interlettrage légèrement serré,
+   * casse de phrase. Le contraste avec Inter Tight sépare titres et texte.
    */
   .display-xl {
-    @apply text-[2.5rem] font-bold leading-[1.02] tracking-[-0.02em] sm:text-[3.5rem] lg:text-[4.25rem];
-    font-stretch: 82%;
+    @apply font-serif text-[2.5rem] font-normal leading-[1.02] tracking-[-0.02em] sm:text-[3.75rem] lg:text-[4.5rem];
   }
 
   .display-lg {
-    @apply text-[1.75rem] font-bold leading-[1.1] tracking-[-0.015em] sm:text-[2.375rem];
-    font-stretch: 88%;
+    @apply font-serif text-[2rem] font-normal leading-[1.08] tracking-[-0.015em] sm:text-[2.75rem];
   }
 
   .display-md {
-    @apply text-xl font-semibold leading-snug tracking-[-0.01em];
-    font-stretch: 94%;
+    @apply font-serif text-[1.375rem] font-normal leading-snug tracking-[-0.01em];
   }
 
   .lead {
@@ -174,12 +154,11 @@
   }
 
   /*
-   * Informations secondaires (dates, technologies, légendes) : même famille,
-   * un peu plus étroite et plus petite, chiffres alignés. En casse normale.
+   * Informations secondaires (dates, technologies, légendes) : texte plus
+   * petit et plus discret, chiffres alignés. En casse normale.
    */
   .meta {
     @apply text-[0.875rem] leading-5 text-body;
-    font-stretch: 90%;
     font-variant-numeric: tabular-nums;
   }
 
@@ -314,7 +293,7 @@
     top: var(--y);
   }
 
-  /* Sommet coté : le triangle noir des cartes topographiques. */
+  /* Sommet coté : le triangle des cartes topographiques. */
   .summit-dot {
     position: absolute;
     left: 0;
@@ -327,12 +306,11 @@
   }
 
   /*
-   * Nom du sommet, sous le triangle, lettré comme un toponyme : étroit,
-   * sans cartouche, détaché du relief par un halo couleur papier.
+   * Nom du sommet, sous le triangle, sans cartouche, détaché du relief par
+   * un halo couleur de fond.
    */
   .summit-label {
-    @apply absolute top-2 whitespace-nowrap text-[0.9375rem] font-semibold leading-tight text-ink;
-    font-stretch: 78%;
+    @apply absolute top-2 whitespace-nowrap text-[0.875rem] font-semibold leading-tight text-ink;
     text-shadow:
       0 0 2px var(--canvas-soft),
       0 0 4px var(--canvas-soft),
@@ -369,6 +347,74 @@
   .summit-date {
     @apply block text-xs font-normal text-body sm:ml-1 sm:inline-block;
     font-variant-numeric: tabular-nums;
+  }
+
+  /*
+   * Ouverture immersive de l'accueil (voir `hero` dans home.mjs).
+   * Téléphone : texte, puis carte carrée dans les marges de la page, puis
+   * chemins. Au-delà de 640 px : le relief prend toute la largeur de
+   * l'écran, s'efface vers le fond par le bas, et le texte remonte sur ce
+   * fondu. Le relief est plafonné en hauteur pour laisser voir le titre
+   * sans défiler.
+   */
+  .hero-stage {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5rem;
+  }
+
+  .hero-copy {
+    order: 1;
+    padding-top: 3.5rem;
+  }
+
+  .hero-relief {
+    order: 2;
+    margin-top: 3rem;
+    padding-inline: 1.5rem;
+  }
+
+  .hero-paths {
+    order: 3;
+    margin-top: 4rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-stage {
+      display: block;
+    }
+
+    .hero-relief {
+      position: relative;
+      margin-top: 0;
+      padding-inline: 0;
+    }
+
+    .hero-relief .project-map {
+      max-height: calc(100svh - 21rem);
+      min-height: 22rem;
+      margin-inline: auto;
+    }
+
+    /* Fondu du pied du relief vers le fond, sous le texte. */
+    .hero-relief::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0;
+      height: 42%;
+      background: linear-gradient(to bottom, transparent, var(--canvas-soft));
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      position: relative;
+      margin-top: -8rem;
+      padding-top: 0;
+    }
+
+    .hero-paths {
+      margin-top: 5rem;
+    }
   }
 
   /*

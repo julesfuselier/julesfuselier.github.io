@@ -32,7 +32,8 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 
 /** Polices copiées depuis `node_modules` vers `assets/fonts/`. */
 const FONTS = [
-  '@fontsource-variable/archivo/files/archivo-latin-standard-normal.woff2',
+  '@fontsource-variable/fraunces/files/fraunces-latin-standard-normal.woff2',
+  '@fontsource-variable/inter-tight/files/inter-tight-latin-wght-normal.woff2',
 ];
 
 /** Anciennes adresses du site, redirigées vers la liste des projets. */

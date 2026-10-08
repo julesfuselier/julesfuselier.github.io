@@ -27,36 +27,50 @@ function heroTitle(title) {
 }
 
 /**
- * Ouverture : la phrase d'accroche, puis un chemin par public (recruteur ou
- * entreprise), puis la carte des projets sur toute la largeur.
+ * Ouverture immersive : le relief des projets occupe toute la largeur de
+ * l'écran, et la phrase d'accroche se pose sur son pied, avec les deux
+ * actions principales (CV, contact). Sous la scène, un chemin par public
+ * précise ce que chacun trouvera plus bas.
+ *
+ * Sur téléphone, le texte passe d'abord et la carte, carrée, vient ensuite :
+ * l'ordre est réglé en CSS (`.hero-stage`).
  * @param {PageContext} ctx
  */
 function hero(ctx) {
   const { site, t } = ctx;
-  const [recruiterPath, clientPath] = t.hero.paths;
-  return html`<section class="page pb-16 pt-16 sm:pt-24">
-    <h1 class="display-xl max-w-[18ch]">${heroTitle(t.hero.title)}</h1>
-    <p class="hero-in lead mt-6" style="--d: 600ms">${t.hero.lead}</p>
-    <div class="hero-in mt-12 grid max-w-[52rem] gap-8 sm:grid-cols-2" style="--d: 750ms">
-      <div class="card">
-        <h2 class="display-md">${recruiterPath.title}</h2>
-        <p class="mt-2 leading-6 text-body">${recruiterPath.text}</p>
-        <p class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
-          <a href="${site.cvPath}" class="btn-primary">${t.recruiters.cvCta}</a>
-          <a href="${recruiterPath.href}" class="link">${recruiterPath.cta}</a>
-        </p>
-      </div>
-      <div class="card">
-        <h2 class="display-md">${clientPath.title}</h2>
-        <p class="mt-2 leading-6 text-body">${clientPath.text}</p>
-        <p class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
-          <a href="mailto:${site.email}" class="btn-secondary">${t.clients.cta}</a>
-          <a href="${clientPath.href}" class="link">${clientPath.cta}</a>
-        </p>
-      </div>
+  return html`<section class="hero-stage">
+    <div class="hero-relief hero-in" style="--d: 250ms">${projectMap(ctx, { label: t.hero.mapLabel, legend: false })}</div>
+    <div class="hero-copy page">
+      <h1 class="display-xl max-w-[25ch]">${heroTitle(t.hero.title)}</h1>
+      <p class="hero-in lead mt-6" style="--d: 600ms">${t.hero.lead}</p>
+      <p class="hero-in mt-8 flex flex-wrap items-center gap-3" style="--d: 750ms">
+        <a href="${site.cvPath}" class="btn-primary">${t.recruiters.cvCta}</a>
+        <a href="mailto:${site.email}" class="btn-secondary">${t.clients.cta}</a>
+      </p>
+      <p class="hero-in meta mt-6 text-xs" style="--d: 900ms">${t.projects.mapLegend}</p>
     </div>
-    <div class="hero-in mt-20" style="--d: 900ms">${projectMap(ctx, { label: t.hero.mapLabel })}</div>
+    ${heroPaths(ctx)}
   </section>`;
+}
+
+/**
+ * Les deux chemins sous la scène : recruteur et entreprise, chacun avec ce
+ * qu'il cherche et un lien vers sa section.
+ * @param {PageContext} ctx
+ */
+function heroPaths(ctx) {
+  const { t } = ctx;
+  return html`<div class="hero-paths page hero-in" style="--d: 1000ms">
+    <ul class="grid gap-8 sm:grid-cols-2">
+      ${t.hero.paths.map(
+        (path) => html`<li class="card">
+          <h2 class="display-md">${path.title}</h2>
+          <p class="mt-2 max-w-[34rem] leading-6 text-body">${path.text}</p>
+          <p class="mt-4"><a href="${path.href}" class="link">${path.cta}</a></p>
+        </li>`,
+      )}
+    </ul>
+  </div>`;
 }
 
 /**

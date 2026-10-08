@@ -113,8 +113,10 @@ export function labelAnchor(x) {
  * @param {object} options
  * @param {string} options.label nom accessible de la carte
  * @param {string} [options.current] identifiant du projet affiché
+ * @param {boolean} [options.legend] affiche la légende sous la carte (par
+ *   défaut). L'accueil la place lui-même, à côté du texte d'ouverture.
  */
-export function projectMap(ctx, { label, current }) {
+export function projectMap(ctx, { label, current, legend = true }) {
   const { site, t, lang } = ctx;
   const summits = projectSummits(site);
   return html`<nav aria-label="${label}" class="project-map text-body" data-project-map data-seed="${PROJECT_MAP_SEED}">
@@ -138,7 +140,7 @@ export function projectMap(ctx, { label, current }) {
       })}
     </ul>
   </nav>
-  ${summits.some((summit) => summit.altitude) ? html`<p class="meta mt-3 text-xs">${t.projects.mapLegend}</p>` : ''}`;
+  ${legend && summits.some((summit) => summit.altitude) ? html`<p class="meta mt-3 text-xs">${t.projects.mapLegend}</p>` : ''}`;
 }
 
 /**

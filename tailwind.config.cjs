@@ -29,7 +29,8 @@ module.exports = {
         'band-hairline': 'var(--band-hairline)',
       },
       fontFamily: {
-        sans: ['"Archivo Variable"', 'system-ui', 'sans-serif'],
+        sans: ['"Inter Tight Variable"', 'system-ui', 'sans-serif'],
+        serif: ['"Fraunces Variable"', 'Georgia', 'serif'],
       },
       maxWidth: {
         page: '75rem',
