@@ -72,7 +72,7 @@
         "kicker": "Freelance client work",
         "summary": "Live website for an Indian restaurant in Marseille: menu, table booking and takeaway orders.",
         "context": "Preity India is an Indian restaurant near the Vieux-Port in Marseille. The site presents the menu and lets customers book a table or order takeaway.",
-        "role": "Co-developer with Dinesh Radjou, working directly with the client",
+        "role": null,
         "period": "April 2026",
         "actions": [
           "Online menu and a showcase of the house specialities",
@@ -81,7 +81,8 @@
           "Legal pages: terms of use, privacy, cookies, booking and click & collect conditions"
         ],
         "outcome": "The site is live at preityindia.fr.",
-        "next": null
+        "next": null,
+        "actionsLabel": "What the site offers"
       },
       "relations-internationales": {
         "shortTitle": "International mobility",

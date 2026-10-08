@@ -20,7 +20,7 @@ export const LANGUAGES = ['fr', 'en'];
 const CONTENT_DIR = new URL('../content/', import.meta.url);
 
 /** Champs texte obligatoires d'un projet, dans chaque langue. */
-const REQUIRED_PROJECT_FIELDS = ['title', 'kicker', 'summary', 'context', 'role', 'actions', 'outcome'];
+const REQUIRED_PROJECT_FIELDS = ['title', 'kicker', 'summary', 'context', 'actions', 'outcome'];
 
 /** Types de liens de projet reconnus (libellés dans `projects.linkLabels`). */
 const LINK_TYPES = ['site', 'github', 'install', 'demo'];
