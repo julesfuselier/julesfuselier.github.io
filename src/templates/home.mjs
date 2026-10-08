@@ -14,6 +14,19 @@ import { bulletList, projectMap, sectionHeader } from './components.mjs';
 const FEATURED_PROJECTS = 2;
 
 /**
+ * Titre d'ouverture, découpé mot par mot pour l'animation d'entrée : chaque
+ * mot monte à son tour (délai porté par `--i`). Le passage entre accolades
+ * dans le texte (`{…}`) est souligné d'un trait de sentier qui se dessine.
+ * @param {string} title
+ */
+function heroTitle(title) {
+  const [before, accent = '', after = ''] = title.split(/[{}]/);
+  let index = 0;
+  const words = (text) => text.split(/(\s+)/).filter(Boolean).map((part) => (/^\s+$/.test(part) ? part : html`<span class="hero-word" style="--i: ${index++}">${part}</span>`));
+  return html`${words(before)}${accent ? html`<span class="hero-accent">${words(accent)}<svg class="hero-accent-trail" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path d="M1 6 C 20 2, 35 9, 55 5 S 85 3, 99 6" /></svg></span>` : ''}${words(after)}`;
+}
+
+/**
  * Ouverture : l'annonce du stage recherché, la phrase d'accroche, une action
  * par public, puis la carte des projets sur toute la largeur.
  * @param {PageContext} ctx
@@ -21,14 +34,14 @@ const FEATURED_PROJECTS = 2;
 function hero(ctx) {
   const { site, t } = ctx;
   return html`<section class="page pb-16 pt-16 sm:pt-24">
-    <a href="#recruiters" class="mono inline-block rounded-full bg-canvas px-3 py-1 text-[0.6875rem] text-ink ring-1 ring-inset ring-hairline hover:bg-canvas-soft sm:text-[0.8125rem]">${t.hero.badge}</a>
-    <h1 class="display-xl mt-6 max-w-[19ch]">${t.hero.title}</h1>
-    <p class="lead mt-6">${t.hero.lead}</p>
-    <p class="mt-8 flex flex-wrap gap-3">
+    <a href="#recruiters" class="hero-in mono inline-flex items-center gap-2 rounded-full bg-canvas px-3 py-1 text-[0.6875rem] text-ink ring-1 ring-inset ring-hairline hover:bg-canvas-soft sm:text-[0.8125rem]" style="--d: 0ms"><span class="hero-pulse" aria-hidden="true"></span>${t.hero.badge}</a>
+    <h1 class="display-xl mt-6 max-w-[19ch]">${heroTitle(t.hero.title)}</h1>
+    <p class="hero-in lead mt-6" style="--d: 650ms">${t.hero.lead}</p>
+    <p class="hero-in mt-8 flex flex-wrap gap-3" style="--d: 800ms">
       <a href="${site.cvPath}" class="btn-primary">${t.recruiters.cvCta}</a>
       <a href="#clients" class="btn-secondary">${t.hero.clientCta}</a>
     </p>
-    <div class="mt-16">${projectMap(ctx, { label: t.hero.mapLabel })}</div>
+    <div class="hero-in mt-16" style="--d: 950ms">${projectMap(ctx, { label: t.hero.mapLabel })}</div>
   </section>`;
 }
 
