@@ -30,6 +30,7 @@ import { BufferAttribute, Color, Mesh, PerspectiveCamera, PlaneGeometry, Scene, 
 
 import { CONTOUR_LEVELS, RELIEF_EXPONENT, contourScale, createHeightField } from '../lib/contours.mjs';
 import { trailPath, trailPoints } from '../lib/trail.mjs';
+import { mountHorizon } from './horizon.js';
 
 /** Dimensions du terrain dans le monde 3D : mêmes proportions que la carte 2D (5:2). */
 const TERRAIN = { width: 10, depth: 4, height: 2.3 };
@@ -224,6 +225,7 @@ export function mountTerrain(map, wide) {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.domElement.setAttribute('aria-hidden', 'true');
   map.prepend(renderer.domElement);
+  const horizon = mountHorizon(map); // chaînes lointaines, derrière le canevas
   map.classList.add('is-3d');
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -363,6 +365,7 @@ export function mountTerrain(map, wide) {
     renderer.render(scene, camera);
     placeLabels();
     placeTrail();
+    horizon.turn(view.azimuth);
   }
 
   let mounted = true; // faux une fois le relief retiré : plus aucun dessin
@@ -444,6 +447,7 @@ export function mountTerrain(map, wide) {
     cancelAnimationFrame(frame);
     introDone = true;
     renderer.domElement.remove();
+    horizon.remove();
     renderer.dispose();
     map.classList.remove('is-3d', 'is-dragging');
     if (trail && flatTrail) trail.setAttribute('d', flatTrail);
