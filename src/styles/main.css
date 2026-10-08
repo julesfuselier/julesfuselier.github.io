@@ -261,25 +261,6 @@
     touch-action: pan-y;
   }
 
-  /*
-   * Chaînes lointaines (voir src/js/horizon.js), dans la moitié haute de la
-   * carte, derrière le relief. Un peu plus larges que la carte pour pouvoir
-   * glisser quand on la fait tourner, et fondues vers le bas sous le relief.
-   */
-  .project-horizon {
-    position: absolute;
-    top: 0;
-    left: -4%;
-    width: 108%;
-    height: 56%;
-    fill: var(--body);
-    pointer-events: none;
-    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent), linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-    -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(to bottom, #000 60%, transparent), linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-    mask-composite: intersect;
-  }
-
   .project-map.is-dragging canvas {
     cursor: grabbing;
   }
@@ -351,6 +332,15 @@
   .summit-label-end {
     text-align: right;
     right: -0.75rem;
+  }
+
+  /*
+   * Altitude du sommet, sous le nom. Le triangle reprend la terre cuite du
+   * point ; le chiffre reste dans la couleur du texte, pour être lisible.
+   */
+  .summit-altitude {
+    @apply block font-mono text-xs font-normal text-body;
+    font-variant-numeric: tabular-nums;
   }
 
   /*
