@@ -78,8 +78,9 @@ Remplacez `assets/CV_FUSELIER-Jules.pdf` en gardant le même nom.
 
 Les règles visuelles complètes sont dans [`DESIGN.md`](DESIGN.md). En résumé :
 
-- **Palette « Dolomites »** : pierre `#D8D6CE` (fond), forêt `#3C4A3A` (boutons, section entreprises), terre cuite `#B75B39` (repères de sommet), rose `#D9A398` (liens en thème sombre). Les couleurs sont des variables CSS dans `src/styles/main.css` ; le thème sombre redéfinit ces variables, sans classe supplémentaire dans les gabarits.
-- **Polices** : Space Grotesk pour le texte, JetBrains Mono pour les données courtes (technologies, périodes). Elles sont copiées depuis `node_modules` : aucune requête vers un service tiers.
+- **Palette de carte topographique** : papier pierre `#D8D6CE`, forêt `#3C4A3A` (boutons, section entreprises), courbes de niveau brunes `#84674A`, rouge balisage `#A62A21` (sentier, focus). Les couleurs sont des variables CSS dans `src/styles/main.css` ; le thème sombre redéfinit ces variables, sans classe supplémentaire dans les gabarits. Détail des rôles dans `DESIGN.md`.
+- **Police** : Archivo, une seule famille à largeur variable, copiée depuis `node_modules` : aucune requête vers un service tiers.
+- **Images de partage** : chaque page de projet a sa propre image (`assets/img/og/`), générée par `scripts/og_images.py` (Python et Playwright). À relancer quand un titre de projet change.
 - **Carte topographique** : une seule carte, calculée à la compilation, où chaque sommet est un projet (positions dans `site.json`, champ `summit`). Chaque sommet est un lien ; sur une page de projet, la carte mène aux autres projets.
 - **Relief 3D** : sur un écran d'au moins 640 px, si le navigateur gère WebGL 2, `map.js` télécharge `terrain.js` (Three.js, environ 135 Ko compressé) et remplace le fond de la carte par le même relief en perspective. On peut le faire tourner en glissant. Les étiquettes restent les liens HTML d'origine. Sans WebGL, sur mobile ou en économie de données, la carte 2D reste affichée.
 - **Hauteur des sommets** : elle dépend des heures passées sur chaque projet (champ `hours` de `src/content/site.json`), sur une échelle logarithmique entre 820 m et 2 650 m. La formule est dans `src/lib/altitude.mjs`. Tant qu'il manque les heures d'un projet, tous les sommets ont la même hauteur et la compilation le signale.

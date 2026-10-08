@@ -20,12 +20,24 @@
     "langSwitchCode": "FR"
   },
   "hero": {
-    "badge": "Internship wanted: July to December 2027",
-    "title": "I build web tools and bring AI in where it {saves time}.",
+    "title": "I build web tools and bring AI in where it saves time.",
     "lead": "Engineering student at UTT (Université de technologie de Troyes) and freelance developer. 5 months at Agapé: an audit of 9 departments and a large language model (LLM) monitoring tool put into service.",
-    "clientCta": "You have a project",
     "mapLabel": "Map of projects",
-    "portraitAlt": "Portrait of Jules Fuselier"
+    "portraitAlt": "Portrait of Jules Fuselier",
+    "paths": [
+      {
+        "title": "You are hiring an intern",
+        "text": "6-month engineering internship, July to December 2027, in France or elsewhere in Europe.",
+        "href": "#recruiters",
+        "cta": "See my profile"
+      },
+      {
+        "title": "You have a project",
+        "text": "A website, connecting your tools or using AI in your business, quoted per project.",
+        "href": "#clients",
+        "cta": "See what I offer"
+      }
+    ]
   },
   "projects": {
     "lead": "Each page says what is delivered and what is not there yet.",
@@ -53,17 +65,17 @@
         "title": "Bringing AI into Agapé",
         "kicker": "Internship, then fixed-term contract",
         "summary": "An audit of AI use across 9 departments and an LLM-based online reputation monitoring tool put into service.",
-        "context": "Agapé's management wanted to know where AI could help its teams, and to try out concrete tools.",
+        "context": "Agapé's management wanted to know where AI could save its teams time, with figures to decide on, and to try concrete tools rather than promises.",
         "role": "AI & process integration officer",
         "period": "April to August 2026",
         "actions": [
-          "Audit of 9 departments against a 16-criteria grid, with costed recommendations handed to general management (estimated return of 6.5 times the cost for the main recommendation)",
-          "Online reputation monitoring tool in React and TypeScript: the Tavily API gathers more than 30 sources per run, then a Claude model (Anthropic API) sorts them. Put into service during the assignment.",
-          "Feasibility study and prototype of a Node.js middleware connecting Shopify, the ERP and Brevo, across 3 synchronisation flows",
-          "Python script for batch anonymisation of supplier PDF sheets",
-          "Handover note covering all 4 projects at the end of the assignment"
+          "Audit of 9 departments against a 16-criteria grid. Main recommendation: Microsoft 365 Copilot, with time savings estimated at about €1,500 a month against €235 of licences, 6.5 times its cost.",
+          "For stock planning, a no-extra-cost alternative: the requirements planning already built into the Sage X3 ERP, instead of a new tool.",
+          "Online reputation monitoring tool in React and TypeScript: the Tavily API gathers more than 30 sources per run, then a Claude model (Anthropic API) sorts and summarises them. Put into service during the assignment.",
+          "Feasibility study and prototype of a Node.js middleware connecting Shopify, the ERP and Brevo, across 3 synchronisation flows.",
+          "Python script for batch anonymisation of supplier safety data sheets, and a handover note covering all 4 projects."
         ],
-        "outcome": "One tool in service, costed recommendations handed to management and a documented handover.",
+        "outcome": "Costed decisions for management, a monitoring tool in service during the assignment, and a written handover so the projects can carry on without me.",
         "next": "The middleware stayed at prototype stage: it was not deployed to production."
       },
       "preity-india": {
@@ -82,7 +94,11 @@
         ],
         "outcome": "The site is live at preityindia.fr.",
         "next": null,
-        "actionsLabel": "What the site offers"
+        "actionsLabel": "What the site offers",
+        "imageAlts": [
+          "Home page of preityindia.fr on a computer",
+          "Home page of preityindia.fr on a phone"
+        ]
       },
       "relations-internationales": {
         "shortTitle": "International mobility",
@@ -139,15 +155,15 @@
       }
     },
     "headline": "5 projects, from company work to a personal build.",
-    "mapLegend": "Summit altitude: time spent on each project, on a logarithmic scale."
+    "mapLegend": "Summit altitude: time spent on each project."
   },
   "recruiters": {
-    "lead": "Software development, applied AI or tech project management, in France.",
+    "lead": "Software development, applied AI or tech project management, in France or elsewhere in Europe.",
     "seekingTitle": "What I am looking for",
     "seeking": [
       "6 months, from July to December 2027",
       "Software development, applied AI or tech project management",
-      "In France"
+      "In France or elsewhere in Europe"
     ],
     "proofsTitle": "What I have already done",
     "proofs": [
@@ -163,69 +179,64 @@
       },
       {
         "title": "Deliver",
-        "text": "A live client website, co-developed working directly with the owner.",
+        "text": "A live restaurant website, with table booking and takeaway orders.",
         "project": "preity-india"
       }
     ],
     "skillsTitle": "Skills",
     "skills": [
       {
-        "title": "AI & automation",
+        "title": "Applied AI",
         "items": [
-          "LLM APIs (Anthropic)",
-          "Agents and tool use",
-          "MCP",
+          "Anthropic API",
           "Tavily",
-          "n8n",
-          "Web scraping",
-          "Scikit-learn"
-        ]
+          "Agents and tool use"
+        ],
+        "proof": "Agapé"
       },
       {
         "title": "Languages",
         "items": [
           "TypeScript",
-          "JavaScript",
           "Python",
           "PHP",
           "Java",
-          "SQL",
-          "HTML",
-          "CSS"
-        ]
+          "SQL"
+        ],
+        "proof": "Agapé, international mobility, PathSide, SuperBomberman"
       },
       {
-        "title": "Frameworks & tools",
+        "title": "Web",
         "items": [
           "React",
           "Node.js",
-          "Tailwind",
-          "PHPUnit",
-          "GitHub Actions"
-        ]
+          "Tailwind"
+        ],
+        "proof": "Agapé, this site"
       },
       {
-        "title": "Databases",
+        "title": "Quality",
         "items": [
-          "PostgreSQL",
-          "MySQL",
-          "SQLite"
-        ]
+          "PHPUnit",
+          "PHPStan",
+          "GitHub Actions"
+        ],
+        "proof": "International mobility, this site"
       },
       {
         "title": "Methods",
         "items": [
-          "Agile (Scrum)",
+          "Scrum",
           "Clean Architecture",
-          "UML",
-          "Automated testing",
-          "CI/CD"
-        ]
+          "UML"
+        ],
+        "proof": "International mobility"
       }
     ],
     "cvCta": "Download my CV (PDF, in French)",
     "headline": "I am looking for a 6-month engineering internship, from July to December 2027.",
-    "emailCta": "Email me"
+    "emailCta": "Email me",
+    "skillsProofLabel": "Used in"
   },
   "clients": {
     "lead": "My freelance business is for small businesses, shops and freelancers, on short, remote assignments.",
@@ -245,7 +256,14 @@
       }
     ],
     "cta": "Talk about your project",
-    "headline": "Custom websites and integrations, at a fixed price."
+    "headline": "Custom websites and integrations, quoted per project.",
+    "case": {
+      "title": "Example: Preity India",
+      "text": "Live website for an Indian restaurant in Marseille: menu, table booking and takeaway orders with customer accounts.",
+      "link": "Visit the site",
+      "alt": "Home page of preityindia.fr",
+      "altMobile": "preityindia.fr on a phone"
+    }
   },
   "journey": {
     "items": [

@@ -3,7 +3,9 @@
  */
 
 import assert from 'node:assert/strict';
+import { existsSync } from 'node:fs';
 import { test } from 'node:test';
+import { fileURLToPath } from 'node:url';
 
 import { LANGUAGES, loadContent } from '../src/lib/content.mjs';
 import { html } from '../src/lib/html.mjs';
@@ -40,11 +42,14 @@ test('chaque page déclare sa langue, un titre unique et un seul h1', () => {
 });
 
 test('les liens internes pointent vers des fichiers existants', () => {
-  const known = new Set([...Object.keys(pages), ...Object.keys(assets), ...STATIC_FILES, 'assets/fonts/space-grotesk-latin-wght-normal.woff2']);
+  // Pages et fichiers générés, plus les fichiers versionnés tels quels
+  // (images, CV, polices copiées par la compilation).
+  const known = new Set([...Object.keys(pages), ...Object.keys(assets), ...STATIC_FILES]);
+  const onDisk = (target) => existsSync(fileURLToPath(new URL(`../${target}`, import.meta.url)));
   for (const [file, page] of Object.entries(pages)) {
     for (const [, url] of page.matchAll(/(?:href|src)="(\/[^"#]*)(?:#[^"]*)?"/g)) {
       const target = url.endsWith('/') ? `${url.slice(1)}index.html` : url.slice(1);
-      assert.ok(known.has(target), `${file} : lien cassé vers ${url}`);
+      assert.ok(known.has(target) || onDisk(target), `${file} : lien cassé vers ${url}`);
     }
   }
 });

@@ -20,12 +20,24 @@
     "langSwitchCode": "EN"
   },
   "hero": {
-    "badge": "Stage recherché : juillet à décembre 2027",
-    "title": "Je construis des outils web et j'intègre l'IA là où elle {fait gagner du temps}.",
+    "title": "Je construis des outils web et j'intègre l'IA là où elle fait gagner du temps.",
     "lead": "Élève ingénieur à l'UTT (Université de technologie de Troyes) et micro-entrepreneur. 5 mois chez Agapé : audit de 9 services et mise en service d'un outil de veille par modèle de langage (LLM).",
-    "clientCta": "Vous avez un projet",
     "mapLabel": "Carte des projets",
-    "portraitAlt": "Portrait de Jules Fuselier"
+    "portraitAlt": "Portrait de Jules Fuselier",
+    "paths": [
+      {
+        "title": "Vous recrutez un stagiaire",
+        "text": "Stage ingénieur de 6 mois, de juillet à décembre 2027, en France ou ailleurs en Europe.",
+        "href": "#recruiters",
+        "cta": "Voir mon profil"
+      },
+      {
+        "title": "Vous avez un projet",
+        "text": "Site, intégration d'outils ou usage de l'IA dans votre entreprise, sur devis.",
+        "href": "#clients",
+        "cta": "Voir ce que je propose"
+      }
+    ]
   },
   "projects": {
     "lead": "Chaque page dit ce qui est livré et ce qui ne l'est pas encore.",
@@ -53,17 +65,17 @@
         "title": "Intégration de l'IA chez Agapé",
         "kicker": "Stage puis CDD",
         "summary": "Audit des usages de l'IA dans 9 services et mise en service d'un outil de veille e-réputation par LLM.",
-        "context": "La direction générale d'Agapé voulait savoir où l'IA pouvait aider ses équipes, et tester des outils concrets.",
+        "context": "La direction générale d'Agapé voulait savoir où l'IA pouvait faire gagner du temps à ses équipes, avec des chiffres pour décider, et tester des outils concrets plutôt que des promesses.",
         "role": "Chargé d'intégration IA & processus",
         "period": "Avril à août 2026",
         "actions": [
-          "Audit de 9 services avec une grille de 16 critères, et recommandations chiffrées remises à la direction générale (ROI estimé à 6,5 fois le coût pour la recommandation principale)",
-          "Outil de veille e-réputation en React et TypeScript : l'API Tavily collecte plus de 30 sources par analyse, puis un modèle Claude (API Anthropic) les trie. Mis en service pendant la mission.",
-          "Étude de faisabilité et prototype d'un middleware Node.js reliant Shopify, l'ERP et Brevo, sur 3 flux de synchronisation",
-          "Script Python d'anonymisation en lot de fiches fournisseurs PDF",
-          "Note de passation couvrant les 4 projets en fin de mission"
+          "Audit des usages dans 9 services avec une grille de 16 critères. Recommandation principale : Microsoft 365 Copilot, pour un temps gagné estimé à environ 1 500 € par mois face à 235 € de licences, soit 6,5 fois son coût.",
+          "Pour la planification des stocks, une alternative sans surcoût : le calcul des besoins déjà inclus dans l'ERP Sage X3, plutôt qu'un nouvel outil.",
+          "Outil de veille e-réputation en React et TypeScript : l'API Tavily collecte plus de 30 sources par analyse, puis un modèle Claude (API Anthropic) les trie et les résume. Mis en service pendant la mission.",
+          "Étude de faisabilité et prototype d'un middleware Node.js reliant Shopify, l'ERP et Brevo, sur 3 flux de synchronisation.",
+          "Script Python d'anonymisation en lot des fiches de données de sécurité des fournisseurs, et note de passation couvrant les 4 projets."
         ],
-        "outcome": "Un outil en service, des recommandations chiffrées remises à la direction et une passation documentée.",
+        "outcome": "Des décisions chiffrées pour la direction, un outil de veille en service pendant la mission, et une passation écrite pour que les projets continuent sans moi.",
         "next": "Le middleware est resté au stade du prototype : il n'a pas été mis en production."
       },
       "preity-india": {
@@ -82,7 +94,11 @@
         ],
         "outcome": "Le site est en ligne sur preityindia.fr.",
         "next": null,
-        "actionsLabel": "Ce que propose le site"
+        "actionsLabel": "Ce que propose le site",
+        "imageAlts": [
+          "Page d'accueil de preityindia.fr sur ordinateur",
+          "Page d'accueil de preityindia.fr sur téléphone"
+        ]
       },
       "relations-internationales": {
         "shortTitle": "Mobilités internationales",
@@ -139,15 +155,15 @@
       }
     },
     "headline": "5 projets, de la mission en entreprise au projet personnel.",
-    "mapLegend": "Altitude des sommets : temps passé sur chaque projet, sur une échelle logarithmique."
+    "mapLegend": "Altitude des sommets : temps passé sur chaque projet."
   },
   "recruiters": {
-    "lead": "Développement logiciel, IA appliquée ou gestion de projet tech, en France.",
+    "lead": "Développement logiciel, IA appliquée ou gestion de projet tech, en France ou ailleurs en Europe.",
     "seekingTitle": "Ce que je cherche",
     "seeking": [
       "6 mois, de juillet à décembre 2027",
       "Développement logiciel, IA appliquée ou gestion de projet tech",
-      "En France"
+      "En France ou ailleurs en Europe"
     ],
     "proofsTitle": "Ce que j'ai déjà fait",
     "proofs": [
@@ -163,69 +179,64 @@
       },
       {
         "title": "Livrer",
-        "text": "Un site client en ligne, co-développé en lien direct avec le gérant.",
+        "text": "Un site de restaurant en ligne, avec réservation et commande à emporter.",
         "project": "preity-india"
       }
     ],
     "skillsTitle": "Compétences",
     "skills": [
       {
-        "title": "IA & automatisation",
+        "title": "IA appliquée",
         "items": [
-          "API LLM (Anthropic)",
-          "Agents et tool use",
-          "MCP",
+          "API Anthropic",
           "Tavily",
-          "n8n",
-          "Web scraping",
-          "Scikit-learn"
-        ]
+          "Agents et tool use"
+        ],
+        "proof": "Agapé"
       },
       {
         "title": "Langages",
         "items": [
           "TypeScript",
-          "JavaScript",
           "Python",
           "PHP",
           "Java",
-          "SQL",
-          "HTML",
-          "CSS"
-        ]
+          "SQL"
+        ],
+        "proof": "Agapé, mobilités internationales, PathSide, SuperBomberman"
       },
       {
-        "title": "Frameworks & outils",
+        "title": "Web",
         "items": [
           "React",
           "Node.js",
-          "Tailwind",
-          "PHPUnit",
-          "GitHub Actions"
-        ]
+          "Tailwind"
+        ],
+        "proof": "Agapé, ce site"
       },
       {
-        "title": "Bases de données",
+        "title": "Qualité",
         "items": [
-          "PostgreSQL",
-          "MySQL",
-          "SQLite"
-        ]
+          "PHPUnit",
+          "PHPStan",
+          "GitHub Actions"
+        ],
+        "proof": "Mobilités internationales, ce site"
       },
       {
         "title": "Méthodes",
         "items": [
-          "Agile (Scrum)",
+          "Scrum",
           "Clean Architecture",
-          "UML",
-          "Tests automatisés",
-          "CI/CD"
-        ]
+          "UML"
+        ],
+        "proof": "Mobilités internationales"
       }
     ],
     "cvCta": "Télécharger mon CV (PDF)",
     "headline": "Je cherche un stage ingénieur de 6 mois, de juillet à décembre 2027.",
-    "emailCta": "M'écrire"
+    "emailCta": "M'écrire",
+    "skillsProofLabel": "Utilisé pour"
   },
   "clients": {
     "lead": "Ma micro-entreprise s'adresse aux PME, aux commerces et aux indépendants, pour des missions courtes et à distance.",
@@ -245,7 +256,14 @@
       }
     ],
     "cta": "Parler de votre projet",
-    "headline": "Des sites et des intégrations sur mesure, au forfait."
+    "headline": "Des sites et des intégrations sur mesure, sur devis.",
+    "case": {
+      "title": "Exemple : Preity India",
+      "text": "Site d'un restaurant indien de Marseille, en ligne : carte, réservation de table et commande à emporter avec comptes clients.",
+      "link": "Voir le site",
+      "alt": "Page d'accueil du site preityindia.fr",
+      "altMobile": "Le site preityindia.fr sur téléphone"
+    }
   },
   "journey": {
     "items": [

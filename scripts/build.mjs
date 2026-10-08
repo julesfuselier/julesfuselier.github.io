@@ -32,8 +32,7 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 
 /** Polices copiées depuis `node_modules` vers `assets/fonts/`. */
 const FONTS = [
-  '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2',
-  '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2',
+  '@fontsource-variable/archivo/files/archivo-latin-standard-normal.woff2',
 ];
 
 /** Anciennes adresses du site, redirigées vers la liste des projets. */
@@ -85,6 +84,7 @@ export function renderSite({ site, locales }) {
         url: route(lang, 'project', slug),
         alternates: alternatesFor('project', slug),
         title: `${item.title} | ${site.author}`,
+        image: `/assets/img/og/${lang}-${slug}.jpg`, // voir scripts/og_images.py
         description: item.summary,
       };
       pages[outputFile(ctx.url)] = renderPage(ctx, projectPage(ctx, slug));

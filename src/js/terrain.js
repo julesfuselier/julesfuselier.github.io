@@ -240,7 +240,7 @@ export function mountTerrain(map, wide) {
   function readColors() {
     const style = getComputedStyle(map);
     material.uniforms.uPaper.value.set(style.getPropertyValue('--canvas-soft').trim());
-    material.uniforms.uInk.value.set(style.getPropertyValue('--body').trim());
+    material.uniforms.uInk.value.set(style.getPropertyValue('--contour').trim());
     material.uniforms.uAccent.value.set(style.getPropertyValue('--summit').trim());
     const lightness = (color) => color.getHSL({}).l;
     const darkTheme = lightness(material.uniforms.uInk.value) > lightness(material.uniforms.uPaper.value);

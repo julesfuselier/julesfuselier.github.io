@@ -25,22 +25,21 @@ export const PROJECT_MAPS = {
  * @property {Record<string, string>} alternates adresse de la même page dans chaque langue
  * @property {string} title titre de la page
  * @property {string} description description pour les moteurs de recherche
+ * @property {string} [image] image de partage de la page (portrait par défaut)
  */
 
 /**
- * En-tête de section : repère en chasse fixe (le nom de la section dans la
- * navigation), titre en forme de phrase, chapeau facultatif.
+ * En-tête de section : un titre en forme de phrase et un chapeau facultatif.
+ * Pas de petit repère au-dessus du titre : la navigation nomme déjà la section.
  * @param {object} options
  * @param {string} options.id ancre de la section, reprise pour `aria-labelledby`
- * @param {string} options.eyebrow
  * @param {string} options.headline
  * @param {string} [options.lead]
  * @param {string} [options.tone] `band` pour une section sur fond inversé
  */
-export function sectionHeader({ id, eyebrow, headline, lead, tone }) {
+export function sectionHeader({ id, headline, lead, tone }) {
   const muted = tone === 'band' ? 'text-band-body' : 'text-body';
   return html`<header class="mb-12">
-    <p class="mono mb-4 ${muted}">${eyebrow}</p>
     <h2 id="${id}-title" class="display-lg max-w-[24ch]">${headline}</h2>
     ${lead ? html`<p class="lead mt-4 ${muted}">${lead}</p>` : ''}
   </header>`;
@@ -126,20 +125,20 @@ export function projectMap(ctx, { label, current }) {
       ${summits.map(({ slug, x, y, height, altitude }) => {
         const years = site.projects[slug].years;
         const date = html`${years ? html` <span class="summit-date">${years}</span>` : ''}${
-          altitude ? html`<span class="summit-altitude"><span class="text-summit" aria-hidden="true">▲</span> ${formatAltitude(altitude, lang)}</span>` : ''
+          altitude ? html`<span class="summit-altitude"><span aria-hidden="true">▲</span> ${formatAltitude(altitude, lang)}</span>` : ''
         }`;
         const title = t.projects.items[slug].shortTitle;
         const classes = `summit-label ${labelAnchor(x)}`;
         return html`<li class="summit" style="--x: ${x}%; --y: ${y}%" data-summit data-x="${x}" data-y="${y}" data-height="${height}">
           <span class="summit-dot" aria-hidden="true"></span>
           ${slug === current
-            ? html`<span class="${classes} ring-1 ring-inset ring-ink" aria-current="page">${title}${date}</span>`
-            : html`<a href="${route(lang, 'project', slug)}" class="${classes} group"><span class="underline decoration-hairline decoration-2 underline-offset-4 group-hover:decoration-ink">${title}</span>${date}</a>`}
+            ? html`<span class="${classes} underline decoration-2 underline-offset-4" aria-current="page">${title}${date}</span>`
+            : html`<a href="${route(lang, 'project', slug)}" class="${classes} group"><span class="underline decoration-transparent decoration-2 underline-offset-4 group-hover:decoration-ink">${title}</span>${date}</a>`}
         </li>`;
       })}
     </ul>
   </nav>
-  ${summits.some((summit) => summit.altitude) ? html`<p class="mono mt-3">${t.projects.mapLegend}</p>` : ''}`;
+  ${summits.some((summit) => summit.altitude) ? html`<p class="meta mt-3 text-xs">${t.projects.mapLegend}</p>` : ''}`;
 }
 
 /**

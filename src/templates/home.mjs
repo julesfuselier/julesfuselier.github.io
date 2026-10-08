@@ -15,33 +15,47 @@ const FEATURED_PROJECTS = 2;
 
 /**
  * Titre d'ouverture, découpé mot par mot pour l'animation d'entrée : chaque
- * mot monte à son tour (délai porté par `--i`). Le passage entre accolades
- * dans le texte (`{…}`) est souligné d'un trait de sentier qui se dessine.
+ * mot monte à son tour (délai porté par `--i`).
  * @param {string} title
  */
 function heroTitle(title) {
-  const [before, accent = '', after = ''] = title.split(/[{}]/);
   let index = 0;
-  const words = (text) => text.split(/(\s+)/).filter(Boolean).map((part) => (/^\s+$/.test(part) ? part : html`<span class="hero-word" style="--i: ${index++}">${part}</span>`));
-  return html`${words(before)}${accent ? html`<span class="hero-accent">${words(accent)}<svg class="hero-accent-trail" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path d="M1 6 C 20 2, 35 9, 55 5 S 85 3, 99 6" /></svg></span>` : ''}${words(after)}`;
+  return title
+    .split(/( +)/)
+    .filter(Boolean)
+    .map((part) => (/^ +$/.test(part) ? part : html`<span class="hero-word" style="--i: ${index++}">${part}</span>`));
 }
 
 /**
- * Ouverture : l'annonce du stage recherché, la phrase d'accroche, une action
- * par public, puis la carte des projets sur toute la largeur.
+ * Ouverture : la phrase d'accroche, puis un chemin par public (recruteur ou
+ * entreprise), puis la carte des projets sur toute la largeur.
  * @param {PageContext} ctx
  */
 function hero(ctx) {
   const { site, t } = ctx;
+  const [recruiterPath, clientPath] = t.hero.paths;
   return html`<section class="page pb-16 pt-16 sm:pt-24">
-    <a href="#recruiters" class="hero-in mono inline-flex items-center gap-2 rounded-full bg-canvas px-3 py-1 text-[0.6875rem] text-ink ring-1 ring-inset ring-hairline hover:bg-canvas-soft sm:text-[0.8125rem]" style="--d: 0ms"><span class="hero-pulse" aria-hidden="true"></span>${t.hero.badge}</a>
-    <h1 class="display-xl mt-6 max-w-[19ch]">${heroTitle(t.hero.title)}</h1>
-    <p class="hero-in lead mt-6" style="--d: 650ms">${t.hero.lead}</p>
-    <p class="hero-in mt-8 flex flex-wrap gap-3" style="--d: 800ms">
-      <a href="${site.cvPath}" class="btn-primary">${t.recruiters.cvCta}</a>
-      <a href="#clients" class="btn-secondary">${t.hero.clientCta}</a>
-    </p>
-    <div class="hero-in mt-16" style="--d: 950ms">${projectMap(ctx, { label: t.hero.mapLabel })}</div>
+    <h1 class="display-xl max-w-[18ch]">${heroTitle(t.hero.title)}</h1>
+    <p class="hero-in lead mt-6" style="--d: 600ms">${t.hero.lead}</p>
+    <div class="hero-in mt-12 grid max-w-[52rem] gap-8 sm:grid-cols-2" style="--d: 750ms">
+      <div class="card">
+        <h2 class="display-md">${recruiterPath.title}</h2>
+        <p class="mt-2 leading-6 text-body">${recruiterPath.text}</p>
+        <p class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+          <a href="${site.cvPath}" class="btn-primary">${t.recruiters.cvCta}</a>
+          <a href="${recruiterPath.href}" class="link">${recruiterPath.cta}</a>
+        </p>
+      </div>
+      <div class="card">
+        <h2 class="display-md">${clientPath.title}</h2>
+        <p class="mt-2 leading-6 text-body">${clientPath.text}</p>
+        <p class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+          <a href="mailto:${site.email}" class="btn-secondary">${t.clients.cta}</a>
+          <a href="${clientPath.href}" class="link">${clientPath.cta}</a>
+        </p>
+      </div>
+    </div>
+    <div class="hero-in mt-20" style="--d: 900ms">${projectMap(ctx, { label: t.hero.mapLabel })}</div>
   </section>`;
 }
 
@@ -57,10 +71,10 @@ function projectCard(ctx, slug, titleClasses) {
   const stack = site.projects[slug].stack;
   return html`<li class="flex">
     <a href="${route(lang, 'project', slug)}" class="card flex min-w-0 flex-1 flex-col">
-      <p class="mono">${item.kicker}</p>
+      <p class="meta">${item.kicker}</p>
       <h3 class="${titleClasses} mt-3">${item.title}</h3>
       <p class="mb-6 mt-2 leading-6 text-body">${item.summary}</p>
-      ${stack.length > 0 ? html`<p class="mono mt-auto">${stack.join(', ')}</p>` : ''}
+      ${stack.length > 0 ? html`<p class="meta mt-auto">${stack.join(', ')}</p>` : ''}
     </a>
   </li>`;
 }
@@ -75,7 +89,7 @@ function projects(ctx) {
   const others = site.projectOrder.slice(FEATURED_PROJECTS);
   return html`<section id="projects" class="border-t border-hairline py-20 sm:py-24" aria-labelledby="projects-title">
     <div class="page">
-      ${sectionHeader({ id: 'projects', eyebrow: t.nav.projects, headline: t.projects.headline, lead: t.projects.lead })}
+      ${sectionHeader({ id: 'projects', headline: t.projects.headline, lead: t.projects.lead })}
       <ul class="grid gap-6 md:grid-cols-2">
         ${featured.map((slug) => projectCard(ctx, slug, 'display-md sm:text-2xl'))}
       </ul>
@@ -98,7 +112,7 @@ function recruiters(ctx) {
     <div class="page">
       <div class="flex flex-wrap items-start gap-x-12 gap-y-8">
         <div class="min-w-0 flex-1 basis-[28rem]">
-          ${sectionHeader({ id: 'recruiters', eyebrow: t.nav.recruiters, headline: r.headline, lead: r.lead })}
+          ${sectionHeader({ id: 'recruiters', headline: r.headline, lead: r.lead })}
           <p class="-mt-4 flex flex-wrap gap-3">
             <a href="${site.cvPath}" class="btn-primary">${r.cvCta}</a>
             <a href="mailto:${site.email}" class="btn-secondary">${r.emailCta}</a>
@@ -112,7 +126,7 @@ function recruiters(ctx) {
         ${r.proofs.map(
           (proof) => html`<li class="flex">
             <a href="${route(lang, 'project', proof.project)}" class="card flex-1">
-              <p class="mono">${t.projects.items[proof.project].shortTitle}</p>
+              <p class="meta">${t.projects.items[proof.project].shortTitle}</p>
               <p class="display-md mt-3">${proof.title}</p>
               <p class="mt-2 leading-6 text-body">${proof.text}</p>
             </a>
@@ -123,9 +137,10 @@ function recruiters(ctx) {
       <h3 class="display-md mb-2 mt-16">${r.skillsTitle}</h3>
       <dl class="border-b border-hairline">
         ${r.skills.map(
-          (group) => html`<div class="grid gap-x-8 gap-y-1 border-t border-hairline py-3 sm:grid-cols-[14rem_minmax(0,1fr)]">
-            <dt class="font-medium">${group.title}</dt>
-            <dd class="mono sm:pt-0.5">${group.items.join(', ')}</dd>
+          (group) => html`<div class="grid gap-x-8 gap-y-1 border-t border-hairline py-3 sm:grid-cols-[12rem_minmax(0,1fr)_minmax(0,1fr)]">
+            <dt class="font-semibold">${group.title}</dt>
+            <dd>${group.items.join(', ')}</dd>
+            <dd class="meta sm:pt-0.5">${r.skillsProofLabel} : ${group.proof}</dd>
           </div>`,
         )}
       </dl>
@@ -143,20 +158,41 @@ function clients(ctx) {
   const c = t.clients;
   return html`<section id="clients" class="bg-band py-20 text-band-ink sm:py-24" aria-labelledby="clients-title">
     <div class="page">
-      ${sectionHeader({ id: 'clients', eyebrow: t.nav.clients, headline: c.headline, lead: c.lead, tone: 'band' })}
-      <ul class="grid gap-6 md:grid-cols-3">
+      ${sectionHeader({ id: 'clients', headline: c.headline, lead: c.lead, tone: 'band' })}
+      <ul class="grid gap-8 md:grid-cols-3">
         ${c.services.map(
-          (service) => html`<li class="rounded-lg bg-band-card p-6 ring-1 ring-inset ring-band-hairline">
+          (service) => html`<li class="border-t border-band-ink pt-4">
             <h3 class="display-md">${service.title}</h3>
             <p class="mt-2 leading-6 text-band-body">${service.text}</p>
           </li>`,
         )}
       </ul>
+      ${clientCase(ctx)}
       <p class="mt-12">
         <a href="mailto:${site.email}" class="btn bg-band-ink text-band hover:opacity-85">${c.cta}</a>
       </p>
     </div>
   </section>`;
+}
+
+/**
+ * Cas client : captures du site livré, sur ordinateur et sur téléphone, avec
+ * un lien pour le vérifier soi-même.
+ * @param {PageContext} ctx
+ */
+function clientCase(ctx) {
+  const { site, t } = ctx;
+  const c = t.clients.case;
+  const url = site.projects['preity-india'].links.find((link) => link.type === 'site')?.url;
+  return html`<figure class="mt-16 grid items-end gap-6 md:grid-cols-[minmax(0,1fr)_12rem]">
+    <img src="/assets/img/projets/preity-india-accueil.webp" alt="${c.alt}" width="800" height="500" loading="lazy" class="w-full rounded-[5px]" />
+    <img src="/assets/img/projets/preity-india-carte.webp" alt="${c.altMobile}" width="400" height="514" loading="lazy" class="hidden w-full rounded-[5px] md:block" />
+    <figcaption class="md:col-span-2">
+      <p class="font-semibold">${c.title}</p>
+      <p class="mt-1 max-w-[40rem] leading-6 text-band-body">${c.text}</p>
+      ${url ? html`<a href="${url}" class="mt-3 inline-block font-semibold underline decoration-2 underline-offset-4" rel="noopener">${c.link}</a>` : ''}
+    </figcaption>
+  </figure>`;
 }
 
 /**
@@ -167,11 +203,11 @@ function journey(ctx) {
   const { t } = ctx;
   return html`<section id="journey" class="py-20 sm:py-24" aria-labelledby="journey-title">
     <div class="page">
-      ${sectionHeader({ id: 'journey', eyebrow: t.nav.journey, headline: t.journey.headline })}
+      ${sectionHeader({ id: 'journey', headline: t.journey.headline })}
       <ol class="border-b border-hairline">
         ${t.journey.items.map(
           (item) => html`<li class="grid gap-x-8 gap-y-1 border-t border-hairline py-4 sm:grid-cols-[14rem_minmax(0,1fr)]">
-            <p class="mono sm:pt-0.5">${item.period}</p>
+            <p class="meta sm:pt-0.5">${item.period}</p>
             <div>
               <h3 class="font-medium">${item.title}</h3>
               <p class="text-body">${item.text}</p>
@@ -190,7 +226,7 @@ function contact(ctx) {
   const { site, t } = ctx;
   return html`<section id="contact" class="border-t border-hairline py-20 sm:py-24" aria-labelledby="contact-title">
     <div class="page">
-      ${sectionHeader({ id: 'contact', eyebrow: t.nav.contact, headline: t.contact.headline })}
+      ${sectionHeader({ id: 'contact', headline: t.contact.headline })}
       <p class="flex flex-wrap items-center gap-3">
         <a href="mailto:${site.email}" class="btn-primary max-w-full"><span class="truncate" translate="no">${site.email}</span></a>
         <a href="${site.social.linkedin}" rel="me noopener" class="btn-secondary" translate="no">${t.contact.linkedin}</a>

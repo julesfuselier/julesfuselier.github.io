@@ -12,28 +12,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Archivo, une seule famille à largeur variable : large pour le texte,
+ * étroite pour les noms sur la carte, comme les toponymes d'une carte
+ * topographique. Un seul fichier couvre graisses et largeurs.
+ */
 @font-face {
-  font-family: 'Space Grotesk Variable';
+  font-family: 'Archivo Variable';
   font-style: normal;
-  font-weight: 300 700;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
   font-display: swap;
-  src: url('/assets/fonts/space-grotesk-latin-wght-normal.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-weight: 100 800;
-  font-display: swap;
-  src: url('/assets/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');
+  src: url('/assets/fonts/archivo-latin-standard-normal.woff2') format('woff2');
 }
 
 @layer base {
   /*
    * Couleurs, par rôle (détail dans DESIGN.md).
-   * Palette « Dolomites » : pierre pour les surfaces, forêt pour l'action
-   * principale et le bandeau inversé, terre cuite pour les seuls repères de
-   * sommet. Texte et liens gardent un contraste d'au moins 4,5:1.
+   * Palette de carte topographique : pierre pour le papier, forêt pour
+   * l'action principale et le bandeau inversé, brun pour les courbes de
+   * niveau, rouge balisage pour le sentier et le focus. Texte et liens
+   * gardent un contraste d'au moins 4,5:1.
    */
   :root {
     color-scheme: light;
@@ -44,7 +43,8 @@
     --hairline: #bebcb0;
     --primary: #3c4a3a;
     --on-primary: #f0eee8;
-    --summit: #b75b39;
+    --summit: #a62a21;
+    --contour: #84674a;
     --band: #3c4a3a;
     --band-card: #465544;
     --band-ink: #f0eee8;
@@ -62,7 +62,8 @@
     --hairline: #333d34;
     --primary: #e4e2da;
     --on-primary: #161c17;
-    --summit: #cf6f4c;
+    --summit: #e0675a;
+    --contour: #a88c6d;
     --band: #232b24;
     --band-card: #2b352c;
     --band-ink: #e4e2da;
@@ -81,7 +82,8 @@
       --hairline: #333d34;
       --primary: #e4e2da;
       --on-primary: #161c17;
-      --summit: #cf6f4c;
+      --summit: #e0675a;
+      --contour: #a88c6d;
       --band: #232b24;
       --band-card: #2b352c;
       --band-ink: #e4e2da;
@@ -127,7 +129,7 @@
     outline-offset: 3px;
   }
 
-  /* Sur le bandeau « forêt », la terre cuite ne ressort pas assez : contour clair. */
+  /* Sur le bandeau « forêt », le rouge ne ressort pas assez : contour clair. */
   .bg-band :focus-visible {
     outline-color: var(--band-ink);
   }
@@ -148,34 +150,42 @@
   }
 
   /*
-   * Titres : graisse 600 au plus, interlettrage négatif marqué, casse de
-   * phrase. C'est la voix typographique du site.
+   * Titres : Archivo légèrement resserré, graisse soutenue, casse de phrase.
+   * Plus le titre est grand, plus il est étroit, comme le lettrage d'une
+   * carte où les grands noms couvrent de grandes étendues.
    */
   .display-xl {
-    @apply text-[2.5rem] font-semibold leading-[1.02] tracking-[-0.045em] sm:text-[3.5rem] lg:text-[4rem];
+    @apply text-[2.5rem] font-bold leading-[1.02] tracking-[-0.02em] sm:text-[3.5rem] lg:text-[4.25rem];
+    font-stretch: 82%;
   }
 
   .display-lg {
-    @apply text-[1.75rem] font-semibold leading-[1.12] tracking-[-0.04em] sm:text-[2.25rem];
+    @apply text-[1.75rem] font-bold leading-[1.1] tracking-[-0.015em] sm:text-[2.375rem];
+    font-stretch: 88%;
   }
 
   .display-md {
-    @apply text-xl font-semibold leading-snug tracking-[-0.03em];
+    @apply text-xl font-semibold leading-snug tracking-[-0.01em];
+    font-stretch: 94%;
   }
 
   .lead {
     @apply max-w-[40rem] text-lg leading-7 text-body;
   }
 
-  /* Chasse fixe : réservée à la couche technique (repères, technologies, dates). */
-  .mono {
-    @apply font-mono text-[0.8125rem] leading-5 text-body;
+  /*
+   * Informations secondaires (dates, technologies, légendes) : même famille,
+   * un peu plus étroite et plus petite, chiffres alignés. En casse normale.
+   */
+  .meta {
+    @apply text-[0.875rem] leading-5 text-body;
+    font-stretch: 90%;
     font-variant-numeric: tabular-nums;
   }
 
-  /* Boutons : une seule forme, la pilule. Le bouton plein est l'action principale. */
+  /* Boutons : coins à peine arrondis. Le bouton plein est l'action principale. */
   .btn {
-    @apply inline-flex h-12 items-center rounded-full px-6 font-medium;
+    @apply inline-flex h-11 items-center rounded-[5px] px-5 font-semibold;
     transition: background-color 150ms, opacity 150ms;
   }
 
@@ -193,23 +203,25 @@
   }
 
   /*
-   * Carte : surface un cran plus claire que la page, filet intérieur et
-   * ombre empilée très légère. Jamais d'ombre portée lourde.
+   * Entrée de liste (projets, preuves) : un filet en tête, pas de boîte ni
+   * d'ombre. Au survol, le titre se souligne : c'est lui le lien.
    */
   .card {
-    @apply rounded-lg bg-canvas p-6;
-    box-shadow:
-      inset 0 0 0 1px var(--hairline),
-      0 1px 1px rgb(0 0 0 / 0.02),
-      0 2px 2px rgb(0 0 0 / 0.04);
+    @apply border-t border-ink pt-4;
   }
 
-  a.card {
-    transition: background-color 150ms;
+  .card h3,
+  .card .card-title {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 2px;
+    transition: text-decoration-color 150ms;
   }
 
-  a.card:hover {
-    background-color: var(--canvas-soft);
+  a.card:hover h3,
+  a.card:hover .card-title {
+    text-decoration-color: currentColor;
   }
 
   /*
@@ -226,8 +238,8 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-color: currentColor;
-    opacity: 0.5;
+    background-color: var(--contour);
+    opacity: 0.75;
     -webkit-mask: url('/assets/contours/projects-square.svg') center / 100% 100% no-repeat;
     mask: url('/assets/contours/projects-square.svg') center / 100% 100% no-repeat;
   }
@@ -302,21 +314,29 @@
     top: var(--y);
   }
 
+  /* Sommet coté : le triangle noir des cartes topographiques. */
   .summit-dot {
     position: absolute;
     left: 0;
     top: 0;
-    width: 0.75rem;
-    height: 0.75rem;
-    border-radius: 9999px;
-    background-color: var(--summit);
-    outline: 3px solid var(--canvas-soft);
-    transform: translate(-50%, -50%);
+    width: 0.8rem;
+    height: 0.7rem;
+    background-color: var(--ink);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    transform: translate(-50%, -70%);
   }
 
-  /* Étiquette du sommet, sous le point : centrée, ou calée près des bords. */
+  /*
+   * Nom du sommet, sous le triangle, lettré comme un toponyme : étroit,
+   * sans cartouche, détaché du relief par un halo couleur papier.
+   */
   .summit-label {
-    @apply absolute top-3 whitespace-nowrap rounded-xl bg-canvas-soft px-2 py-0.5 text-sm font-medium text-ink sm:rounded-full;
+    @apply absolute top-2 whitespace-nowrap text-[0.9375rem] font-semibold leading-tight text-ink;
+    font-stretch: 78%;
+    text-shadow:
+      0 0 2px var(--canvas-soft),
+      0 0 4px var(--canvas-soft),
+      0 0 8px var(--canvas-soft);
   }
 
   .summit-label-center {
@@ -335,11 +355,10 @@
   }
 
   /*
-   * Altitude du sommet, sous le nom. Le triangle reprend la terre cuite du
-   * point ; le chiffre reste dans la couleur du texte, pour être lisible.
+   * Altitude du sommet, sous son nom, précédée du triangle des sommets.
    */
   .summit-altitude {
-    @apply block font-mono text-xs font-normal text-body;
+    @apply block text-xs font-normal text-body;
     font-variant-numeric: tabular-nums;
   }
 
@@ -348,7 +367,7 @@
    * où la carte est étroite et les étiquettes proches ; à sa suite ensuite.
    */
   .summit-date {
-    @apply block font-mono text-xs font-normal text-body sm:ml-1 sm:inline-block;
+    @apply block text-xs font-normal text-body sm:ml-1 sm:inline-block;
     font-variant-numeric: tabular-nums;
   }
 
@@ -373,94 +392,21 @@
     animation: hero-rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(120ms + var(--i) * 45ms) both;
   }
 
-  /* Passage mis en avant du titre, souligné d'un trait de sentier. */
-  .hero-accent {
-    position: relative;
-    white-space: nowrap;
-  }
-
-  .hero-accent-trail {
-    position: absolute;
-    left: 0;
-    bottom: -0.12em;
-    width: 100%;
-    height: 0.28em;
-    overflow: visible;
-    /* Le trait se dévoile de gauche à droite, comme un sentier qu'on trace. */
-    clip-path: inset(-50% 100% -50% 0);
-    animation: hero-trail 900ms cubic-bezier(0.6, 0, 0.2, 1) 900ms forwards;
-  }
-
-  .hero-accent-trail path {
-    fill: none;
-    stroke: var(--summit);
-    stroke-width: 3;
-    stroke-linecap: round;
-    vector-effect: non-scaling-stroke;
-  }
-
-  @keyframes hero-trail {
-    to {
-      clip-path: inset(-50% 0 -50% 0);
+  @media (prefers-reduced-motion: reduce) {
+    .hero-in,
+    .hero-word {
+      animation: none;
     }
   }
 
   /*
-   * Sur téléphone, le passage mis en avant doit pouvoir passer à la ligne :
-   * le trait dessiné ne suivrait pas, il laisse place à un soulignement simple.
+   * Menu sur téléphone : il défile de côté. Le dernier lien s'estompe pour
+   * montrer qu'il y a une suite, puisque la barre de défilement est masquée.
    */
-  @media (max-width: 639px) {
-    .hero-accent {
-      white-space: normal;
-    }
-
-    /* Posé sur chaque mot : un soulignement ne traverse pas les blocs en ligne. */
-    .hero-accent .hero-word {
-      text-decoration: underline 3px var(--summit);
-      text-underline-offset: 0.18em;
-    }
-
-    .hero-accent-trail {
-      display: none;
-    }
-  }
-
-  /* Point « disponible » du badge : une onde part régulièrement du point. */
-  .hero-pulse {
-    position: relative;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 9999px;
-    background-color: var(--summit);
-  }
-
-  .hero-pulse::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background-color: var(--summit);
-    animation: hero-ping 2.4s cubic-bezier(0, 0, 0.2, 1) 1.2s infinite;
-  }
-
-  @keyframes hero-ping {
-    70%,
-    100% {
-      transform: scale(2.6);
-      opacity: 0;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-in,
-    .hero-word,
-    .hero-pulse::after {
-      animation: none;
-    }
-
-    .hero-accent-trail {
-      animation: none;
-      clip-path: none;
+  @media (max-width: 767px) {
+    .nav-scroll {
+      -webkit-mask-image: linear-gradient(to right, #000 80%, transparent);
+      mask-image: linear-gradient(to right, #000 80%, transparent);
     }
   }
 }

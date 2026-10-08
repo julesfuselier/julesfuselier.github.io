@@ -21,7 +21,7 @@ export function legalPage(ctx) {
       (part, index) => html`<section class="mt-12 max-w-[40rem]">
         <h2 class="display-md">${part.title}</h2>
         ${part.paragraphs.map((text) => html`<p class="mt-2 leading-7">${text}</p>`)}
-        ${index === 0 && site.publisher.siret ? html`<p class="mono mt-2">${t.legal.siretLabel} ${site.publisher.siret}</p>` : ''}
+        ${index === 0 && site.publisher.siret ? html`<p class="meta mt-2">${t.legal.siretLabel} ${site.publisher.siret}</p>` : ''}
       </section>`,
     )}
   </article>`;

@@ -18,7 +18,7 @@ import { bulletList, projectMap } from './components.mjs';
 function fact(label, value, valueClasses = '') {
   if (!value) return '';
   return html`<div class="border-t border-hairline py-4">
-    <dt class="mono">${label}</dt>
+    <dt class="meta">${label}</dt>
     <dd class="mt-1 ${valueClasses}">${value}</dd>
   </div>`;
 }
@@ -53,15 +53,21 @@ export function projectPage(ctx, slug) {
       <a href="${route(lang, 'home')}#projects" class="link text-sm">${labels.back}</a>
 
       <header class="mt-10">
-        <p class="mono">${item.kicker}</p>
+        <p class="meta">${item.kicker}</p>
         <h1 class="display-xl mt-4 max-w-[20ch] sm:text-[3rem] lg:text-[3.5rem]">${item.title}</h1>
         <p class="lead mt-6">${item.summary}</p>
       </header>
 
+      ${shared.images?.length
+        ? html`<div class="mt-12 grid items-end gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,13rem)]">
+            ${shared.images.map((image, index) => html`<img src="${image.src}" alt="${item.imageAlts[index]}" width="${image.width}" height="${image.height}" class="w-full rounded-[5px]" />`)}
+          </div>`
+        : ''}
+
       <div class="mt-16 grid gap-x-16 gap-y-12 lg:grid-cols-[18rem_minmax(0,1fr)]">
         <dl class="border-b border-hairline lg:self-start">
           ${fact(labels.role, item.role)} ${fact(labels.period, item.period)}
-          ${fact(labels.stack, shared.stack.join(', '), 'mono text-ink')}
+          ${fact(labels.stack, shared.stack.join(', '), 'meta text-ink')}
         </dl>
         <div>
           ${block(labels.context, paragraph(item.context))} ${block(item.actionsLabel ?? labels.actions, bulletList(item.actions))}

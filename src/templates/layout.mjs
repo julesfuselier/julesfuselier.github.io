@@ -60,10 +60,10 @@ function head(ctx) {
     <meta property="og:title" content="${ctx.title}" />
     <meta property="og:description" content="${ctx.description}" />
     <meta property="og:url" content="${canonical}" />
-    <meta property="og:image" content="${site.baseUrl + site.portrait}" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content="${site.baseUrl + (ctx.image ?? site.portrait)}" />
+    <meta name="twitter:card" content="${ctx.image ? 'summary_large_image' : 'summary'}" />
     <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
-    <link rel="preload" href="/assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/archivo-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/css/style.css" />
     <script>${raw(THEME_BOOTSTRAP)}</script>
     <script type="application/ld+json">${personJsonLd(ctx)}</script>
@@ -83,18 +83,18 @@ function header(ctx) {
   const home = route(lang, 'home');
   const other = LANGUAGES.find((code) => code !== lang);
   const links = ['projects', 'recruiters', 'clients', 'journey', 'contact'];
-  const control = 'grid h-8 min-w-8 place-items-center rounded-full px-2 ring-1 ring-inset ring-hairline hover:bg-canvas';
+  const control = 'grid h-8 min-w-8 place-items-center rounded-[5px] px-2 ring-1 ring-inset ring-hairline hover:bg-canvas';
 
   return html`<header class="sticky top-0 z-10 border-b border-hairline bg-canvas-soft">
     <div class="page flex min-h-16 flex-wrap items-center gap-x-6 py-3 md:py-0">
       <a href="${home}" class="mr-auto font-semibold tracking-[-0.02em] md:mr-0" translate="no">${ctx.site.author}</a>
-      <nav aria-label="${t.nav.label}" class="order-last w-full overflow-x-auto [scrollbar-width:none] md:order-none md:mx-auto md:w-auto">
+      <nav aria-label="${t.nav.label}" class="nav-scroll order-last w-full overflow-x-auto [scrollbar-width:none] md:order-none md:mx-auto md:w-auto">
         <ul class="-mx-3 flex gap-x-1 pt-2 text-sm text-body md:mx-0 md:pt-0">
-          ${links.map((id) => html`<li><a href="${home}#${id}" class="block whitespace-nowrap rounded-full px-3 py-1.5 hover:bg-canvas hover:text-ink">${t.nav[id]}</a></li>`)}
+          ${links.map((id) => html`<li><a href="${home}#${id}" class="block whitespace-nowrap rounded-[5px] px-3 py-1.5 hover:bg-canvas hover:text-ink">${t.nav[id]}</a></li>`)}
         </ul>
       </nav>
       <div class="flex items-center gap-2">
-        <a href="${alternates[other]}" hreflang="${other}" lang="${other}" aria-label="${t.nav.langSwitch}" class="${control} font-mono text-xs">${t.nav.langSwitchCode}</a>
+        <a href="${alternates[other]}" hreflang="${other}" lang="${other}" aria-label="${t.nav.langSwitch}" class="${control} text-xs font-semibold">${t.nav.langSwitchCode}</a>
         <button type="button" data-theme-toggle hidden aria-label="${t.nav.theme}" class="${control}">
           <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" /><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor" /></svg>
         </button>
@@ -127,7 +127,7 @@ export function renderPage(ctx, content) {
 <html lang="${ctx.lang}">
   ${head(ctx)}
   <body>
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-20 focus:rounded-full focus:bg-canvas focus:px-4 focus:py-2">${ctx.t.nav.skip}</a>
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-20 focus:rounded-[5px] focus:bg-canvas focus:px-4 focus:py-2">${ctx.t.nav.skip}</a>
     ${header(ctx)}
     <main id="main">${content}</main>
     ${footer(ctx)}

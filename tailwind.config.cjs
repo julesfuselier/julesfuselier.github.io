@@ -21,6 +21,7 @@ module.exports = {
         primary: 'var(--primary)',
         'on-primary': 'var(--on-primary)',
         summit: 'var(--summit)',
+        contour: 'var(--contour)',
         band: 'var(--band)',
         'band-card': 'var(--band-card)',
         'band-ink': 'var(--band-ink)',
@@ -28,8 +29,7 @@ module.exports = {
         'band-hairline': 'var(--band-hairline)',
       },
       fontFamily: {
-        sans: ['"Space Grotesk Variable"', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono Variable"', 'ui-monospace', 'monospace'],
+        sans: ['"Archivo Variable"', 'system-ui', 'sans-serif'],
       },
       maxWidth: {
         page: '75rem',

@@ -62,7 +62,19 @@
       "summit": {
         "x": 52,
         "y": 50
-      }
+      },
+      "images": [
+        {
+          "src": "/assets/img/projets/preity-india-accueil.webp",
+          "width": 800,
+          "height": 500
+        },
+        {
+          "src": "/assets/img/projets/preity-india-mobile.webp",
+          "width": 400,
+          "height": 514
+        }
+      ]
     },
     "relations-internationales": {
       "years": "2025–2026",
