@@ -317,5 +317,10 @@
     "title": "Page not found",
     "text": "This page does not exist or has moved.",
     "cta": "Back to the home page"
+  },
+  "maintenance": {
+    "title": "Site under maintenance",
+    "text": "I am rebuilding my site; it will be back soon. In the meantime, you can email me, find me on LinkedIn or download my CV.",
+    "metaDescription": "Jules Fuselier's site is under maintenance. Contact by email or LinkedIn."
   }
 }

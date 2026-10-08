@@ -82,17 +82,20 @@ function header(ctx) {
   const { t, lang, alternates } = ctx;
   const home = route(lang, 'home');
   const other = LANGUAGES.find((code) => code !== lang);
-  const links = ['projects', 'recruiters', 'clients', 'journey', 'contact'];
+  // En maintenance, les sections de l'accueil n'existent plus : pas de menu.
+  const links = ctx.site.maintenance ? [] : ['projects', 'recruiters', 'clients', 'journey', 'contact'];
   const control = 'grid h-8 min-w-8 place-items-center rounded-full px-2 ring-1 ring-inset ring-hairline hover:bg-canvas';
 
   return html`<header class="sticky top-0 z-10 border-b border-hairline bg-canvas-soft">
     <div class="page flex min-h-16 flex-wrap items-center gap-x-6 py-3 md:py-0">
-      <a href="${home}" class="mr-auto font-semibold tracking-[-0.02em] md:mr-0" translate="no">${ctx.site.author}</a>
-      <nav aria-label="${t.nav.label}" class="order-last w-full overflow-x-auto [scrollbar-width:none] md:order-none md:mx-auto md:w-auto">
+      <a href="${home}" class="mr-auto font-semibold tracking-[-0.02em] ${links.length > 0 ? 'md:mr-0' : ''}" translate="no">${ctx.site.author}</a>
+      ${links.length > 0
+        ? html`<nav aria-label="${t.nav.label}" class="order-last w-full overflow-x-auto [scrollbar-width:none] md:order-none md:mx-auto md:w-auto">
         <ul class="-mx-3 flex gap-x-1 pt-2 text-sm text-body md:mx-0 md:pt-0">
           ${links.map((id) => html`<li><a href="${home}#${id}" class="block whitespace-nowrap rounded-full px-3 py-1.5 hover:bg-canvas hover:text-ink">${t.nav[id]}</a></li>`)}
         </ul>
-      </nav>
+      </nav>`
+        : ''}
       <div class="flex items-center gap-2">
         <a href="${alternates[other]}" hreflang="${other}" lang="${other}" aria-label="${t.nav.langSwitch}" class="${control} font-mono text-xs">${t.nav.langSwitchCode}</a>
         <button type="button" data-theme-toggle hidden aria-label="${t.nav.theme}" class="${control}">

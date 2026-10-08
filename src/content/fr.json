@@ -317,5 +317,10 @@
     "title": "Page introuvable",
     "text": "Cette page n'existe pas ou a été déplacée.",
     "cta": "Revenir à l'accueil"
+  },
+  "maintenance": {
+    "title": "Site en maintenance",
+    "text": "Je refais mon site, il revient bientôt. En attendant, vous pouvez m'écrire, me retrouver sur LinkedIn ou télécharger mon CV.",
+    "metaDescription": "Site de Jules Fuselier en maintenance. Contact par e-mail ou LinkedIn."
   }
 }

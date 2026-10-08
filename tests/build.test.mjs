@@ -11,7 +11,10 @@ import { outputFile, route } from '../src/lib/routes.mjs';
 import { renderSite } from '../scripts/build.mjs';
 
 const content = await loadContent();
-const { pages, assets } = renderSite(content);
+// Le site complet est testé hors maintenance, quel que soit le réglage en
+// cours ; la page de maintenance a son propre test plus bas.
+const { pages, assets } = renderSite({ ...content, site: { ...content.site, maintenance: false } });
+const maintenance = renderSite({ ...content, site: { ...content.site, maintenance: true } });
 
 /** Fichiers présents dans le dépôt sans être générés par `renderSite`. */
 const STATIC_FILES = ['css/style.css', 'js/site.js', 'js/map.js', 'assets/img/favicon.png', content.site.portrait.slice(1), content.site.cvPath.slice(1), 'demo/demo-SuperBomberman.html'];
@@ -62,4 +65,19 @@ test('le contenu interpolé est échappé', () => {
   assert.equal(html`<p>${'<script>'}</p>`.toString(), '<p>&lt;script&gt;</p>');
   assert.equal(html`<p>${html`<b>ok</b>`}</p>`.toString(), '<p><b>ok</b></p>');
   assert.equal(html`<p>${null}${false}${['a', 'b']}</p>`.toString(), '<p>ab</p>');
+});
+
+test('en maintenance, accueil et projets montrent le contact, les mentions légales restent', () => {
+  for (const lang of LANGUAGES) {
+    const t = content.locales[lang];
+    const home = maintenance.pages[outputFile(route(lang, 'home'))];
+    assert.ok(home.includes(t.maintenance.title), `${lang} : titre de maintenance`);
+    assert.ok(home.includes(`mailto:${content.site.email}`), `${lang} : e-mail`);
+    assert.ok(home.includes(content.site.social.linkedin), `${lang} : LinkedIn`);
+    assert.ok(!home.includes('data-project-map'), `${lang} : plus de carte`);
+    for (const slug of content.site.projectOrder) {
+      assert.ok(maintenance.pages[outputFile(route(lang, 'project', slug))].includes(t.maintenance.title), `${lang}/${slug}`);
+    }
+    assert.ok(maintenance.pages[outputFile(route(lang, 'legal'))].includes(t.legal.title), `${lang} : mentions légales`);
+  }
 });

@@ -74,6 +74,10 @@ Types de liens acceptés : `site`, `github`, `install`, `demo`. Leurs libellés 
 
 Remplacez `assets/CV_FUSELIER-Jules.pdf` en gardant le même nom.
 
+### Mettre le site en maintenance
+
+Dans `src/content/site.json`, `"maintenance": true` remplace l'accueil et les pages de projet (dans les deux langues) par une page de maintenance : e-mail, LinkedIn, GitHub et CV. Les adresses restent valides et les mentions légales restent en ligne. Les textes sont sous `maintenance` dans `fr.json` et `en.json`. Remettez `false` puis `npm run build` pour rétablir le site.
+
 ## Design
 
 Les règles visuelles complètes sont dans [`DESIGN.md`](DESIGN.md). En résumé :

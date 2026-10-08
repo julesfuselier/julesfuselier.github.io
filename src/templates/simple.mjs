@@ -1,5 +1,5 @@
 /**
- * Pages de texte simples : mentions légales et page 404.
+ * Pages de texte simples : mentions légales, page 404 et page de maintenance.
  */
 
 import { html } from '../lib/html.mjs';
@@ -42,5 +42,28 @@ export function notFoundPage(locales) {
         <a href="${route(lang, 'home')}" class="link mt-4 inline-block">${t.notFound.cta}</a>
       </section>`,
     )}
+  </div>`;
+}
+
+/**
+ * Page de maintenance : remplace l'accueil et les pages de projet tant que
+ * `maintenance` vaut `true` dans `site.json`. Elle garde les moyens de
+ * contact et le CV ; les mentions légales restent en ligne.
+ * @param {PageContext} ctx
+ * @returns {import('../lib/html.mjs').SafeHtml}
+ */
+export function maintenancePage(ctx) {
+  const { site, t } = ctx;
+  return html`<div class="page py-24 sm:py-32">
+    <section class="max-w-[40rem]">
+      <h1 class="display-xl">${t.maintenance.title}</h1>
+      <p class="lead mt-6">${t.maintenance.text}</p>
+      <p class="mt-10 flex flex-wrap items-center gap-3">
+        <a href="mailto:${site.email}" class="btn-primary max-w-full"><span class="truncate" translate="no">${site.email}</span></a>
+        <a href="${site.social.linkedin}" rel="me noopener" class="btn-secondary" translate="no">${t.contact.linkedin}</a>
+        <a href="${site.social.github}" rel="me noopener" class="btn-secondary" translate="no">${t.contact.github}</a>
+      </p>
+      <p class="mt-6"><a href="${site.cvPath}" class="link">${t.recruiters.cvCta}</a></p>
+    </section>
   </div>`;
 }

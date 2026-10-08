@@ -26,7 +26,7 @@ import { PROJECT_MAPS, PROJECT_MAP_SEED, projectSummits } from '../src/templates
 import { homePage } from '../src/templates/home.mjs';
 import { renderPage } from '../src/templates/layout.mjs';
 import { projectPage } from '../src/templates/project.mjs';
-import { legalPage, notFoundPage } from '../src/templates/simple.mjs';
+import { legalPage, maintenancePage, notFoundPage } from '../src/templates/simple.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 
@@ -75,8 +75,14 @@ export function renderSite({ site, locales }) {
     const t = locales[lang];
     const base = { lang, t, site };
 
-    const home = { ...base, url: route(lang, 'home'), alternates: alternatesFor('home'), title: t.meta.title, description: t.meta.description };
-    pages[outputFile(home.url)] = renderPage(home, homePage(home));
+    // Mode maintenance (`maintenance: true` dans site.json) : l'accueil et
+    // les pages de projet gardent leur adresse mais n'affichent que la page
+    // de maintenance, avec les moyens de contact.
+    const maintenance = site.maintenance === true;
+    const home = maintenance
+      ? { ...base, url: route(lang, 'home'), alternates: alternatesFor('home'), title: `${t.maintenance.title} | ${site.author}`, description: t.maintenance.metaDescription }
+      : { ...base, url: route(lang, 'home'), alternates: alternatesFor('home'), title: t.meta.title, description: t.meta.description };
+    pages[outputFile(home.url)] = renderPage(home, maintenance ? maintenancePage(home) : homePage(home));
 
     for (const slug of site.projectOrder) {
       const item = t.projects.items[slug];
@@ -87,7 +93,9 @@ export function renderSite({ site, locales }) {
         title: `${item.title} | ${site.author}`,
         description: item.summary,
       };
-      pages[outputFile(ctx.url)] = renderPage(ctx, projectPage(ctx, slug));
+      pages[outputFile(ctx.url)] = maintenance
+        ? renderPage({ ...home, url: ctx.url, alternates: ctx.alternates }, maintenancePage(home))
+        : renderPage(ctx, projectPage(ctx, slug));
     }
 
     const legal = {
