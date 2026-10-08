@@ -51,12 +51,14 @@ const VIEW = {
 const TRAIL_DRAW = { delay: 900, duration: 1800 };
 
 /**
- * Mise en avant d'un sommet survolé : part du chemin parcourue par le
- * regard vers lui, recul de la caméra (1 = aucun), et vitesse de transition
- * (part de l'écart comblée à chaque image ; 0,12 donne environ un tiers de
- * seconde).
+ * Mise en avant d'un sommet survolé :
+ *  - `dolly` : part du chemin parcourue par la caméra vers le sommet ;
+ *  - `smoothing` : part de l'écart comblée à chaque image (0,12 donne
+ *    environ un tiers de seconde) ;
+ *  - `leaveDelay` : délai avant de relâcher la mise en avant quand le
+ *    pointeur quitte l'étiquette, pour ignorer un passage furtif sur son bord.
  */
-const FOCUS = { pull: 0.35, zoom: 0.86, smoothing: 0.12 };
+const FOCUS = { dolly: 0.1, smoothing: 0.12, leaveDelay: 180 };
 
 const DEGREES = Math.PI / 180;
 
@@ -226,8 +228,7 @@ export function mountTerrain(map, wide) {
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const view = { elevation: reducedMotion ? VIEW.endElevation : VIEW.startElevation, azimuth: 0, distance: VIEW.distance };
-  const CENTER = new Vector3(0, 0.55, 0);
-  const target = CENTER.clone(); // point regardé par la caméra
+  const CENTER = new Vector3(0, 0.55, 0); // point regardé par la caméra
   let frame = 0;
 
   /** Reprend les couleurs du thème courant, définies en CSS. */
@@ -251,8 +252,11 @@ export function mountTerrain(map, wide) {
       view.distance * Math.sin(elevation),
       view.distance * Math.cos(elevation) * Math.cos(azimuth),
     );
-    camera.position.add(target).sub(CENTER); // la caméra suit le point regardé
-    camera.lookAt(target);
+    camera.lookAt(CENTER);
+    // Mise en avant : la caméra avance en ligne droite vers le sommet, sans
+    // changer d'orientation. Le sommet reste donc exactement au même endroit
+    // à l'écran, et son étiquette sous le pointeur : le reste s'écarte autour.
+    camera.position.lerp(focus.point, focus.amount * FOCUS.dolly);
   }
 
   /**
@@ -314,18 +318,15 @@ export function mountTerrain(map, wide) {
   // Mise en avant d'un sommet : chaque valeur glisse vers sa cible, image
   // après image, tant qu'elle ne l'a pas atteinte. Un nouveau survol change
   // simplement la cible, ce qui rend l'animation interruptible.
-  const focus = { amount: 0, toAmount: 0, x: 0, z: 0, toX: 0, toZ: 0 };
+  const focus = { amount: 0, toAmount: 0, point: CENTER.clone(), toPoint: CENTER.clone() };
   let focusing = false;
+  let leaveTimer = 0;
   function stepFocus() {
-    const ease = (value, goal) => value + (goal - value) * FOCUS.smoothing;
-    focus.amount = ease(focus.amount, focus.toAmount);
-    focus.x = ease(focus.x, focus.toX);
-    focus.z = ease(focus.z, focus.toZ);
+    focus.amount += (focus.toAmount - focus.amount) * FOCUS.smoothing;
+    focus.point.lerp(focus.toPoint, FOCUS.smoothing);
     material.uniforms.uFocusAmount.value = focus.amount;
-    target.set(CENTER.x + focus.x * focus.amount, CENTER.y, CENTER.z + focus.z * focus.amount);
-    view.distance = VIEW.distance * (1 - (1 - FOCUS.zoom) * focus.amount);
     requestDraw();
-    const settled = Math.abs(focus.amount - focus.toAmount) < 0.002 && Math.abs(focus.x - focus.toX) < 0.002 && Math.abs(focus.z - focus.toZ) < 0.002;
+    const settled = Math.abs(focus.amount - focus.toAmount) < 0.002 && focus.point.distanceTo(focus.toPoint) < 0.002;
     focusing = !settled;
     if (focusing && mounted) requestAnimationFrame(stepFocus);
   }
@@ -333,10 +334,13 @@ export function mountTerrain(map, wide) {
   /** @param {{ x: number, y: number } | null} summit sommet à mettre en avant, ou aucun */
   function setFocus(summit) {
     if (reducedMotion) return;
+    clearTimeout(leaveTimer);
     focus.toAmount = summit ? 1 : 0;
     if (summit) {
-      focus.toX = (summit.x - 0.5) * TERRAIN.width * FOCUS.pull;
-      focus.toZ = (summit.y - 0.5) * TERRAIN.depth * FOCUS.pull;
+      const row = Math.round(summit.y * GRID.rows);
+      const col = Math.round(summit.x * GRID.cols);
+      focus.toPoint.set((summit.x - 0.5) * TERRAIN.width, elevationOf(field[row][col]), (summit.y - 0.5) * TERRAIN.depth);
+      if (focus.amount < 0.01) focus.point.copy(focus.toPoint); // départ du repos : pas de glissement latéral
       material.uniforms.uFocus.value.set(summit.x, 1 - summit.y); // la texture compte de bas en haut
     }
     if (!focusing) requestAnimationFrame(stepFocus);
@@ -344,7 +348,10 @@ export function mountTerrain(map, wide) {
 
   const focusListeners = summits.map((summit) => {
     const enter = () => setFocus(summit);
-    const leave = () => setFocus(null);
+    const leave = () => {
+      clearTimeout(leaveTimer);
+      leaveTimer = setTimeout(() => setFocus(null), FOCUS.leaveDelay);
+    };
     for (const type of ['pointerenter', 'focusin']) summit.element.addEventListener(type, enter);
     for (const type of ['pointerleave', 'focusout']) summit.element.addEventListener(type, leave);
     return { summit, enter, leave };
@@ -429,6 +436,7 @@ export function mountTerrain(map, wide) {
   function unmount() {
     if (wide.matches) return;
     mounted = false;
+    clearTimeout(leaveTimer);
     wide.removeEventListener('change', unmount);
     systemTheme.removeEventListener('change', onSystemTheme);
     resizeObserver.disconnect();
