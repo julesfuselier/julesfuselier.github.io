@@ -137,7 +137,8 @@
         "next": null
       }
     },
-    "headline": "5 projects, from company work to a personal build."
+    "headline": "5 projects, from company work to a personal build.",
+    "mapLegend": "Summit altitude: time spent on each project, on a logarithmic scale."
   },
   "recruiters": {
     "lead": "Software development, applied AI or tech project management, in France.",

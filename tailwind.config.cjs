@@ -9,7 +9,7 @@
  */
 module.exports = {
   // Les classes sont écrites dans les gabarits, pas dans le HTML généré.
-  content: ['./src/templates/**/*.mjs'],
+  content: ['./src/templates/**/*.mjs', './src/js/**/*.js'],
   theme: {
     extend: {
       colors: {

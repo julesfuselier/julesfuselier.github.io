@@ -123,9 +123,11 @@ export function projectMap(ctx, { label, current }) {
       <path data-trail d="${trailPath(trailPoints(byPosition(summits)))}" />
     </svg>
     <ul>
-      ${summits.map(({ slug, x, y, height }) => {
+      ${summits.map(({ slug, x, y, height, altitude }) => {
         const years = site.projects[slug].years;
-        const date = years ? html` <span class="summit-date">${years}</span>` : '';
+        const date = html`${years ? html` <span class="summit-date">${years}</span>` : ''}${
+          altitude ? html`<span class="summit-altitude"><span class="text-summit" aria-hidden="true">▲</span> ${formatAltitude(altitude, lang)}</span>` : ''
+        }`;
         const title = t.projects.items[slug].shortTitle;
         const classes = `summit-label ${labelAnchor(x)}`;
         return html`<li class="summit" style="--x: ${x}%; --y: ${y}%" data-summit data-x="${x}" data-y="${y}" data-height="${height}">
@@ -136,5 +138,16 @@ export function projectMap(ctx, { label, current }) {
         </li>`;
       })}
     </ul>
-  </nav>`;
+  </nav>
+  ${summits.some((summit) => summit.altitude) ? html`<p class="mono mt-3">${t.projects.mapLegend}</p>` : ''}`;
+}
+
+/**
+ * Altitude en mètres, avec le séparateur de milliers de la langue.
+ * @param {number} altitude
+ * @param {string} lang
+ * @returns {string} par exemple « 2 650 m »
+ */
+export function formatAltitude(altitude, lang) {
+  return `${new Intl.NumberFormat(lang).format(altitude)} m`;
 }

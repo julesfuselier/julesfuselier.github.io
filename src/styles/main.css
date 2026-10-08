@@ -335,6 +335,15 @@
   }
 
   /*
+   * Altitude du sommet, sous le nom. Le triangle reprend la terre cuite du
+   * point ; le chiffre reste dans la couleur du texte, pour être lisible.
+   */
+  .summit-altitude {
+    @apply block font-mono text-xs font-normal text-body;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /*
    * Année du projet : chasse fixe, sans soulignement. Sous le nom sur mobile,
    * où la carte est étroite et les étiquettes proches ; à sa suite ensuite.
    */

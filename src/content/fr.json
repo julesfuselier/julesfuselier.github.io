@@ -137,7 +137,8 @@
         "next": null
       }
     },
-    "headline": "5 projets, de la mission en entreprise au projet personnel."
+    "headline": "5 projets, de la mission en entreprise au projet personnel.",
+    "mapLegend": "Altitude des sommets : temps passé sur chaque projet, sur une échelle logarithmique."
   },
   "recruiters": {
     "lead": "Développement logiciel, IA appliquée ou gestion de projet tech, en France.",
