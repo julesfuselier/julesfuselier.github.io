@@ -15,10 +15,18 @@
  *    les courbes de niveau.
  *
  * Rien ne tourne en boucle : une image n'est redessinée que si quelque chose
- * change (rotation à la souris, redimensionnement, changement de thème).
+ * change (rotation à la souris, survol d'un projet, redimensionnement,
+ * changement de thème) ou pendant une courte animation.
+ *
+ * Deux animations, toutes deux désactivées si le visiteur a demandé moins
+ * de mouvement (`prefers-reduced-motion`) :
+ *  - à l'arrivée, le sentier se trace d'un sommet à l'autre, du plus ancien
+ *    au plus récent ;
+ *  - au survol (ou au focus clavier) d'un projet, la caméra s'approche de
+ *    son sommet et les courbes de niveau autour de lui passent en couleur.
  */
 
-import { BufferAttribute, Color, Mesh, PerspectiveCamera, PlaneGeometry, Scene, ShaderMaterial, Vector3, WebGLRenderer } from 'three';
+import { BufferAttribute, Color, Mesh, PerspectiveCamera, PlaneGeometry, Scene, ShaderMaterial, Vector2, Vector3, WebGLRenderer } from 'three';
 
 import { CONTOUR_LEVELS, RELIEF_EXPONENT, contourScale, createHeightField } from '../lib/contours.mjs';
 import { trailPath, trailPoints } from '../lib/trail.mjs';
@@ -38,6 +46,17 @@ const VIEW = {
   maxAzimuth: 22,
   introDuration: 1400,
 };
+
+/** Tracé du sentier à l'arrivée, après le basculement de la vue. */
+const TRAIL_DRAW = { delay: 900, duration: 1800 };
+
+/**
+ * Mise en avant d'un sommet survolé : part du chemin parcourue par le
+ * regard vers lui, recul de la caméra (1 = aucun), et vitesse de transition
+ * (part de l'écart comblée à chaque image ; 0,12 donne environ un tiers de
+ * seconde).
+ */
+const FOCUS = { pull: 0.35, zoom: 0.86, smoothing: 0.12 };
 
 const DEGREES = Math.PI / 180;
 
@@ -78,6 +97,9 @@ const FRAGMENT_SHADER = /* glsl */ `
   uniform float uLevels;
   uniform float uShadeLit; // 1 si l'encre est plus claire que le papier (thème sombre)
   uniform float uShadeStrength;
+  uniform vec3 uAccent;      // couleur des sommets (terre cuite)
+  uniform vec2 uFocus;       // sommet mis en avant, en coordonnées de texture
+  uniform float uFocusAmount; // 0 sans mise en avant, 1 pleinement
   varying float vHeight;
   varying float vLight;
   varying float vSlope;
@@ -106,7 +128,14 @@ const FRAGMENT_SHADER = /* glsl */ `
     float rock = smoothstep(0.25, 0.7, vSlope) * uShadeStrength * 0.6 * (1.0 - uShadeLit);
     vec3 ground = mix(uPaper, uInk, min(shade + rock, 0.75));
 
-    gl_FragColor = vec4(mix(ground, uInk, ink), edge.x * edge.y);
+    // Mise en avant : autour du sommet survolé, les courbes prennent la
+    // couleur des sommets. Les distances sont ramenées aux proportions du
+    // terrain (10 de large pour 4 de profondeur) pour former un cercle.
+    float near = 1.0 - smoothstep(0.25, 0.9, length((vUv - uFocus) * vec2(10.0, 4.0)));
+    vec3 lineColor = mix(uInk, uAccent, near * uFocusAmount);
+    float focusedInk = min(1.0, ink * (1.0 + 0.6 * near * uFocusAmount));
+
+    gl_FragColor = vec4(mix(ground, lineColor, focusedInk), edge.x * edge.y);
     #include <colorspace_fragment>
   }
 `;
@@ -180,6 +209,9 @@ export function mountTerrain(map, wide) {
       uLevels: { value: CONTOUR_LEVELS },
       uShadeLit: { value: 0 },
       uShadeStrength: { value: 0 },
+      uAccent: { value: new Color() },
+      uFocus: { value: new Vector2() },
+      uFocusAmount: { value: 0 },
     },
   });
   const scene = new Scene();
@@ -193,8 +225,9 @@ export function mountTerrain(map, wide) {
   map.classList.add('is-3d');
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const view = { elevation: reducedMotion ? VIEW.endElevation : VIEW.startElevation, azimuth: 0 };
-  const target = new Vector3(0, 0.55, 0);
+  const view = { elevation: reducedMotion ? VIEW.endElevation : VIEW.startElevation, azimuth: 0, distance: VIEW.distance };
+  const CENTER = new Vector3(0, 0.55, 0);
+  const target = CENTER.clone(); // point regardé par la caméra
   let frame = 0;
 
   /** Reprend les couleurs du thème courant, définies en CSS. */
@@ -202,6 +235,7 @@ export function mountTerrain(map, wide) {
     const style = getComputedStyle(map);
     material.uniforms.uPaper.value.set(style.getPropertyValue('--canvas-soft').trim());
     material.uniforms.uInk.value.set(style.getPropertyValue('--body').trim());
+    material.uniforms.uAccent.value.set(style.getPropertyValue('--summit').trim());
     const lightness = (color) => color.getHSL({}).l;
     const darkTheme = lightness(material.uniforms.uInk.value) > lightness(material.uniforms.uPaper.value);
     material.uniforms.uShadeLit.value = darkTheme ? 1 : 0;
@@ -213,10 +247,11 @@ export function mountTerrain(map, wide) {
     const elevation = view.elevation * DEGREES;
     const azimuth = view.azimuth * DEGREES;
     camera.position.set(
-      VIEW.distance * Math.cos(elevation) * Math.sin(azimuth),
-      VIEW.distance * Math.sin(elevation),
-      VIEW.distance * Math.cos(elevation) * Math.cos(azimuth),
+      view.distance * Math.cos(elevation) * Math.sin(azimuth),
+      view.distance * Math.sin(elevation),
+      view.distance * Math.cos(elevation) * Math.cos(azimuth),
     );
+    camera.position.add(target).sub(CENTER); // la caméra suit le point regardé
     camera.lookAt(target);
   }
 
@@ -248,11 +283,72 @@ export function mountTerrain(map, wide) {
   const trail = map.querySelector('[data-trail]');
   const flatTrail = trail?.getAttribute('d');
   const trailOnMap = trailPoints([...summits].sort((a, b) => a.x - b.x)); // de gauche à droite, comme en 2D
+  let trailProgress = reducedMotion ? 1 : 0; // part du sentier déjà tracée, de 0 à 1
   function placeTrail() {
     if (!trail) return;
     const projected = trailOnMap.map(({ x, y }) => onScreen(x, y));
-    trail.setAttribute('d', trailPath(projected.map(({ x, y }) => ({ x: x * 100, y: y * 100 }))));
+    // Seuls les premiers points sont gardés ; le dernier est interpolé pour
+    // que le trait avance sans à-coups.
+    const reach = trailProgress * (projected.length - 1);
+    const whole = Math.floor(reach);
+    const visible = projected.slice(0, whole + 1);
+    const next = projected[whole + 1];
+    if (next) {
+      const last = visible.at(-1);
+      const part = reach - whole;
+      visible.push({ x: last.x + (next.x - last.x) * part, y: last.y + (next.y - last.y) * part });
+    }
+    trail.setAttribute('d', visible.length > 1 ? trailPath(visible.map(({ x, y }) => ({ x: x * 100, y: y * 100 }))) : '');
   }
+
+  // Tracé du sentier à l'arrivée.
+  let trailStart = 0;
+  function drawTrail(time) {
+    trailStart ||= time;
+    const progress = Math.min(Math.max(time - trailStart - TRAIL_DRAW.delay, 0) / TRAIL_DRAW.duration, 1);
+    trailProgress = progress < 0.5 ? 2 * progress * progress : 1 - (-2 * progress + 2) ** 2 / 2; // accélère puis ralentit
+    requestDraw();
+    if (progress < 1 && mounted) requestAnimationFrame(drawTrail);
+  }
+
+  // Mise en avant d'un sommet : chaque valeur glisse vers sa cible, image
+  // après image, tant qu'elle ne l'a pas atteinte. Un nouveau survol change
+  // simplement la cible, ce qui rend l'animation interruptible.
+  const focus = { amount: 0, toAmount: 0, x: 0, z: 0, toX: 0, toZ: 0 };
+  let focusing = false;
+  function stepFocus() {
+    const ease = (value, goal) => value + (goal - value) * FOCUS.smoothing;
+    focus.amount = ease(focus.amount, focus.toAmount);
+    focus.x = ease(focus.x, focus.toX);
+    focus.z = ease(focus.z, focus.toZ);
+    material.uniforms.uFocusAmount.value = focus.amount;
+    target.set(CENTER.x + focus.x * focus.amount, CENTER.y, CENTER.z + focus.z * focus.amount);
+    view.distance = VIEW.distance * (1 - (1 - FOCUS.zoom) * focus.amount);
+    requestDraw();
+    const settled = Math.abs(focus.amount - focus.toAmount) < 0.002 && Math.abs(focus.x - focus.toX) < 0.002 && Math.abs(focus.z - focus.toZ) < 0.002;
+    focusing = !settled;
+    if (focusing && mounted) requestAnimationFrame(stepFocus);
+  }
+
+  /** @param {{ x: number, y: number } | null} summit sommet à mettre en avant, ou aucun */
+  function setFocus(summit) {
+    if (reducedMotion) return;
+    focus.toAmount = summit ? 1 : 0;
+    if (summit) {
+      focus.toX = (summit.x - 0.5) * TERRAIN.width * FOCUS.pull;
+      focus.toZ = (summit.y - 0.5) * TERRAIN.depth * FOCUS.pull;
+      material.uniforms.uFocus.value.set(summit.x, 1 - summit.y); // la texture compte de bas en haut
+    }
+    if (!focusing) requestAnimationFrame(stepFocus);
+  }
+
+  const focusListeners = summits.map((summit) => {
+    const enter = () => setFocus(summit);
+    const leave = () => setFocus(null);
+    for (const type of ['pointerenter', 'focusin']) summit.element.addEventListener(type, enter);
+    for (const type of ['pointerleave', 'focusout']) summit.element.addEventListener(type, leave);
+    return { summit, enter, leave };
+  });
 
   function draw() {
     frame = 0;
@@ -262,9 +358,11 @@ export function mountTerrain(map, wide) {
     placeTrail();
   }
 
+  let mounted = true; // faux une fois le relief retiré : plus aucun dessin
+
   /** Demande un nouveau dessin, au plus une fois par image affichée. */
   function requestDraw() {
-    if (!frame) frame = requestAnimationFrame(draw);
+    if (mounted && !frame) frame = requestAnimationFrame(draw);
   }
 
   function resize() {
@@ -330,6 +428,7 @@ export function mountTerrain(map, wide) {
   /** Rend la main à la carte 2D : écran devenu trop étroit. */
   function unmount() {
     if (wide.matches) return;
+    mounted = false;
     wide.removeEventListener('change', unmount);
     systemTheme.removeEventListener('change', onSystemTheme);
     resizeObserver.disconnect();
@@ -340,6 +439,10 @@ export function mountTerrain(map, wide) {
     renderer.dispose();
     map.classList.remove('is-3d', 'is-dragging');
     if (trail && flatTrail) trail.setAttribute('d', flatTrail);
+    for (const { summit, enter, leave } of focusListeners) {
+      for (const type of ['pointerenter', 'focusin']) summit.element.removeEventListener(type, enter);
+      for (const type of ['pointerleave', 'focusout']) summit.element.removeEventListener(type, leave);
+    }
     for (const summit of summits) {
       summit.element.style.setProperty('--x', `${summit.element.dataset.x}%`);
       summit.element.style.setProperty('--y', `${summit.element.dataset.y}%`);
@@ -350,4 +453,5 @@ export function mountTerrain(map, wide) {
   readColors();
   resize();
   requestAnimationFrame(intro);
+  if (!reducedMotion) requestAnimationFrame(drawTrail);
 }
