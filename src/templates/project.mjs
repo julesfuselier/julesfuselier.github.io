@@ -64,7 +64,7 @@ export function projectPage(ctx, slug) {
           ${fact(labels.stack, shared.stack.join(', '), 'mono text-ink')}
         </dl>
         <div>
-          ${block(labels.context, paragraph(item.context))} ${block(labels.actions, bulletList(item.actions))}
+          ${block(labels.context, paragraph(item.context))} ${block(item.actionsLabel ?? labels.actions, bulletList(item.actions))}
           ${block(labels.outcome, paragraph(item.outcome))} ${block(labels.next, paragraph(item.next))}
           ${block(
             labels.links,
