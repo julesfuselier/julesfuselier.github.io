@@ -15,7 +15,7 @@ import { route } from '../lib/routes.mjs';
 const THEME_BOOTSTRAP = `try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}`;
 
 /** Couleur de fond de la page dans chaque thème, pour la barre du navigateur. */
-const THEME_COLORS = { light: '#d8d6ce', dark: '#161c17' };
+const THEME_COLORS = { light: '#ecebe6', dark: '#1b2023' };
 
 /**
  * Données structurées schema.org décrivant l'auteur du site.
@@ -63,7 +63,8 @@ function head(ctx) {
     <meta property="og:image" content="${site.baseUrl + site.portrait}" />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
-    <link rel="preload" href="/assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/css/style.css" />
     <script>${raw(THEME_BOOTSTRAP)}</script>
     <script type="application/ld+json">${personJsonLd(ctx)}</script>
@@ -83,16 +84,16 @@ function header(ctx) {
   const home = route(lang, 'home');
   const other = LANGUAGES.find((code) => code !== lang);
   // En maintenance, les sections de l'accueil n'existent plus : pas de menu.
-  const links = ctx.site.maintenance ? [] : ['projects', 'recruiters', 'clients', 'journey', 'contact'];
-  const control = 'grid h-8 min-w-8 place-items-center rounded-full px-2 ring-1 ring-inset ring-hairline hover:bg-canvas';
+  const links = ctx.site.maintenance ? [] : ['projects', 'recruiters', 'clients', 'contact'];
+  const control = 'grid h-9 min-w-9 place-items-center px-2 ring-1 ring-inset ring-hairline hover:text-summit hover:ring-summit';
 
   return html`<header class="sticky top-0 z-10 border-b border-hairline bg-canvas-soft">
     <div class="page flex min-h-16 flex-wrap items-center gap-x-6 py-3 md:py-0">
-      <a href="${home}" class="mr-auto font-semibold tracking-[-0.02em] ${links.length > 0 ? 'md:mr-0' : ''}" translate="no">${ctx.site.author}</a>
+      <a href="${home}" class="name mr-auto text-[1.625rem] ${links.length > 0 ? 'md:mr-0' : ''}" translate="no">${ctx.site.author}</a>
       ${links.length > 0
         ? html`<nav aria-label="${t.nav.label}" class="order-last w-full overflow-x-auto [scrollbar-width:none] md:order-none md:mx-auto md:w-auto">
-        <ul class="-mx-3 flex gap-x-1 pt-2 text-sm text-body md:mx-0 md:pt-0">
-          ${links.map((id) => html`<li><a href="${home}#${id}" class="block whitespace-nowrap rounded-full px-3 py-1.5 hover:bg-canvas hover:text-ink">${t.nav[id]}</a></li>`)}
+        <ul class="-mx-3 flex gap-x-2 pt-2 text-[0.9375rem] text-ink md:mx-0 md:pt-0">
+          ${links.map((id) => html`<li><a href="${home}#${id}" class="block whitespace-nowrap px-3 py-1.5 hover:text-summit">${t.nav[id]}</a></li>`)}
         </ul>
       </nav>`
         : ''}
@@ -111,10 +112,10 @@ function header(ctx) {
  */
 function footer(ctx) {
   const { t, lang, site } = ctx;
-  return html`<footer class="border-t border-hairline py-8 text-sm text-body">
+  return html`<footer class="mono border-t border-hairline py-8">
     <div class="page flex flex-wrap gap-x-8 gap-y-2">
       <p class="mr-auto">© ${new Date().getFullYear()} <span translate="no">${site.author}</span>. ${t.footer.note}</p>
-      <a href="${route(lang, 'legal')}" class="hover:text-ink hover:underline hover:underline-offset-4">${t.footer.legal}</a>
+      <a href="${route(lang, 'legal')}" class="underline decoration-hairline underline-offset-4 hover:text-ink hover:decoration-ink">${t.footer.legal}</a>
     </div>
   </footer>`;
 }
@@ -130,7 +131,7 @@ export function renderPage(ctx, content) {
 <html lang="${ctx.lang}">
   ${head(ctx)}
   <body>
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-20 focus:rounded-full focus:bg-canvas focus:px-4 focus:py-2">${ctx.t.nav.skip}</a>
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-20 focus:bg-canvas focus:px-4 focus:py-2">${ctx.t.nav.skip}</a>
     ${header(ctx)}
     <main id="main">${content}</main>
     ${footer(ctx)}

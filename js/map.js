@@ -1,12 +1,17 @@
 /**
- * Chargeur du relief 3D.
+ * Chargeur des scènes 3D.
  *
- * La carte des projets existe d'abord en 2D, sans JavaScript. Ce petit module
- * décide si le navigateur peut afficher mieux, et ne télécharge Three.js
- * (le fichier lourd, `terrain.js`) que dans ce cas :
- *  - écran assez large : sur mobile, la carte 2D carrée reste plus lisible ;
+ * Le site existe d'abord sans JavaScript : une image fixe pour le randonneur
+ * de l'en-tête, une carte 2D pour les projets. Ce petit module décide si le
+ * navigateur peut afficher mieux, et ne télécharge Three.js (les fichiers
+ * lourds) que dans ce cas :
  *  - WebGL 2 disponible ;
- *  - le visiteur n'a pas demandé d'économiser ses données.
+ *  - le visiteur n'a pas demandé d'économiser ses données ;
+ *  - pour le relief de la carte seulement : écran assez large, car sur mobile
+ *    la carte 2D carrée reste plus lisible.
+ *
+ * Les deux scènes partagent le même Three.js (voir `scripts/build.mjs`) : il
+ * n'est téléchargé qu'une fois.
  */
 
 /** Largeur à partir de laquelle la carte passe au format panoramique (voir main.css). */
@@ -21,14 +26,23 @@ function supportsWebGL() {
   }
 }
 
-const map = document.querySelector('[data-project-map]');
-const wide = window.matchMedia(WIDE_SCREEN);
 const saveData = navigator.connection?.saveData === true;
 
-if (map && wide.matches && !saveData && supportsWebGL()) {
-  import('./terrain.js')
-    .then(({ mountTerrain }) => mountTerrain(map, wide))
-    .catch(() => {
-      // Le relief est un supplément : en cas d'échec, la carte 2D reste affichée.
-    });
+if (!saveData && supportsWebGL()) {
+  // Les scènes sont des suppléments : en cas d'échec, l'image fixe et la
+  // carte 2D restent affichées.
+  const hiker = document.querySelector('[data-hiker]');
+  if (hiker) {
+    import('./hiker.js')
+      .then(({ mountHiker }) => mountHiker(hiker))
+      .catch(() => {});
+  }
+
+  const map = document.querySelector('[data-project-map]');
+  const wide = window.matchMedia(WIDE_SCREEN);
+  if (map && wide.matches) {
+    import('./terrain.js')
+      .then(({ mountTerrain }) => mountTerrain(map, wide))
+      .catch(() => {});
+  }
 }

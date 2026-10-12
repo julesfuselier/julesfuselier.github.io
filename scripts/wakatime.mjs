@@ -1,7 +1,8 @@
 /**
  * Relève les heures passées sur chaque projet dans WakaTime et les écrit
- * dans `src/content/site.json` (champ `hours`), d'où la compilation tire la
- * hauteur des sommets (voir `src/lib/altitude.mjs`).
+ * dans `src/content/site.json` (champ `hours`). Ces heures sont un relevé
+ * interne : elles ne fixent plus la hauteur des sommets, qui dépend de
+ * l'étape atteinte par chaque projet (voir `src/lib/stage.mjs`).
  *
  *   WAKATIME_API_KEY=… npm run wakatime            met à jour les heures
  *   WAKATIME_API_KEY=… npm run wakatime -- --list  affiche les noms de projets WakaTime

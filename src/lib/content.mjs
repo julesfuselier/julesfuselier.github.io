@@ -12,6 +12,7 @@
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
+import { STAGES, isStage } from './stage.mjs';
 import { typesetDeep } from './typography.mjs';
 
 /** Langues publiées. La première est la langue par défaut (racine du site). */
@@ -134,15 +135,17 @@ export function validateContent({ site, locales }) {
     }
   }
 
+  // L'étape atteinte fixe la hauteur du sommet : elle doit être connue, et
+  // chaque langue doit avoir son libellé.
+  for (const [slug, project] of Object.entries(site.projects)) {
+    if (!isStage(project.stage)) errors.push(`${slug} : étape « ${project.stage} » inconnue, attendu ${Object.keys(STAGES).join(', ')} (site.json)`);
+  }
   for (const lang of LANGUAGES) {
-    for (const proof of locales[lang].recruiters.proofs) {
-      if (!site.projects[proof.project]) errors.push(`${lang} : preuve liée à un projet inconnu « ${proof.project} »`);
+    for (const stage of Object.keys(STAGES)) {
+      if (!locales[lang].projects.stages?.[stage]) errors.push(`${lang}.projects.stages.${stage} : libellé manquant`);
     }
   }
 
-  if (Object.values(site.projects).some((project) => typeof project.hours !== 'number')) {
-    warnings.push('site.json : heures de projet manquantes, tous les sommets ont la même hauteur');
-  }
   if (!site.publisher.siret) warnings.push('site.json : SIRET non renseigné, les mentions légales sont incomplètes');
   return { errors, warnings };
 }

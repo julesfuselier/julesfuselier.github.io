@@ -25,7 +25,7 @@ src/content/*.json  ──┐
 src/templates/*.mjs ──┘
 ```
 
-Chaque page est écrite en HTML complet à la compilation. Le navigateur ne reconstruit rien : le site se lit sans JavaScript, et les moteurs de recherche voient tout le texte. Deux scripts s'ajoutent en supplément : `js/site.js` (bouton de thème) et `js/map.js` (relief 3D, voir plus bas).
+Chaque page est écrite en HTML complet à la compilation. Le navigateur ne reconstruit rien : le site se lit sans JavaScript, et les moteurs de recherche voient tout le texte. Deux scripts s'ajoutent en supplément : `js/site.js` (bouton de thème) et `js/map.js` (scènes 3D : randonneur de l'en-tête et relief de la carte, voir plus bas).
 
 ## Organisation
 
@@ -41,8 +41,9 @@ Chaque page est écrite en HTML complet à la compilation. Le navigateur ne reco
 | `src/templates/` | Gabarits : enveloppe commune, accueil, projet, pages simples |
 | `src/styles/main.css` | Couleurs, polices et composants CSS. Compilé par Tailwind |
 | `src/js/site.js` | Bouton de thème |
-| `src/lib/altitude.mjs` | Calcule l'altitude de chaque sommet à partir des heures passées |
-| `src/js/map.js` | Décide si le relief 3D peut s'afficher, et ne le télécharge que dans ce cas |
+| `src/lib/stage.mjs` | Étapes des projets (exploration, prototype, livré, en service) et hauteur de chaque sommet |
+| `src/js/map.js` | Décide si les scènes 3D peuvent s'afficher, et ne les télécharge que dans ce cas |
+| `src/js/hiker.js` | Randonneur 3D animé de l'en-tête (Three.js), reconstruit depuis la scène Spline |
 | `src/js/terrain.js` | Relief 3D de la carte des projets (Three.js), commenté pour qui découvre Three.js |
 | `scripts/build.mjs` | Compilation |
 | `scripts/dev.mjs` | Serveur de développement |
@@ -64,7 +65,7 @@ Modifiez la clé dans `src/content/fr.json` **et** dans `src/content/en.json`, p
 
 ### Ajouter un projet
 
-1. Dans `src/content/site.json` : ajoutez l'identifiant à `projectOrder` (l'ordre d'affichage) et une entrée dans `projects` avec `stack`, `links` et `summit` (position du sommet sur la carte de l'accueil, en pourcentage).
+1. Dans `src/content/site.json` : ajoutez l'identifiant à `projectOrder` (l'ordre d'affichage) et une entrée dans `projects` avec `stage` (étape atteinte : `exploration`, `prototype`, `delivered` ou `in-service`), `stack`, `links` et `summit` (position du sommet sur la carte de l'accueil, en pourcentage).
 2. Dans `fr.json` et `en.json` : ajoutez les textes sous `projects.items.<identifiant>`. Champs obligatoires : `shortTitle`, `title`, `kicker`, `summary`, `context`, `role`, `actions`, `outcome`. `period` et `next` peuvent valoir `null`.
 3. `npm run build`. La page du projet, son sommet sur la carte et le plan du site sont créés automatiquement.
 
@@ -82,12 +83,17 @@ Dans `src/content/site.json`, `"maintenance": true` remplace l'accueil et les pa
 
 Les règles visuelles complètes sont dans [`DESIGN.md`](DESIGN.md). En résumé :
 
-- **Palette « Dolomites »** : pierre `#D8D6CE` (fond), forêt `#3C4A3A` (boutons, section entreprises), terre cuite `#B75B39` (repères de sommet), rose `#D9A398` (liens en thème sombre). Les couleurs sont des variables CSS dans `src/styles/main.css` ; le thème sombre redéfinit ces variables, sans classe supplémentaire dans les gabarits.
-- **Polices** : Space Grotesk pour le texte, JetBrains Mono pour les données courtes (technologies, périodes). Elles sont copiées depuis `node_modules` : aucune requête vers un service tiers.
+- **Direction « Matériel »** : fond ardoise, titres condensés, données en chasse fixe, un orange de balisage pour tout ce qui appartient au sentier. Thème sombre et thème clair, avec les mêmes rôles de couleur. Les couleurs sont des variables CSS dans `src/styles/main.css` ; le thème change ces variables, sans classe supplémentaire dans les gabarits.
+- **Polices** : Barlow Condensed pour les titres, Hanken Grotesk pour le texte, IBM Plex Mono pour les données courtes. Elles sont copiées depuis `node_modules` : aucune requête vers un service tiers.
+- **Randonneur 3D** : dans l'en-tête, un personnage marche sur un socle de montagne. La scène est modelée dans Spline et reconstruite en Three.js par `src/js/hiker.js`, sans dépendre de Spline au chargement. Une image fixe par thème (`assets/img/hiker-*.webp`) s'affiche d'abord et reste en place sans WebGL ou en économie de données. L'animation ne tourne que quand la scène est visible, et pas du tout avec `prefers-reduced-motion`.
 - **Carte topographique** : une seule carte, calculée à la compilation, où chaque sommet est un projet (positions dans `site.json`, champ `summit`). Chaque sommet est un lien ; sur une page de projet, la carte mène aux autres projets.
-- **Relief 3D** : sur un écran d'au moins 640 px, si le navigateur gère WebGL 2, `map.js` télécharge `terrain.js` (Three.js, environ 135 Ko compressé) et remplace le fond de la carte par le même relief en perspective. On peut le faire tourner en glissant. Les étiquettes restent les liens HTML d'origine. Sans WebGL, sur mobile ou en économie de données, la carte 2D reste affichée.
-- **Hauteur des sommets** : elle dépend des heures passées sur chaque projet (champ `hours` de `src/content/site.json`), sur une échelle logarithmique entre 820 m et 2 650 m. La formule est dans `src/lib/altitude.mjs`. Tant qu'il manque les heures d'un projet, tous les sommets ont la même hauteur et la compilation le signale.
-- **Relevé automatique des heures** : dans `site.json`, chaque projet liste ses dépôts GitHub sous `repos`. `npm run wakatime` interroge WakaTime avec le nom de chaque dépôt (c'est le nom que WakaTime donne au projet) et additionne les heures. Si un projet porte un autre nom dans WakaTime, le champ `wakatime` le précise. Le workflow `.github/workflows/wakatime.yml` fait ce relevé chaque lundi avec le secret `WAKATIME_API_KEY`, recompile et publie. `npm run wakatime -- --list` affiche les noms de projets du compte. Un projet sans dépôt garde des heures saisies à la main, et `untrackedHours` ajoute au relevé une estimation des heures passées hors de WakaTime.
+- **Hauteur des sommets** : elle dit jusqu'où le projet est allé (champ `stage` de `site.json`) : exploration, prototype, livré, puis en service, c'est-à-dire utilisé par de vraies personnes. Les valeurs sont dans `src/lib/stage.mjs`. Les projets en service portent un drapeau.
+- **Relief 3D** : sur un écran d'au moins 640 px, si le navigateur gère WebGL 2, la carte passe en perspective. On peut la faire tourner en glissant. Les étiquettes restent les liens HTML d'origine. Three.js est partagé entre le relief et le randonneur (`js/chunk-*.js`) : il n'est téléchargé qu'une fois.
+- **Relevé des heures** : `npm run wakatime` (et le workflow `.github/workflows/wakatime.yml`, chaque lundi) relève toujours les heures WakaTime de chaque projet dans `site.json`. C'est un relevé interne : les heures ne fixent plus la hauteur des sommets.
+
+### Régénérer les images fixes du randonneur
+
+Après une modification de `src/js/hiker.js`, compilez puis rendez la scène immobile dans un navigateur, sur fond transparent, en 960 × 720, une fois par thème (`document.documentElement.dataset.theme`), et enregistrez le canevas sous `assets/img/hiker-dark.webp` et `assets/img/hiker-light.webp`. La fonction `mountHiker(element, { still: true })` donne exactement cette image.
 
 ## Règles de contribution
 

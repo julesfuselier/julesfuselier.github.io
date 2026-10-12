@@ -1,5 +1,5 @@
 {
-  "maintenance": true,
+  "maintenance": false,
   "baseUrl": "https://julesfuselier.fr",
   "author": "Jules Fuselier",
   "email": "contact@julesfuselier.fr",
@@ -22,6 +22,7 @@
   "projects": {
     "agape": {
       "years": "2026",
+      "stage": "in-service",
       "hours": 67,
       "untrackedHours": 67,
       "repos": [
@@ -47,6 +48,7 @@
     },
     "preity-india": {
       "years": "2026",
+      "stage": "in-service",
       "hours": 6,
       "repos": [],
       "stack": [
@@ -67,6 +69,7 @@
     },
     "relations-internationales": {
       "years": "2025–2026",
+      "stage": "delivered",
       "hours": 164,
       "repos": [
         "julesfuselier/SAE-A2_intra-iut-relations-internationales"
@@ -86,6 +89,7 @@
     },
     "pathside": {
       "years": "2026",
+      "stage": "prototype",
       "hours": 8,
       "repos": [
         "julesfuselier/Pathside"
@@ -103,6 +107,7 @@
     },
     "superbomberman": {
       "years": "2025",
+      "stage": "delivered",
       "hours": 44,
       "repos": [
         "julesfuselier/S201-SuperBomberman-Remake"
