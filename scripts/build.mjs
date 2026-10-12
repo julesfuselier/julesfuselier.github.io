@@ -32,8 +32,11 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 
 /** Polices copiées depuis `node_modules` vers `assets/fonts/`. */
 const FONTS = [
-  '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2',
-  '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2',
+  '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2',
+  '@fontsource/barlow-condensed/files/barlow-condensed-latin-700-normal.woff2',
+  '@fontsource/barlow-condensed/files/barlow-condensed-latin-800-normal.woff2',
+  '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2',
+  '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2',
 ];
 
 /** Anciennes adresses du site, redirigées vers la liste des projets. */
@@ -160,11 +163,13 @@ export async function buildSite() {
     ...FONTS.map((font) => copyFile(join(ROOT, 'node_modules', font), join(ROOT, 'assets/fonts', font.split('/').pop()))),
     copyFile(join(ROOT, 'src/js/site.js'), join(ROOT, 'js/site.js')),
     copyFile(join(ROOT, 'src/js/map.js'), join(ROOT, 'js/map.js')),
-    // Relief 3D : Three.js et le générateur de relief réunis en un seul
-    // fichier, téléchargé à la demande par `map.js`.
+    // Scènes 3D (relief de la carte, randonneur de l'en-tête), téléchargées à
+    // la demande par `map.js`. Three.js part dans un fichier partagé
+    // (`js/chunk-*.js`) : l'accueil, qui affiche les deux, ne le charge qu'une fois.
     bundle({
-      entryPoints: [join(ROOT, 'src/js/terrain.js')],
-      outfile: join(ROOT, 'js/terrain.js'),
+      entryPoints: [join(ROOT, 'src/js/terrain.js'), join(ROOT, 'src/js/hiker.js')],
+      outdir: join(ROOT, 'js'),
+      splitting: true,
       bundle: true,
       minify: true,
       format: 'esm',

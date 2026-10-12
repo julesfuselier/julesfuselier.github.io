@@ -3,9 +3,10 @@
  *
  * Organisation :
  *  1. polices auto-hébergées (aucune requête vers un service tiers) ;
- *  2. jetons de couleur, en clair et en sombre ;
+ *  2. jetons de couleur, en sombre et en clair ;
  *  3. composants réutilisés par plusieurs gabarits.
  * Les classes utilitaires Tailwind restent dans les gabarits (`src/templates/`).
+ * Les rôles et les règles sont décrits dans DESIGN.md.
  */
 
 @tailwind base;
@@ -13,80 +14,88 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Space Grotesk Variable';
+  font-family: 'Hanken Grotesk Variable';
   font-style: normal;
-  font-weight: 300 700;
+  font-weight: 100 900;
   font-display: swap;
-  src: url('/assets/fonts/space-grotesk-latin-wght-normal.woff2') format('woff2');
+  src: url('/assets/fonts/hanken-grotesk-latin-wght-normal.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'JetBrains Mono Variable';
+  font-family: 'Barlow Condensed';
   font-style: normal;
-  font-weight: 100 800;
+  font-weight: 700;
   font-display: swap;
-  src: url('/assets/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');
+  src: url('/assets/fonts/barlow-condensed-latin-700-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/assets/fonts/barlow-condensed-latin-800-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/assets/fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2');
 }
 
 @layer base {
   /*
-   * Couleurs, par rôle (détail dans DESIGN.md).
-   * Palette « Dolomites » : pierre pour les surfaces, forêt pour l'action
-   * principale et le bandeau inversé, terre cuite pour les seuls repères de
-   * sommet. Texte et liens gardent un contraste d'au moins 4,5:1.
+   * Couleurs, par rôle. Le thème clair est la valeur par défaut du CSS ; le
+   * sombre, référence de la direction, s'applique au choix du visiteur ou
+   * selon le système. Texte et liens gardent un contraste d'au moins 4,5:1.
    */
   :root {
     color-scheme: light;
-    --canvas-soft: #d8d6ce;
-    --canvas: #e6e4dd;
-    --ink: #1c231d;
-    --body: #46523f;
-    --hairline: #bebcb0;
-    --primary: #3c4a3a;
-    --on-primary: #f0eee8;
-    --summit: #b75b39;
-    --band: #3c4a3a;
-    --band-card: #465544;
-    --band-ink: #f0eee8;
-    --band-body: #c4cabd;
-    --band-hairline: #5f6e5c;
+    --canvas-soft: #ecebe6;
+    --canvas: #f6f5f1;
+    --ink: #1b2023;
+    --body: #4e5a5f;
+    --hairline: #c9ccc6;
+    --primary: #1b2023;
+    --on-primary: #eef0ec;
+    --summit: #a8461a;
   }
 
   /* Thème sombre : choisi par le visiteur… */
   :root[data-theme='dark'] {
     color-scheme: dark;
-    --canvas-soft: #161c17;
-    --canvas: #1f2620;
-    --ink: #e4e2da;
-    --body: #a3aa9e;
-    --hairline: #333d34;
-    --primary: #e4e2da;
-    --on-primary: #161c17;
-    --summit: #cf6f4c;
-    --band: #232b24;
-    --band-card: #2b352c;
-    --band-ink: #e4e2da;
-    --band-body: #a3aa9e;
-    --band-hairline: #3d483e;
+    --canvas-soft: #1b2023;
+    --canvas: #232a2e;
+    --ink: #eef0ec;
+    --body: #a9b2b5;
+    --hairline: #343c40;
+    --primary: #eef0ec;
+    --on-primary: #1b2023;
+    --summit: #f07a3e;
   }
 
   /* … ou hérité du système tant qu'il n'a rien choisi. */
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme='light']) {
       color-scheme: dark;
-      --canvas-soft: #161c17;
-      --canvas: #1f2620;
-      --ink: #e4e2da;
-      --body: #a3aa9e;
-      --hairline: #333d34;
-      --primary: #e4e2da;
-      --on-primary: #161c17;
-      --summit: #cf6f4c;
-      --band: #232b24;
-      --band-card: #2b352c;
-      --band-ink: #e4e2da;
-      --band-body: #a3aa9e;
-      --band-hairline: #3d483e;
+      --canvas-soft: #1b2023;
+      --canvas: #232a2e;
+      --ink: #eef0ec;
+      --body: #a9b2b5;
+      --hairline: #343c40;
+      --primary: #eef0ec;
+      --on-primary: #1b2023;
+      --summit: #f07a3e;
     }
   }
 
@@ -127,11 +136,6 @@
     outline-offset: 3px;
   }
 
-  /* Sur le bandeau « forêt », la terre cuite ne ressort pas assez : contour clair. */
-  .bg-band :focus-visible {
-    outline-color: var(--band-ink);
-  }
-
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -140,76 +144,271 @@
 }
 
 @layer components {
-  /* Conteneur de page : 1200 px au plus, marges respectant les encoches. */
+  /* Conteneur de page : 1240 px au plus, marges respectant les encoches. */
   .page {
     @apply mx-auto w-full max-w-page;
     padding-left: max(1.5rem, env(safe-area-inset-left));
     padding-right: max(1.5rem, env(safe-area-inset-right));
   }
 
+  @media (min-width: 768px) {
+    .page {
+      padding-left: max(2rem, env(safe-area-inset-left));
+      padding-right: max(2rem, env(safe-area-inset-right));
+    }
+  }
+
   /*
-   * Titres : graisse 600 au plus, interlettrage négatif marqué, casse de
-   * phrase. C'est la voix typographique du site.
+   * Titres : Barlow Condensed, en casse de phrase. C'est la voix
+   * typographique du site, celle des cartes et du matériel de montagne.
    */
   .display-xl {
-    @apply text-[2.5rem] font-semibold leading-[1.02] tracking-[-0.045em] sm:text-[3.5rem] lg:text-[4rem];
+    @apply font-display text-[2.75rem] font-bold leading-[1] tracking-[-0.005em] sm:text-[4rem] lg:text-[4.75rem];
   }
 
   .display-lg {
-    @apply text-[1.75rem] font-semibold leading-[1.12] tracking-[-0.04em] sm:text-[2.25rem];
+    @apply font-display text-[2.25rem] font-bold leading-[1.02] tracking-[-0.005em] sm:text-[3.25rem];
   }
 
   .display-md {
-    @apply text-xl font-semibold leading-snug tracking-[-0.03em];
+    @apply font-display text-2xl font-bold leading-tight sm:text-[1.75rem];
+  }
+
+  /* Nom court (projet, bouton d'en-tête) : capitales condensées. Jamais une phrase. */
+  .name {
+    @apply font-display font-extrabold uppercase leading-[0.95] tracking-[0.005em];
+    transition: color 150ms;
   }
 
   .lead {
-    @apply max-w-[40rem] text-lg leading-7 text-body;
+    @apply max-w-[38rem] text-lg leading-[1.6] text-body;
   }
 
-  /* Chasse fixe : réservée à la couche technique (repères, technologies, dates). */
+  /* Chasse fixe : réservée à la couche technique (repères, technologies, dates, étapes). */
   .mono {
     @apply font-mono text-[0.8125rem] leading-5 text-body;
     font-variant-numeric: tabular-nums;
   }
 
-  /* Boutons : une seule forme, la pilule. Le bouton plein est l'action principale. */
-  .btn {
-    @apply inline-flex h-12 items-center rounded-full px-6 font-medium;
-    transition: background-color 150ms, opacity 150ms;
+  /*
+   * Boutons : un bloc de texte et une case flèche séparés par un filet.
+   * Le bouton plein est l'action principale de l'écran.
+   */
+  .btn-primary,
+  .btn-secondary {
+    @apply inline-flex min-h-[3.25rem] items-stretch font-mono text-sm font-medium;
+    transition:
+      background-color 150ms,
+      color 150ms,
+      box-shadow 150ms;
   }
 
   .btn-primary {
-    @apply btn bg-primary text-on-primary hover:opacity-85;
+    @apply bg-primary text-on-primary;
   }
 
   .btn-secondary {
-    @apply btn bg-canvas text-ink ring-1 ring-inset ring-hairline hover:bg-canvas-soft;
+    @apply text-ink;
+    box-shadow: inset 0 0 0 1px var(--ink);
   }
 
-  /* Lien dans le texte : encre soulignée, le soulignement s'épaissit au survol. */
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    @apply bg-summit text-canvas-soft;
+    box-shadow: none;
+  }
+
+  /* Bouton sans case flèche (page de maintenance) : le texte suffit. */
+  .btn-primary:not(:has(.btn-label)),
+  .btn-secondary:not(:has(.btn-label)) {
+    @apply items-center px-5;
+  }
+
+  .btn-label {
+    @apply flex min-w-0 items-center px-5;
+  }
+
+  .btn-icon {
+    @apply grid w-[3.25rem] shrink-0 place-items-center;
+    border-left: 1px solid currentColor;
+  }
+
+  /* Lien secondaire en forme de bouton, en filet discret (réseaux sociaux). */
+  .btn-plain {
+    @apply inline-flex min-h-[3.25rem] items-center px-5 font-mono text-sm ring-1 ring-inset ring-hairline;
+    transition:
+      color 150ms,
+      box-shadow 150ms;
+  }
+
+  .btn-plain:hover {
+    @apply text-summit ring-summit;
+  }
+
+  /* Lien dans le texte : encre soulignée, le soulignement prend la couleur du balisage au survol. */
   .link {
-    @apply font-medium text-ink underline decoration-hairline decoration-2 underline-offset-4 hover:decoration-ink;
+    @apply font-medium text-ink underline decoration-hairline decoration-2 underline-offset-4 hover:decoration-summit;
   }
 
   /*
-   * Carte : surface un cran plus claire que la page, filet intérieur et
-   * ombre empilée très légère. Jamais d'ombre portée lourde.
+   * Grand bouton d'en-tête, un par public. Au survol, le balisage remplit le
+   * bouton de gauche à droite et la flèche glisse : la seule mise en scène
+   * des boutons du site.
    */
-  .card {
-    @apply rounded-lg bg-canvas p-6;
-    box-shadow:
-      inset 0 0 0 1px var(--hairline),
-      0 1px 1px rgb(0 0 0 / 0.02),
-      0 2px 2px rgb(0 0 0 / 0.04);
+  .cta {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    min-height: 6rem;
+    text-decoration: none;
+    transition: transform 160ms ease;
   }
 
-  a.card {
-    transition: background-color 150ms;
+  .cta-filled {
+    @apply bg-primary text-on-primary;
   }
 
-  a.card:hover {
-    background-color: var(--canvas-soft);
+  .cta-outline {
+    @apply text-ink;
+    box-shadow: inset 0 0 0 1px var(--ink);
+  }
+
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--summit);
+    clip-path: inset(0 0 0 100%);
+    transition: clip-path 480ms cubic-bezier(0.75, 0, 0.2, 1);
+  }
+
+  .cta:hover::before,
+  .cta:focus-visible::before {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .cta:hover,
+  .cta:focus-visible {
+    @apply text-canvas-soft;
+  }
+
+  .cta:active {
+    transform: scale(0.985);
+  }
+
+  .cta-text {
+    @apply flex flex-1 flex-col justify-center gap-1.5 px-6 py-4;
+  }
+
+  .cta-sub {
+    @apply text-[0.9375rem] leading-snug;
+    opacity: 0.78;
+  }
+
+  .cta-arrow {
+    position: relative;
+    width: 5.5rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-left: 1px solid currentColor;
+  }
+
+  .cta-arrow svg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: -0.75rem 0 0 -0.75rem;
+    transition: transform 420ms cubic-bezier(0.75, 0, 0.2, 1);
+  }
+
+  .cta-arrow-in {
+    transform: translateX(-4rem);
+  }
+
+  .cta:hover .cta-arrow-out {
+    transform: translateX(4rem);
+  }
+
+  .cta:hover .cta-arrow-in {
+    transform: translateX(0);
+  }
+
+  /*
+   * Randonneur 3D de l'en-tête (voir src/js/hiker.js). L'image fixe du thème
+   * courant s'affiche d'abord ; le canevas la remplace dès que la scène est
+   * prête. Le format reste le même pour qu'aucun texte ne bouge.
+   */
+  .hiker {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    margin: 0;
+    max-width: 40rem;
+    width: 100%;
+    justify-self: center;
+  }
+
+  .hiker-poster,
+  .hiker canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hiker-poster {
+    object-fit: contain;
+    transition: opacity 400ms;
+  }
+
+  .hiker-poster-light {
+    display: none;
+  }
+
+  :root[data-theme='light'] .hiker-poster-dark {
+    display: none;
+  }
+
+  :root[data-theme='light'] .hiker-poster-light {
+    display: block;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme='dark']) .hiker-poster-dark {
+      display: none;
+    }
+
+    :root:not([data-theme='dark']) .hiker-poster-light {
+      display: block;
+    }
+  }
+
+  .hiker.is-3d .hiker-poster {
+    opacity: 0;
+  }
+
+  .hiker canvas {
+    opacity: 0;
+    transition: opacity 400ms;
+  }
+
+  .hiker.is-3d canvas {
+    opacity: 1;
+  }
+
+  /* Ligne de la liste des projets : nom, phrase, étape atteinte. */
+  .project-row {
+    @apply grid gap-x-10 gap-y-3 border-t border-hairline py-6 md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_11rem] md:items-baseline;
+  }
+
+  /* Repère d'étape : couleur du texte, drapeau en balisage. */
+  .stage-mark {
+    flex-shrink: 0;
+    overflow: visible;
   }
 
   /*
@@ -288,11 +487,10 @@
   .project-trail path {
     fill: none;
     stroke: var(--summit);
-    stroke-width: 1.5;
-    stroke-dasharray: 5 5;
+    stroke-width: 2;
+    stroke-dasharray: 7 6;
     stroke-linecap: round;
     vector-effect: non-scaling-stroke;
-    opacity: 0.85;
   }
 
   /* Sommet : un point d'ancrage aux coordonnées (en %) fournies par le gabarit. */
@@ -302,25 +500,50 @@
     top: var(--y);
   }
 
+  /* Repère du sommet (triangle, drapeau…), posé la pointe sur le point d'ancrage. */
   .summit-dot {
     position: absolute;
     left: 0;
     top: 0;
-    width: 0.75rem;
-    height: 0.75rem;
-    border-radius: 9999px;
-    background-color: var(--summit);
-    outline: 3px solid var(--canvas-soft);
-    transform: translate(-50%, -50%);
+    display: block;
+    color: var(--ink);
+    transform: translate(-50%, -78%);
+    filter: drop-shadow(0 0 2px var(--canvas-soft)) drop-shadow(0 0 2px var(--canvas-soft));
   }
 
-  /* Étiquette du sommet, sous le point : centrée, ou calée près des bords. */
+  .summit-dot .stage-mark {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  /* Étiquette du sommet, sous le repère : centrée, ou calée près des bords. */
   .summit-label {
-    @apply absolute top-3 whitespace-nowrap rounded-xl bg-canvas-soft px-2 py-0.5 text-sm font-medium text-ink sm:rounded-full;
+    @apply absolute top-2.5 flex flex-col whitespace-nowrap text-ink;
+    text-shadow:
+      0 0 3px var(--canvas-soft),
+      0 0 6px var(--canvas-soft),
+      0 0 10px var(--canvas-soft);
+  }
+
+  .summit-name {
+    @apply font-display text-[1.0625rem] font-bold uppercase tracking-[0.02em] sm:text-[1.1875rem];
+  }
+
+  a.summit-label:hover .summit-name {
+    color: var(--summit);
+  }
+
+  .summit-label.is-current .summit-name {
+    color: var(--summit);
+  }
+
+  .summit-meta {
+    @apply font-mono text-xs text-body;
+    font-variant-numeric: tabular-nums;
   }
 
   .summit-label-center {
-    text-align: center;
+    align-items: center;
     left: 0;
     transform: translateX(-50%);
   }
@@ -330,31 +553,13 @@
   }
 
   .summit-label-end {
-    text-align: right;
+    align-items: flex-end;
     right: -0.75rem;
   }
 
   /*
-   * Altitude du sommet, sous le nom. Le triangle reprend la terre cuite du
-   * point ; le chiffre reste dans la couleur du texte, pour être lisible.
-   */
-  .summit-altitude {
-    @apply block font-mono text-xs font-normal text-body;
-    font-variant-numeric: tabular-nums;
-  }
-
-  /*
-   * Année du projet : chasse fixe, sans soulignement. Sous le nom sur mobile,
-   * où la carte est étroite et les étiquettes proches ; à sa suite ensuite.
-   */
-  .summit-date {
-    @apply block font-mono text-xs font-normal text-body sm:ml-1 sm:inline-block;
-    font-variant-numeric: tabular-nums;
-  }
-
-  /*
-   * Entrée de l'accueil. Les éléments montent l'un après l'autre : badge,
-   * titre mot par mot, chapeau, boutons, carte. Tout est en CSS, donc visible
+   * Entrée de l'accueil. Les éléments montent l'un après l'autre : titre mot
+   * par mot, chapeau, disponibilités, boutons. Tout est en CSS, donc visible
    * même sans JavaScript, et coupé pour qui demande moins de mouvement.
    */
   @keyframes hero-rise {
@@ -382,9 +587,9 @@
   .hero-accent-trail {
     position: absolute;
     left: 0;
-    bottom: -0.12em;
+    bottom: -0.1em;
     width: 100%;
-    height: 0.28em;
+    height: 0.24em;
     overflow: visible;
     /* Le trait se dévoile de gauche à droite, comme un sentier qu'on trace. */
     clip-path: inset(-50% 100% -50% 0);
@@ -417,50 +622,35 @@
     /* Posé sur chaque mot : un soulignement ne traverse pas les blocs en ligne. */
     .hero-accent .hero-word {
       text-decoration: underline 3px var(--summit);
-      text-underline-offset: 0.18em;
+      text-underline-offset: 0.16em;
     }
 
     .hero-accent-trail {
       display: none;
     }
-  }
 
-  /* Point « disponible » du badge : une onde part régulièrement du point. */
-  .hero-pulse {
-    position: relative;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 9999px;
-    background-color: var(--summit);
-  }
-
-  .hero-pulse::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background-color: var(--summit);
-    animation: hero-ping 2.4s cubic-bezier(0, 0, 0.2, 1) 1.2s infinite;
-  }
-
-  @keyframes hero-ping {
-    70%,
-    100% {
-      transform: scale(2.6);
-      opacity: 0;
+    .cta-arrow {
+      width: 4rem;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .hero-in,
-    .hero-word,
-    .hero-pulse::after {
+    .hero-word {
       animation: none;
     }
 
     .hero-accent-trail {
       animation: none;
       clip-path: none;
+    }
+
+    .cta,
+    .cta::before,
+    .cta-arrow svg,
+    .hiker-poster,
+    .hiker canvas {
+      transition: none;
     }
   }
 }

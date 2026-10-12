@@ -42,4 +42,4 @@ export function outputFile(url) {
 }
 
 /** Dossiers entièrement générés, supprimés avant chaque compilation. */
-export const GENERATED_DIRS = ['en', 'projets', 'mentions-legales', 'assets/contours', 'assets/fonts'];
+export const GENERATED_DIRS = ['en', 'projets', 'mentions-legales', 'assets/contours', 'assets/fonts', 'js'];

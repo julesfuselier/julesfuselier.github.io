@@ -20,15 +20,33 @@
     "langSwitchCode": "FR"
   },
   "hero": {
-    "badge": "Internship wanted: July to December 2027",
     "title": "I build web tools and bring AI in where it {saves time}.",
     "lead": "Engineering student at UTT (Université de technologie de Troyes) and freelance developer. 5 months at Agapé: an audit of 9 departments and a large language model (LLM) monitoring tool put into service.",
-    "clientCta": "You have a project",
     "mapLabel": "Map of projects",
-    "portraitAlt": "Portrait of Jules Fuselier"
+    "portraitAlt": "Portrait of Jules Fuselier",
+    "facts": [
+      {
+        "label": "Internship",
+        "value": "July to December 2027"
+      },
+      {
+        "label": "Freelance",
+        "value": "quote on request"
+      }
+    ],
+    "ctas": {
+      "recruiters": {
+        "title": "You are hiring",
+        "text": "6-month engineering internship. Profile and CV."
+      },
+      "clients": {
+        "title": "You have a project",
+        "text": "Websites, tool integration, AI in your business."
+      }
+    }
   },
   "projects": {
-    "lead": "Each page says what is delivered and what is not there yet.",
+    "lead": "The higher the summit, the further the project went: from prototype to a tool people actually use. The flag marks projects in service.",
     "labels": {
       "context": "What was asked",
       "role": "Role",
@@ -39,7 +57,8 @@
       "next": "What is left to do",
       "links": "See the project",
       "back": "All projects",
-      "others": "The other projects"
+      "others": "The other projects",
+      "stage": "Stage reached"
     },
     "linkLabels": {
       "site": "Visit the live site",
@@ -101,7 +120,7 @@
           "195 PHPUnit tests, unit and integration, PHPStan static analysis, PSR-12 standard and GitHub Actions continuous integration"
         ],
         "outcome": "A complete, tested application designed for more than 1,000 students.",
-        "next": "It is not used in production yet. The code is private: demo on request."
+        "next": "Another team is taking the project over to finish it. It is not used in production yet. The code is private: demo on request."
       },
       "pathside": {
         "shortTitle": "PathSide",
@@ -138,35 +157,17 @@
         "next": null
       }
     },
-    "headline": "5 projects, from company work to a personal build.",
-    "mapLegend": "Summit altitude: time spent on each project, on a logarithmic scale."
+    "headline": "Five projects, and how far each one went.",
+    "mapLegend": "Summit height: exploration, prototype, delivered, then in service (used by real people).",
+    "stages": {
+      "exploration": "Exploration",
+      "prototype": "Prototype",
+      "delivered": "Delivered",
+      "in-service": "In service"
+    }
   },
   "recruiters": {
     "lead": "Software development, applied AI or tech project management, in France.",
-    "seekingTitle": "What I am looking for",
-    "seeking": [
-      "6 months, from July to December 2027",
-      "Software development, applied AI or tech project management",
-      "In France"
-    ],
-    "proofsTitle": "What I have already done",
-    "proofs": [
-      {
-        "title": "Lead a project",
-        "text": "Project manager and product owner of a team of 5 on a platform covered by 195 tests.",
-        "project": "relations-internationales"
-      },
-      {
-        "title": "Report to decision-makers",
-        "text": "Audit of 9 departments and costed recommendations handed to general management.",
-        "project": "agape"
-      },
-      {
-        "title": "Deliver",
-        "text": "A live client website, co-developed working directly with the owner.",
-        "project": "preity-india"
-      }
-    ],
     "skillsTitle": "Skills",
     "skills": [
       {
@@ -276,6 +277,10 @@
       }
     ],
     "headline": "Education and experience since 2024."
+  },
+  "offMap": {
+    "title": "Off the map",
+    "text": "Hiking, mountains, the Faroe Islands, video games: I like to explore. That's where this site's map comes from."
   },
   "contact": {
     "linkedin": "LinkedIn",

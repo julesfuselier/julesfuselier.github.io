@@ -9,6 +9,7 @@ import { LANGUAGES, loadContent } from '../src/lib/content.mjs';
 import { html } from '../src/lib/html.mjs';
 import { outputFile, route } from '../src/lib/routes.mjs';
 import { renderSite } from '../scripts/build.mjs';
+import { HIKER_POSTERS } from '../src/templates/home.mjs';
 
 const content = await loadContent();
 // Le site complet est testé hors maintenance, quel que soit le réglage en
@@ -17,7 +18,16 @@ const { pages, assets } = renderSite({ ...content, site: { ...content.site, main
 const maintenance = renderSite({ ...content, site: { ...content.site, maintenance: true } });
 
 /** Fichiers présents dans le dépôt sans être générés par `renderSite`. */
-const STATIC_FILES = ['css/style.css', 'js/site.js', 'js/map.js', 'assets/img/favicon.png', content.site.portrait.slice(1), content.site.cvPath.slice(1), 'demo/demo-SuperBomberman.html'];
+const STATIC_FILES = [
+  'css/style.css',
+  'js/site.js',
+  'js/map.js',
+  'assets/img/favicon.png',
+  ...Object.values(HIKER_POSTERS).map((path) => path.slice(1)),
+  content.site.portrait.slice(1),
+  content.site.cvPath.slice(1),
+  'demo/demo-SuperBomberman.html',
+];
 
 test('chaque langue a son accueil, ses projets et ses mentions légales', () => {
   for (const lang of LANGUAGES) {
@@ -43,7 +53,8 @@ test('chaque page déclare sa langue, un titre unique et un seul h1', () => {
 });
 
 test('les liens internes pointent vers des fichiers existants', () => {
-  const known = new Set([...Object.keys(pages), ...Object.keys(assets), ...STATIC_FILES, 'assets/fonts/space-grotesk-latin-wght-normal.woff2']);
+  const fonts = ['hanken-grotesk-latin-wght-normal', 'barlow-condensed-latin-700-normal'].map((name) => `assets/fonts/${name}.woff2`);
+  const known = new Set([...Object.keys(pages), ...Object.keys(assets), ...STATIC_FILES, ...fonts]);
   for (const [file, page] of Object.entries(pages)) {
     for (const [, url] of page.matchAll(/(?:href|src)="(\/[^"#]*)(?:#[^"]*)?"/g)) {
       const target = url.endsWith('/') ? `${url.slice(1)}index.html` : url.slice(1);

@@ -4,7 +4,7 @@
 
 import { html } from '../lib/html.mjs';
 import { route } from '../lib/routes.mjs';
-import { bulletList, projectMap } from './components.mjs';
+import { bulletList, projectMap, stageMark } from './components.mjs';
 
 /** @typedef {import('./components.mjs').PageContext} PageContext */
 
@@ -17,7 +17,7 @@ import { bulletList, projectMap } from './components.mjs';
  */
 function fact(label, value, valueClasses = '') {
   if (!value) return '';
-  return html`<div class="border-t border-hairline py-4">
+  return html`<div class="border-t border-hairline py-3.5">
     <dt class="mono">${label}</dt>
     <dd class="mt-1 ${valueClasses}">${value}</dd>
   </div>`;
@@ -30,8 +30,8 @@ function fact(label, value, valueClasses = '') {
  */
 function block(title, content) {
   if (!content) return '';
-  return html`<section class="mt-12 first:mt-0">
-    <h2 class="display-md mb-3">${title}</h2>
+  return html`<section class="mt-14 first:mt-0">
+    <h2 class="display-md mb-4">${title}</h2>
     ${content}
   </section>`;
 }
@@ -46,21 +46,22 @@ export function projectPage(ctx, slug) {
   const item = t.projects.items[slug];
   const shared = site.projects[slug];
   const labels = t.projects.labels;
-  const paragraph = (text) => (text ? html`<p class="max-w-[40rem] leading-7">${text}</p>` : '');
+  const paragraph = (text) => (text ? html`<p class="max-w-[40rem] text-[1.0625rem] leading-relaxed text-body">${text}</p>` : '');
+  const stage = html`<span class="flex items-center gap-2">${stageMark(shared.stage)}${t.projects.stages[shared.stage]}</span>`;
 
   return html`<article>
     <div class="page pb-20 pt-12 sm:pt-16">
-      <a href="${route(lang, 'home')}#projects" class="link text-sm">${labels.back}</a>
+      <a href="${route(lang, 'home')}#projects" class="mono underline decoration-hairline underline-offset-4 hover:text-ink hover:decoration-ink">${labels.back}</a>
 
       <header class="mt-10">
         <p class="mono">${item.kicker}</p>
-        <h1 class="display-xl mt-4 max-w-[20ch] sm:text-[3rem] lg:text-[3.5rem]">${item.title}</h1>
+        <h1 class="display-xl mt-4 max-w-[20ch]">${item.title}</h1>
         <p class="lead mt-6">${item.summary}</p>
       </header>
 
       <div class="mt-16 grid gap-x-16 gap-y-12 lg:grid-cols-[18rem_minmax(0,1fr)]">
-        <dl class="border-b border-hairline lg:self-start">
-          ${fact(labels.role, item.role)} ${fact(labels.period, item.period)}
+        <dl class="border-b border-hairline lg:sticky lg:top-24 lg:self-start">
+          ${fact(labels.stage, stage, 'mono text-ink')} ${fact(labels.role, item.role)} ${fact(labels.period, item.period)}
           ${fact(labels.stack, shared.stack.join(', '), 'mono text-ink')}
         </dl>
         <div>
@@ -79,7 +80,7 @@ export function projectPage(ctx, slug) {
 
     <aside class="border-t border-hairline py-16" aria-labelledby="others-title">
       <div class="page">
-        <h2 id="others-title" class="display-md mb-10">${labels.others}</h2>
+        <h2 id="others-title" class="display-lg mb-10">${labels.others}</h2>
         ${projectMap(ctx, { label: labels.others, current: slug })}
       </div>
     </aside>

@@ -20,15 +20,33 @@
     "langSwitchCode": "EN"
   },
   "hero": {
-    "badge": "Stage recherché : juillet à décembre 2027",
     "title": "Je construis des outils web et j'intègre l'IA là où elle {fait gagner du temps}.",
     "lead": "Élève ingénieur à l'UTT (Université de technologie de Troyes) et micro-entrepreneur. 5 mois chez Agapé : audit de 9 services et mise en service d'un outil de veille par modèle de langage (LLM).",
-    "clientCta": "Vous avez un projet",
     "mapLabel": "Carte des projets",
-    "portraitAlt": "Portrait de Jules Fuselier"
+    "portraitAlt": "Portrait de Jules Fuselier",
+    "facts": [
+      {
+        "label": "Stage",
+        "value": "juillet à décembre 2027"
+      },
+      {
+        "label": "Missions",
+        "value": "sur devis"
+      }
+    ],
+    "ctas": {
+      "recruiters": {
+        "title": "Vous recrutez",
+        "text": "Stage ingénieur de 6 mois. Profil et CV."
+      },
+      "clients": {
+        "title": "Vous avez un projet",
+        "text": "Site, intégration d'outils, IA dans votre entreprise."
+      }
+    }
   },
   "projects": {
-    "lead": "Chaque page dit ce qui est livré et ce qui ne l'est pas encore.",
+    "lead": "Plus le sommet est haut, plus le projet est allé loin : du prototype jusqu'à l'outil utilisé pour de vrai. Le drapeau marque les projets en service.",
     "labels": {
       "context": "Ce qui était demandé",
       "role": "Rôle",
@@ -39,7 +57,8 @@
       "next": "Ce qui reste à faire",
       "links": "Voir le projet",
       "back": "Tous les projets",
-      "others": "Les autres projets"
+      "others": "Les autres projets",
+      "stage": "Étape atteinte"
     },
     "linkLabels": {
       "site": "Voir le site en ligne",
@@ -101,7 +120,7 @@
           "195 tests PHPUnit, unitaires et d'intégration, analyse statique PHPStan, standard PSR-12 et intégration continue GitHub Actions"
         ],
         "outcome": "Une application complète et testée, conçue pour plus de 1 000 étudiants.",
-        "next": "Elle n'est pas encore utilisée en production. Le code est privé : démonstration sur demande."
+        "next": "Une autre équipe reprend le projet pour le finaliser. Il n'est pas encore utilisé en production. Le code est privé : démonstration sur demande."
       },
       "pathside": {
         "shortTitle": "PathSide",
@@ -138,35 +157,17 @@
         "next": null
       }
     },
-    "headline": "5 projets, de la mission en entreprise au projet personnel.",
-    "mapLegend": "Altitude des sommets : temps passé sur chaque projet, sur une échelle logarithmique."
+    "headline": "Cinq projets, et jusqu'où chacun est allé.",
+    "mapLegend": "Hauteur des sommets : exploration, prototype, livré, puis en service (utilisé par de vraies personnes).",
+    "stages": {
+      "exploration": "Exploration",
+      "prototype": "Prototype",
+      "delivered": "Livré",
+      "in-service": "En service"
+    }
   },
   "recruiters": {
     "lead": "Développement logiciel, IA appliquée ou gestion de projet tech, en France.",
-    "seekingTitle": "Ce que je cherche",
-    "seeking": [
-      "6 mois, de juillet à décembre 2027",
-      "Développement logiciel, IA appliquée ou gestion de projet tech",
-      "En France"
-    ],
-    "proofsTitle": "Ce que j'ai déjà fait",
-    "proofs": [
-      {
-        "title": "Mener un projet",
-        "text": "Chef de projet et product owner d'une équipe de 5 sur une plateforme testée par 195 tests.",
-        "project": "relations-internationales"
-      },
-      {
-        "title": "Rendre des comptes",
-        "text": "Audit de 9 services et recommandations chiffrées remises à une direction générale.",
-        "project": "agape"
-      },
-      {
-        "title": "Livrer",
-        "text": "Un site client en ligne, co-développé en lien direct avec le gérant.",
-        "project": "preity-india"
-      }
-    ],
     "skillsTitle": "Compétences",
     "skills": [
       {
@@ -276,6 +277,10 @@
       }
     ],
     "headline": "Formation et expériences depuis 2024."
+  },
+  "offMap": {
+    "title": "Hors carte",
+    "text": "La randonnée, les montagnes, les îles Féroé, les jeux vidéo : j'aime explorer. C'est de là que vient la carte de ce site."
   },
   "contact": {
     "linkedin": "LinkedIn",

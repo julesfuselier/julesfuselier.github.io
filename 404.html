@@ -6,8 +6,8 @@
     <title>Page introuvable | Jules Fuselier</title>
     <meta name="description" content="Cette page n’existe pas ou a été déplacée." />
     <meta name="author" content="Jules Fuselier" />
-    <meta name="theme-color" content="#d8d6ce" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#161c17" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ecebe6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1b2023" media="(prefers-color-scheme: dark)" />
     <link rel="canonical" href="https://julesfuselier.fr/404.html" />
     <link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/" /><link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/" />
     <link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/" />
@@ -19,7 +19,8 @@
     <meta property="og:image" content="https://julesfuselier.fr/assets/img/profile-480.webp" />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
-    <link rel="preload" href="/assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/css/style.css" />
     <script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Jules Fuselier","url":"https://julesfuselier.fr","image":"https://julesfuselier.fr/assets/img/profile-480.webp","jobTitle":"Développeur web & IA, élève ingénieur","email":"mailto:contact@julesfuselier.fr","alumniOf":{"@type":"CollegeOrUniversity","name":"IUT d’Aix-Marseille"},"affiliation":{"@type":"CollegeOrUniversity","name":"Université de Technologie de Troyes"},"sameAs":["https://github.com/julesfuselier","https://www.linkedin.com/in/julesfuselier/"]}</script>
@@ -27,14 +28,18 @@
     <script type="module" src="/js/map.js"></script>
   </head>
   <body>
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-20 focus:rounded-full focus:bg-canvas focus:px-4 focus:py-2">Aller au contenu</a>
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-20 focus:bg-canvas focus:px-4 focus:py-2">Aller au contenu</a>
     <header class="sticky top-0 z-10 border-b border-hairline bg-canvas-soft">
     <div class="page flex min-h-16 flex-wrap items-center gap-x-6 py-3 md:py-0">
-      <a href="/" class="mr-auto font-semibold tracking-[-0.02em] " translate="no">Jules Fuselier</a>
-      
+      <a href="/" class="name mr-auto text-[1.625rem] md:mr-0" translate="no">Jules Fuselier</a>
+      <nav aria-label="Navigation principale" class="order-last w-full overflow-x-auto [scrollbar-width:none] md:order-none md:mx-auto md:w-auto">
+        <ul class="-mx-3 flex gap-x-2 pt-2 text-[0.9375rem] text-ink md:mx-0 md:pt-0">
+          <li><a href="/#projects" class="block whitespace-nowrap px-3 py-1.5 hover:text-summit">Projets</a></li><li><a href="/#recruiters" class="block whitespace-nowrap px-3 py-1.5 hover:text-summit">Recruteurs</a></li><li><a href="/#clients" class="block whitespace-nowrap px-3 py-1.5 hover:text-summit">Entreprises</a></li><li><a href="/#contact" class="block whitespace-nowrap px-3 py-1.5 hover:text-summit">Contact</a></li>
+        </ul>
+      </nav>
       <div class="flex items-center gap-2">
-        <a href="/en/" hreflang="en" lang="en" aria-label="English version" class="grid h-8 min-w-8 place-items-center rounded-full px-2 ring-1 ring-inset ring-hairline hover:bg-canvas font-mono text-xs">EN</a>
-        <button type="button" data-theme-toggle hidden aria-label="Changer de thème" class="grid h-8 min-w-8 place-items-center rounded-full px-2 ring-1 ring-inset ring-hairline hover:bg-canvas">
+        <a href="/en/" hreflang="en" lang="en" aria-label="English version" class="grid h-9 min-w-9 place-items-center px-2 ring-1 ring-inset ring-hairline hover:text-summit hover:ring-summit font-mono text-xs">EN</a>
+        <button type="button" data-theme-toggle hidden aria-label="Changer de thème" class="grid h-9 min-w-9 place-items-center px-2 ring-1 ring-inset ring-hairline hover:text-summit hover:ring-summit">
           <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" /><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor" /></svg>
         </button>
       </div>
@@ -51,10 +56,10 @@
         <a href="/en/" class="link mt-4 inline-block">Back to the home page</a>
       </section>
   </div></main>
-    <footer class="border-t border-hairline py-8 text-sm text-body">
+    <footer class="mono border-t border-hairline py-8">
     <div class="page flex flex-wrap gap-x-8 gap-y-2">
       <p class="mr-auto">© 2026 <span translate="no">Jules Fuselier</span>. Site statique, sans cookie ni mesure d’audience.</p>
-      <a href="/mentions-legales/" class="hover:text-ink hover:underline hover:underline-offset-4">Mentions légales</a>
+      <a href="/mentions-legales/" class="underline decoration-hairline underline-offset-4 hover:text-ink hover:decoration-ink">Mentions légales</a>
     </div>
   </footer>
   </body>
