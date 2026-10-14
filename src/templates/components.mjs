@@ -129,6 +129,20 @@ export function labelAnchor(x) {
 }
 
 /**
+ * Ancrage propre à la carte carrée (téléphone), quand deux sommets voisins
+ * sont à la même hauteur et que leurs étiquettes centrées se toucheraient.
+ * Facultatif : `summit.narrowLabel` dans `site.json` (`start` cale
+ * l'étiquette à droite du sommet, `end` à gauche).
+ * @param {string | undefined} anchor
+ * @returns {string}
+ */
+export function narrowLabelAnchor(anchor) {
+  if (anchor === 'start') return 'summit-label-narrow-start';
+  if (anchor === 'end') return 'summit-label-narrow-end';
+  return '';
+}
+
+/**
  * Carte topographique des projets : un sommet par projet, chaque sommet est
  * un lien. C'est le seul décor du site, et il sert de navigation.
  *
@@ -155,11 +169,11 @@ export function projectMap(ctx, { label, current }) {
       <path data-trail d="${trailPath(trailPoints(byPosition(summits)))}" />
     </svg>
     <ul>
-      ${summits.map(({ slug, x, y, height, stage }) => {
+      ${summits.map(({ slug, x, y, height, stage, narrowLabel }) => {
         const years = site.projects[slug].years;
-        const date = html`<span class="summit-meta">${years ? html`${years}, ` : ''}${t.projects.stages[stage].toLowerCase()}</span>`;
+        const date = html`<span class="summit-meta">${years ? html`<span>${years},</span> ` : ''}<span>${t.projects.stages[stage].toLowerCase()}</span></span>`;
         const title = t.projects.items[slug].shortTitle;
-        const classes = `summit-label ${labelAnchor(x)}`;
+        const classes = `summit-label ${labelAnchor(x)} ${narrowLabelAnchor(narrowLabel)}`.trim();
         return html`<li class="summit" style="--x: ${x}%; --y: ${y}%" data-summit data-x="${x}" data-y="${y}" data-height="${height}">
           <span class="summit-dot" data-stage="${stage}" aria-hidden="true">${stageMark(stage)}</span>
           ${slug === current
