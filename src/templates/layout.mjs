@@ -89,7 +89,7 @@ function header(ctx) {
   const other = LANGUAGES.find((code) => code !== lang);
   // En maintenance, les sections de l'accueil n'existent plus : pas de menu.
   const links = ctx.site.maintenance ? [] : ['projects', 'recruiters', 'clients', 'contact'];
-  const control = 'grid h-11 min-w-11 place-items-center px-2 ring-1 ring-inset ring-hairline transition-[color,box-shadow,transform] duration-150 ease-out hover:text-summit hover:ring-summit active:scale-[0.97]';
+  const control = 'grid h-11 min-w-11 place-items-center px-2 ring-1 ring-inset ring-hairline select-none transition-[color,box-shadow,transform] duration-150 ease-out hover:text-summit hover:ring-summit active:scale-[0.97]';
 
   return html`<header class="sticky top-0 z-10 border-b border-hairline bg-canvas-soft">
     <div class="page flex min-h-16 flex-wrap items-center gap-x-4 py-3 md:gap-x-6 md:py-0">

@@ -834,7 +834,11 @@
       background-size: 100% 3px;
     }
 
-    /* Le bouton change de couleur sans balayage ni flèche qui glisse. */
+    /*
+     * Le bouton change de couleur sans balayage ni flèche qui glisse. Les
+     * fondus, eux, restent : le passage de l'image fixe du randonneur à la
+     * 3D garde son fondu d'opacité, qui ne déplace rien.
+     */
     .cta {
       transition: color 200ms ease;
     }

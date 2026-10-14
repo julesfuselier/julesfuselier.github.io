@@ -63,9 +63,12 @@ const TILT = { azimuth: 5, elevation: 2.5, smoothing: 0.08 };
  *  - `momentum` : durée, en secondes, pendant laquelle l'élan du lâcher
  *    continue de compter pour choisir où le relief s'arrête ;
  *  - `stiffness` et `damping` : ressort sans rebond qui pose le relief
- *    (environ 0,4 s).
+ *    (environ 0,4 s) ;
+ *  - `maxVelocity` : élan maximal au lâcher, en degrés par seconde. Deux
+ *    positions du pointeur très rapprochées dans le temps donneraient sinon
+ *    une vitesse démesurée, et le relief partirait loin hors de sa limite.
  */
-const DRAG = { degreesPerWidth: 90, stretch: 8, momentum: 0.12, stiffness: 250, damping: 2 * Math.sqrt(250) };
+const DRAG = { degreesPerWidth: 90, stretch: 8, momentum: 0.12, stiffness: 250, damping: 2 * Math.sqrt(250), maxVelocity: 240 };
 
 /**
  * Résistance au-delà d'une limite : plus on tire, moins la vue suit, sans
@@ -79,6 +82,20 @@ function rubberBand(value, limit) {
   if (overflow <= 0) return value;
   const stretched = (1 - 1 / ((overflow * 0.55) / DRAG.stretch + 1)) * DRAG.stretch;
   return Math.sign(value) * (limit + stretched);
+}
+
+/**
+ * Inverse de `rubberBand` : l'angle demandé qui donne l'angle affiché. Sert
+ * à reprendre le relief pendant qu'il revient d'un étirement, sans saut.
+ * @param {number} shown angle affiché, en degrés
+ * @param {number} limit angle permis de part et d'autre de zéro
+ * @returns {number} angle demandé
+ */
+function unstretch(shown, limit) {
+  const stretched = Math.min(Math.abs(shown) - limit, DRAG.stretch * 0.999);
+  if (stretched <= 0) return shown;
+  const overflow = (1 / (1 - stretched / DRAG.stretch) - 1) * (DRAG.stretch / 0.55);
+  return Math.sign(shown) * (limit + overflow);
 }
 
 /** Tracé du sentier à l'arrivée, après le basculement de la vue. */
@@ -481,8 +498,11 @@ export function mountTerrain(map, wide) {
     // Un second doigt posé pendant le geste ne doit pas faire sauter la vue.
     if (dragFrom || !event.isPrimary) return;
     swing.active = false;
-    dragFrom = { x: event.clientX, azimuth: view.azimuth };
-    samples = [{ azimuth: view.azimuth, time: event.timeStamp }];
+    // Repris pendant un retour d'étirement, le relief part de l'angle qui
+    // donne sa position affichée : il ne saute pas au premier mouvement.
+    const azimuth = unstretch(view.azimuth, VIEW.maxAzimuth);
+    dragFrom = { x: event.clientX, azimuth };
+    samples = [{ azimuth, time: event.timeStamp }];
     renderer.domElement.setPointerCapture(event.pointerId);
     map.classList.add('is-dragging');
   });
@@ -503,7 +523,8 @@ export function mountTerrain(map, wide) {
     const elapsed = last.time - first.time;
     // Vitesse en degrés par seconde ; un pointeur immobile avant le lâcher n'a pas d'élan.
     const recent = event.timeStamp - last.time < 80 && elapsed > 0;
-    const velocity = recent && !reducedMotion ? ((last.azimuth - first.azimuth) / elapsed) * 1000 : 0;
+    const measured = recent && !reducedMotion ? ((last.azimuth - first.azimuth) / elapsed) * 1000 : 0;
+    const velocity = Math.max(-DRAG.maxVelocity, Math.min(DRAG.maxVelocity, measured));
     const projected = view.azimuth + velocity * DRAG.momentum;
     swing.target = Math.max(-VIEW.maxAzimuth, Math.min(VIEW.maxAzimuth, projected));
     if (reducedMotion) {
