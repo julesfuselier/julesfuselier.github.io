@@ -1,0 +1,325 @@
+# Jules Fuselier
+
+> Élève ingénieur en informatique à l’UTT et développeur web & IA. Je cherche un stage de 6 mois, de juillet à décembre 2027, et je réalise des sites et des intégrations d’IA pour les entreprises.
+
+- E-mail : contact@julesfuselier.fr
+- [Télécharger mon CV (PDF)](https://julesfuselier.fr/assets/CV_FUSELIER-Jules.pdf)
+- GitHub : https://github.com/julesfuselier
+- LinkedIn : https://www.linkedin.com/in/julesfuselier/
+
+## Jules Fuselier, développeur web & IA, élève ingénieur à l’UTT (fr)
+
+[Jules Fuselier, développeur web & IA, élève ingénieur à l’UTT](https://julesfuselier.fr/)
+
+Élève ingénieur à l’UTT (Université de technologie de Troyes) et micro-entrepreneur. 5 mois chez Agapé : audit de 9 services et mise en service d’un outil de veille par modèle de langage (LLM).
+
+- Stage : juillet à décembre 2027
+- Missions : sur devis
+
+### Je cherche un stage ingénieur de 6 mois, de juillet à décembre 2027.
+
+Développement logiciel, IA appliquée ou gestion de projet tech, en France.
+
+- IA & automatisation : API LLM (Anthropic), Agents et tool use, MCP, Tavily, n8n, Web scraping, Scikit-learn
+- Langages : TypeScript, JavaScript, Python, PHP, Java, SQL, HTML, CSS
+- Frameworks & outils : React, Node.js, Tailwind, PHPUnit, GitHub Actions
+- Bases de données : PostgreSQL, MySQL, SQLite
+- Méthodes : Agile (Scrum), Clean Architecture, UML, Tests automatisés, CI/CD
+
+### Des sites et des intégrations sur mesure, au forfait.
+
+Ma micro-entreprise s’adresse aux PME, aux commerces et aux indépendants, pour des missions courtes et à distance.
+
+- Sites web sur mesure : Site vitrine, réservation, commande en ligne. Exemple : le site du restaurant Preity India.
+- Intégration d’API et automatisation : Relier vos outils entre eux (boutique en ligne, logiciel de gestion, e-mailing) pour arrêter les ressaisies.
+- IA appliquée : Audit de vos usages, prototypes et outils à base de modèles de langage, avec une estimation honnête de ce que l’IA apporte ou non.
+
+### Formation et expériences depuis 2024.
+
+- 2026 à 2029 : Diplôme d’ingénieur, UTT. Branche Informatique et Systèmes d’Information, à Troyes.
+- Avril à août 2026 : Chargé d’intégration IA & processus, Agapé. Stage puis CDD.
+- Depuis novembre 2025 : Micro-entreprise. Développement web, intégration d’API et d’IA.
+- 2024 à 2026 : DUT Informatique, IUT d’Aix-Marseille. Major de promotion.
+- 2024 : Baccalauréat général. Spécialités mathématiques et NSI, avec mention.
+
+### Cinq projets, et jusqu’où chacun est allé.
+
+Plus le sommet est haut, plus le projet est allé loin : du prototype jusqu’à l’outil utilisé pour de vrai. Le drapeau marque les projets en service.
+
+### Intégration de l’IA chez Agapé
+
+Audit des usages de l’IA dans 9 services et mise en service d’un outil de veille e-réputation par LLM.
+
+- Étape atteinte : En service
+- Rôle : Chargé d’intégration IA & processus
+- Période : Avril à août 2026
+- Technologies : React, TypeScript, Node.js, Python, API Anthropic, Tavily
+- Page : https://julesfuselier.fr/projets/agape/
+
+**Ce qui était demandé.** La direction générale d’Agapé voulait savoir où l’IA pouvait aider ses équipes, et tester des outils concrets.
+
+**Ce que j’ai fait.**
+
+- Audit de 9 services avec une grille de 16 critères, et recommandations chiffrées remises à la direction générale (ROI estimé à 6,5 fois le coût pour la recommandation principale)
+- Outil de veille e-réputation en React et TypeScript : l’API Tavily collecte plus de 30 sources par analyse, puis un modèle Claude (API Anthropic) les trie. Mis en service pendant la mission.
+- Étude de faisabilité et prototype d’un middleware Node.js reliant Shopify, l’ERP et Brevo, sur 3 flux de synchronisation
+- Script Python d’anonymisation en lot de fiches fournisseurs PDF
+- Note de passation couvrant les 4 projets en fin de mission
+
+**Ce qui est livré.** Un outil en service, des recommandations chiffrées remises à la direction et une passation documentée.
+
+**Ce qui reste à faire.** Le middleware est resté au stade du prototype : il n’a pas été mis en production.
+
+### Preity India, site de restaurant avec réservation et commande
+
+Site en ligne d’un restaurant indien de Marseille : carte, réservation de table et commande à emporter.
+
+- Étape atteinte : En service
+- Période : Avril 2026
+- Technologies : PHP, CSS, JavaScript
+- Page : https://julesfuselier.fr/projets/preity-india/
+- Voir le site en ligne : https://preityindia.fr
+
+**Ce qui était demandé.** Preity India est un restaurant indien situé près du Vieux-Port de Marseille. Le site présente la carte et permet de réserver une table ou de commander à emporter.
+
+**Ce que propose le site.**
+
+- Carte en ligne et mise en avant des spécialités
+- Réservation de table, y compris pour les groupes
+- Commande à emporter en click & collect, avec comptes clients
+- Pages légales : conditions d’utilisation, confidentialité, cookies, conditions de réservation et de click & collect
+
+**Ce qui est livré.** Le site est en ligne sur preityindia.fr.
+
+### Plateforme de gestion des mobilités internationales
+
+Application web PHP/MySQL qui gère les candidatures de mobilité internationale d’un IUT, de la saisie des vœux au classement.
+
+- Étape atteinte : Livré
+- Rôle : Développeur principal, product owner et chef de projet, en équipe Scrum de 5
+- Période : 2025 à 2026
+- Technologies : PHP, MySQL, PHPUnit, PHPStan, GitHub Actions
+- Page : https://julesfuselier.fr/projets/relations-internationales/
+
+**Ce qui était demandé.** Projet de deuxième année de BUT Informatique à l’IUT d’Aix-Marseille, pour le service des relations internationales.
+
+**Ce que j’ai fait.**
+
+- Architecture MVC avec une couche de services et des cas d’usage isolés (Clean Architecture)
+- Authentification à quatre niveaux d’accès : visiteur, étudiant, administrateur et super-administrateur
+- Algorithme de classement des candidats, centralisé dans un service pour que la formule ne se modifie qu’à un seul endroit
+- Scraper qui s’authentifie auprès du service de connexion unique (CAS) de l’université et synchronise la liste des destinations
+- Anonymisation des comptes pour la conformité RGPD
+- 195 tests PHPUnit, unitaires et d’intégration, analyse statique PHPStan, standard PSR-12 et intégration continue GitHub Actions
+
+**Ce qui est livré.** Une application complète et testée, conçue pour plus de 1 000 étudiants.
+
+**Ce qui reste à faire.** Une autre équipe reprend le projet pour le finaliser. Il n’est pas encore utilisé en production. Le code est privé : démonstration sur demande.
+
+### PathSide, les spots outdoor le long de la route
+
+Un outil qui repère sommets, points de vue, cascades, lacs et sentiers autour d’un trajet, à partir des données OpenStreetMap.
+
+- Étape atteinte : Prototype
+- Rôle : Conception et développement, seul
+- Période : Depuis mai 2026
+- Technologies : Python, API Overpass, OpenStreetMap
+- Page : https://julesfuselier.fr/projets/pathside/
+
+**Ce qui était demandé.** Les applications de randonnée montrent des randonnées, les GPS mènent d’un point A à un point B. Rien ne relie les deux : on passe à côté de beaux endroits sans le savoir.
+
+**Ce que j’ai fait.**
+
+- Interrogation de l’API Overpass pour cinq types de spots en une seule requête
+- Prise en charge des trois types d’objets OpenStreetMap : nœuds, chemins et relations
+- Distance réelle aux objets linéaires : le script parcourt toute la géométrie d’un sentier au lieu de s’arrêter à son centre (formule de Haversine)
+- Reprise sur erreur avec attente exponentielle, en distinguant les erreurs passagères des erreurs définitives
+- Export JSON prêt à alimenter une carte
+
+**Ce qui est livré.** La phase 1, la collecte de données autour d’un point, est terminée.
+
+**Ce qui reste à faire.** Phase 2 en cours : calcul de l’itinéraire A→B, filtrage par détour et affichage sur une carte Leaflet.
+
+### SuperBomberman, remake en JavaFX
+
+Remake jouable de Bomberman en Java, avec IA ennemie, collisions et explosions en chaîne.
+
+- Étape atteinte : Livré
+- Rôle : Développeur
+- Période : 2025
+- Technologies : Java, JavaFX
+- Page : https://julesfuselier.fr/projets/superbomberman/
+- Installer le jeu (jDeploy) : https://www.jdeploy.com/~s201-superbomberman-remake
+- Jouer dans le navigateur (chargement lent) : https://julesfuselier.fr/demo/demo-SuperBomberman.html
+- Voir le code sur GitHub : https://github.com/julesfuselier/S201-SuperBomberman-remake
+
+**Ce qui était demandé.** Projet d’équipe de première année de BUT Informatique, centré sur l’architecture orientée objet.
+
+**Ce que j’ai fait.**
+
+- Application des principes SOLID et de patrons de conception (Factory, contrôleurs) pour garder le code maintenable
+- IA ennemie, gestion des collisions et propagation en chaîne des explosions
+- Distribution par installateur jDeploy et démo jouable dans le navigateur
+
+**Ce qui est livré.** Un jeu jouable, installable et testable en ligne.
+
+## Jules Fuselier, web & AI developer, engineering student at UTT (en)
+
+[Jules Fuselier, web & AI developer, engineering student at UTT](https://julesfuselier.fr/en/)
+
+Engineering student at UTT (Université de technologie de Troyes) and freelance developer. 5 months at Agapé: an audit of 9 departments and a large language model (LLM) monitoring tool put into service.
+
+- Internship: July to December 2027
+- Freelance: quote on request
+
+### I am looking for a 6-month engineering internship, from July to December 2027.
+
+Software development, applied AI or tech project management, in France.
+
+- AI & automation: LLM APIs (Anthropic), Agents and tool use, MCP, Tavily, n8n, Web scraping, Scikit-learn
+- Languages: TypeScript, JavaScript, Python, PHP, Java, SQL, HTML, CSS
+- Frameworks & tools: React, Node.js, Tailwind, PHPUnit, GitHub Actions
+- Databases: PostgreSQL, MySQL, SQLite
+- Methods: Agile (Scrum), Clean Architecture, UML, Automated testing, CI/CD
+
+### Custom websites and integrations, at a fixed price.
+
+My freelance business is for small businesses, shops and freelancers, on short, remote assignments.
+
+- Custom websites: Showcase site, booking, online ordering. Example: the Preity India restaurant website.
+- API integration and automation: Connecting your tools (online shop, business software, emailing) so nobody re-enters data.
+- Applied AI: An audit of how you use AI, prototypes and tools built on language models, with an honest estimate of what AI brings or does not.
+
+### Education and experience since 2024.
+
+- 2026 to 2029: Engineering degree, UTT. Computer Science and Information Systems, in Troyes.
+- April to August 2026: AI & process integration officer, Agapé. Internship, then fixed-term contract.
+- Since November 2025: Freelance business. Web development, API and AI integration.
+- 2024 to 2026: DUT in computer science, IUT of Aix-Marseille. Top of the class.
+- 2024: French general baccalauréat. Mathematics and computer science majors, with honours.
+
+### Five projects, and how far each one went.
+
+The higher the summit, the further the project went: from prototype to a tool people actually use. The flag marks projects in service.
+
+### Bringing AI into Agapé
+
+An audit of AI use across 9 departments and an LLM-based online reputation monitoring tool put into service.
+
+- Stage reached: In service
+- Role: AI & process integration officer
+- Period: April to August 2026
+- Technologies: React, TypeScript, Node.js, Python, API Anthropic, Tavily
+- Page: https://julesfuselier.fr/en/projects/agape/
+
+**What was asked.** Agapé’s management wanted to know where AI could help its teams, and to try out concrete tools.
+
+**What I did.**
+
+- Audit of 9 departments against a 16-criteria grid, with costed recommendations handed to general management (estimated return of 6.5 times the cost for the main recommendation)
+- Online reputation monitoring tool in React and TypeScript: the Tavily API gathers more than 30 sources per run, then a Claude model (Anthropic API) sorts them. Put into service during the assignment.
+- Feasibility study and prototype of a Node.js middleware connecting Shopify, the ERP and Brevo, across 3 synchronisation flows
+- Python script for batch anonymisation of supplier PDF sheets
+- Handover note covering all 4 projects at the end of the assignment
+
+**What is delivered.** One tool in service, costed recommendations handed to management and a documented handover.
+
+**What is left to do.** The middleware stayed at prototype stage: it was not deployed to production.
+
+### Preity India, restaurant website with booking and ordering
+
+Live website for an Indian restaurant in Marseille: menu, table booking and takeaway orders.
+
+- Stage reached: In service
+- Period: April 2026
+- Technologies: PHP, CSS, JavaScript
+- Page: https://julesfuselier.fr/en/projects/preity-india/
+- Visit the live site: https://preityindia.fr
+
+**What was asked.** Preity India is an Indian restaurant near the Vieux-Port in Marseille. The site presents the menu and lets customers book a table or order takeaway.
+
+**What the site offers.**
+
+- Online menu and a showcase of the house specialities
+- Table booking, including for groups
+- Click & collect takeaway orders, with customer accounts
+- Legal pages: terms of use, privacy, cookies, booking and click & collect conditions
+
+**What is delivered.** The site is live at preityindia.fr.
+
+### International mobility management platform
+
+A PHP/MySQL web application that handles a university institute’s international mobility applications, from wish lists to ranking.
+
+- Stage reached: Delivered
+- Role: Lead developer, product owner and project manager, in a Scrum team of 5
+- Period: 2025 to 2026
+- Technologies: PHP, MySQL, PHPUnit, PHPStan, GitHub Actions
+- Page: https://julesfuselier.fr/en/projects/relations-internationales/
+
+**What was asked.** Second-year project of my computer science degree (BUT) at the Aix-Marseille institute of technology (IUT), for its international relations office.
+
+**What I did.**
+
+- MVC architecture with a service layer and isolated use cases (Clean Architecture)
+- Authentication with four access levels: visitor, student, administrator and super-administrator
+- Applicant ranking algorithm, centralised in one service so the formula changes in a single place
+- Scraper that authenticates against the university’s single sign-on (CAS) and syncs the list of destinations
+- Account anonymisation for GDPR compliance
+- 195 PHPUnit tests, unit and integration, PHPStan static analysis, PSR-12 standard and GitHub Actions continuous integration
+
+**What is delivered.** A complete, tested application designed for more than 1,000 students.
+
+**What is left to do.** Another team is taking the project over to finish it. It is not used in production yet. The code is private: demo on request.
+
+### PathSide, outdoor spots along your route
+
+A tool that finds summits, viewpoints, waterfalls, lakes and trails around a route, using OpenStreetMap data.
+
+- Stage reached: Prototype
+- Role: Design and development, solo
+- Period: Since May 2026
+- Technologies: Python, API Overpass, OpenStreetMap
+- Page: https://julesfuselier.fr/en/projects/pathside/
+
+**What was asked.** Hiking apps show hikes, and navigation apps get you from A to B. Nothing connects the two: you drive past great places without knowing it.
+
+**What I did.**
+
+- Queries the Overpass API for five types of spots in a single request
+- Handles all three OpenStreetMap object types: nodes, ways and relations
+- True distance to linear objects: the script walks a trail’s full geometry instead of stopping at its centre (Haversine formula)
+- Retries with exponential backoff, telling transient failures from permanent ones
+- JSON export ready to feed a map
+
+**What is delivered.** Phase 1, data collection around a point, is complete.
+
+**What is left to do.** Phase 2 in progress: A→B route calculation, filtering by detour and display on a Leaflet map.
+
+### SuperBomberman, a JavaFX remake
+
+A playable Bomberman remake in Java, with enemy AI, collisions and chained explosions.
+
+- Stage reached: Delivered
+- Role: Developer
+- Period: 2025
+- Technologies: Java, JavaFX
+- Page: https://julesfuselier.fr/en/projects/superbomberman/
+- Install the game (jDeploy): https://www.jdeploy.com/~s201-superbomberman-remake
+- Play in the browser (slow to load): https://julesfuselier.fr/demo/demo-SuperBomberman.html
+- View the code on GitHub: https://github.com/julesfuselier/S201-SuperBomberman-remake
+
+**What was asked.** First-year team project of my computer science degree (BUT), focused on object-oriented architecture.
+
+**What I did.**
+
+- SOLID principles and design patterns (Factory, controllers) to keep the code maintainable
+- Enemy AI, collision handling and chained explosion propagation
+- Distributed through a jDeploy installer and a demo playable in the browser
+
+**What is delivered.** A playable game that can be installed and tried online.
+
+## Optional
+
+- [Mentions légales](https://julesfuselier.fr/mentions-legales/)
+- [Legal notice](https://julesfuselier.fr/en/legal/)

@@ -5,6 +5,7 @@
 import { html, raw } from '../lib/html.mjs';
 import { LANGUAGES } from '../lib/content.mjs';
 import { route } from '../lib/routes.mjs';
+import { structuredData } from '../lib/seo.mjs';
 
 /** @typedef {import('./components.mjs').PageContext} PageContext */
 
@@ -20,25 +21,16 @@ const THEME_BOOTSTRAP = `try{var d=document.documentElement,t=localStorage.getIt
 const THEME_COLORS = { light: '#ecebe6', dark: '#1b2023' };
 
 /**
- * Données structurées schema.org décrivant l'auteur du site.
+ * Données structurées de la page (voir `src/lib/seo.mjs`). `<` est neutralisé
+ * pour qu'aucune valeur ne puisse fermer la balise script.
  * @param {PageContext} ctx
  */
-function personJsonLd({ site, t }) {
-  const data = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: site.author,
-    url: site.baseUrl,
-    image: site.baseUrl + site.portrait,
-    jobTitle: t.meta.jobTitle,
-    email: `mailto:${site.email}`,
-    alumniOf: { '@type': 'CollegeOrUniversity', name: 'IUT d’Aix-Marseille' },
-    affiliation: { '@type': 'CollegeOrUniversity', name: 'Université de Technologie de Troyes' },
-    sameAs: Object.values(site.social),
-  };
-  // `<` est neutralisé pour qu'aucune valeur ne puisse fermer la balise script.
-  return raw(JSON.stringify(data).replace(/</g, '\\u003c'));
+function jsonLd(ctx) {
+  return raw(JSON.stringify(structuredData(ctx)).replace(/</g, '\\u003c'));
 }
+
+/** Dimensions du portrait servi en image de partage (`site.portrait`). */
+const PORTRAIT_SIZE = { width: 480, height: 480 };
 
 /**
  * @param {PageContext} ctx
@@ -52,24 +44,34 @@ function head(ctx) {
     <title>${ctx.title}</title>
     <meta name="description" content="${ctx.description}" />
     <meta name="author" content="${site.author}" />
+    <meta name="robots" content="${ctx.noindex ? 'noindex' : 'index, follow, max-image-preview:large, max-snippet:-1'}" />
     <meta name="theme-color" content="${THEME_COLORS.light}" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="${THEME_COLORS.dark}" media="(prefers-color-scheme: dark)" />
-    <link rel="canonical" href="${canonical}" />
+    ${ctx.noindex ? '' : html`<link rel="canonical" href="${canonical}" />
     ${LANGUAGES.map((code) => html`<link rel="alternate" hreflang="${code}" href="${site.baseUrl + alternates[code]}" />`)}
-    <link rel="alternate" hreflang="x-default" href="${site.baseUrl + alternates[LANGUAGES[0]]}" />
-    <meta property="og:type" content="website" />
+    <link rel="alternate" hreflang="x-default" href="${site.baseUrl + alternates[LANGUAGES[0]]}" />`}
+    <meta property="og:type" content="${ctx.kind === 'project' ? 'article' : ctx.kind === 'home' ? 'profile' : 'website'}" />
+    <meta property="og:site_name" content="${site.author}" />
     <meta property="og:locale" content="${t.locale}" />
+    ${LANGUAGES.filter((code) => code !== ctx.lang).map((code) => html`<meta property="og:locale:alternate" content="${ctx.ogLocales[code]}" />`)}
     <meta property="og:title" content="${ctx.title}" />
     <meta property="og:description" content="${ctx.description}" />
     <meta property="og:url" content="${canonical}" />
     <meta property="og:image" content="${site.baseUrl + site.portrait}" />
+    <meta property="og:image:width" content="${PORTRAIT_SIZE.width}" />
+    <meta property="og:image:height" content="${PORTRAIT_SIZE.height}" />
+    <meta property="og:image:alt" content="${t.hero.portraitAlt}" />
+    ${ctx.kind === 'home' ? html`<meta property="profile:first_name" content="${site.author.split(' ')[0]}" />
+    <meta property="profile:last_name" content="${site.author.split(' ').slice(1).join(' ')}" />` : ''}
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="${ctx.title}" />
+    <meta name="twitter:description" content="${ctx.description}" />
     <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
     <link rel="preload" href="/assets/fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/css/style.css" />
     <script>${raw(THEME_BOOTSTRAP)}</script>
-    <script type="application/ld+json">${personJsonLd(ctx)}</script>
+    <script type="application/ld+json">${jsonLd(ctx)}</script>
     <script defer src="/js/site.js"></script>
     <script type="module" src="/js/map.js"></script>
   </head>`;

@@ -9,7 +9,7 @@
  *
  * Étapes : validation du contenu, pages HTML (une par langue), carte
  * topographique, polices, scripts (dont le relief 3D), feuille de style,
- * plan du site.
+ * plan du site et résumés pour les moteurs de réponse par IA (`llms.txt`).
  */
 
 import { execFileSync } from 'node:child_process';
@@ -22,6 +22,7 @@ import { build as bundle } from 'esbuild';
 import { LANGUAGES, loadContent, validateContent } from '../src/lib/content.mjs';
 import { createContourMap } from '../src/lib/contours.mjs';
 import { GENERATED_DIRS, outputFile, route } from '../src/lib/routes.mjs';
+import { llmsTxt, sitemap } from '../src/lib/seo.mjs';
 import { PROJECT_MAPS, PROJECT_MAP_SEED, projectSummits } from '../src/templates/components.mjs';
 import { homePage } from '../src/templates/home.mjs';
 import { renderPage } from '../src/templates/layout.mjs';
@@ -54,14 +55,33 @@ async function write(file, content) {
 }
 
 /**
+ * Date de dernière modification du site, pour le plan du site : celle du
+ * dernier commit touchant au contenu ou aux gabarits, ou aujourd'hui si des
+ * modifications ne sont pas encore committées. Sans Git, pas de date.
+ * @returns {string | undefined} AAAA-MM-JJ
+ */
+function lastModified() {
+  const git = (...args) => execFileSync('git', args, { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  try {
+    if (git('status', '--porcelain', '--', 'src')) return new Date().toISOString().slice(0, 10);
+    return git('log', '-1', '--format=%cs', '--', 'src') || undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+/**
  * Calcule toutes les pages du site.
  * @param {{ site: any, locales: Record<string, any> }} content
+ * @param {{ lastmod?: string }} [options] date de dernière modification pour le plan du site
  * @returns {{ pages: Record<string, string>, assets: Record<string, string> }}
  *   fichiers à écrire : chemin relatif → contenu
  */
-export function renderSite({ site, locales }) {
+export function renderSite({ site, locales }, { lastmod } = {}) {
   const pages = {};
   const assets = {};
+  /** Pages à indexer, pour le plan du site. */
+  const indexed = [];
 
   // Carte topographique : un sommet par projet, à la position fixée dans
   // site.json et à la hauteur tirée des heures passées, tracée une fois par
@@ -74,23 +94,28 @@ export function renderSite({ site, locales }) {
   /** Adresse d'une même page dans toutes les langues. */
   const alternatesFor = (kind, slug) => Object.fromEntries(LANGUAGES.map((lang) => [lang, route(lang, kind, slug)]));
 
+  const ogLocales = Object.fromEntries(LANGUAGES.map((lang) => [lang, locales[lang].locale]));
+
   for (const lang of LANGUAGES) {
     const t = locales[lang];
-    const base = { lang, t, site };
+    const base = { lang, t, site, ogLocales };
 
     // Mode maintenance (`maintenance: true` dans site.json) : l'accueil et
     // les pages de projet gardent leur adresse mais n'affichent que la page
     // de maintenance, avec les moyens de contact.
     const maintenance = site.maintenance === true;
     const home = maintenance
-      ? { ...base, url: route(lang, 'home'), alternates: alternatesFor('home'), title: `${t.maintenance.title} | ${site.author}`, description: t.maintenance.metaDescription }
-      : { ...base, url: route(lang, 'home'), alternates: alternatesFor('home'), title: t.meta.title, description: t.meta.description };
+      ? { ...base, kind: 'home', url: route(lang, 'home'), alternates: alternatesFor('home'), title: `${t.maintenance.title} | ${site.author}`, description: t.maintenance.metaDescription }
+      : { ...base, kind: 'home', url: route(lang, 'home'), alternates: alternatesFor('home'), title: t.meta.title, description: t.meta.description };
     pages[outputFile(home.url)] = renderPage(home, maintenance ? maintenancePage(home) : homePage(home));
+    indexed.push(home);
 
     for (const slug of site.projectOrder) {
       const item = t.projects.items[slug];
       const ctx = {
         ...base,
+        kind: 'project',
+        slug,
         url: route(lang, 'project', slug),
         alternates: alternatesFor('project', slug),
         title: `${item.title} | ${site.author}`,
@@ -99,16 +124,19 @@ export function renderSite({ site, locales }) {
       pages[outputFile(ctx.url)] = maintenance
         ? renderPage({ ...home, url: ctx.url, alternates: ctx.alternates }, maintenancePage(home))
         : renderPage(ctx, projectPage(ctx, slug));
+      indexed.push(ctx);
     }
 
     const legal = {
       ...base,
+      kind: 'legal',
       url: route(lang, 'legal'),
       alternates: alternatesFor('legal'),
       title: `${t.legal.title} | ${site.author}`,
       description: t.legal.title,
     };
     pages[outputFile(legal.url)] = renderPage(legal, legalPage(legal));
+    indexed.push(legal);
   }
 
   const [defaultLang] = LANGUAGES;
@@ -116,6 +144,9 @@ export function renderSite({ site, locales }) {
     lang: defaultLang,
     t: locales[defaultLang],
     site,
+    ogLocales,
+    kind: 'not-found',
+    noindex: true,
     url: '/404.html',
     alternates: alternatesFor('home'),
     title: `${locales[defaultLang].notFound.title} | ${site.author}`,
@@ -131,11 +162,11 @@ export function renderSite({ site, locales }) {
       `<meta http-equiv="refresh" content="0; url=${target}">\n<a href="${target}">${site.author}</a>\n</html>\n`;
   }
 
-  const indexed = Object.keys(pages).filter((file) => file.endsWith('index.html'));
-  assets['sitemap.xml'] =
-    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-    indexed.map((file) => `  <url><loc>${site.baseUrl}/${file.replace(/index\.html$/, '')}</loc></url>\n`).join('') +
-    '</urlset>\n';
+  assets['sitemap.xml'] = sitemap(site, indexed, lastmod);
+  if (!site.maintenance) {
+    assets['llms.txt'] = llmsTxt(site, locales);
+    assets['llms-full.txt'] = llmsTxt(site, locales, { full: true });
+  }
 
   return { pages, assets };
 }
@@ -151,9 +182,10 @@ export async function buildSite() {
     throw new Error(`Contenu invalide :\n- ${errors.join('\n- ')}`);
   }
 
-  await Promise.all(GENERATED_DIRS.map((dir) => rm(join(ROOT, dir), { recursive: true, force: true })));
+  // `llms.txt` n'existe pas en maintenance : un ancien fichier ne doit pas rester en ligne.
+  await Promise.all([...GENERATED_DIRS, 'llms.txt', 'llms-full.txt'].map((path) => rm(join(ROOT, path), { recursive: true, force: true })));
 
-  const { pages, assets } = renderSite(content);
+  const { pages, assets } = renderSite(content, { lastmod: lastModified() });
   const files = { ...pages, ...assets };
   await Promise.all(Object.entries(files).map(([file, text]) => write(file, text)));
 

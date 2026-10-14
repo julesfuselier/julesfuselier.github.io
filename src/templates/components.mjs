@@ -25,6 +25,10 @@ export const PROJECT_MAPS = {
  * @property {Record<string, string>} alternates adresse de la même page dans chaque langue
  * @property {string} title titre de la page
  * @property {string} description description pour les moteurs de recherche
+ * @property {'home' | 'project' | 'legal' | 'not-found'} [kind] type de page, pour les données structurées
+ * @property {string} [slug] identifiant du projet, pour `kind === 'project'`
+ * @property {boolean} [noindex] page à exclure des moteurs de recherche
+ * @property {Record<string, string>} ogLocales locale Open Graph de chaque langue (`fr_FR`…)
  */
 
 /**
