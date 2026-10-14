@@ -75,8 +75,10 @@ function head(ctx) {
 
 /**
  * En-tête collant, haut de 64 px : nom à gauche, ancres au centre, langue et
- * thème à droite. Sur mobile, les ancres passent sur une seconde ligne qui
- * défile horizontalement, sans menu à ouvrir ni JavaScript.
+ * thème à droite. Sur mobile, les ancres passent sur une seconde ligne,
+ * réparties sur toute la largeur pour que les quatre restent visibles, sans
+ * menu à ouvrir ni JavaScript (la ligne défile encore en dernier recours sur
+ * les écrans les plus étroits). Cibles tactiles de 44 px de haut.
  * @param {PageContext} ctx
  */
 function header(ctx) {
@@ -85,15 +87,15 @@ function header(ctx) {
   const other = LANGUAGES.find((code) => code !== lang);
   // En maintenance, les sections de l'accueil n'existent plus : pas de menu.
   const links = ctx.site.maintenance ? [] : ['projects', 'recruiters', 'clients', 'contact'];
-  const control = 'grid h-9 min-w-9 place-items-center px-2 ring-1 ring-inset ring-hairline hover:text-summit hover:ring-summit';
+  const control = 'grid h-11 min-w-11 place-items-center px-2 ring-1 ring-inset ring-hairline hover:text-summit hover:ring-summit';
 
   return html`<header class="sticky top-0 z-10 border-b border-hairline bg-canvas-soft">
-    <div class="page flex min-h-16 flex-wrap items-center gap-x-6 py-3 md:py-0">
+    <div class="page flex min-h-16 flex-wrap items-center gap-x-4 py-3 md:gap-x-6 md:py-0">
       <a href="${home}" class="name mr-auto text-[1.625rem] ${links.length > 0 ? 'md:mr-0' : ''}" translate="no">${ctx.site.author}</a>
       ${links.length > 0
         ? html`<nav aria-label="${t.nav.label}" class="order-last w-full overflow-x-auto [scrollbar-width:none] md:order-none md:mx-auto md:w-auto">
-        <ul class="-mx-3 flex gap-x-2 pt-2 text-[0.9375rem] text-ink md:mx-0 md:pt-0">
-          ${links.map((id) => html`<li><a href="${home}#${id}" class="block whitespace-nowrap px-3 py-1.5 hover:text-summit">${t.nav[id]}</a></li>`)}
+        <ul class="flex justify-between pt-1 max-md:[&>li:first-child>a]:pl-0 max-md:[&>li:last-child>a]:pr-0 text-[0.9375rem] text-ink max-[359px]:text-sm md:mx-0 md:justify-start md:gap-x-2 md:pt-0">
+          ${links.map((id) => html`<li><a href="${home}#${id}" class="flex min-h-11 items-center whitespace-nowrap px-2 hover:text-summit max-[359px]:px-1 md:px-3">${t.nav[id]}</a></li>`)}
         </ul>
       </nav>`
         : ''}

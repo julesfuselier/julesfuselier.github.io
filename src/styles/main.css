@@ -106,7 +106,7 @@
    */
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 7.5rem;
+    scroll-padding-top: 8rem;
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -558,6 +558,75 @@
   }
 
   /*
+   * Carte carrée (téléphone) : les sommets sont proches, un nom long sur une
+   * seule ligne déborderait sur l'étiquette voisine. Au-delà de 8,5 rem, le
+   * nom passe sur deux lignes équilibrées ; la période reste sur une ligne.
+   */
+  @media (max-width: 639px) {
+    .summit-label {
+      width: max-content;
+      max-width: 8.5rem;
+    }
+
+    .summit-name {
+      white-space: normal;
+      text-wrap: balance;
+      line-height: 1.05;
+    }
+
+    .summit-label-center .summit-name {
+      text-align: center;
+    }
+
+    .summit-label-end .summit-name {
+      text-align: right;
+    }
+
+    .summit-meta {
+      white-space: nowrap;
+    }
+
+    /* Ancrages propres à ce format (voir `narrowLabelAnchor`). */
+    .summit-label-narrow-start {
+      left: -0.75rem;
+      right: auto;
+      transform: none;
+      align-items: flex-start;
+    }
+
+    .summit-label-narrow-start .summit-name {
+      text-align: left;
+    }
+
+    .summit-label-narrow-end {
+      left: auto;
+      right: -0.75rem;
+      transform: none;
+      align-items: flex-end;
+    }
+
+    .summit-label-narrow-end .summit-name {
+      text-align: right;
+    }
+  }
+
+  /*
+   * Écrans étroits (jusqu'à 400 px) : sous les étiquettes calées sur un
+   * bord, la période et l'étape passent sur deux lignes, coupées après la
+   * virgule, pour que l'étiquette ne sorte pas de la carte ni ne touche sa
+   * voisine. Les étiquettes centrées gardent une ligne : plus hautes, elles
+   * toucheraient le sommet du dessous.
+   */
+  @media (max-width: 399px) {
+    .summit-label-start .summit-meta > span,
+    .summit-label-end .summit-meta > span,
+    .summit-label-narrow-start .summit-meta > span,
+    .summit-label-narrow-end .summit-meta > span {
+      display: block;
+    }
+  }
+
+  /*
    * Entrée de l'accueil. Les éléments montent l'un après l'autre : titre mot
    * par mot, chapeau, disponibilités, boutons. Tout est en CSS, donc visible
    * même sans JavaScript, et coupé pour qui demande moins de mouvement.
@@ -610,6 +679,12 @@
     }
   }
 
+  @keyframes hero-underline {
+    to {
+      background-size: 100% 3px;
+    }
+  }
+
   /*
    * Sur téléphone, le passage mis en avant doit pouvoir passer à la ligne :
    * le trait dessiné ne suivrait pas, il laisse place à un soulignement simple.
@@ -619,10 +694,18 @@
       white-space: normal;
     }
 
-    /* Posé sur chaque mot : un soulignement ne traverse pas les blocs en ligne. */
-    .hero-accent .hero-word {
-      text-decoration: underline 3px var(--summit);
-      text-underline-offset: 0.16em;
+    /*
+     * Le trait est peint en fond du passage : un fond en ligne suit chaque
+     * fragment de ligne (`box-decoration-break: clone`), d'un seul tenant
+     * sous les mots et les espaces, sans être coupé par les jambages (g, p)
+     * comme le serait un `text-decoration`. Il se dessine de gauche à droite,
+     * au même moment que le tracé des grands écrans.
+     */
+    .hero-accent {
+      background: linear-gradient(var(--summit), var(--summit)) left bottom / 0% 3px no-repeat;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+      animation: hero-underline 900ms cubic-bezier(0.6, 0, 0.2, 1) 900ms forwards;
     }
 
     .hero-accent-trail {
@@ -643,6 +726,11 @@
     .hero-accent-trail {
       animation: none;
       clip-path: none;
+    }
+
+    .hero-accent {
+      animation: none;
+      background-size: 100% 3px;
     }
 
     .cta,

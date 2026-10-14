@@ -43,7 +43,8 @@
       "links": [],
       "summit": {
         "x": 70,
-        "y": 30
+        "y": 30,
+        "narrowLabel": "start"
       }
     },
     "preity-india": {

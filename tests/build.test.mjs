@@ -92,3 +92,13 @@ test('en maintenance, accueil et projets montrent le contact, les mentions léga
     assert.ok(maintenance.pages[outputFile(route(lang, 'legal'))].includes(t.legal.title), `${lang} : mentions légales`);
   }
 });
+
+test('l’ancrage d’étiquette propre à la carte carrée est rendu quand il est demandé', () => {
+  const home = pages[outputFile(route('fr', 'home'))];
+  const narrow = Object.entries(content.site.projects).filter(([, project]) => project.summit.narrowLabel);
+  assert.ok(narrow.length > 0);
+  for (const [slug, project] of narrow) {
+    const pattern = new RegExp(`href="[^"]*/${slug}/"[^>]*summit-label-narrow-${project.summit.narrowLabel}`);
+    assert.match(home, pattern, slug);
+  }
+});
