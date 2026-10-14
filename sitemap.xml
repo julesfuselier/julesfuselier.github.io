@@ -1,17 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://julesfuselier.fr/</loc></url>
-  <url><loc>https://julesfuselier.fr/projets/agape/</loc></url>
-  <url><loc>https://julesfuselier.fr/projets/preity-india/</loc></url>
-  <url><loc>https://julesfuselier.fr/projets/relations-internationales/</loc></url>
-  <url><loc>https://julesfuselier.fr/projets/pathside/</loc></url>
-  <url><loc>https://julesfuselier.fr/projets/superbomberman/</loc></url>
-  <url><loc>https://julesfuselier.fr/mentions-legales/</loc></url>
-  <url><loc>https://julesfuselier.fr/en/</loc></url>
-  <url><loc>https://julesfuselier.fr/en/projects/agape/</loc></url>
-  <url><loc>https://julesfuselier.fr/en/projects/preity-india/</loc></url>
-  <url><loc>https://julesfuselier.fr/en/projects/relations-internationales/</loc></url>
-  <url><loc>https://julesfuselier.fr/en/projects/pathside/</loc></url>
-  <url><loc>https://julesfuselier.fr/en/projects/superbomberman/</loc></url>
-  <url><loc>https://julesfuselier.fr/en/legal/</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://julesfuselier.fr/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/"/>
+  </url>
+  <url>
+    <loc>https://julesfuselier.fr/projets/agape/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/projets/agape/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/projects/agape/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/projets/agape/"/>
+  </url>
+  <url>
+    <loc>https://julesfuselier.fr/projets/preity-india/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/projets/preity-india/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/projects/preity-india/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/projets/preity-india/"/>
+  </url>
+  <url>
+    <loc>https://julesfuselier.fr/projets/relations-internationales/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/projets/relations-internationales/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/projects/relations-internationales/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/projets/relations-internationales/"/>
+  </url>
+  <url>
+    <loc>https://julesfuselier.fr/projets/pathside/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/projets/pathside/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/projects/pathside/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/projets/pathside/"/>
+  </url>
+  <url>
+    <loc>https://julesfuselier.fr/projets/superbomberman/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/projets/superbomberman/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/projects/superbomberman/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/projets/superbomberman/"/>
+  </url>
+  <url>
+    <loc>https://julesfuselier.fr/mentions-legales/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/mentions-legales/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/legal/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/mentions-legales/"/>
+  </url>
+  <url>
+    <loc>https://julesfuselier.fr/en/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/"/>
+  </url>
+  <url>
+    <loc>https://julesfuselier.fr/en/projects/agape/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/projets/agape/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/projects/agape/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/projets/agape/"/>
+  </url>
+  <url>
+    <loc>https://julesfuselier.fr/en/projects/preity-india/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/projets/preity-india/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/projects/preity-india/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/projets/preity-india/"/>
+  </url>
+  <url>
+    <loc>https://julesfuselier.fr/en/projects/relations-internationales/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/projets/relations-internationales/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/projects/relations-internationales/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/projets/relations-internationales/"/>
+  </url>
+  <url>
+    <loc>https://julesfuselier.fr/en/projects/pathside/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/projets/pathside/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/projects/pathside/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/projets/pathside/"/>
+  </url>
+  <url>
+    <loc>https://julesfuselier.fr/en/projects/superbomberman/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/projets/superbomberman/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/projects/superbomberman/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/projets/superbomberman/"/>
+  </url>
+  <url>
+    <loc>https://julesfuselier.fr/en/legal/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://julesfuselier.fr/mentions-legales/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://julesfuselier.fr/en/legal/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://julesfuselier.fr/mentions-legales/"/>
+  </url>
 </urlset>

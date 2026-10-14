@@ -102,3 +102,46 @@ test('l’ancrage d’étiquette propre à la carte carrée est rendu quand il e
     assert.match(home, pattern, slug);
   }
 });
+
+test('le plan du site liste chaque page indexable avec ses équivalents dans chaque langue', () => {
+  const xml = assets['sitemap.xml'];
+  const indexable = Object.keys(pages).filter((file) => file.endsWith('index.html'));
+  assert.equal(xml.match(/<url>/g).length, indexable.length);
+  for (const file of indexable) {
+    const loc = `${content.site.baseUrl}/${file.replace(/index\.html$/, '')}`;
+    const entry = xml.split('<url>').find((block) => block.includes(`<loc>${loc}</loc>`));
+    assert.ok(entry, `${loc} absent du plan du site`);
+    for (const lang of [...LANGUAGES, 'x-default']) assert.match(entry, new RegExp(`hreflang="${lang}"`), `${loc} : hreflang ${lang}`);
+  }
+});
+
+test('chaque page porte des données structurées JSON-LD valides, reliées à la même personne', () => {
+  for (const [file, page] of Object.entries(pages)) {
+    const script = page.match(/<script type="application\/ld\+json">(.*?)<\/script>/s);
+    if (!script) continue; // anciennes adresses : simples redirections
+    const graph = JSON.parse(script[1])['@graph'];
+    assert.ok(graph.some((node) => node['@id'] === `${content.site.baseUrl}/#person`), `${file} : personne absente`);
+    if (file.includes('/projects/') || file.startsWith('projets/')) {
+      assert.ok(graph.some((node) => node['@type'] === 'CreativeWork'), `${file} : projet absent`);
+      assert.ok(graph.some((node) => node['@type'] === 'BreadcrumbList'), `${file} : fil d’Ariane absent`);
+    }
+  }
+});
+
+test('la page 404 est exclue des moteurs de recherche, les autres pages non', () => {
+  assert.match(pages['404.html'], /<meta name="robots" content="noindex"/);
+  assert.doesNotMatch(pages['404.html'], /rel="canonical"/);
+  assert.match(pages['index.html'], /<meta name="robots" content="index, follow/);
+});
+
+test('llms.txt renvoie vers chaque projet dans chaque langue, llms-full.txt les détaille', () => {
+  for (const lang of LANGUAGES) {
+    for (const slug of content.site.projectOrder) {
+      const url = content.site.baseUrl + route(lang, 'project', slug);
+      assert.ok(assets['llms.txt'].includes(`](${url})`), `llms.txt : ${url}`);
+      assert.ok(assets['llms-full.txt'].includes(url), `llms-full.txt : ${url}`);
+    }
+  }
+  assert.doesNotMatch(assets['llms-full.txt'], /\bnull\b|undefined/);
+  assert.equal(maintenance.assets['llms.txt'], undefined);
+});

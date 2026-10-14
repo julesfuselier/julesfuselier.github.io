@@ -38,6 +38,7 @@ Chaque page est écrite en HTML complet à la compilation. Le navigateur ne reco
 | `src/lib/typography.mjs` | Apostrophes courbes et espaces insécables, appliqués aux textes à la compilation |
 | `src/lib/html.mjs` | Gabarit étiqueté `html` qui échappe le contenu par défaut |
 | `src/lib/routes.mjs` | Adresse de chaque page, par langue |
+| `src/lib/seo.mjs` | Données structurées (JSON-LD), plan du site avec `hreflang`, et `llms.txt` pour les moteurs de réponse par IA |
 | `src/templates/` | Gabarits : enveloppe commune, accueil, projet, pages simples |
 | `src/styles/main.css` | Couleurs, polices et composants CSS. Compilé par Tailwind |
 | `src/js/site.js` | Bouton de thème |
@@ -53,7 +54,7 @@ Chaque page est écrite en HTML complet à la compilation. Le navigateur ne reco
 
 GitHub Pages sert la racine du dépôt, donc le résultat de la compilation y est versionné. **Ne modifiez pas ces fichiers à la main**, ils sont réécrits à chaque `npm run build` :
 
-`index.html`, `404.html`, `projects.html`, `project-detail.html`, `sitemap.xml`, `en/`, `projets/`, `mentions-legales/`, `css/style.css`, `js/`, `assets/contours/`, `assets/fonts/`.
+`index.html`, `404.html`, `projects.html`, `project-detail.html`, `sitemap.xml`, `llms.txt`, `llms-full.txt`, `en/`, `projets/`, `mentions-legales/`, `css/style.css`, `js/`, `assets/contours/`, `assets/fonts/`.
 
 `projects.html` et `project-detail.html` sont les adresses de l'ancien site : elles redirigent vers la liste des projets.
 
@@ -78,6 +79,17 @@ Remplacez `assets/CV_FUSELIER-Jules.pdf` en gardant le même nom.
 ### Mettre le site en maintenance
 
 Dans `src/content/site.json`, `"maintenance": true` remplace l'accueil et les pages de projet (dans les deux langues) par une page de maintenance : e-mail, LinkedIn, GitHub et CV. Les adresses restent valides et les mentions légales restent en ligne. Les textes sont sous `maintenance` dans `fr.json` et `en.json`. Remettez `false` puis `npm run build` pour rétablir le site.
+
+## Référencement
+
+Tout est tiré du contenu à la compilation, rien n'est à tenir à jour à la main :
+
+- **Plan du site** (`sitemap.xml`) : chaque page, ses équivalents dans l'autre langue (`hreflang`) et la date du dernier commit touchant `src/`.
+- **Données structurées** (JSON-LD, dans chaque page) : la personne, le site, et sur chaque page de projet le projet et son fil d'Ariane. Les compétences viennent de la section recruteurs.
+- **Moteurs de réponse par IA** : `llms.txt` résume le site avec un lien vers chaque page, `llms-full.txt` détaille chaque projet. Absents en maintenance.
+- **Balises** : description, canonique, `hreflang`, Open Graph et Twitter sur chaque page ; la page 404 est en `noindex`.
+
+`robots.txt` est le seul fichier écrit à la main : il ouvre le site à tous les robots, y compris ceux des assistants IA, sauf quelques robots d'analyse SEO commerciale.
 
 ## Design
 

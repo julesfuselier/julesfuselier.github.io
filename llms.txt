@@ -1,0 +1,105 @@
+# Jules Fuselier
+
+> Élève ingénieur en informatique à l’UTT et développeur web & IA. Je cherche un stage de 6 mois, de juillet à décembre 2027, et je réalise des sites et des intégrations d’IA pour les entreprises.
+
+- E-mail : contact@julesfuselier.fr
+- [Télécharger mon CV (PDF)](https://julesfuselier.fr/assets/CV_FUSELIER-Jules.pdf)
+- GitHub : https://github.com/julesfuselier
+- LinkedIn : https://www.linkedin.com/in/julesfuselier/
+
+Version détaillée : https://julesfuselier.fr/llms-full.txt
+
+## Jules Fuselier, développeur web & IA, élève ingénieur à l’UTT (fr)
+
+[Jules Fuselier, développeur web & IA, élève ingénieur à l’UTT](https://julesfuselier.fr/)
+
+Élève ingénieur à l’UTT (Université de technologie de Troyes) et micro-entrepreneur. 5 mois chez Agapé : audit de 9 services et mise en service d’un outil de veille par modèle de langage (LLM).
+
+- Stage : juillet à décembre 2027
+- Missions : sur devis
+
+### Je cherche un stage ingénieur de 6 mois, de juillet à décembre 2027.
+
+Développement logiciel, IA appliquée ou gestion de projet tech, en France.
+
+- IA & automatisation : API LLM (Anthropic), Agents et tool use, MCP, Tavily, n8n, Web scraping, Scikit-learn
+- Langages : TypeScript, JavaScript, Python, PHP, Java, SQL, HTML, CSS
+- Frameworks & outils : React, Node.js, Tailwind, PHPUnit, GitHub Actions
+- Bases de données : PostgreSQL, MySQL, SQLite
+- Méthodes : Agile (Scrum), Clean Architecture, UML, Tests automatisés, CI/CD
+
+### Des sites et des intégrations sur mesure, au forfait.
+
+Ma micro-entreprise s’adresse aux PME, aux commerces et aux indépendants, pour des missions courtes et à distance.
+
+- Sites web sur mesure : Site vitrine, réservation, commande en ligne. Exemple : le site du restaurant Preity India.
+- Intégration d’API et automatisation : Relier vos outils entre eux (boutique en ligne, logiciel de gestion, e-mailing) pour arrêter les ressaisies.
+- IA appliquée : Audit de vos usages, prototypes et outils à base de modèles de langage, avec une estimation honnête de ce que l’IA apporte ou non.
+
+### Formation et expériences depuis 2024.
+
+- 2026 à 2029 : Diplôme d’ingénieur, UTT. Branche Informatique et Systèmes d’Information, à Troyes.
+- Avril à août 2026 : Chargé d’intégration IA & processus, Agapé. Stage puis CDD.
+- Depuis novembre 2025 : Micro-entreprise. Développement web, intégration d’API et d’IA.
+- 2024 à 2026 : DUT Informatique, IUT d’Aix-Marseille. Major de promotion.
+- 2024 : Baccalauréat général. Spécialités mathématiques et NSI, avec mention.
+
+### Cinq projets, et jusqu’où chacun est allé.
+
+Plus le sommet est haut, plus le projet est allé loin : du prototype jusqu’à l’outil utilisé pour de vrai. Le drapeau marque les projets en service.
+
+- [Intégration de l’IA chez Agapé](https://julesfuselier.fr/projets/agape/) : Audit des usages de l’IA dans 9 services et mise en service d’un outil de veille e-réputation par LLM. (en service)
+- [Preity India, site de restaurant avec réservation et commande](https://julesfuselier.fr/projets/preity-india/) : Site en ligne d’un restaurant indien de Marseille : carte, réservation de table et commande à emporter. (en service)
+- [Plateforme de gestion des mobilités internationales](https://julesfuselier.fr/projets/relations-internationales/) : Application web PHP/MySQL qui gère les candidatures de mobilité internationale d’un IUT, de la saisie des vœux au classement. (livré)
+- [PathSide, les spots outdoor le long de la route](https://julesfuselier.fr/projets/pathside/) : Un outil qui repère sommets, points de vue, cascades, lacs et sentiers autour d’un trajet, à partir des données OpenStreetMap. (prototype)
+- [SuperBomberman, remake en JavaFX](https://julesfuselier.fr/projets/superbomberman/) : Remake jouable de Bomberman en Java, avec IA ennemie, collisions et explosions en chaîne. (livré)
+
+## Jules Fuselier, web & AI developer, engineering student at UTT (en)
+
+[Jules Fuselier, web & AI developer, engineering student at UTT](https://julesfuselier.fr/en/)
+
+Engineering student at UTT (Université de technologie de Troyes) and freelance developer. 5 months at Agapé: an audit of 9 departments and a large language model (LLM) monitoring tool put into service.
+
+- Internship: July to December 2027
+- Freelance: quote on request
+
+### I am looking for a 6-month engineering internship, from July to December 2027.
+
+Software development, applied AI or tech project management, in France.
+
+- AI & automation: LLM APIs (Anthropic), Agents and tool use, MCP, Tavily, n8n, Web scraping, Scikit-learn
+- Languages: TypeScript, JavaScript, Python, PHP, Java, SQL, HTML, CSS
+- Frameworks & tools: React, Node.js, Tailwind, PHPUnit, GitHub Actions
+- Databases: PostgreSQL, MySQL, SQLite
+- Methods: Agile (Scrum), Clean Architecture, UML, Automated testing, CI/CD
+
+### Custom websites and integrations, at a fixed price.
+
+My freelance business is for small businesses, shops and freelancers, on short, remote assignments.
+
+- Custom websites: Showcase site, booking, online ordering. Example: the Preity India restaurant website.
+- API integration and automation: Connecting your tools (online shop, business software, emailing) so nobody re-enters data.
+- Applied AI: An audit of how you use AI, prototypes and tools built on language models, with an honest estimate of what AI brings or does not.
+
+### Education and experience since 2024.
+
+- 2026 to 2029: Engineering degree, UTT. Computer Science and Information Systems, in Troyes.
+- April to August 2026: AI & process integration officer, Agapé. Internship, then fixed-term contract.
+- Since November 2025: Freelance business. Web development, API and AI integration.
+- 2024 to 2026: DUT in computer science, IUT of Aix-Marseille. Top of the class.
+- 2024: French general baccalauréat. Mathematics and computer science majors, with honours.
+
+### Five projects, and how far each one went.
+
+The higher the summit, the further the project went: from prototype to a tool people actually use. The flag marks projects in service.
+
+- [Bringing AI into Agapé](https://julesfuselier.fr/en/projects/agape/): An audit of AI use across 9 departments and an LLM-based online reputation monitoring tool put into service. (in service)
+- [Preity India, restaurant website with booking and ordering](https://julesfuselier.fr/en/projects/preity-india/): Live website for an Indian restaurant in Marseille: menu, table booking and takeaway orders. (in service)
+- [International mobility management platform](https://julesfuselier.fr/en/projects/relations-internationales/): A PHP/MySQL web application that handles a university institute’s international mobility applications, from wish lists to ranking. (delivered)
+- [PathSide, outdoor spots along your route](https://julesfuselier.fr/en/projects/pathside/): A tool that finds summits, viewpoints, waterfalls, lakes and trails around a route, using OpenStreetMap data. (prototype)
+- [SuperBomberman, a JavaFX remake](https://julesfuselier.fr/en/projects/superbomberman/): A playable Bomberman remake in Java, with enemy AI, collisions and chained explosions. (delivered)
+
+## Optional
+
+- [Mentions légales](https://julesfuselier.fr/mentions-legales/)
+- [Legal notice](https://julesfuselier.fr/en/legal/)
