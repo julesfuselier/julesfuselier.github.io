@@ -32,5 +32,8 @@ module.exports = {
       },
     },
   },
+  // Les survols `hover:` ne s'appliquent qu'avec une souris : sur écran tactile,
+  // un survol simulé resterait collé après le toucher.
+  future: { hoverOnlyWhenSupported: true },
   plugins: [],
 };

@@ -22,7 +22,7 @@
     <link rel="preload" href="/assets/fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/css/style.css" />
-    <script>try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+    <script>try{var d=document.documentElement,t=localStorage.getItem('theme');if(t==='dark'||t==='light')d.dataset.theme=t;if(sessionStorage.getItem('intro'))d.dataset.returning=''}catch(e){}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Jules Fuselier","url":"https://julesfuselier.fr","image":"https://julesfuselier.fr/assets/img/profile-480.webp","jobTitle":"Développeur web & IA, élève ingénieur","email":"mailto:contact@julesfuselier.fr","alumniOf":{"@type":"CollegeOrUniversity","name":"IUT d’Aix-Marseille"},"affiliation":{"@type":"CollegeOrUniversity","name":"Université de Technologie de Troyes"},"sameAs":["https://github.com/julesfuselier","https://www.linkedin.com/in/julesfuselier/"]}</script>
     <script defer src="/js/site.js"></script>
     <script type="module" src="/js/map.js"></script>
@@ -32,14 +32,14 @@
     <header class="sticky top-0 z-10 border-b border-hairline bg-canvas-soft">
     <div class="page flex min-h-16 flex-wrap items-center gap-x-4 py-3 md:gap-x-6 md:py-0">
       <a href="/" class="name mr-auto text-[1.625rem] md:mr-0" translate="no">Jules Fuselier</a>
-      <nav aria-label="Navigation principale" class="order-last w-full overflow-x-auto [scrollbar-width:none] md:order-none md:mx-auto md:w-auto">
+      <nav aria-label="Navigation principale" class="order-last w-full overflow-x-auto overscroll-x-contain [scrollbar-width:none] md:order-none md:mx-auto md:w-auto">
         <ul class="flex justify-between pt-1 max-md:[&>li:first-child>a]:pl-0 max-md:[&>li:last-child>a]:pr-0 text-[0.9375rem] text-ink max-[359px]:text-sm md:mx-0 md:justify-start md:gap-x-2 md:pt-0">
           <li><a href="/#projects" class="flex min-h-11 items-center whitespace-nowrap px-2 hover:text-summit max-[359px]:px-1 md:px-3">Projets</a></li><li><a href="/#recruiters" class="flex min-h-11 items-center whitespace-nowrap px-2 hover:text-summit max-[359px]:px-1 md:px-3">Recruteurs</a></li><li><a href="/#clients" class="flex min-h-11 items-center whitespace-nowrap px-2 hover:text-summit max-[359px]:px-1 md:px-3">Entreprises</a></li><li><a href="/#contact" class="flex min-h-11 items-center whitespace-nowrap px-2 hover:text-summit max-[359px]:px-1 md:px-3">Contact</a></li>
         </ul>
       </nav>
       <div class="flex items-center gap-2">
-        <a href="/en/" hreflang="en" lang="en" aria-label="English version" class="grid h-11 min-w-11 place-items-center px-2 ring-1 ring-inset ring-hairline hover:text-summit hover:ring-summit font-mono text-xs">EN</a>
-        <button type="button" data-theme-toggle hidden aria-label="Changer de thème" class="grid h-11 min-w-11 place-items-center px-2 ring-1 ring-inset ring-hairline hover:text-summit hover:ring-summit">
+        <a href="/en/" hreflang="en" lang="en" aria-label="English version" class="grid h-11 min-w-11 place-items-center px-2 ring-1 ring-inset ring-hairline transition-[color,box-shadow,transform] duration-150 ease-out hover:text-summit hover:ring-summit active:scale-[0.97] font-mono text-xs">EN</a>
+        <button type="button" data-theme-toggle hidden aria-label="Changer de thème" class="grid h-11 min-w-11 place-items-center px-2 ring-1 ring-inset ring-hairline transition-[color,box-shadow,transform] duration-150 ease-out hover:text-summit hover:ring-summit active:scale-[0.97]">
           <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" /><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor" /></svg>
         </button>
       </div>
@@ -49,17 +49,17 @@
     <div class="grid items-center gap-x-12 gap-y-6 min-[900px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
       <div class="min-w-0">
         <h1 class="display-xl max-w-[20ch]"><span class="hero-word" style="--i: 0">Je</span> <span class="hero-word" style="--i: 1">construis</span> <span class="hero-word" style="--i: 2">des</span> <span class="hero-word" style="--i: 3">outils</span> <span class="hero-word" style="--i: 4">web</span> <span class="hero-word" style="--i: 5">et</span> <span class="hero-word" style="--i: 6">j’intègre</span> <span class="hero-word" style="--i: 7">l’IA</span> <span class="hero-word" style="--i: 8">là</span> <span class="hero-word" style="--i: 9">où</span> <span class="hero-word" style="--i: 10">elle</span> <span class="hero-accent"><span class="hero-word" style="--i: 11">fait</span> <span class="hero-word" style="--i: 12">gagner</span> <span class="hero-word" style="--i: 13">du</span> <span class="hero-word" style="--i: 14">temps.</span><svg class="hero-accent-trail" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path d="M1 6 C 20 2, 35 9, 55 5 S 85 3, 99 6" /></svg></span></h1>
-        <p class="hero-in lead mt-9" style="--d: 650ms">Élève ingénieur à l’UTT (Université de technologie de Troyes) et micro-entrepreneur. 5 mois chez Agapé : audit de 9 services et mise en service d’un outil de veille par modèle de langage (LLM).</p>
-        <dl class="hero-in mono mt-7 grid grid-cols-[auto_1fr] gap-x-6 gap-y-1.5" style="--d: 750ms">
+        <p class="hero-in lead mt-9" style="--d: 450ms">Élève ingénieur à l’UTT (Université de technologie de Troyes) et micro-entrepreneur. 5 mois chez Agapé : audit de 9 services et mise en service d’un outil de veille par modèle de langage (LLM).</p>
+        <dl class="hero-in mono mt-7 grid grid-cols-[auto_1fr] gap-x-6 gap-y-1.5" style="--d: 520ms">
           <dt>Stage</dt><dd class="text-ink">juillet à décembre 2027</dd><dt>Missions</dt><dd class="text-ink">sur devis</dd>
         </dl>
       </div>
-      <figure class="hiker hero-in" style="--d: 300ms" data-hiker aria-hidden="true">
+      <figure class="hiker hero-in" style="--d: 200ms" data-hiker aria-hidden="true">
         <img class="hiker-poster hiker-poster-dark" src="/assets/img/hiker-dark.webp" alt="" width="960" height="720" decoding="async" fetchpriority="high" />
         <img class="hiker-poster hiker-poster-light" src="/assets/img/hiker-light.webp" alt="" width="960" height="720" decoding="async" />
       </figure>
     </div>
-    <div class="hero-in mt-10 grid gap-4 sm:grid-cols-2" style="--d: 850ms">
+    <div class="hero-in mt-10 grid gap-4 sm:grid-cols-2" style="--d: 600ms">
       <a href="#recruiters" class="cta cta-filled">
     <span class="cta-text"><span class="name text-[2rem] sm:text-[2.25rem]">Vous recrutez</span><span class="cta-sub">Stage ingénieur de 6 mois. Profil et CV.</span></span>
     <span class="cta-arrow" aria-hidden="true">

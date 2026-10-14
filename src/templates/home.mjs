@@ -59,17 +59,17 @@ function hero(ctx) {
     <div class="grid items-center gap-x-12 gap-y-6 min-[900px]:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
       <div class="min-w-0">
         <h1 class="display-xl max-w-[20ch]">${heroTitle(t.hero.title)}</h1>
-        <p class="hero-in lead mt-9" style="--d: 650ms">${t.hero.lead}</p>
-        <dl class="hero-in mono mt-7 grid grid-cols-[auto_1fr] gap-x-6 gap-y-1.5" style="--d: 750ms">
+        <p class="hero-in lead mt-9" style="--d: 450ms">${t.hero.lead}</p>
+        <dl class="hero-in mono mt-7 grid grid-cols-[auto_1fr] gap-x-6 gap-y-1.5" style="--d: 520ms">
           ${t.hero.facts.map((fact) => html`<dt>${fact.label}</dt><dd class="text-ink">${fact.value}</dd>`)}
         </dl>
       </div>
-      <figure class="hiker hero-in" style="--d: 300ms" data-hiker aria-hidden="true">
+      <figure class="hiker hero-in" style="--d: 200ms" data-hiker aria-hidden="true">
         <img class="hiker-poster hiker-poster-dark" src="${HIKER_POSTERS.dark}" alt="" width="960" height="720" decoding="async" fetchpriority="high" />
         <img class="hiker-poster hiker-poster-light" src="${HIKER_POSTERS.light}" alt="" width="960" height="720" decoding="async" />
       </figure>
     </div>
-    <div class="hero-in mt-10 grid gap-4 sm:grid-cols-2" style="--d: 850ms">
+    <div class="hero-in mt-10 grid gap-4 sm:grid-cols-2" style="--d: 600ms">
       ${heroCta('#recruiters', t.hero.ctas.recruiters, 'cta-filled')} ${heroCta('#clients', t.hero.ctas.clients, 'cta-outline')}
     </div>
   </section>`;

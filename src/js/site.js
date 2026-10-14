@@ -1,5 +1,6 @@
 /**
- * Bouton de thème clair ou sombre.
+ * Petits suppléments de l'interface : mémoire de l'entrée de l'accueil et
+ * bouton de thème clair ou sombre.
  *
  * Le site fonctionne entièrement sans JavaScript. Le bouton est masqué dans
  * le HTML (`hidden`) et n'apparaît que si ce script s'exécute.
@@ -7,6 +8,19 @@
  * Le thème initial est appliqué plus tôt, par un court script en ligne dans
  * `<head>` (voir `src/templates/layout.mjs`), pour éviter un flash au chargement.
  */
+(() => {
+  // L'entrée animée de l'accueil a été vue : elle ne se rejouera plus de la
+  // session (voir `data-returning` dans src/templates/layout.mjs).
+  if (document.querySelector('.hero-in')) {
+    try {
+      sessionStorage.setItem('intro', '1');
+    } catch {
+      // Stockage indisponible : l'entrée se rejouera, sans autre conséquence.
+    }
+  }
+})();
+
+// Bouton de thème.
 (() => {
   const STORAGE_KEY = 'theme';
   const root = document.documentElement;
