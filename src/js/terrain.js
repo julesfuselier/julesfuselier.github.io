@@ -18,14 +18,17 @@
  * change (rotation à la souris, survol d'un projet, redimensionnement,
  * changement de thème) ou pendant une courte animation.
  *
- * Deux animations, toutes deux désactivées si le visiteur a demandé moins
- * de mouvement (`prefers-reduced-motion`) :
+ * Les animations, toutes désactivées si le visiteur a demandé moins de
+ * mouvement (`prefers-reduced-motion`) :
  *  - à l'arrivée, le sentier se trace d'un sommet à l'autre, du plus ancien
  *    au plus récent ;
  *  - au survol (ou au focus clavier) d'un projet, la caméra s'approche de
  *    son sommet et les courbes de niveau autour de lui passent en couleur ;
  *  - à la souris, le relief s'incline légèrement pour suivre le pointeur
- *    (effet de parallaxe), tant qu'aucun projet n'est mis en avant.
+ *    (effet de parallaxe), tant qu'aucun projet n'est mis en avant ;
+ *  - au lâcher d'une rotation, le relief garde l'élan du geste et se pose
+ *    sur un ressort, ou revient dans la rotation permise s'il a été tiré
+ *    au-delà.
  */
 
 import { BufferAttribute, Color, Mesh, PerspectiveCamera, PlaneGeometry, Scene, ShaderMaterial, Vector2, Vector3, WebGLRenderer } from 'three';
@@ -51,6 +54,49 @@ const VIEW = {
 
 /** Inclinaison maximale suivant le pointeur, en degrés, et vitesse de suivi. */
 const TILT = { azimuth: 5, elevation: 2.5, smoothing: 0.08 };
+
+/**
+ * Rotation au glissement :
+ *  - `degreesPerWidth` : rotation pour un glissement de toute la largeur ;
+ *  - `stretch` : jusqu'où le relief se laisse tirer au-delà de la rotation
+ *    permise, en degrés, en résistant de plus en plus ;
+ *  - `momentum` : durée, en secondes, pendant laquelle l'élan du lâcher
+ *    continue de compter pour choisir où le relief s'arrête ;
+ *  - `stiffness` et `damping` : ressort sans rebond qui pose le relief
+ *    (environ 0,4 s) ;
+ *  - `maxVelocity` : élan maximal au lâcher, en degrés par seconde. Deux
+ *    positions du pointeur très rapprochées dans le temps donneraient sinon
+ *    une vitesse démesurée, et le relief partirait loin hors de sa limite.
+ */
+const DRAG = { degreesPerWidth: 90, stretch: 8, momentum: 0.12, stiffness: 250, damping: 2 * Math.sqrt(250), maxVelocity: 240 };
+
+/**
+ * Résistance au-delà d'une limite : plus on tire, moins la vue suit, sans
+ * jamais buter (formule de l'élastique d'iOS).
+ * @param {number} value angle demandé, en degrés
+ * @param {number} limit angle permis de part et d'autre de zéro
+ * @returns {number} angle affiché
+ */
+function rubberBand(value, limit) {
+  const overflow = Math.abs(value) - limit;
+  if (overflow <= 0) return value;
+  const stretched = (1 - 1 / ((overflow * 0.55) / DRAG.stretch + 1)) * DRAG.stretch;
+  return Math.sign(value) * (limit + stretched);
+}
+
+/**
+ * Inverse de `rubberBand` : l'angle demandé qui donne l'angle affiché. Sert
+ * à reprendre le relief pendant qu'il revient d'un étirement, sans saut.
+ * @param {number} shown angle affiché, en degrés
+ * @param {number} limit angle permis de part et d'autre de zéro
+ * @returns {number} angle demandé
+ */
+function unstretch(shown, limit) {
+  const stretched = Math.min(Math.abs(shown) - limit, DRAG.stretch * 0.999);
+  if (stretched <= 0) return shown;
+  const overflow = (1 / (1 - stretched / DRAG.stretch) - 1) * (DRAG.stretch / 0.55);
+  return Math.sign(shown) * (limit + overflow);
+}
 
 /** Tracé du sentier à l'arrivée, après le basculement de la vue. */
 const TRAIL_DRAW = { delay: 900, duration: 1800 };
@@ -386,7 +432,8 @@ export function mountTerrain(map, wide) {
   }
 
   // Entrée : la vue bascule de la verticale (la carte 2D) vers la perspective.
-  // Un glissement de la souris l'interrompt aussitôt.
+  // Un glissement ne l'interrompt pas : il ne change que la rotation, et la
+  // vue ne saute jamais d'un coup à sa position finale.
   let introStart = 0;
   let introDone = reducedMotion;
   function intro(time) {
@@ -422,24 +469,75 @@ export function mountTerrain(map, wide) {
   };
   area.addEventListener('pointermove', onPointerMove);
 
-  // Rotation : glisser horizontalement fait tourner le terrain.
+  // Rotation : glisser horizontalement fait tourner le terrain. Le relief
+  // suit le doigt depuis l'endroit saisi ; au-delà de la rotation permise il
+  // résiste au lieu de buter, et au lâcher il garde l'élan du geste puis se
+  // pose en douceur. Une nouvelle saisie le reprend là où il se trouve.
   let dragFrom = null;
+  let samples = []; // dernières positions du pointeur, pour la vitesse au lâcher
+  const swing = { velocity: 0, target: 0, active: false, last: 0 };
+
+  /** Ressort critique (sans rebond) qui mène `view.azimuth` vers `swing.target`. */
+  function stepSwing(time) {
+    if (!swing.active || !mounted) return;
+    const dt = Math.min((time - (swing.last || time)) / 1000, 1 / 30);
+    swing.last = time;
+    const offset = view.azimuth - swing.target;
+    swing.velocity += (-DRAG.stiffness * offset - DRAG.damping * swing.velocity) * dt;
+    view.azimuth += swing.velocity * dt;
+    requestDraw();
+    if (Math.abs(offset) < 0.01 && Math.abs(swing.velocity) < 0.05) {
+      view.azimuth = swing.target;
+      swing.active = false;
+    } else {
+      requestAnimationFrame(stepSwing);
+    }
+  }
+
   renderer.domElement.addEventListener('pointerdown', (event) => {
-    introDone = true;
-    view.elevation = VIEW.endElevation;
-    dragFrom = { x: event.clientX, azimuth: view.azimuth };
+    // Un second doigt posé pendant le geste ne doit pas faire sauter la vue.
+    if (dragFrom || !event.isPrimary) return;
+    swing.active = false;
+    // Repris pendant un retour d'étirement, le relief part de l'angle qui
+    // donne sa position affichée : il ne saute pas au premier mouvement.
+    const azimuth = unstretch(view.azimuth, VIEW.maxAzimuth);
+    dragFrom = { x: event.clientX, azimuth };
+    samples = [{ azimuth, time: event.timeStamp }];
     renderer.domElement.setPointerCapture(event.pointerId);
     map.classList.add('is-dragging');
   });
   renderer.domElement.addEventListener('pointermove', (event) => {
-    if (!dragFrom) return;
-    const turned = dragFrom.azimuth - ((event.clientX - dragFrom.x) / map.clientWidth) * 90;
-    view.azimuth = Math.max(-VIEW.maxAzimuth, Math.min(VIEW.maxAzimuth, turned));
+    if (!dragFrom || !event.isPrimary) return;
+    const turned = dragFrom.azimuth - ((event.clientX - dragFrom.x) / map.clientWidth) * DRAG.degreesPerWidth;
+    view.azimuth = rubberBand(turned, VIEW.maxAzimuth);
+    samples.push({ azimuth: turned, time: event.timeStamp });
+    if (samples.length > 5) samples.shift();
     requestDraw();
   });
-  const endDrag = () => {
+  const endDrag = (event) => {
+    if (!dragFrom || !event.isPrimary) return;
     dragFrom = null;
     map.classList.remove('is-dragging');
+    const first = samples[0];
+    const last = samples.at(-1);
+    const elapsed = last.time - first.time;
+    // Vitesse en degrés par seconde ; un pointeur immobile avant le lâcher n'a pas d'élan.
+    const recent = event.timeStamp - last.time < 80 && elapsed > 0;
+    const measured = recent && !reducedMotion ? ((last.azimuth - first.azimuth) / elapsed) * 1000 : 0;
+    const velocity = Math.max(-DRAG.maxVelocity, Math.min(DRAG.maxVelocity, measured));
+    const projected = view.azimuth + velocity * DRAG.momentum;
+    swing.target = Math.max(-VIEW.maxAzimuth, Math.min(VIEW.maxAzimuth, projected));
+    if (reducedMotion) {
+      view.azimuth = swing.target;
+      requestDraw();
+      return;
+    }
+    swing.velocity = velocity;
+    swing.last = 0;
+    if (!swing.active) {
+      swing.active = true;
+      requestAnimationFrame(stepSwing);
+    }
   };
   renderer.domElement.addEventListener('pointerup', endDrag);
   renderer.domElement.addEventListener('pointercancel', endDrag);

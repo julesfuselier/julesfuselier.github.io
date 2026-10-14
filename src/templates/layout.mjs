@@ -10,9 +10,11 @@ import { route } from '../lib/routes.mjs';
 
 /**
  * Applique le thème enregistré avant le premier affichage, pour éviter un
- * flash. Doit rester minuscule : il bloque le rendu.
+ * flash, et signale un retour dans la session (`data-returning`) pour que
+ * l'entrée de l'accueil ne se rejoue pas. Doit rester minuscule : il bloque
+ * le rendu.
  */
-const THEME_BOOTSTRAP = `try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}`;
+const THEME_BOOTSTRAP = `try{var d=document.documentElement,t=localStorage.getItem('theme');if(t==='dark'||t==='light')d.dataset.theme=t;if(sessionStorage.getItem('intro'))d.dataset.returning=''}catch(e){}`;
 
 /** Couleur de fond de la page dans chaque thème, pour la barre du navigateur. */
 const THEME_COLORS = { light: '#ecebe6', dark: '#1b2023' };
@@ -87,13 +89,13 @@ function header(ctx) {
   const other = LANGUAGES.find((code) => code !== lang);
   // En maintenance, les sections de l'accueil n'existent plus : pas de menu.
   const links = ctx.site.maintenance ? [] : ['projects', 'recruiters', 'clients', 'contact'];
-  const control = 'grid h-11 min-w-11 place-items-center px-2 ring-1 ring-inset ring-hairline hover:text-summit hover:ring-summit';
+  const control = 'grid h-11 min-w-11 place-items-center px-2 ring-1 ring-inset ring-hairline select-none transition-[color,box-shadow,transform] duration-150 ease-out hover:text-summit hover:ring-summit active:scale-[0.97]';
 
   return html`<header class="sticky top-0 z-10 border-b border-hairline bg-canvas-soft">
     <div class="page flex min-h-16 flex-wrap items-center gap-x-4 py-3 md:gap-x-6 md:py-0">
       <a href="${home}" class="name mr-auto text-[1.625rem] ${links.length > 0 ? 'md:mr-0' : ''}" translate="no">${ctx.site.author}</a>
       ${links.length > 0
-        ? html`<nav aria-label="${t.nav.label}" class="order-last w-full overflow-x-auto [scrollbar-width:none] md:order-none md:mx-auto md:w-auto">
+        ? html`<nav aria-label="${t.nav.label}" class="order-last w-full overflow-x-auto overscroll-x-contain [scrollbar-width:none] md:order-none md:mx-auto md:w-auto">
         <ul class="flex justify-between pt-1 max-md:[&>li:first-child>a]:pl-0 max-md:[&>li:last-child>a]:pr-0 text-[0.9375rem] text-ink max-[359px]:text-sm md:mx-0 md:justify-start md:gap-x-2 md:pt-0">
           ${links.map((id) => html`<li><a href="${home}#${id}" class="flex min-h-11 items-center whitespace-nowrap px-2 hover:text-summit max-[359px]:px-1 md:px-3">${t.nav[id]}</a></li>`)}
         </ul>

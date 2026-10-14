@@ -126,9 +126,32 @@
     text-wrap: balance;
   }
 
+  /*
+   * Courbes communes. `--ease-out` pour ce qui répond au visiteur (appui,
+   * survol, entrée) : le mouvement part tout de suite. `--ease-in-out` pour
+   * ce qui se déplace à l'écran, comme le balisage qui remplit un bouton.
+   */
+  :root {
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
   a,
   button {
     touch-action: manipulation;
+  }
+
+  /*
+   * Un appui long sur un bouton ne doit pas sélectionner son libellé. Le
+   * texte des pages, lui, reste sélectionnable.
+   */
+  button,
+  .btn-primary,
+  .btn-secondary,
+  .btn-plain,
+  .cta {
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   :focus-visible {
@@ -200,7 +223,8 @@
     transition:
       background-color 150ms,
       color 150ms,
-      box-shadow 150ms;
+      box-shadow 150ms,
+      transform 160ms var(--ease-out);
   }
 
   .btn-primary {
@@ -212,10 +236,34 @@
     box-shadow: inset 0 0 0 1px var(--ink);
   }
 
-  .btn-primary:hover,
-  .btn-secondary:hover {
-    @apply bg-summit text-canvas-soft;
-    box-shadow: none;
+  /*
+   * Survols réservés à la souris : sur un écran tactile, le navigateur simule
+   * un survol au toucher et le laisse affiché ensuite.
+   */
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      @apply bg-summit text-canvas-soft;
+      box-shadow: none;
+    }
+
+    .btn-plain:hover {
+      @apply text-summit ring-summit;
+    }
+
+    a.summit-label:hover .summit-name {
+      color: var(--summit);
+    }
+  }
+
+  /*
+   * Appui : le bouton s'enfonce légèrement dès que le doigt ou le clic se
+   * pose, au lieu d'attendre qu'il se relève. C'est le seul retour au toucher.
+   */
+  .btn-primary:active,
+  .btn-secondary:active,
+  .btn-plain:active {
+    transform: scale(0.97);
   }
 
   /* Bouton sans case flèche (page de maintenance) : le texte suffit. */
@@ -238,11 +286,8 @@
     @apply inline-flex min-h-[3.25rem] items-center px-5 font-mono text-sm ring-1 ring-inset ring-hairline;
     transition:
       color 150ms,
-      box-shadow 150ms;
-  }
-
-  .btn-plain:hover {
-    @apply text-summit ring-summit;
+      box-shadow 150ms,
+      transform 160ms var(--ease-out);
   }
 
   /* Lien dans le texte : encre soulignée, le soulignement prend la couleur du balisage au survol. */
@@ -263,7 +308,9 @@
     align-items: stretch;
     min-height: 6rem;
     text-decoration: none;
-    transition: transform 160ms ease;
+    transition:
+      color 200ms var(--ease-out),
+      transform 160ms var(--ease-out);
   }
 
   .cta-filled {
@@ -282,21 +329,58 @@
     z-index: -1;
     background: var(--summit);
     clip-path: inset(0 0 0 100%);
-    transition: clip-path 480ms cubic-bezier(0.75, 0, 0.2, 1);
+    /* Sortie : le balisage se retire vite, le visiteur est déjà ailleurs. */
+    transition: clip-path 200ms var(--ease-out);
   }
 
-  .cta:hover::before,
+  /*
+   * Entrée : le balisage remplit le bouton, un peu plus lentement, le geste
+   * est voulu. Seulement à la souris : un survol simulé au toucher laisserait
+   * le bouton rempli après le défilement vers la section.
+   */
+  @media (hover: hover) and (pointer: fine) {
+    .cta:hover::before {
+      clip-path: inset(0 0 0 0);
+      transition: clip-path 340ms var(--ease-in-out);
+    }
+
+    .cta:hover {
+      @apply text-canvas-soft;
+    }
+
+    .cta:hover .cta-arrow svg {
+      transition-duration: 340ms;
+      transition-timing-function: var(--ease-in-out);
+    }
+
+    .cta:hover .cta-arrow-out {
+      transform: translateX(4rem);
+    }
+
+    .cta:hover .cta-arrow-in {
+      transform: translateX(0);
+    }
+  }
+
+  /*
+   * Au clavier, l'état rempli s'affiche d'un coup : un focus qui passe de
+   * bouton en bouton ne doit pas attendre une animation.
+   */
+  .cta:focus-visible,
+  .cta:focus-visible::before {
+    transition: none;
+  }
+
   .cta:focus-visible::before {
     clip-path: inset(0 0 0 0);
   }
 
-  .cta:hover,
   .cta:focus-visible {
     @apply text-canvas-soft;
   }
 
   .cta:active {
-    transform: scale(0.985);
+    transform: scale(0.98);
   }
 
   .cta-text {
@@ -323,19 +407,11 @@
     width: 1.5rem;
     height: 1.5rem;
     margin: -0.75rem 0 0 -0.75rem;
-    transition: transform 420ms cubic-bezier(0.75, 0, 0.2, 1);
+    transition: transform 200ms var(--ease-out);
   }
 
   .cta-arrow-in {
     transform: translateX(-4rem);
-  }
-
-  .cta:hover .cta-arrow-out {
-    transform: translateX(4rem);
-  }
-
-  .cta:hover .cta-arrow-in {
-    transform: translateX(0);
   }
 
   /*
@@ -529,10 +605,6 @@
     @apply font-display text-[1.0625rem] font-bold uppercase tracking-[0.02em] sm:text-[1.1875rem];
   }
 
-  a.summit-label:hover .summit-name {
-    color: var(--summit);
-  }
-
   .summit-label.is-current .summit-name {
     color: var(--summit);
   }
@@ -629,7 +701,10 @@
   /*
    * Entrée de l'accueil. Les éléments montent l'un après l'autre : titre mot
    * par mot, chapeau, disponibilités, boutons. Tout est en CSS, donc visible
-   * même sans JavaScript, et coupé pour qui demande moins de mouvement.
+   * même sans JavaScript. La cascade reste courte : les boutons sont en place
+   * en un peu plus d'une seconde. Elle ne se joue qu'à la première visite de
+   * la session (`data-returning`, posé dans `<head>`, voir layout.mjs) : un
+   * visiteur qui revient d'une page de projet retrouve l'accueil tout de suite.
    */
   @keyframes hero-rise {
     from {
@@ -639,12 +714,12 @@
   }
 
   .hero-in {
-    animation: hero-rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms) both;
+    animation: hero-rise 600ms var(--ease-out) var(--d, 0ms) both;
   }
 
   .hero-word {
     display: inline-block;
-    animation: hero-rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(120ms + var(--i) * 45ms) both;
+    animation: hero-rise 600ms var(--ease-out) calc(100ms + var(--i) * 35ms) both;
   }
 
   /* Passage mis en avant du titre, souligné d'un trait de sentier. */
@@ -662,7 +737,7 @@
     overflow: visible;
     /* Le trait se dévoile de gauche à droite, comme un sentier qu'on trace. */
     clip-path: inset(-50% 100% -50% 0);
-    animation: hero-trail 900ms cubic-bezier(0.6, 0, 0.2, 1) 900ms forwards;
+    animation: hero-trail 800ms var(--ease-in-out) 700ms forwards;
   }
 
   .hero-accent-trail path {
@@ -705,7 +780,7 @@
       background: linear-gradient(var(--summit), var(--summit)) left bottom / 0% 3px no-repeat;
       -webkit-box-decoration-break: clone;
       box-decoration-break: clone;
-      animation: hero-underline 900ms cubic-bezier(0.6, 0, 0.2, 1) 900ms forwards;
+      animation: hero-underline 800ms var(--ease-in-out) 700ms forwards;
     }
 
     .hero-accent-trail {
@@ -717,10 +792,36 @@
     }
   }
 
+  /* Retour dans la session : tout est déjà en place. */
+  :root[data-returning] .hero-in,
+  :root[data-returning] .hero-word {
+    animation: none;
+  }
+
+  :root[data-returning] .hero-accent-trail {
+    animation: none;
+    clip-path: none;
+  }
+
+  :root[data-returning] .hero-accent {
+    animation: none;
+    background-size: 100% 3px;
+  }
+
+  /*
+   * Moins de mouvement ne veut pas dire aucun : l'entrée garde un fondu,
+   * sans déplacement ni cascade, et le trait apparaît d'emblée.
+   */
+  @keyframes hero-fade {
+    from {
+      opacity: 0;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-in,
     .hero-word {
-      animation: none;
+      animation: hero-fade 300ms ease both;
     }
 
     .hero-accent-trail {
@@ -733,11 +834,17 @@
       background-size: 100% 3px;
     }
 
-    .cta,
+    /*
+     * Le bouton change de couleur sans balayage ni flèche qui glisse. Les
+     * fondus, eux, restent : le passage de l'image fixe du randonneur à la
+     * 3D garde son fondu d'opacité, qui ne déplace rien.
+     */
+    .cta {
+      transition: color 200ms ease;
+    }
+
     .cta::before,
-    .cta-arrow svg,
-    .hiker-poster,
-    .hiker canvas {
+    .cta-arrow svg {
       transition: none;
     }
   }
